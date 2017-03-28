@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	template="/templates/template.xhtml"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<h:head>
+		<h:outputStylesheet library="css" name="clubefidelidade.css" />
+	</h:head>
+	<ui:define name="conteudo">
+		<h:form id="formLista" style="width:100;">
+			<p:dataTable id="tabela" emptyMessage="Sem Registros"
+				paginator="true" reflow="true" rows="6" var="registro"
+				style="font-size:15px;" value="#{item.itens}">
+				<f:facet name="header">
+					<p:commandButton value="Novo"
+					    actionListener="#{item.novo()}" process="@this"
+						oncomplete="PF('dialogoCadastro').show();"
+						update=":mensagens 
+				:formTemplate:formLista:tabela :formTemplate:formCadastro:painelCadastro
+				:formTemplate:formCadastro:painelCadastro_1
+				:formTemplate:formCadastro:painelCadastro_2" />
+				</f:facet>
+				<p:column headerText="Referencia" style="width:10%">
+					
+					<h:outputText value="#{registro.referencia}"
+						style="width:10%" />
+				</p:column>
+				<p:column headerText="Descricao" style="width:27%">
+					<c:set var="descrProd" value="#{registro.descricao}" />
+					<h:outputText value="#{fn:substring(descrProd,0,20)}"
+						style="width:25%" />
+				</p:column>
+				<p:column headerText="Unidade" >
+					<h:outputText value="R$ #{registro.valordaUnidade}" />
+				</p:column>				
+				<p:column headerText="Preço Unico"  style="width:10%">
+					<h:outputText value="#{registro.isPrecoUnico}" />
+				</p:column>
+				<p:column headerText="Anual"  style="width:10%">
+					<h:outputText value="#{registro.isAnual}" />
+				</p:column>
+				<p:column headerText="Atualização" style="width:13%">
+					<h:outputText value="#{registro.ultimaAtualizacao.time}">
+						<f:convertDateTime locale="pt_BR" dateStyle="long" type="both"
+							pattern="dd/MM/yyyy HH:mm:ss" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Responsável" style=" width:15%">
+					<c:set var="resp" value="#{registro.id_Pessoa_Registro.descricao}" />
+					<h:outputText value="#{fn:substring(resp,0,20)}" />
+				</p:column>
+				<p:column headerText="Editar" style="width:5%">
+					<p:commandButton icon="icon-edit" actionListener="#{item.editar}"
+						oncomplete="PF('dialogoCadastro').show();"
+						update=":formTemplate:formCadastro:painelCadastro 
+						:formTemplate:formCadastro:painelCadastro_1
+						:formTemplate:formCadastro:painelCadastro_2" style="width:80%">
+						<p:confirm header="Confirmação"
+							message="Deseja realmente alterar este registro?"
+							icon="ui-icon-alert" style="width:5%"/>
+						<f:attribute name="registroAtual" value="#{registro}" />
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+			<p:confirmDialog global="true">
+				<p:commandButton value="SIM" type="button"
+					styleClass="ui-confirmdialog-yes" incon="ui-icon-chek" />
+				<p:commandButton value="NÃO" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+		</h:form>
+		<p:dialog header="Itens de Movimento" widgetVar="dialogoCadastro"
+			resizable="false" modal="true" closesable="false" appendTo="@(body)"
+			position="60,10">
+			<h:form id="formCadastro">
+				<p:focus for="des" />
+				<h:panelGrid id="painelCadastro">
+					<p:outputLabel value="descrição" />
+					<p:inputText value="#{item.item.descricao}" id="des"
+						size="60" required="true"
+						requiredMessage="Informe a descrição !!!">
+					</p:inputText>
+				</h:panelGrid>
+				<h:panelGrid id="painelCadastro_1" columns="2">
+				    <p:outputLabel value="Valor da Unidade" />
+				    <p:outputLabel value="Referencia" />
+				    
+					<p:inputNumber value="#{item.item.valordaUnidade}"
+						id="valordaUnidade" minValue="0" maxVAlue="5000" emptyValue="0"
+						symbol=" R$" symbolPosition="p" size="15"
+						title="Valor Mensal de cada Unidade" required="true"
+						requiredMessage="Informe o valor da Unidade"
+						validatorMessage="O Valor Mínimo é '0'"  >
+						<f:validateLongRange />
+					</p:inputNumber>
+					<p:inputText value="#{item.item.referencia}" id="ref"
+						size="10" required="true"
+						requiredMessage="Informe a referencia !!!" readonly="true">
+					</p:inputText>					
+					
+				</h:panelGrid>
+				
+				<h:panelGrid id="painelCadastro_2" columns="2">
+				   
+				    <p:outputLabel value="Preço Único" size="20" />
+				    <p:outputLabel value="É Anual" />					
+					<p:selectOneRadio id="unico"
+						value="#{item.item.isPrecoUnico}" columns="5"
+						converter="omnifaces.SelectItemsConverter">
+						<f:selectItems value="#{item.listaSN}"
+							var="c" itemLabel="#{c.abrev}" itemValue="#{c}" />
+					</p:selectOneRadio>
+					
+					<p:selectOneRadio id="anual"
+						value="#{item.item.isAnual}" columns="5"
+						converter="omnifaces.SelectItemsConverter">
+						<f:selectItems value="#{item.listaSN}"
+							var="c" itemLabel="#{c.abrev}" itemValue="#{c}" />
+					</p:selectOneRadio>
+				</h:panelGrid>
+				<h:panelGrid columns="2" >
+					<p:commandButton value="salvar" process="@form"
+						oncomplete="PF('dialogoCadastro').hide();"
+						actionListener="#{item.merge()}"
+						update=":mensagens 
+				:formTemplate:formLista:tabela :formTemplate:formCadastro:painelCadastro
+				:formTemplate:formCadastro:painelCadastro_1" />
+					<p:commandButton value="cancelar"
+						oncomplete="PF('dialogoCadastro').hide();" />
+				</h:panelGrid>
+
+			</h:form>
+
+		</p:dialog>
+	</ui:define>
+</ui:composition>

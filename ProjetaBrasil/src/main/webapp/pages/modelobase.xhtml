@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	template="/templates/template.xhtml">
+
+
+	<h:head>
+
+		<h:outputStylesheet library="css" name="estilosclientcare.css" />
+	</h:head>
+	<ui:define name="conteudo">
+		<h:form id="formLista">
+			<p:panel header="Listagem de">
+				<p:dataTable id="tabela" emptyMessage="" reflow="true" value="#{}"
+					paginator="true" rows="5" var="registro">
+					<f:facet name="header">
+						<p:commandButton value="Novo" actionListener="#{}"
+							oncomplete="PF('dialogoCadastro').show();"
+							update=":formTemplate:formCadastro ">
+						</p:commandButton>
+					</f:facet>
+					<p:column headerText="" sortBy="" filterBy="" style="width:20%">
+						<h:outputText value="#{}" />
+					</p:column>
+				</p:dataTable>
+				<p:confirmDialog global="true">
+					<p:commandButton value="SIM" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="NAO" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+
+				</p:confirmDialog>
+			</p:panel>
+		</h:form>
+		<p:dialog header="Formulário de Cadastro de"
+			widgetVar="dialogoCadastro" resizable="false" modal="true"
+			closable="false" appendTo="@(body)">
+			<h:form id="formCadastro">
+				<h:panelGrid id="painel1" columns="1">
+					<h:panelGrid>
+						<p:outputLabel
+							value="Informe seu nome  ou razão social de sua empresa" />
+						<p:inputText size="67" maxlength="90" value="#{}" required="true"
+							requiredMessage="Informe o nome ou Razão Social!!!"
+							validatorMessage="O minimo de caracteres para nome são  '5'">
+							<f:validateLength minimum="5" />
+						</p:inputText>
+					</h:panelGrid>
+				</h:panelGrid>
+				<h:panelGrid columns="2" id="painel2">
+					<h:panelGrid columns="1" id="painel21">
+						<p:outputLabel value="Data de nascimento" />
+						<p:calendar size="30" maxlength="15" mask="99/99/9999" value="#{}"
+							required="true"
+							requiredMessage="Data de Nascimento não pode ficar vazia">
+							<f:convertDateTime locale="pt_BR" dateStyle="short"
+								pattern="dd/MM/yyyy" />
+						</p:calendar>
+					</h:panelGrid>
+					<h:panelGrid columns="1" id="painel22">
+						<p:outputLabel value="#{}" />
+						<p:inputMask id="identificador" size="30" maxlength="15"
+							mask="#{}" value="#{}" required="true" requiredMessage="#{}"
+							converter="mascaraTelefoneConverter"
+							validatorMessage="O minimo de digitos para telefone são  '8'">
+
+							<f:validateLength minimum="8" />
+						</p:inputMask>
+					</h:panelGrid>
+					<p:panelGrid Column="1">
+						<p:commandButton value="Salvar" process="@form"
+							actionListener="#{}"
+							update=":mensagens :formTemplate:formLista:tabela :formTemplate:formCadastro:painel1" />
+					</p:panelGrid>
+					<p:panelGrid Column="1">
+						<p:commandButton value="Cancelar"
+							oncomplete="PF('dialogoCadastro').hide();" />
+					</p:panelGrid>
+
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>

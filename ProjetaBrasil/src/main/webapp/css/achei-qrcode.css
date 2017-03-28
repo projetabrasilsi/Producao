@@ -1,0 +1,205 @@
+.login-body {
+  height: 100%;
+  margin: 0;
+  padding: 30px 0 0 0;
+  box-sizing: border-box;
+  background-repeat: no-repeat;
+  background-attachment: fixed; 
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#a0e5e0+0,d8eaaf+100&0.48+0,0.16+100 */
+background: -moz-radial-gradient(center, ellipse cover,  rgba(160,229,224,0.48) 0%, rgba(216,234,175,0.16) 100%); /* FF3.6-15 */
+background: -webkit-radial-gradient(center, ellipse cover,  rgba(160,229,224,0.48) 0%,rgba(216,234,175,0.16) 100%); /* Chrome10-25,Safari5.1-6 */
+background: radial-gradient(ellipse at center,  rgba(160,229,224,0.48) 0%,rgba(216,234,175,0.16) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7aa0e5e0', endColorstr='#29d8eaaf',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+.qr-wrapper{
+	
+}
+/*
+.logo-achei-pet{
+	height: auto;
+	width: 250px;
+	padding: 0px;
+}*/
+/*
+.qr-container{
+	margin-top: 20px;
+	margin-bottom: 40px;
+    box-sizing: border-box;
+    height: auto;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    text-align: center;
+    color: #4f575b; 
+    padding: 5px;
+   		
+}*/
+/*Header infos*/
+/*.img-dog{
+	height: 100px;
+	width: 100px;
+	left:0;
+	float: left;
+	margin:0px 10px 10px 0px;
+	border-radius: 4px;
+}*/
+/*.container-info-header{
+	max-width: 200px;
+	float: right;
+	height: auto;
+	margin-top:3px;
+}*/
+.info-header{
+	padding:0;
+	margin:0;
+	clear: both;
+}
+.info-header .col-geral{
+	border-bottom: 1px solid #e4e4e4;
+	text-align: left;
+	padding:0;
+	margin:0;
+	margin-bottom: 6px;
+	padding-bottom: 9px;
+}
+
+.info-header-label{
+	font-size: 14px;
+	font-weight: 900;
+}
+.info-header-infos{
+	font-size: 13px;
+	color: #767676;
+	margin-left:2px;
+}
+/*Corpo infos*/
+.titulo-geral{
+	background: #f6f6f6;
+	font-size: 18px;
+	font-weight: 900;
+	color:#14a090;
+	height: auto;
+	clear: both;
+	text-align: center;
+	padding-bottom: 5px;
+	padding-top:5px;
+	margin-bottom: 10px;
+}
+.titulo-geral:first-child{
+	margin-top:110px;
+}
+.info-corpo{
+	padding:0;
+	margin:0;
+	margin-top: 5px;
+}
+.info-corpo .col-geral:nth-child(5), 
+.info-corpo .col-geral:nth-child(10),
+.info-corpo .col-geral:last-child{
+	margin-bottom: 20px;
+
+}
+
+.info-corpo .col-geral{
+	border-bottom: 1px solid #ebebeb;
+	text-align: left;
+	padding:0;
+	margin:0;
+	margin-bottom: 6px;
+	padding-bottom: 9px;
+	
+}
+.info-corpo-label{
+	margin-left: 10px;
+	font-size: 15px;
+	font-weight: 900;
+	color: #4e4e4e;
+}
+
+.info-corpo .info-corpo-infos{
+	color: #767676;
+	margin-left:2px;
+	font-size: 14px;
+}
+
+/*footer*/
+.qr-footer{
+	margin-top: -20px;
+	color: #999;
+	font-size: 10px;
+}
+
+
+/*------------Achei-Pet-------------*/
+.logo-achei-pet{
+	height: auto;
+	width: 250px;
+	padding: 0px;
+	margin-bottom: -15px;
+}
+.qr-container{
+	margin-top: 20px;
+	margin-bottom: 40px;
+    box-sizing: border-box;
+    height: auto;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    text-align: center;
+    color: #4f575b; 
+    padding: 5px;
+    overflow: scroll;		
+}
+/*dialog*/
+.dilog-achei{
+	max-width: 500px;
+	padding-top:0px;
+	margin-top: 0px;
+	background: none;	
+	box-shadow: none !important;
+}
+.ui-dialog-titlebar{
+	display: none;
+}
+
+/*header*/
+.div-header{
+	display: inline;
+}
+.img-dog{
+	height: 100px;
+	width: 100px;
+	left:0;
+	float: left;
+	margin:0px 10px 10px 0px;
+	border-radius: 5px;
+	border: 3px solid #c8e1e4;
+}
+.container-info-header{
+	max-width: 345px;
+	width: 100%;
+	float: right;
+	height: auto;
+	margin-top:3px;
+	
+}
+
+/*--------Media Querys-------*/
+@media (max-width: 349px) {
+	
+}
+@media (min-width: 641px) {
+/*
+.container-info-header{
+	max-width: 280px;
+}*/
+	
+}
+
+
+
+
+
+
+
+
+

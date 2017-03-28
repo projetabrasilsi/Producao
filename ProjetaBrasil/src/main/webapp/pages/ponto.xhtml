@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	template="/templates/template.xhtml">
+	<h:head>
+		<!-- <h:outputStylesheet library="css" name="clubefidelidade.css" /> -->
+	</h:head>
+
+	<ui:define name="conteudo">
+	
+	<div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card card-pessoas">
+                    <h1><p:outputLabel value="Listagem de #{autenticacaojsfController.perfilLogado.paginaAtual.descricao2}"/></h1>
+	
+	
+		<h:form id="formlista">
+		
+			<p:commandButton value="Novo"
+					oncomplete="PF('dialogoCadastro').show();"
+					actionListener="#{ponto.novo}"
+					update=":formTemplate:formCadastro" styleClass="btao-pessoas"/>
+			
+			
+			
+				<!-- reflow e  ou priority - dá à tabela um formato responsívo -->
+				<p:dataTable id="tabela" emptyMessage="Sem Registros" resizableColumns="true"
+					paginator="true" rows="15" value="#{ponto.pontos}"
+					var="registro" styleClass="tabela-pessoas">
+
+					<p:column headerText="Descrição" styleClass="geral-col-pessoas">
+						<h:outputText value="#{registro.descricao}" />
+					</p:column>
+
+					<p:column headerText="validade" styleClass="geral-col-pessoas">
+						<h:outputText value="#{registro.diasValidade} dias" />
+					</p:column>
+					<p:column headerText="quantos pontos cada lealdade?">
+						<h:outputText value="#{registro.unidadeporPonto} Leal" />
+					</p:column>
+					<p:column headerText="Minimo de Pontos" styleClass="geral-col-pessoas">
+						<h:outputText value="#{registro.pontuacaoMinima} Leal(ais)" />
+					</p:column>
+					<p:column headerText="Valor de cada Unidade Leal" styleClass="geral-col-pessoas">
+						<h:outputText value="R$ #{registro.valordaUnidade}" />
+					</p:column>
+					<!-- Mudar valor da unidade de troca para - Peso de Cada Valor de Compra -->
+					<p:column headerText="Valor da Unidade de Troca" styleClass="geral-col-pessoas">
+						<h:outputText value="R$ #{registro.valorUnidadeTroca}" />
+					</p:column>
+					<p:column headerText="Valor da Unidade de Devolução">
+						<h:outputText value="R$ #{registro.valorUnidadeDevolucao}" />
+					</p:column>
+					<p:column headerText="Editar">
+						<p:commandButton icon="icon-edit" actionListener="#{ponto.editar}"
+							oncomplete="PF('dialogoCadastro').show();"
+							update=":formTemplate:formCadastro:painelCadastro 
+							:formTemplate:formCadastro:painelDescricao ">
+							<p:confirm header="Confirmação"
+								message="Deseja realmente alterar este registro?"
+								icon="ui-icon-alert"/>
+							<f:attribute name="registroAtual" value="#{registro}" />
+						</p:commandButton>
+					</p:column>
+
+
+
+				</p:dataTable>
+				<p:confirmDialog global="true">
+					<p:commandButton value="SIM" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="NÃO" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+				</h:form>
+		      </div>
+            </div>
+        </div>
+		
+		
+		<p:dialog
+			header="Formulário de Configuração de #{ponto.perfilLogado.paginaAtual.descricao2}"
+			widgetVar="dialogoCadastro" resizable="false" modal="true"
+			closable="false" appendTo="@(body)" dynamic="true" responsive="true"
+			styleClass="dialog-info-ponto">
+			
+			<h:form id="formCadastro">
+			
+				<h:panelGrid id="painelDescricao">
+					<p:outputLabel value="Descrição" />
+					<p:inputText value="#{ponto.ponto.descricao}" id="descricao"
+						size="60" required="true" requiredMessage="Informe a descrição"
+						styleClass="input-info-desc-ponto">
+					</p:inputText>
+				</h:panelGrid>
+				
+				<h:panelGrid columns="2" id="painelCadastro">
+					<!-- <h6>Para dúvidas, sobreponha o mouse em cada campo</h6>
+					<p:separator style="width:100%;height:5px; background-color: red; " /> -->
+					
+				<h:panelGrid>
+						<p:outputLabel value="Dias de Validade para troca" />
+						<p:inputNumber decimalPlaces="0"
+							value="#{ponto.ponto.diasValidade}" id="diasValidade"
+							minValue="0" maxValue="5000" emptyValue="0" symbol=" dias"
+							symbolPosition="s" size="15"
+							title="Informe aqui quantos dias cada ponto tem validade para ocorrer troca ou 
+							devolução"
+							required="true"
+							requiredMessage="Dias de validade deve ser informado!!!"
+							validatorMessage="Valor Mínimo para dias de validade '30'"
+							styleClass="input-info-valor-ponto">
+							<f:validateLongRange minimum="30" />
+						</p:inputNumber>
+						<p:tooltip id="toolTipdiasValidade" for="diasValidade"
+							showEvent="focus" hideEvent="blur" />
+
+						<p:outputLabel value="Valor de Cada Ponto" />
+						<p:inputNumber value="#{ponto.ponto.valordaUnidade}"
+							id="valordaUnidade" symbol="R$ " symbolPosition="p"
+							decimalSeparator="," thousandSeparator="." size="15"
+							title="Informe quanto o cliente deve gastar para atingir a Unidade de Ponto definidade por você.
+							Ex: R$ 50,00 para atingir '1' ponto (cc$)"
+							required="true" requiredMessage="Informe o Valor da Unidade!!!"
+							validatorMessage="Valor Mínimo para Valor da Unidade  é '0'"
+							styleClass="input-info-valor-ponto">
+							<f:validateLongRange minimum="0" />
+						</p:inputNumber>
+
+					</h:panelGrid>
+					<h:panelGrid>
+
+						<p:tooltip id="toolTipvalordaCompra" for="valordaUnidade"
+							showEvent="focus" hideEvent="blur" />
+						<p:outputLabel value="Valor da unidade de Troca" />
+						<p:inputNumber value="#{ponto.ponto.valorUnidadeTroca}"
+							id="valorUnidadeTroca" symbol="R$ " symbolPosition="p"
+							decimalSeparator="," thousandSeparator="." size="15"
+							title="Informe qual o valor em Moeda Corresponde cada unidade de ponto 
+							para que o cliente utileze caso atinja a pontuação mínima e deseje trocar esses pontos por produtos e/ou serviços. 
+							Ex: R$ 5,00 equivale a '1' ponto(cc$) "
+							validatorMessage="Valor Mínimo para Valor da Unidade de troca  é '0'"
+							styleClass="input-info-valor-ponto">
+							<f:validateLongRange minimum="0" />
+						</p:inputNumber>
+						<p:tooltip id="toolTipvalorUnidadeTroca" for="valorUnidadeTroca"
+							showEvent="focus" hideEvent="blur" />
+						<p:outputLabel value="Valor da unidade de Devolução" />
+						<p:inputNumber value="#{ponto.ponto.valorUnidadeDevolucao}"
+							id="valorUnidadeDevolucao" symbol="R$ " symbolPosition="p"
+							decimalSeparator="," thousandSeparator="." size="15"
+							title="Informe qual o valor em Moeda Corresponde cada unidade de ponto
+							para que o cliente utilize caso atinja a pontuação mínima e deseje trocar esses pontos por Dinheiro.
+							Ex: R$ 1,50 equivale a '1' ponto(cc$) "
+							validatorMessage="Valor Mínimo para Valor da Unidade de devolução  é '0'"
+							styleClass="input-info-valor-ponto">
+							<f:validateLongRange minimum="0" />
+						</p:inputNumber>
+						<p:tooltip id="toolTipvalorUnidadeDevolucao"
+							for="valorUnidadeDevolucao" showEvent="focus" hideEvent="blur" />
+					</h:panelGrid>
+
+				</h:panelGrid>
+				<div class="ui-g-12">
+					<p:commandButton value="Salvar" process="@form"
+							oncomplete="PF('dialogoCadastro').hide();"
+							actionListener="#{ponto.merge}"
+							update=":mensagens :formTemplate:formlista:tabela :formTemplate:formCadastro:painelCadastro" />
+							
+					<p:commandButton value="Cancelar"
+							oncomplete="PF('dialogoCadastro').hide();"
+							styleClass="btao-info-ponto" />
+				</div>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>

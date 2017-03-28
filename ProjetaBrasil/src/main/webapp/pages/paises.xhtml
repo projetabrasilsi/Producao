@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	template="/templates/template.xhtml">
+	<h:head>
+		<h:outputStylesheet library="css" name="clubefidelidadee.css" />
+		<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="./js/pessoas.js" />
+	</h:head>
+	<f:event listener="#{paginas.mudaPaginaAtual}" type="preRenderView" />
+	<ui:define name="conteudo">
+	    
+		<h:form id="formLista">
+
+			<p:panel header="Listagem de #{autenticacaojsfController.perfilLogado.paginaAtual.descricao2}">
+				<p:dataTable id="tabela" emptyMessage="" reflow="true"
+					value="#{paisjsfController.paises}" paginator="true" rows="5"
+					var="registro" style="font-size:15px;">
+					<f:facet name="header">
+					    
+						<p:commandButton value="Novo"						    
+							actionListener="#{paisjsfController.novo}"
+							process="@form"
+							update=":formTemplate:formCadastro" style="width:5%">
+						</p:commandButton>
+					</f:facet>
+					<p:column headerText="Nome do País" sortBy="descricao"
+						filterBy="descricao">
+						<h:outputText value="#{registro.descricao}" />
+					</p:column>
+					
+					<p:column headerText="Sigla" sortBy="sigla"
+						filterBy="sigla">
+						<h:outputText value="#{registro.sigla}" />
+					</p:column>
+					
+					<p:column headerText="Padrão de Telefone" sortBy="masktel"
+						filterBy="masktel">
+						<h:outputText value="#{registro.maskTel}" />
+					</p:column>
+					
+					<p:column headerText="Padrão Código de Área" sortBy="maskzip"
+						filterBy="maskzip">
+						<h:outputText value="#{registro.maskZip}" />
+					</p:column>
+					
+					<p:column headerText="Editar" style="width:5%;">
+					
+					
+						<p:commandButton icon="ui-icon-pencil"
+							actionListener="#{paisjsfController.editar}"
+							rendered="#{autenticacaojsfController.perfilLogado.renderizapessoaeditar}"
+							
+							update=":formTemplate:formCadastro :formTemplate:formCadastro
+							">
+							<p:confirm header="Confirmacao"
+								message="Deseja realmente alterar este registro?"
+								icon="ui-icon-alert" style="width:5%"/>
+
+							<f:attribute name="registroAtual" value="#{registro}" />
+						</p:commandButton>
+					</p:column>
+				<!--	<p:column headerText="Excl" style="width:10%;">
+						<p:commandButton icon="ui-icon-trash"
+							actionListener="#{pessoajsfController.excluir}"
+							update=":mensagens :formTemplate:formLista:tabela">
+							<p:confirm header="Confirmação"
+								message="Deseja realmente excluir este registro?"
+								icon="ui-icon-alert" />
+							<f:attribute name="registroAtual" value="#{registro}" />
+						</p:commandButton>
+					</p:column>-->
+				</p:dataTable>
+				<p:confirmDialog global="true">
+					<p:commandButton value="SIM" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="NAO" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+
+				</p:confirmDialog>
+			</p:panel>
+		</h:form>
+
+		<p:dialog
+			header="Formulário de Cadastro de Países"
+			widgetVar="dialogoCadastro" resizable="false" modal="true"
+			closable="false" appendTo="@(body)" dynamic="true"
+			responsive="true" 
+			style="float: left;
+    padding: 10px;
+    font-family: calibri;
+    color: #6495ED;
+    font-size: 15px;
+    text-align: left;overflow:auto;">
+			<h:form id="formCadastro">
+				<h:panelGrid id="painelCadastro_1">
+					<h:panelGrid id="painelCadastro_11">
+						<p:outputLabel
+							value="Nome do País"
+							 />
+						<p:inputText size="30" maxlength="30"
+							value="#{paisjsfController.pais.descricao}"
+							required="true"
+							requiredMessage="Descrição do país é obrigatória"
+							
+							validatorMessage="O minimo de caracteres para nome são  '3'"
+							placeholder="Mínimo 3 Letras">
+							<f:validateLength minimum="3" />
+						</p:inputText>
+					</h:panelGrid>
+					<h:panelGrid id="painelCadastro_12">
+						<p:outputLabel
+							value="Sigla"
+							 />
+						<p:inputText size="30" maxlength="30"
+							value="#{paisjsfController.pais.sigla}"
+							required="true"
+							requiredMessage="Campo obrigatório"
+							validatorMessage="O minimo de caracteres para sigla são  '3'"
+							placeholder="Mínimo 3 Letras">
+							<f:validateLength minimum="3" />
+						</p:inputText>
+					</h:panelGrid>
+					<h:panelGrid id="painelCadastro_13">
+						<p:outputLabel
+							value="Padrão de Telefone"
+							 />
+						<p:inputText size="30" maxlength="30"
+							value="#{paisjsfController.pais.maskTel}"
+							required="true"
+							requiredMessage="Campo obrigatório"
+							validatorMessage="O minimo de caracteres para telefone são  '8'"
+							placeholder="(00) 00000-0000">
+							<f:validateLength minimum="8" />
+						</p:inputText>
+					</h:panelGrid>
+					<h:panelGrid id="painelCadastro_14">
+						<p:outputLabel
+							value="Padrão Código de Área"
+							 />
+						<p:inputText size="30" maxlength="30"
+							value="#{paisjsfController.pais.maskZip}"
+							required="true"
+							requiredMessage="Campo obrigatório"
+							validatorMessage="O minimo de caracteres para código são  '4'"
+							placeholder="00000-000">
+							<f:validateLength minimum="4" />
+						</p:inputText>
+					</h:panelGrid>
+
+				</h:panelGrid>
+
+				<h:panelGrid columns="2" id="painelCadastro_7">
+					<p:panelGrid>
+						<p:commandButton value="Salvar" process="@form"
+							actionListener="#{paisjsfController.merge}"
+							update=":mensagens :formTemplate:formLista:tabela" />
+					</p:panelGrid>
+					<p:panelGrid>
+						<p:commandButton value="Cancelar" process="@this"
+						actionListener="#{paisjsfController.cancela}"
+						 />
+					</p:panelGrid>
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>

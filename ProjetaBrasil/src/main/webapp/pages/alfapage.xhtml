@@ -1,0 +1,732 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<f:facet name="first">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+    </f:facet>
+	<!--<h:outputStylesheet library="css" name="clubefidelidade.css" />-->
+	<!--<h:outputStylesheet library="css" name="style.css" />-->
+	<h:outputScript library="js" name="pessoas.js" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="home.css" />
+	<h:outputStylesheet name="css/font-awesome.css" library="fa" />
+	<title>Clube Fidelidade</title>
+</h:head>
+
+
+<h:body styleClass="container-fluid"><!-- Body -->
+	
+	
+	<p:growl id="mensagens" autoUpdate="true" redisplay="true" />
+	
+	<!-- Static navbar -->
+      <div class="navbar">
+        
+          <div class="navbar-header">
+          	<a class="navbar-brand-mob visible-xs" href="#"></a>
+            <a class="navbar-brand hidden-xs" href="#"></a>
+          </div>
+          <div class="navbar-collapse">
+			<h:form>
+	            <ul class="navbar-right">
+	              <!-- <li class="oque"><a href="#">O que é? &nbsp;-</a></li>
+	              <li class="faq"><a href="#">FAQ &nbsp;&nbsp;&nbsp;|</a></li> -->
+	              <li><p:commandButton styleClass="log" value="Entrar"
+							actionListener="#{autenticacaojsfController.renderizar(false)}" /></li>
+	              <!-- <li><p:commandButton styleClass="reg" value="Auto pontuar"
+							oncomplete="PF('dialogoPontuar').show(); PF('dialogoPontuar').content.scrollTop('0')" /></li>
+                  <li><p:commandButton styleClass="reg" value="Auto Cadastro"
+							oncomplete="PF('dialogoVerificar').show(); PF('dialogoVerificar').content.scrollTop('0')"
+							update=":formVerificar:painelIdentificacao  :formVerificar:labelsenha 
+							:formVerificar:idsenha" /></li> -->
+	            </ul>
+            </h:form>
+          </div><!--/.nav-collapse -->
+
+          <!-- Sub-navbar -->
+          <div class="sub-navbar">
+          	<ul >
+          	  <li><a class="p2" href=""><i class="fa fa-pie-chart"></i> FidelidadeBrasil</a></li>
+              <li><a class="p1" href=""><i class="fa fa-pie-chart"></i> GoTaxi</a></li>
+              <li><a class="p3" href=""><i class="fa fa-pie-chart"></i> Estoque de barras</a></li>
+              <li><a class="p4" href=""><i class="fa fa-pie-chart"></i> Achei-Pet</a></li>
+              <li><a class="p4" href=""><i class="fa fa-pie-chart"></i> Achei-Car</a></li>
+              <li><a class="p4" href=""><i class="fa fa-pie-chart"></i> Achei-Phone</a></li>
+            </ul>
+           
+          </div><!--/.sub-navbar -->
+      </div>
+      
+      
+	
+	<!-- Slider -->
+    <div class="slider">
+      <div class="fill">       
+      </div>
+    </div>
+	
+	<!-- Page Content -->
+    <div class="conteudo">
+    
+    <!-- sujestoes -->
+	<div class="warp-suject">
+	    <div class="conteiner-sujest">
+	    	
+	    	<div class="div-btao">
+	    	<h5>Sugestões</h5>
+	    	</div>
+	    	<div class="div-texto">
+			  <h:form styleClass="box-texto-suject"> 
+			  
+			     <p:inputTextarea rows="6" cols="33" 
+			          maxlength="500"/>
+
+			      <p:growl id="growl" life="2000" />
+				  <p:commandButton value="Enviar" 
+					    id="ajax" update="growl" 
+					    actionListener="#{buttonView.buttonAction}" 
+					    styleClass="btao-box-suject"/>
+			 </h:form>
+	      </div>
+	    </div>
+	</div>
+      <!-- FUNDO / CONTEUDO(TEXTO) -->
+      
+    			<div class="sobre">
+    				<h1>Sobre a Projeta Brasil</h1>
+    				<p>Somos uma STARTUP localizada em Florianópolis e nosso propósito se baseia na especialização
+						em desenvolvimento de soluções inteligentes em tecnologia. Nosso trabalho visa abarcar e
+						transformar idéias próprias ou de terceiros -"Investidores" em produtos, com grande potencial
+						de mercado. Temos um time multidisciplicar antenado com as tendências mais atuais em tecnologia
+						e com grande visibilidade de mercado, aberto a novos desafios. 
+						O Objetivo da Projeta Brasil é colocar seus produtos inteligentes e de qualidade no mercado de 
+						forma que possa facilitar com o dia a dia de seus usuários através dos melhores e mais atuais
+						conceitos de usabilidade. Buscando sempre ser parceira em projetos que tenham grande cunho social.
+    				</p>
+    			</div>
+    			
+    	<div class="produtos">
+
+    		<h2>Produtos</h2>
+
+            <div class="grupo-produtos">
+              <div class="row">
+                <div class="col-md-6 col-lg-2 texto">
+                  <div class="logo-gotaxi"></div>
+                  <h3>GOTAXI</h3>
+                  <br/>
+                  	<h5 class="fase">Fase: Desenvolvimento</h5>
+                  <p>Software de mobiliade urbana cuja finalidade visa em carater social,
+						trazer benefícios aos usuários do serviço privado de mobiliade urbana e também
+						a valorização e reconhecimento dos prestadores de serviço.</p>
+                  <div class="div-h4-produtos">
+                  	<h4 class="saiba-mais01" >SAIBA MAIS</h4>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-2 texto">
+                  <div class="logo-fidelidade"></div>
+                  <h3>FIDELIDADE BRASIL</h3>
+                  <br/>
+                  	<h5 class="fase">Fase: Desenvolvimento</h5>
+                  <p>Software cuja finalidade será integrar a população ao serviço de fideliade, onde
+						pelo valor de seus gastos junto ao comércio, será acumulado créditos para serem utilizados
+						nos estabelecimentos associados.</p>
+                  <div class="div-h4-produtos">
+                  	<h4 class="saiba-mais02">SAIBA MAIS</h4>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-2 texto">
+                  <div class="logo-barra"></div>
+                  <h3>CODIGO DE BARRAS</h3>
+                  <br/>
+                  	<h5 class="fase">Fase: Desenvolvimento</h5>
+                  <p>Software voltado para o auxílio do pequeno empresário que tem a necessidade
+de contagem 			diária de estoque. Será feito através do mobile, assim agilizando o processo de validação de estoque de seu empreendimento. </p>
+                  <div class="div-h4-produtos">
+                  	<h4 class="saiba-mais03">SAIBA MAIS</h4>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-2 texto">
+                  <div class="logo-pet"></div>
+                  <h3>ACHEI-PET</h3>
+                  <br/>
+                  	<h5 class="fase">Fase: Comercial</h5>
+                  <p>Software voltado para o auxílio da devolução do pet ao seu dono no caso
+						de fulga. Nele estará contido todas as informações necessárias, além de um prontuário
+						resumido, em caso de acidente.</p>
+                  <div class="div-h4-produtos">
+                  	<h4 class="saiba-mais04">SAIBA MAIS</h4>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-2 texto">
+                  <div class="logo-car"></div>
+                  <h3>ACHEI-CAR</h3>
+                  <br/>
+                  	<h5 class="fase">Fase: Comercial</h5>
+                  <p>Software voltado para o auxílio da devolução do tanto de veículos abandonados,
+					quanto informações necessárias sobre contatos do proprietário do veículo em casos
+					de acidentes e informações, como tipo sanguineo e alergias.</p>
+                  <div class="div-h4-produtos">
+                  	<h4 class="saiba-mais05">SAIBA MAIS</h4>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-2 texto">
+                  <div class="logo-phone"></div>
+                  <h3>ACHEI-PHONE</h3>
+                  <br/>
+                  	<h5 class="fase">Fase: Comercial</h5>
+                  <p>Software voltado para o auxílio da devolução do tanto de celulares esquecidos,
+					quanto informações necessárias sobre contatos do proprietário do celular em caso de acidentes.
+					 Informações como o tipo sanguineo e alergias.</p>
+                  <div class="div-h4-produtos">
+                  	<h4 class="saiba-mais06">SAIBA MAIS</h4>
+                  </div>
+                </div>
+              </div><!-- /.row -->
+            </div>
+    	</div>
+    			
+    	<div class="proposta">
+    			<h2>Multiplataforma</h2>
+    		
+    			<div class="col-lg-12 visible-sm visible-xs div-iphone-mob">
+                <div class="iphone-mob"></div>
+              </div>
+         
+            <div class="row">
+              <div class="col-md-12 texto">
+                <p>
+				A Projeta Brasil tem como meta proporcionar a melhor experiencia possível com o uso de nossos produtos,
+				para isso desenvolvemos nossas soluções inteligentes de forma que possa ser acessada de múltiplos tamanhos de telas, equipamentos,
+				e sistemas operacionais. Para smartphones temos o foco para os sistemas IOS(IPhone) e Android, com o propósito de atender
+				todos os nossos clientes. Para notebooks e desktops optamos pelo desenvolvimento WEB, pois dessa forma conseguimos atender
+				usuários de diferentes sistemas operacionais, como, Windows, MAC, e Linux.
+                </p>
+
+              </div>
+              <div class="col-lg-6 img visible-md visible-lg">
+                <div class="iphone"></div>
+              </div>
+            </div>
+    	</div>
+          
+ 
+
+    </div><!-- /.conteudo -->
+	
+	
+	<!-- Footer -->
+    <div class="footer">
+      <div class="row">
+          <div class="col-md-6 col-sm-12 footer-geral sobre-footer">
+            <ul>
+              <li><h4>Sobre a Projeta Brasil</h4></li>
+              <li><a href="#">O que é a Projeta Brasil</a></li>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">Proposta</a></li>
+              <li><a href="#">Fale conosco</a></li>
+            </ul>
+          </div>
+          <div class="col-md-6 col-sm-12 footer-geral produtos-footer">
+            <ul>
+              <li><h4>Produtos Projeta Brasil</h4></li>
+              <li><a href="#">GoTaxi</a></li>
+              <li><a href="#">FidelidadeBrasil</a></li>
+              <li><a href="#">Estoque em Barras</a></li>
+               <li><a href="#">Achei-Pet</a></li>
+                <li><a href="#">Achei-Car</a></li>
+                 <li><a href="#">Achei-Phone</a></li>
+            </ul>
+          </div>
+          <!-- <div class="col-md-4 col-sm-12 social-footer">
+            <h5>Nos siga nas redes sociais</h5>
+            <div>
+              <ul>
+                <li><i class="fa fa-instagram"></i></li>
+                <li><i class="fa fa-facebook"></i></li>
+                <li><i class="fa fa-linkedin"></i></li>
+              </ul>
+            </div>
+          </div> -->
+        <div class="col-xs-12 ass-footer">
+          <p>Projeta Brasil® • Todos os direitos reservados.</p>
+        </div> 
+      </div><!--/.row-->
+    </div>
+	
+	
+	<!-- FIM HOME -->
+	<div>
+
+		<p:dialog widgetVar="dialogoVerificar" closable="false"
+			resizable="false" modal="true" appendTo="@(body)" dynamic="true"
+			responsive="true" visible="false"
+			style="float: left;
+    padding: 10px;
+    font-family: calibri;
+    color: #6495ED;
+    font-size: 15px;
+    text-align: left; overflow:auto;">
+
+			<h:form id="formVerificar">
+				<h:panelGrid id="painelIdentificacao">
+					<p:focus for="identificador" />
+					<p:selectOneRadio id="perfil"
+						value="#{auto.autoPes.enum_Aux_Tipo_Identificador}"
+						layout="pageDirection" columns="5"
+						converter="omnifaces.SelectItemsConverter"
+						
+							listener="#{auto.checaPessoa()}" >
+						<f:selectItems value="#{auto.listaTipodeIdentificadores}" var="c"
+							itemLabel="#{c.descricao}" itemValue="#{c}"/>
+							
+							<p:ajax event="change" update="identificador idsenha" process="@this"
+							oncomplete="$(function(){PrimeFaces.focus('identificador');});" />
+						
+					</p:selectOneRadio>
+
+					<p:outputLabel value="Informe CPF/CNPJ" />
+					<p:inputMask id="identificador" size="30" maxlength="20"
+						value="#{auto.autoPes.identificador}" required="true"
+						requiredMessage="É preciso informar a identificação!!!"
+						mask="#{auto.autoPes.enum_Aux_Tipo_Identificador.mask}">
+						
+													
+							<p:ajax event="blur" process="@form"
+							listener="#{auto.checaPessoa()}"
+							update="idlabel1 idlabel2 idsenha formVerificar:labelsenha" />
+						
+						</p:inputMask>
+					<p:outputLabel value="Fidelizado:" />
+					<p:outputLabel id="idlabel1" value="#{auto.autoPes.descricao}" />
+					<p:outputLabel id="idlabel2" value="#{auto.autoPes.fantasia_Apelido}" />
+
+					<p:outputLabel id="labelsenha" value="Informe a Senha" rendered="#{auto.renderizaSenha}" />
+					<p:password id="idsenha" size="30" maxlength="8" rendered="#{auto.renderizaSenha}"							
+						value="#{auto.autoUs.senhaSemCript}" required="true"
+						requiredMessage="Informe a senha!!!"
+						validatorMessage="O minimo de digitos para senha: '8'"
+						placeholder="8 letras e/ou digitos">
+						<f:validateLength minimum="8" />
+					</p:password>
+
+
+
+				</h:panelGrid>
+
+			</h:form>
+
+		</p:dialog>
+
+
+
+
+		<p:dialog widgetVar="dialogoPontuar" closable="false"
+			resizable="false" modal="true" appendTo="@(body)" dynamic="true"
+			responsive="true"
+			style="float: left;
+    padding: 10px;
+    font-family: calibri;
+    color: #6495ED;
+    font-size: 15px;
+    text-align: left; display:block;overflow:auto;">
+
+			<h:form id="formPontuar">
+
+				<h:panelGrid id="painelA">
+					<h:outputLabel value="Auto Pontuação - Aguardando Aprovação"
+						style="color:#{ponto_mov.tipoMovimentacao.cor};font-size:15px;font-weight:900;" />
+				</h:panelGrid>
+
+				<p:wizard widgetVar="wiz" flowListener="#{auto.onFlowProcess}"
+					width="40%" style="overflow: hidden !important;">
+					<p:tab id="tab1" title="Fidelizado">
+
+						<p:panelGrid header="Auto Pontuação" columns="1">
+							<h:outputLabel value="Para Você"
+								style="color:red;font-size:15px;font-weight:900;" />
+
+							<p:selectOneRadio id="perfil" size="25"
+								value="#{auto.tipoIdentificadorCliente}" columns="5"
+								converter="omnifaces.SelectItemsConverter">
+								<f:selectItems value="#{auto.listaTipodeIdentificadoresCliente}"
+									var="c" itemLabel="#{c.descricao}" itemValue="#{c}" />
+								<p:ajax event="change" update="identificador nomeIdentificador"
+									process="@this"
+									oncomplete="$(function(){PrimeFaces.focus('formTemplate:formPontuar:identificador');});" />
+							</p:selectOneRadio>
+
+							<p:outputLabel id="nomeIdentificador"
+								value="Informe  seu #{auto.tipoIdentificadorCliente.descricao}" />
+							<p:inputMask id="identificador" size="24" maxlength="20"
+								value="#{auto.cliente.identificador}" required="true"
+								requiredMessage="É preciso informar a identificação!!!"
+								mask="#{auto.tipoIdentificadorCliente.mask}">
+								<p:ajax event="blur" process="@this"
+									listener="#{auto.pessoaaverificar('Cliente')}"
+									update="pessoa_cliente valPontuacao soma valaPontuar validade" />
+							</p:inputMask>
+							<c:set var="pessoa_cliente" value="#{auto.cliente.descricao}" />
+							<p:outputLabel id="pessoa_cliente"
+								value="Cliente: #{fn:substring(pessoa_cliente,0,15)}"
+								style="color:blue;font-size:15px;font-weight:900;" />
+						</p:panelGrid>
+					</p:tab>
+
+					<p:tab id="tab2" title="Estabelecimento">
+						<p:panelGrid header="Estabelecimento" columns="1">
+							<h:outputLabel value="Estabelecimento"
+								style="color:green;font-size:15px;font-weight:900;" />
+
+							<p:selectOneRadio id="perfil2"
+								value="#{auto.tipoIdentificadorEstabelecimento}" columns="5"
+								converter="omnifaces.SelectItemsConverter">
+								<f:selectItems
+									value="#{auto.listaTipodeIdentificadoresEstabelecimento}"
+									var="c" itemLabel="#{c.descricao}" itemValue="#{c}" />
+								<p:ajax event="change"
+									update="identificador2 nomeIdentificador2" process="@this"
+									oncomplete="$(function(){PrimeFaces.focus('formTemplate:formPontuar:identificador2');});" />
+							</p:selectOneRadio>
+
+							<p:outputLabel id="nomeIdentificador2"
+								value="#{auto.tipoIdentificadorEstabelecimento.descricao} do Estabelecimento" />
+
+							<p:inputMask id="identificador2" size="24" maxlength="20"
+								value="#{auto.estabelecimento.identificador}" required="true"
+								requiredMessage="É preciso informar a identificação!!!"
+								mask="#{auto.tipoIdentificadorEstabelecimento.mask}">
+								<p:ajax event="blur" process="@this"
+									listener="#{auto.pessoaaverificar('Estabelecimento')}"
+									update="pessoa_estabelecimento tipoPontuacao valPontuacao soma valaPontuar
+						 	validade" />
+							</p:inputMask>
+							<c:set var="pessoa_estabelecimento"
+								value="#{auto.estabelecimento.fantasia_Apelido}" />
+							<p:outputLabel id="pessoa_estabelecimento"
+								value="Estab: #{fn:substring(pessoa_estabelecimento,0,20)}"
+								style="color:blue;font-size:15px;font-weight:900;" />
+						</p:panelGrid>
+
+
+					</p:tab>
+
+					<p:tab id="tab3" title="Pontuacao">
+						<p:panelGrid header="Auto Pontuação" columns="2">
+							<h:outputLabel value="Pontuação" />
+							<p:outputLabel value="Validade:"
+								style="color:#{auto.ponto_movimento.creditaDebita.cor};font-size:15px;font-weight:900;" />
+
+							<p:selectOneMenu id="tipoPontuacao" value="#{auto.ponto}"
+								converter="omnifaces.SelectItemsConverter"
+								rendered="#{!ponto_mov.tipoMovimentacao.visualizadebito}"
+								style="width:178px" panelStyle="width:178px">
+								<f:selectItems value="#{auto.listaPonto}" var="d"
+									itemValue="#{d}" itemLabel="#{d.descricao}" />
+								<p:ajax event="change" process="@this"
+									listener="#{auto.configPonto_Movimento()}"
+									update="valPontuacao soma valaPontuar
+						 pessoa_cliente validade"
+									oncomplete="$(function(){PrimeFaces.focus('formTemplate:formPontuar:valaPontuar');});" />
+							</p:selectOneMenu>
+							<p:outputLabel id="validade"
+								value="#{auto.ponto_movimento.validade.time}"
+								style="color:#{auto.ponto_movimento.creditaDebita.cor};font-size:15px;font-weight:900;">
+								<f:convertDateTime locale="pt_BR" type="both" dateStyle="long"
+									pattern="dd/MM/yyyy" />
+							</p:outputLabel>
+
+							<p:outputLabel id="valPontuacao"
+								value="Valor do Ponto: R$ #{auto.ponto_movimento.valordaUnidade}"
+								style="color:blue;font-size:15px;font-weight:900;"
+								rendered="#{!auto.tipoMovimentacao.visualizadebito}" />
+
+							<h:outputLabel id="soma"
+								value="Seus pontos atuais: #{auto.pontoSoma} Leal(is) "
+								style="color:#0000FF;font-size:15px;font-weight:900;" />
+
+
+
+
+							<p:outputLabel value="Valor do Documento" />
+							<p:outputLabel value="N. do Documento" decimalPlaces="0" />
+							<p:inputNumber id="valaPontuar" size="24" maxlength="20"
+								value="#{auto.ponto_movimento.valoraPontuar}" required="true"
+								requiredMessage="É preciso informar pontuação!!!">
+								<f:validateLongRange minimum="0" />
+							</p:inputNumber>
+
+							<p:inputMask
+								mask="?99999999999999999999999999999999999999999999999999"
+								placeHolder="" id="nDoc" size="24" maxlength="20"
+								value="#{auto.ponto_movimento.numDoc}" required="true"
+								requiredMessage="É preciso informar pontuação!!!">
+								<f:validateLongRange minimum="0" />
+							</p:inputMask>
+
+
+						</p:panelGrid>
+
+					</p:tab>
+					<p:tab id="tab4" title="comprovante">
+						<p:outputLabel for="upload" value="Comprovante(Cupom/NFe):" />
+
+						<p:fileUpload id="upload" mode="advanced"
+							fileUploadListener="#{auto.upload}" update=":mensagens foto"
+							auto="true" style="font-size:15px;width:250px; "
+							allowTypes="/(\.|\/)(#{auto.tipoDeImagem})$/">
+
+						</p:fileUpload>
+						<p:graphicImage id="foto" value="#{imagensjsfController.image}"
+							style="max-width:90px;max-height:80px;width: auto;height: auto;">
+							<f:param name="caminho"
+								value="#{auto.ponto_movimento.caminhodaImagem}" />
+						</p:graphicImage>
+
+
+
+
+						<p:commandButton value="Validar" actionListener="#{auto.merge()}"
+							process="@form" update="formPontuar">
+
+							<p:confirm header="Confirmação"
+								message="#{auto.mensagemComprovante}" icon="ui-icon-alert"
+								style="width:5%" />
+						</p:commandButton>
+						<p:commandButton value="Cancelar" actionListener="#{auto.merge()}"
+							process="@form" oncomplete="PF('dialogoPontuar').hide();">
+						</p:commandButton>
+
+						<p:confirmDialog global="true" style="white-space: pre;">
+							<p:commandButton value="SIM" type="button"
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton value="NÃO" type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
+					</p:tab>
+				</p:wizard>
+			</h:form>
+		</p:dialog>
+
+
+
+
+
+		<p:dialog header="Cadastro unitário - válido por toda cidade"
+			widgetVar="dialogoCadastro" visible="false" resizable="false"
+			modal="true" closable="false" appendTo="@(body)" position="center"
+			style="float: left;
+    padding: 10px;
+    font-family: calibri;
+    color: #6495ED;
+    font-size: 12px;
+    text-align: left; width: 70%; height:60%;">
+			<h:form id="formCadastro">
+				<p:wizard widgetVar="wiz" flowListener="#{auto.onFlowProcess}"
+					width="40%" style="overflow: hidden !important;">
+					<p:focus for="nome" />
+					<p:tab id="tab1" title="Dados - 1">
+
+						<h:panelGrid id="painelCadastro_1">
+							<h:panelGrid id="painelCadastro_11">
+								<p:outputLabel value="#{auto.pessoaConfig.labelNome}"
+									rendered="#{auto.pessoaConfig.labelNomeRenderiza}" />
+								<p:inputText id="nome" size="67" maxlength="90"
+									value="#{auto.cliente.descricao}"
+									required="#{auto.pessoaConfig.labelNomeObrigatorio}"
+									requiredMessage="#{auto.pessoaConfig.labelNomeRequiredMessage}"
+									rendered="#{auto.pessoaConfig.labelNomeRenderiza}"
+									validatorMessage="O minimo de caracteres para nome são  '5'"
+									placeholder="Mínimo 5 Letras">
+									<f:validateLength minimum="5" />
+								</p:inputText>
+							</h:panelGrid>
+							<h:panelGrid id="painelCadastro_12">
+								<p:outputLabel value="#{auto.pessoaConfig.labelFantasia}"
+									rendered="#{auto.pessoaConfig.labelFantasiaRenderiza}" />
+								<p:inputText size="67" maxlength="90"
+									value="#{auto.cliente.fantasia_Apelido}"
+									required="#{auto.pessoaConfig.labelFantasiaObrigatorio}"
+									requiredMessage="#{auto.pessoaConfig.labelFantasiaRequiredMessage}"
+									rendered="#{auto.pessoaConfig.labelFantasiaRenderiza}"
+									validatorMessage="O minimo de caracteres para nome são  '5'"
+									placeholder="Mínimo 5 Letras">
+									<f:validateLength minimum="5" />
+								</p:inputText>
+							</h:panelGrid>
+
+							<h:panelGrid id="painelCadastro_13">
+								<p:outputLabel value="#{auto.pessoaConfig.labelSexo}"
+									rendered="#{auto.pessoaConfig.labelSexoRenderiza}" />
+								<p:selectOneRadio id="perfil" value="#{auto.cliente.sexo}"
+									columns="5" converter="omnifaces.SelectItemsConverter"
+									rendered="#{auto.pessoaConfig.labelSexoRenderiza}">
+									<f:selectItems value="#{auto.pessoaConfig.listaSexo}" var="c"
+										itemLabel="#{c.abrev}" itemValue="#{c}" />
+									<p:ajax event="change" process="@this"
+										oncomplete="$(function(){PrimeFaces.focus('formCadastro:calendar');});" />
+								</p:selectOneRadio>
+							</h:panelGrid>
+						</h:panelGrid>
+
+
+					</p:tab>
+
+					<p:tab id="tab2" title="Dados - 2">
+						<h:panelGrid columns="2" id="painelCadastro_2">
+							<h:panelGrid id="painelCadastro_21">
+								<p:outputLabel value="Data de nascimento"
+									rendered="#{auto.pessoaConfig.labelDataNascimentoRenderiza}" />
+								<p:calendar id="calendar" size="30" maxlength="15"
+									mask="99/99/9999" value="#{auto.cliente.dataNascimento}"
+									required="#{auto.pessoaConfig.labelDataNascimentoObrigatorio}"
+									requiredMessage="#{auto.pessoaConfig.labelDataNascimentoRequiredMessage}"
+									rendered="#{auto.pessoaConfig.labelDataNascimentoRenderiza}">
+									<f:convertDateTime pattern="dd/MM/yyyy" dateStyle="full"
+										type="both" timezone="GMT+3" />
+								</p:calendar>
+							</h:panelGrid>
+							<h:panelGrid id="painelCadastro_22">
+								<p:outputLabel value="#{auto.pessoaConfig.labelcpf_Cnpj}"
+									rendered="#{auto.pessoaConfig.labelcpf_CnpjRenderiza}" />
+								<p:inputMask id="identificador" size="30" maxlength="15"
+									mask="#{auto.tipoIdentificadorCliente.mask}"
+									value="#{auto.cliente.cpf_Cnpj}"
+									converter="mascaraTelefoneConverter"
+									required="#{auto.pessoaConfig.labelcpf_CnpjObrigatorio}"
+									requiredMessage="#{auto.pessoaConfig.labelcpf_CnpjRequiredMessage}"
+									rendered="#{auto.pessoaConfig.labelcpf_CnpjRenderiza}"
+									readonly="true">
+								</p:inputMask>
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:tab>
+
+					<p:tab id="tab3" title="Dados - 3">
+						<h:panelGrid columns="2" id="painelCadastro_3">
+							<h:panelGrid id="painelCadastro_31">
+								<p:outputLabel value="#{auto.pessoaConfig.labelrg_Insc}"
+									rendered="#{auto.pessoaConfig.labelrg_InscRenderiza}" />
+								<p:inputText size="30" maxlength="15"
+									value="#{auto.cliente.rg_Insc}"
+									required="#{auto.pessoaConfig.labelrg_InscObrigatorio}"
+									requiredMessage="#{auto.pessoaConfig.labelrg_InscRequiredMessage}"
+									rendered="#{auto.pessoaConfig.labelrg_InscRenderiza}">
+								</p:inputText>
+							</h:panelGrid>
+
+							<h:panelGrid id="painelCadastro_32">
+								<p:outputLabel for="fone_1"
+									value="#{auto.pessoaConfig.labelfone_1}"
+									rendered="#{auto.pessoaConfig.labelfone_1Renderiza}" />
+								<p:inputMask mask="#{auto.pessoaConfig.maskTel}" id="fone_1"
+									size="30" maxlength="15" value="#{auto.cliente.fone_1}"
+									required="#{auto.pessoaConfig.labelfone_1Obrigatorio}"
+									requiredMessage="#{auto.pessoaConfig.labelfone_1RequiredMessage}"
+									rendered="#{auto.pessoaConfig.labelfone_1Renderiza}">
+								</p:inputMask>
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:tab>
+					<p:tab id="tab4" title="dados  4">
+						<h:panelGrid columns="2" id="painelCadastro_4">
+							<h:panelGrid id="painelCadastro_41">
+								<p:outputLabel value="#{auto.pessoaConfig.labelfone_2}"
+									rendered="#{auto.pessoaConfig.labelfone_2Renderiza}" />
+								<p:inputMask mask="#{auto.pessoaConfig.maskTel}" size="30"
+									maxlength="15" value="#{auto.cliente.fone_2}"
+									required="#{auto.pessoaConfig.labelfone_2Obrigatorio}"
+									requiredMessage="#{auto.pessoaConfig.labelfone_2RequiredMessage}"
+									rendered="#{auto.pessoaConfig.labelfone_2Renderiza}">
+								</p:inputMask>
+							</h:panelGrid>
+							<h:panelGrid id="painelCadastro_42">
+								<p:outputLabel value="#{auto.pessoaConfig.labelfone_3}" />
+								<p:inputMask mask="#{auto.pessoaConfig.maskTel}" size="30"
+									maxlength="15" value="#{auto.cliente.fone_3}"
+									required="#{auto.pessoaConfig.labelfone_3Obrigatorio}"
+									requiredMessage="#{auto.pessoaConfig.labelfone_3RequiredMessage}"
+									rendered="#{auto.pessoaConfig.labelfone_3Renderiza}">
+								</p:inputMask>
+							</h:panelGrid>
+
+						</h:panelGrid>
+					</p:tab>
+					<p:tab id="tab5" title="dados  5">
+						<h:panelGrid columns="2" id="painelCadastro_5">
+							<h:panelGrid id="painelCadastro_51">
+								<p:outputLabel value="#{auto.pessoaConfig.labelemail}"
+									rendered="#{auto.pessoaConfig.labelemailRenderiza}" />
+								<p:inputText size="67" maxlength="90"
+									value="#{auto.cliente.email}"
+									required="#{auto.pessoaConfig.labelemailObrigatorio}"
+									requiredMessage="#{auto.pessoaConfig.labelemailRequiredMessage}"
+									rendered="#{auto.pessoaConfig.labelemailRenderiza}">
+								</p:inputText>
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:tab>
+					<p:tab id="tab6" title="dados  6">
+						<h:panelGrid columns="2" id="painelCadastro_6"
+							rendered="#{auto.perfilLogado.paginaAtual.renderizaCadastrodeUsuarios}">
+							<h:panelGrid id="painelCadastro_61">
+								<p:outputLabel value="Informe a Senha" />
+								<p:password size="30" maxlength="8"
+									value="#{auto.usAuto.senhaSemCript}" required="true"
+									requiredMessage="Informe a senha!!!"
+									validatorMessage="O minimo de digitos para senha: '8'"
+									placeholder="8 letras e/ou digitos">
+									<f:validateLength minimum="8" />
+								</p:password>
+							</h:panelGrid>
+							<h:panelGrid id="painelCadastro_62">
+								<p:outputLabel value="Confirme a Senha" />
+								<p:password size="30" maxlength="8"
+									value="#{auto.usAuto.confSenha}" required="true"
+									requiredMessage="Informe a confirmação de senha!!!"
+									validatorMessage="O minimo de digitos para confirmação senha: '8'"
+									placeholder="8 letras e/ou digitos">
+									<f:validateLength minimum="8" />
+								</p:password>
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:tab>
+					<p:tab id="tab7" title="dados  7">
+						<h:panelGrid columns="2" id="painelCadastro_7">
+							<p:panelGrid>
+								<p:commandButton value="Salvar" process="@form"
+									actionListener="#{auto.mergePessoa}"
+									update=":mensagens :formPontuar" />
+							</p:panelGrid>
+							<p:panelGrid>
+								<p:commandButton value="Cancelar" process="@this"
+									actionListener="#{auto.cancelar}" />
+							</p:panelGrid>
+						</h:panelGrid>
+					</p:tab>
+				</p:wizard>
+			</h:form>
+		</p:dialog>
+
+
+	</div>
+
+
+
+
+</h:body>
+
+</html>

@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	template="/templates/template.xhtml"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	<ui:define name="conteudo">
+		<h:form id="formLista" style="width:100%;">
+			<p:panel style="width:100%;">
+				<p:dataTable id="tabela" emptyMessage="" reflow="true"
+					value="#{detalhe_A.mDs}" paginator="true" rows="5" var="registro"
+					style="font-size:12px;">
+					<f:facet name="header">
+						<h:outputText value="Vouchers Comprados" />
+					</f:facet>
+					<p:column headerText="descricao" style="width:15%">
+						<p:commandLink id="descricao" outcome="#"
+							value="#{registro.descricao}">
+							<f:param name="comboM" value="registro" />
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="Assinante" style="width:10%">
+						<c:set var="ass"
+							value="#{registro.id_Movimento_Mestre.id_Pessoa_Assinante}" />
+						<h:outputText value="#{fn:substringBefore(ass,' ')}"
+							style="width:5%">
+						</h:outputText>
+					</p:column>
+
+
+					<p:column headerText="Qtde" style="width:10%">
+						<h:outputText id="status" value="#{registro.qtde}">
+						</h:outputText>
+					</p:column>
+
+
+
+					<p:column headerText="Atualização" style="width:10%">
+						<h:outputText value="#{registro.ultimaAtualizacao.time}">
+							<f:convertDateTime locale="pt_BR" dateStyle="long" type="both"
+								pattern="dd/MM/yyyy HH:mm:ss" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Responsavel" style="width:10%">
+						<c:set var="resp" value="#{registro.id_Pessoa_Registro.descricao}" />
+						<h:outputText value="#{fn:substringBefore(resp,' ')}"
+							style="width:5%">
+						</h:outputText>
+					</p:column>
+
+				</p:dataTable>
+
+			</p:panel>
+		</h:form>
+
+
+		<h:form id="formListaVoucher" style="width:100%;">
+			<p:panel style="width:100%;">
+				<p:dataTable id="tabelaVoucher" emptyMessage="" reflow="true"
+					value="#{detalhe_A.mDAs}" paginator="true" rows="5" var="registro"
+					style="font-size:12px;">
+					<f:facet name="header">
+						<h:outputText
+							value="Vouchers Disponibilizados para o público alvo" />
+						<p:commandButton id="buttonpontuar" value="Disponibilizar"
+							process="@this" actionListener="#{detalhe_A.novo()}"
+							update="
+							:formTemplate:formVoucher 
+							:formTemplate:formVoucher:p1
+							:formTemplate:formVoucher:p2
+							:formTemplate:formVoucher:p3
+							:formTemplate:formVoucher:p4
+							:formTemplate:formVoucher:p5"
+							style="width:10%">
+						</p:commandButton>
+					</f:facet>
+					<p:column headerText="descricao" style="width:15%">
+						<p:commandLink id="descricao" outcome="#"
+							value="#{registro.enum_Aux_Tipo_Item_de_Movimento.descricao2}">
+							<f:param name="comboM" value="registro" />
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="Qtde Disponibilizada" style="width:10%">
+
+						<h:outputText value="#{registro.disponibilizado}" style="width:7%">
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Data Inicio" style="width:10%">
+
+						<h:outputText value="#{registro.inicio}" style="width:5%">
+							<f:convertDateTime locale="pt_BR" dateStyle="long" type="both"
+								pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+
+
+					<p:column headerText="Data Fim" style="width:5%">
+						<h:outputText id="dtfim" value="#{registro.fim}">
+							<f:convertDateTime locale="pt_BR" dateStyle="long" type="both"
+								pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Foto">
+						<p:graphicImage id="foto" value="#{imagensjsfController.image}"
+						style="max-width:90px;
+    max-height:80px;
+    width: auto;
+    height: auto;">
+							<f:param name="caminho" value="#{registro.caminhoDaImagem}" />
+						</p:graphicImage>
+					</p:column>
+
+					<p:column headerText="Atualização" style="width:10%">
+						<h:outputText value="#{registro.ultimaAtualizacao.time}">
+							<f:convertDateTime locale="pt_BR" dateStyle="long" type="both"
+								pattern="dd/MM/yyyy HH:mm:ss" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Responsavel" style="width:10%">
+						<c:set var="resp" value="#{registro.id_Pessoa_Registro.descricao}" />
+						<h:outputText value="#{fn:substringBefore(resp,' ')}"
+							style="width:5%">
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Editar" style="width:7%">
+						<p:commandButton process="@this" icon="icon-edit"
+							actionListener="#{detalhe_A.editar}"
+							update="
+							:formTemplate:formVoucher 
+							:formTemplate:formVoucher:p1
+							:formTemplate:formVoucher:p2
+							:formTemplate:formVoucher:p3
+							:formTemplate:formVoucher:p4
+							:formTemplate:formVoucher:p5"
+							style="width:80%">
+							<p:confirm header="Confirmação"
+								message="Deseja realmente alterar este registro?"
+								icon="ui-icon-alert" style="width:5%" />
+							<f:attribute name="registroAtual" value="#{registro}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+				<p:confirmDialog global="true">
+					<p:commandButton value="SIM" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="NAO" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+			</p:panel>
+		</h:form>
+
+		<p:dialog widgetVar="dialogoVoucher" closable="false"
+			resizable="false" modal="true" appendTo="@(body)" position="60,10"
+			style="overflow: hidden !important;font-size:15px;">
+			<h:form id="formVoucher">
+				<p:focus for="disponibilizado" />
+				<p:panel
+					header="Edição de vouchers - Disponível: #{detalhe_A.saldoDisponivel} vouchers">
+					<p:wizard widgetVar="wiz" flowListener="#{detalhe_A.onFlowProcess}"
+						width="40%" style="overflow: hidden !important;">
+						<p:tab id="tab1" title="Dados Base">
+							<h:panelGrid id="p1" columns="4">
+								<h:outputLabel value="Disponibilizado" />
+								<p:outputLabel value="Livres" />
+								<p:outputLabel value="Agendados" />
+								<p:outputLabel value="Saldo" />
+
+								<p:inputNumber decimalPlaces="0"
+									value="#{detalhe_A.mDA.disponibilizado}" id="disponibilizado"
+									minValue="0" maxValue="#{detalhe_A.saldoDisponivel}"
+									emptyValue="0" symbol=" disponível(is)" symbolPosition="s"
+									size="15"
+									title="informe aqui quantos vouchers disponibilizará para seus clientes"
+									required="true"
+									requiredMessage="É preciso informar a quantidade de vouchers que disponibilizará para seus clientes!!!"
+									validatorMessage="quantiade mínima é  '50'">
+									<f:validateLongRange minimum="50" />
+								</p:inputNumber>
+								<p:inputNumber decimalPlaces="0" value="#{detalhe_A.mDA.livre}"
+									id="livre" minValue="0" maxValue="5000" emptyValue="0"
+									symbol=" livres" symbolPosition="s" size="15" readonly="true">
+								</p:inputNumber>
+								<p:inputNumber decimalPlaces="0"
+									value="#{detalhe_A.mDA.agendado}" id="agendado1" minValue="0"
+									maxValue="5000" emptyValue="0" symbol=" livres"
+									symbolPosition="s" size="15" readonly="true">
+								</p:inputNumber>
+								<p:inputNumber decimalPlaces="0" value="#{detalhe_A.mDA.saldo}"
+									id="saldo" minValue="0" maxValue="5000" emptyValue="0"
+									symbol=" livres" symbolPosition="s" size="15" readonly="true">
+								</p:inputNumber>
+							</h:panelGrid>
+							<h:panelGrid id="p2" columns="5">
+								<p:outputLabel value="Valor da unidade" />
+								<h:outputLabel value="Agendado?" />
+								<h:outputLabel value="Início" />
+								<h:outputLabel value="Término" />
+
+								<h:outputLabel value="Horário Máximo" />
+
+								<p:inputNumber value="#{detalhe_A.mDA.valor}"
+									id="valordaUnidade" symbol="R$ " symbolPosition="p"
+									decimalSeparator="," thousandSeparator="." size="20"
+									title="informe o valor de cada Voucher a ser cedido"
+									required="true" requiredMessage="Informe o Valor da Unidade!!!"
+									validatorMessage="Valor Mínimo para Valor da Unidade  é '0'">
+									<f:validateLongRange minimum="1" />
+								</p:inputNumber>
+								<p:selectOneRadio id="agendado"
+									value="#{detalhe_A.mDA.isAgendado}" columns="5"
+									converter="omnifaces.SelectItemsConverter">
+									<f:selectItems value="#{detalhe_A.listaSN}" var="c"
+										itemLabel="#{c.abrev}" itemValue="#{c}" />
+								</p:selectOneRadio>
+								<p:calendar id="inicio" size="15" maxlength="15"
+									mask="99/99/9999" value="#{detalhe_A.mDA.inicio}"
+									required="true"
+									requiredMessage="Data de Início deve ser informada"
+									locale="pt_BR" navigator="true" pattern="yyyy-MMM-dd">
+									<f:convertDateTime pattern="dd/MM/yyyy" dateStyle="full"
+										type="both" timezone="GMT+3" />
+								</p:calendar>
+								<p:calendar id="terminio" size="15" maxlength="15"
+									mask="99/99/9999" value="#{detalhe_A.mDA.fim}" required="true"
+									requiredMessage="Data de Término deve ser informada"
+									locale="pt_BR" navigator="true" pattern="yyyy-MMM-dd">
+									<f:convertDateTime pattern="dd/MM/yyyy" dateStyle="full"
+										type="both" timezone="GMT+3" />
+
+								</p:calendar>
+
+
+								<pe:timePicker
+									value="#{detalhe_A.mDA.horarioMaximoAgendamentodoDia}"
+									mode="popup" widgetVar="popupTimeWidget"
+									label="Popup time picker" size="50" />
+							</h:panelGrid>
+
+							<p:panel id="p3" columns="1">
+								<h:outputLabel value="escolha os dias disponíveis" />
+
+								<p:selectManyCheckbox id="checkbox"
+									value="#{detalhe_A.diasEscolhidos}" layout="responsive"
+									columns="7">
+
+									<f:selectItems value="#{detalhe_A.lDiasSemana}" var="dias"
+										itemLabel="#{dias.label}" itemValue="#{dias}" />
+								</p:selectManyCheckbox>
+							</p:panel>
+						</p:tab>
+
+						<p:tab id="tab2" title="Regulamento">
+							<p:panel id="p4" header="Regulamento">
+								<h:outputLabel value="Digite seu regulamento" />
+								<p:editor id="editor" widgetVar="editorWidget"
+									value="#{detalhe_A.mDA.regulamento}" width="670" height="200">
+									
+								</p:editor>
+							</p:panel>
+						</p:tab>
+
+						<p:tab id="tab3" title="Imagem">
+							<p:panel id="p5" header="Imagem">
+								<p:outputLabel for="upload" value="buscar e carregar  foto:" />
+								<p:fileUpload id="upload" mode="advanced" auto="true"
+									style="font-size:15px;width:490px;" update="foto"
+									fileUploadListener="#{detalhe_A.upload}" allowTypes="/(\.|\/)(#{detalhe_A.tipoDeImagem})$/">
+								</p:fileUpload>
+
+								<p:graphicImage id="foto" value="#{imagensjsfController.image}"
+								style="max-width:90px;
+    						max-height:80px;
+    							width: auto;
+    						height: auto;">
+									<f:param name="caminho"
+										value="#{detalhe_A.mDA.caminhoDaImagem}" />
+								</p:graphicImage>
+							</p:panel>
+						</p:tab>
+
+						<p:tab id="tab4" title="Confirmação">
+							<p:panel header="Confirmação" columns="2">
+								<p:commandButton value="Gravar"
+									oncomplete="PF('wiz').loadStep('tab1',false)"
+									actionListener="#{detalhe_A.merge()}"
+									update="
+									mensagens :formTemplate:formListaVoucher:tabelaVoucher
+									:formTemplate:formVoucher"
+									process="@this" />
+								<p:commandButton value="cancelar()"
+									oncomplete="PF('wiz').loadStep('tab1',false)"
+									actionListener="#{detalhe_A.cancelar()}"
+									update="
+									mensagens :formTemplate:formListaVoucher:tabelaVoucher"
+									process="@this" />
+
+							</p:panel>
+
+						</p:tab>
+					</p:wizard>
+				</p:panel>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>

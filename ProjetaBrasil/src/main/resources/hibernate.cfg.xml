@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+	<session-factory>
+
+		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+
+		<property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/ProjetaBrasil</property> 
+			<property name="hibernate.connection.username">postgres</property> <property 
+			name="hibernate.connection.password">p2a3u0l9</property> 
+
+
+		<!-- <property name="hibernate.connection.url">jdbc:postgresql://node126887-projetabrasil.jelasticlw.com.br/ProjetaBrasil </property> 
+		<property name="hibernate.connection.url">jdbc:postgresql://179.188.20.241:5432/ProjetaBrasil</property> 
+													   
+			
+		<property name="hibernate.connection.username">webadmin</property>
+		<property name="hibernate.connection.password">pMOrtIm2tF</property>-->
+
+
+		<property name="hibernate.c3p0.min_size">5</property>
+		<property name="hibernate.c3p0.max_size">20</property>
+		<property name="hibernate.c3p0.timeout">300</property>
+		<property name="hibernate.c3p0.max_statements">50</property>
+		<property name="hibernate.c3p0.idle_test_period">3000</property>
+
+		<!-- Pool de Conexões -->
+		<property name="connection.pool_size">1</property>
+
+		<!-- Gerenciamento do Contexto das Sessões -->
+		<property name="current_session_context_class">thread</property>
+
+
+
+
+		<!-- Cache de Segundo Nível -->
+		<property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
+
+		<!-- Mostra as SQLs Geradas -->
+		<property name="show_sql">true</property>
+
+		<!-- Cria as tabelas do banco de dados -->
+		<property name="hbm2ddl.auto">update</property>
+		<property name="hibernate.temp.use_jdbc_metadata_defaults">false</property>
+
+		<!-- Mapeamento das entidades -->
+		<mapping class="br.com.projetabrasil.model.entities.Ponto" />
+		<mapping
+			class="br.com.projetabrasil.model.entities.Pessoa_Enum_Aux_Perfil_Pessoa" />
+		<mapping class="br.com.projetabrasil.model.entities.Pessoa" />
+		<mapping class="br.com.projetabrasil.model.entities.Pais" />
+		<mapping class="br.com.projetabrasil.model.entities.Estado" />
+		<mapping class="br.com.projetabrasil.model.entities.Cidade" />
+		<mapping class="br.com.projetabrasil.model.entities.Logradouro" />
+		<mapping class="br.com.projetabrasil.model.entities.Bairro" />
+		<mapping class="br.com.projetabrasil.model.entities.Endereco" />
+		<mapping class="br.com.projetabrasil.model.entities.Pessoa_Vinculo" />
+		<mapping class="br.com.projetabrasil.model.entities.Ponto_Movimento" />
+		<mapping class="br.com.projetabrasil.model.entities.Usuario" />
+		<mapping class="br.com.projetabrasil.model.entities.Combo_Detalhe" />
+		<mapping class="br.com.projetabrasil.model.entities.Combo_Mestre" />
+		<mapping class="br.com.projetabrasil.model.entities.Item_de_Movimento" />
+		<mapping class="br.com.projetabrasil.model.entities.Movimento_Mestre" />
+		<mapping class="br.com.projetabrasil.model.entities.Movimento_Detalhe" />
+		<mapping class="br.com.projetabrasil.model.entities.Movimento_Detalhe_A" />
+		<mapping
+			class="br.com.projetabrasil.model.entities.Movimento_Detalhe_Dias_Disponiveis" />
+		<mapping class="br.com.projetabrasil.model.entities.Agendamento" />
+		<mapping class="br.com.projetabrasil.model.entities.QRCode" />
+	</session-factory>
+
+</hibernate-configuration>

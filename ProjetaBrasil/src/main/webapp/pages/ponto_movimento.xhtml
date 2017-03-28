@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	template="/templates/template.xhtml"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<h:head>
+		<!-- <h:outputStylesheet library="css" name="clubefidelidade.css" /> -->
+	</h:head>
+
+	<ui:define name="conteudo">
+	
+	
+	<div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card card-pessoas">
+                    <h1><p:outputLabel value="Listagem de #{autenticacaojsfController.perfilLogado.paginaAtual.descricao2}"/></h1>
+                    
+	
+	
+		<h:form id="formlista"
+			update="buttonpontuar :formTemplate:formPontuar:painelPontuar">
+			
+			<p:commandButton id="buttonpontuar"
+							value="#{ponto_mov.tipoMovimentacao.acao}" process="@this"
+							actionListener="#{ponto_mov.novo()}"
+							update=":formTemplate:formPontuar:painelPontuar"
+							styleClass="btao-pessoas"/>
+
+			
+				<p:dataTable id="tabela" emptyMessage="Sem Registros" resizableColumns="true"
+					value="#{ponto_mov.pontos_Mov}" paginator="true" rows="15"
+					var="registro" styleClass="tabela-pessoas">
+
+
+					<p:column headerText="Cliente" styleClass="geral-col-pessoas">
+						<c:set var="descr" value="#{registro.id_pessoa_cliente.descricao}" />
+						<p:commandLink id="descricao" outcome="#"
+							actionListener="#{ponto_mov.listarHistorico(registro.id_pessoa_cliente)}"
+							update=":formTemplate:formHistorico"
+							value="#{fn:substring(descr,0,20)}">
+							<f:param name="historico" value="registro" />
+						</p:commandLink>
+
+					</p:column>
+
+					<p:column headerText="Tipo" styleClass="geral-col-pessoas">
+						<c:set var="descrPont" value="#{registro.id_ponto.descricao}" />
+						<h:outputText id="descrPontOut"
+							update=":formTemplate:formHistorico"
+							value="#{fn:substring(descrPont,0,20)}">
+						</h:outputText>
+					</p:column>
+					
+					<p:column headerText="Valor" styleClass="geral-col-pessoas">
+						<h:outputText value="#{registro.valoraPontuar}" />
+					</p:column>
+					
+					<p:column headerText="Pontos">
+						<h:outputText value="#{registro.pontosAtingidos}" />
+					</p:column>
+					
+					<p:column id="colAtualizacao" headerText="Data" styleClass="geral-col-pessoas">
+						<h:outputText id="atualizacao"
+							value="#{registro.ultimaAtualizacao.time}">
+							<f:convertDateTime locale="pt_BR" dateStyle="long" type="both"
+								pattern="dd/MM/yyyy HH:mm:ss" />
+						</h:outputText>
+					</p:column>
+					
+					<p:column headerText="Validade" styleClass="geral-col-pessoas">
+						<h:outputText value="#{registro.validade}">
+							<f:convertDateTime locale="pt_BR" dateStyle="long" type="both"
+								pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Movimento" styleClass="geral-col-pessoas">
+						<h:outputText value="#{registro.creditaDebita.descricao}"
+							style="width:5%">
+
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Responsavel" styleClass="geral-col-pessoas">
+						<c:set var="resp" value="#{registro.id_Pessoa_Registro.descricao}" />
+						<h:outputText value="#{fn:substringBefore(resp,' ')}">
+
+						</h:outputText>
+					</p:column>
+				</p:dataTable>
+			
+		</h:form>
+		        </div>
+            </div>
+        </div>
+		
+	
+		
+		<!-- Historico -->
+		<p:dialog widgetVar="dialogoHistorico" closable="true"
+			resizable="false" modal="true" appendTo="@(body)" styleClass="dialog-ponto-mov"
+			header="Histórico" dynamic="true" responsive="true">
+			
+			
+		<div class="div-dialog-tab-ponto-mov">
+
+			<h:form id="formHistorico">
+
+				<h:panelGrid id="painelHistorico">
+
+					<!-- <p:panel header="Histórico"> -->
+						<p:dataTable id="tabelaHistorico" emptyMessage="" resizableColumns="true"
+							value="#{ponto_mov.historico}" paginator="true" rows="7"
+							var="registro2" styleClass="tabela-dialog-ponto-mov">
+							
+							<f:facet name="header">
+								<p:outputLabel
+									value="Cliente: #{ponto_mov.clienteHistorico.descricao} - Pontos:  " />
+
+								<p:outputLabel value="#{ponto_mov.pontoSoma}">
+									<f:convertNumber type="number" groupingUsed="true"
+										minFractionDigits="2" pattern="#0.00" />
+									<p:outputLabel value=" $Leais" />
+
+								</p:outputLabel>
+							</f:facet>
+
+							<p:column headerText="Tipo" >
+								<c:set var="descrPont" value="#{registro2.id_ponto.descricao}" />
+								<h:outputText id="descrPontOut"
+									update=":formTemplate:formHistorico"
+									value="#{fn:substring(descrPont,0,20)}" style="width:5%">
+								</h:outputText>
+							</p:column>
+
+
+							<p:column headerText="Valor pontuado" >
+								<h:outputText value="#{registro2.valorUnidadeDevolucao}"
+									style="width:5%" />
+							</p:column>
+							<p:column headerText="Pontos Atingidos" >
+								<h:outputText value="#{registro2.pontosAtingidos}"
+									style="width:10%" />
+							</p:column>
+							<p:column headerText="Data" >
+								<h:outputText value="#{registro2.ultimaAtualizacao.time}">
+									<f:convertDateTime locale="pt_BR" type="both" timeOnlye="true"
+										pattern="dd/MM/yyyy HH:mm:ss" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Validade" >
+								<h:outputText value="#{registro2.validade.time}">
+									<f:convertDateTime locale="pt_BR" type="both" dateStyle="long"
+										pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
+
+							<p:column headerText="Movimento">
+								<h:outputText value="#{registro2.creditaDebita.descricao}"
+									style="width:3%">
+
+								</h:outputText>
+							</p:column>
+
+							<p:column headerText="Responsavel">
+								<c:set var="resp"
+									value="#{registro2.id_Pessoa_Registro.descricao}" />
+								<h:outputText value="#{fn:substringBefore(resp,' ')}"
+									style="width:3%">
+
+								</h:outputText>
+							</p:column>
+						</p:dataTable>
+					<!-- </p:panel> -->
+
+				</h:panelGrid>
+				<h:panelGrid columns="2" cellpadding="5">
+					<p:commandButton value="Sair" process="@form"
+						oncomplete="PF('dialogoHistorico').hide();">
+					</p:commandButton>
+				</h:panelGrid>
+			</h:form>
+			
+		</div>
+       
+			<!-- FIM Historico -->
+			
+			
+			
+		</p:dialog>
+		<p:dialog header="Movimento de pontuações" widgetVar="dialogoCadastro"
+			resizable="false" modal="true" closable="false" appendTo="@(body)"
+			visible="false" position="60,10">
+			<h:form id="formCadastro">
+				<p:focus for="descricao" />
+				<h:panelGrid id="painelCadastro_1">
+					<h:panelGrid id="painelCadastro_11">
+
+						<p:outputLabel value="#{ponto_mov.pessoaConfig.labelNome}"
+							rendered="#{ponto_mov.pessoaConfig.labelNomeRenderiza}" />
+						<p:inputText id="descricao" size="67" maxlength="90"
+							value="#{ponto_mov.pessoaPontuada.descricao}"
+							required="#{ponto_mov.pessoaConfig.labelNomeObrigatorio}"
+							requiredMessage="#{ponto_mov.pessoaConfig.labelNomeRequiredMessage}"
+							rendered="#{ponto_mov.pessoaConfig.labelNomeRenderiza}"
+							validatorMessage="O minimo de caracteres para nome são  '5'"
+							placeholder="Mínimo 5 Letras">
+							<f:validateLength minimum="5" />
+						</p:inputText>
+					</h:panelGrid>
+					<h:panelGrid id="painelCadastro_12">
+						<p:outputLabel value="#{ponto_mov.pessoaConfig.labelFantasia}"
+							rendered="#{ponto_mov.pessoaConfig.labelFantasiaRenderiza}" />
+						<p:inputText size="67" maxlength="90"
+							value="#{ponto_mov.pessoaPontuada.fantasia_Apelido}"
+							required="#{ponto_mov.pessoaConfig.labelFantasiaObrigatorio}"
+							requiredMessage="#{ponto_mov.pessoaConfig.labelFantasiaRequiredMessage}"
+							rendered="#{ponto_mov.pessoaConfig.labelFantasiaRenderiza}"
+							validatorMessage="O minimo de caracteres para nome são  '5'"
+							placeholder="Mínimo 5 Letras">
+							<f:validateLength minimum="5" />
+						</p:inputText>
+					</h:panelGrid>
+
+					<h:panelGrid id="painelCadastro_13">
+						<p:outputLabel value="#{ponto_mov.pessoaConfig.labelSexo}"
+							rendered="#{ponto_mov.pessoaConfig.labelSexoRenderiza}" />
+						<p:selectOneRadio id="perfil"
+							value="#{ponto_mov.pessoaPontuada.sexo}" columns="5"
+							converter="omnifaces.SelectItemsConverter"
+							rendered="#{ponto_mov.pessoaConfig.labelSexoRenderiza}">
+							<f:selectItems value="#{ponto_mov.pessoaConfig.listaSexo}"
+								var="c" itemLabel="#{c.abrev}" itemValue="#{c}" />
+							<p:ajax event="change" process="@this"
+								oncomplete="$(function(){PrimeFaces.focus('formTemplate:formCadastro:calendar');});" />
+						</p:selectOneRadio>
+					</h:panelGrid>
+				</h:panelGrid>
+
+				<h:panelGrid columns="2" id="painelCadastro_2">
+					<h:panelGrid id="painelCadastro_21">
+						<p:outputLabel value="Data de nascimento"
+							rendered="#{ponto_mov.pessoaConfig.labelDataNascimentoRenderiza}" />
+						<p:calendar id="calendar" size="30" maxlength="15"
+							mask="99/99/9999"
+							value="#{ponto_mov.pessoaPontuada.dataNascimento}"
+							required="#{ponto_mov.pessoaConfig.labelDataNascimentoObrigatorio}"
+							requiredMessage="#{ponto_mov.pessoaConfig.labelDataNascimentoRequiredMessage}"
+							rendered="#{ponto_mov.pessoaConfig.labelDataNascimentoRenderiza}">
+							<f:convertDateTime locale="pt_BR" dateStyle="long" type="both"
+								pattern="dd/MM/yyyy" />
+						</p:calendar>
+					</h:panelGrid>
+					<h:panelGrid id="painelCadastro_22">
+						<p:outputLabel value="#{ponto_mov.pessoaConfig.labelcpf_Cnpj}"
+							rendered="#{ponto_mov.pessoaConfig.labelcpf_CnpjRenderiza}" />
+						<p:outputLabel id="identificador" size="30" maxlength="15"
+							value="#{ponto_mov.pessoaPontuada.cpf_Cnpj}"
+							converter="mascaraTelefoneConverter"
+							rendered="#{ponto_mov.pessoaConfig.labelcpf_CnpjRenderiza}">
+						</p:outputLabel>
+					</h:panelGrid>
+				</h:panelGrid>
+				<h:panelGrid columns="2" id="painelCadastro_3">
+					<h:panelGrid id="painelCadastro_32">
+						<p:outputLabel for="fone_1"
+							value="#{ponto_mov.pessoaConfig.labelfone_1}"
+							rendered="#{ponto_mov.pessoaConfig.labelfone_1Renderiza}" />
+						<p:inputMask mask="#{ponto_mov.pessoaConfig.maskTel}" id="fone_1"
+							size="30" maxlength="15"
+							value="#{ponto_mov.pessoaPontuada.fone_1}"
+							required="#{ponto_mov.pessoaConfig.labelfone_1Obrigatorio}"
+							requiredMessage="#{ponto_mov.pessoaConfig.labelfone_1RequiredMessage}"
+							rendered="#{ponto_mov.pessoaConfig.labelfone_1Renderiza}">
+						</p:inputMask>
+					</h:panelGrid>
+				</h:panelGrid>
+
+				<h:panelGrid columns="2" id="painelCadastro_5">
+					<h:panelGrid id="painelCadastro_51">
+						<p:outputLabel value="#{ponto_mov.pessoaConfig.labelemail}"
+							rendered="#{ponto_mov.pessoaConfig.labelemailRenderiza}" />
+						<p:inputText size="67" maxlength="90"
+							value="#{ponto_mov.pessoaPontuada.email}"
+							required="#{ponto_mov.pessoaConfig.labelemailObrigatorio}"
+							requiredMessage="#{ponto_mov.pessoaConfig.labelemailRequiredMessage}"
+							rendered="#{ponto_mov.pessoaConfig.labelemailRenderiza}">
+						</p:inputText>
+					</h:panelGrid>
+				</h:panelGrid>
+				<h:panelGrid columns="2" id="painelCadastro_7">
+					<p:panelGrid>
+						<p:commandButton id="buttonSalvar" value="Salvar" process="@form"
+							actionListener="#{ponto_mov.pessoaMerge(false,false)}"
+							update="formTemplate:formPontuar" />
+					</p:panelGrid>
+					<p:panelGrid>
+						<p:commandButton value="Cancelar"
+							oncomplete="PF('dialogoCadastro').hide();" />
+					</p:panelGrid>
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+		<p:dialog widgetVar="dialogoPontuar" closable="false"
+			resizable="false" modal="true" appendTo="@(body)">
+			<h:form id="formPontuar">
+
+				<h:panelGrid id="painelPontuar">
+					<h:outputLabel value="Ação: #{ponto_mov.tipoMovimentacao.acao} "
+						style="color:#{ponto_mov.tipoMovimentacao.cor};font-size:15px;font-weight:900;" />
+					<h:outputLabel value="Escolha CPF ou CNPJ" />
+					<p:focus for="identificador" />
+					<p:selectOneRadio id="perfil"
+						value="#{ponto_mov.tipoIdentificador}" columns="5"
+						converter="omnifaces.SelectItemsConverter">
+						<f:selectItems value="#{ponto_mov.listaTipodeIdentificadores}"
+							var="c" itemLabel="#{c.descricao}" itemValue="#{c}" />
+						<p:ajax event="change" update="identificador" process="@form"
+							oncomplete="$(function(){PrimeFaces.focus('formTemplate:formPontuar:identificador');});" />
+					</p:selectOneRadio>
+
+					<p:outputLabel value="Informe CPF/CNPJ" />
+					<p:inputMask id="identificador" size="30" maxlength="20"
+						value="#{ponto_mov.pessoaPontuada.cpf_Cnpj}" required="true"
+						requiredMessage="É preciso informar a identificação!!!"
+						mask="#{ponto_mov.tipoIdentificador.mask}">
+						<p:ajax event="blur" process="@this"
+							listener="#{ponto_mov.verificaPessoa}"
+							update=":formTemplate:formCadastro   valPontuacao soma valaPontuar
+						 pessoa_cliente validade" />
+
+					</p:inputMask>
+
+					<h:outputLabel value="Escolha o Tipo de Pontuação " />
+
+					<p:selectOneMenu id="tipoPontuacao" value="#{ponto_mov.ponto}"
+						converter="omnifaces.SelectItemsConverter" style="width:250px"
+						panelStyle="width:250px"
+						rendered="#{!ponto_mov.tipoMovimentacao.visualizadebito}">
+						<f:selectItems value="#{ponto_mov.listaPonto}" var="d"
+							itemValue="#{d}" itemLabel="#{d.descricao}" />
+
+
+						<p:ajax event="change" process="@this"
+							listener="#{ponto_mov.configPonto_Movimento()}"
+							update="valPontuacao soma valaPontuar
+						 pessoa_cliente validade"
+							oncomplete="$(function(){PrimeFaces.focus('formTemplate:formPontuar:valPontuacao');});" />
+
+					</p:selectOneMenu>
+
+
+
+
+
+					<h:outputLabel value="Pontos do Cliente: "
+						style="color:#0000FF;font-size:15px;font-weight:900;" />
+
+
+
+					<p:outputLabel id="soma" value="#{ponto_mov.pontoSoma}">
+						<f:convertNumber type="number" groupingUsed="true"
+							minFractionDigits="2" pattern="#0.00" />
+						<p:outputLabel value=" $Leais" />
+
+					</p:outputLabel>
+
+
+
+
+
+					<p:outputLabel id="valPontuacao"
+						value="Valor do Ponto: R$ #{ponto_mov.ponto_movimento.valordaUnidade}"
+						style="color:blue;font-size:15px;font-weight:900;"
+						rendered="#{!ponto_mov.tipoMovimentacao.visualizadebito}" />
+					<p:outputLabel value="Informe o valor a Pontuar"
+						rendered="#{!ponto_mov.tipoMovimentacao.visualizadebito}" />
+					<p:inputNumber id="valaPontuar" size="30" maxlength="20"
+						value="#{ponto_mov.ponto_movimento.valoraPontuar}" required="true"
+						requiredMessage="É preciso informar pontuação!!!"
+						rendered="#{!ponto_mov.tipoMovimentacao.visualizadebito}">
+						<f:validateLongRange minimum="0" />
+					</p:inputNumber>
+					<p:outputLabel
+						value="Pontos a #{ponto_mov.ponto_movimento.creditaDebita.acao.toLowerCase()}"
+						rendered="#{ponto_mov.tipoMovimentacao.visualizadebito}" />
+					<p:inputNumber decimalPlaces="0" id="pontosAtingidos"
+						symbol="Leal " symbolPosition="p" emptyValue="0" size="30"
+						maxlength="20"
+						value="#{ponto_mov.ponto_movimento.pontosAtingidos}"
+						required="true" requiredMessage="É preciso informar pontuação!!!"
+						rendered="#{ponto_mov.tipoMovimentacao.visualizadebito}">
+
+					</p:inputNumber>
+					<p:outputLabel id="pessoa_cliente"
+						value="Cliente: #{ponto_mov.pessoaPontuada.descricao}"
+						style="color:blue;font-size:15px;font-weight:900;" />
+					<h:outputLabel id="validade" value="validade:"
+						rendered="#{ponto_mov.ponto_movimento.creditaDebita.visualizaValidade}"
+						style="color:#{ponto_mov.ponto_movimento.creditaDebita.cor};font-size:15px;font-weight:900;" />
+					<p:outputLabel value="#{ponto_mov.ponto_movimento.validade.time}"
+						rendered="#{ponto_mov.ponto_movimento.creditaDebita.visualizaValidade}"
+						style="color:#{ponto_mov.ponto_movimento.creditaDebita.cor};font-size:15px;font-weight:900;">
+						<f:convertDateTime locale="pt_BR" type="both" dateStyle="long"
+							pattern="dd/MM/yyyy" />
+					</p:outputLabel>
+				</h:panelGrid>
+				<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+					<p:commandButton value="Validar"
+						actionListener="#{ponto_mov.merge()}" process="@form"
+						update=":mensagens :formTemplate:formPontuar :formTemplate:formlista:tabela">
+					</p:commandButton>
+					<p:commandButton value="Cancelar"
+						oncomplete="PF('dialogoPontuar').hide();">
+					</p:commandButton>
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>

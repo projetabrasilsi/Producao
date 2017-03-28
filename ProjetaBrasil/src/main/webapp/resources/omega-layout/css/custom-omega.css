@@ -1,0 +1,303 @@
+/*----Sidebar----*/
+.sidebar .username label{
+	cursor: pointer;
+}
+.radio-perfil-sidebar{
+	padding: 20px;
+	
+}
+.radio-perfil-sidebar .ui-selectoneradio > tbody > tr > td >label{
+	color: #ffffff;
+	cursor: pointer;
+}
+.radio-perfil-sidebar .ui-selectoneradio > tbody > tr > td >label:hover{
+	color: #39BC17;
+}
+
+.sidebar .ui-panelmenu-content{
+ 	background: none;
+ 	width: 250px;
+ 	border: none;
+}
+
+.sidebar .ui-panelmenu-header{
+ 	background: none;
+ 	border: none;
+ 	border-radius: 0px;
+ 	padding-top: 7px;
+ 	padding-bottom: 7px;
+}
+.sidebar .ui-panelmenu-panel{
+	 border-top: 1px solid #4e5159;	
+}
+.sidebar .ui-panelmenu-panel:last-child{
+	border-bottom: 1px solid #4e5159;
+}
+.sidebar .ui-panelmenu-panel > .ui-panelmenu-content>ul>li:last-child>a{
+	border-bottom: none !important;
+}
+.sidebar .ui-panelmenu-panel > .ui-panelmenu-content>ul>li:first-child>a{
+	border-top: none !important;
+}
+.sidebar ul a:hover{
+	color: #39BC17 !important;
+}
+.sidebar ul{
+ 	background: none;
+ 	width: 250px; 
+ }
+
+ .sidebar .ui-state-active{
+ 	background: rgba(0,0,0,0.1) !important;
+ }
+ .sidebar .ui-panelmenu-header a{
+ 	color: #ffffff;
+ 	background: none !important;
+ }
+
+ .sidebar .ui-panelmenu-panel >h3> a{
+   -moz-transition: padding-left 0.3s;
+        -o-transition: padding-left 0.3s;
+        -webkit-transition: padding-left 0.3s;
+        transition: padding-left 0.3s;
+  }
+
+ .sidebar .ui-panelmenu-panel >h3> a:hover{
+ 	padding-left: 33px !important;
+ 	color: #39BC17 !important;
+ }
+ .sidebar .ui-panelmenu-panel > .ui-panelmenu-content > .ui-menu-list {
+ 	overflow: hidden !important;
+ }
+ .sidebar .ui-panelmenu-panel > .ui-panelmenu-content > .ui-menu-list > li> ul >li > a{
+ 	padding-left: 25px !important;
+ }
+ .sidebar .ui-panelmenu-panel > .ui-panelmenu-content > .ui-menu-list > li> ul >li > a:hover{
+ 	padding-left: 27px !important;
+ }
+.sidebar .ui-panelmenu-panel > .ui-panelmenu-content > .ui-menu-list > li > a span{
+ 	padding-left: 15px;
+ }
+ .sidebar .ui-panelmenu-panel > .ui-panelmenu-content > .ui-menu-list > li > a{
+ 	padding-left: 21px;
+ }
+ .sidebar .ui-panelmenu-panel > .ui-panelmenu-content > .ui-menu-list > li > a:hover{
+ 	padding-left: 23px;
+ }
+ 
+
+ .wrapper .sidebar ul li > a:hover{
+	background: none;
+ } 
+ .ui-button-text{
+ 	margin-left: -10px !important;
+ }
+
+
+
+ /*----Contedudo----*/
+ .cont{
+ 	padding-top: 40px !important;
+ }
+ 
+ /*--Pessoas--*/
+ .card-pessoas h1{
+ 	margin-bottom: 20px;
+ 	color: #999;
+ 	padding-bottom: 10px;
+ }
+ .card-pessoas h1 label{
+ 	font-size: 1.1em;	
+ }
+ .btao-pessoas span{
+	padding: 6px 20px 6px 30px !important;
+ }
+ .tabela-pessoas{
+ 	margin-top: 10px;
+ }
+ .geral-col-pessoas{
+ 	width: 200px !important;
+ }
+ .edit-col-pessoas{
+ 	width: 50px !important;
+ }
+ .btao-edit-col-pessoas{
+ 	width: 50px;
+ }
+ .cDialog-edit-pessoas .ui-widget-header{
+ 	margin: 0px;
+ 	padding: 0px;
+ }
+.cDialog-edit-pessoas .ui-widget-header .ui-dialog-title{
+	margin: 15px;
+ 	padding: 0px;
+ 	color: #999;
+}
+.cDialog-edit-pessoas .ui-widget-header .ui-dialog-titlebar-close{
+	margin: 15px;
+}
+.cDialog-edit-pessoas .ui-dialog-content span{
+	color: #af0004;
+	
+}
+.cDialog-edit-pessoas .ui-confirm-dialog-message{
+	margin: 0px;
+	font-weight: 900;
+}
+.cDialog-edit-pessoas .ui-dialog-footer{
+	padding-left: 10px;
+}
+.cDialog-edit-pessoas .ui-dialog-footer > button{
+	padding: 3px 6px 3px 6px ;
+}
+.cDialog-edit-pessoas .ui-dialog-footer .ui-icon-check,
+.cDialog-edit-pessoas .ui-dialog-footer .ui-icon-close{
+	font-size: 1.2em;
+}
+/*modal-cpf-pessoas*/
+.dialog-cpf-pessoas{
+	max-width: 305px;
+	margin:10px;
+	padding:15px;
+}
+.dialog-cpf-pessoas .ui-widget-header{
+	padding-left:15px;
+	margin:0px;
+}
+.dialog-cpf-pessoas .ui-widget-header span{
+	color: #999;
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 10px;
+}
+.input-cpf-pessoas{
+	max-width: 120px;
+}
+.dialog-cpf-pessoas button{
+	margin-top:10px;
+	padding: 3px 10px 3px 20px ;
+}
+/*modal-Infos-pessoas*/
+.dialog-info-pessoas{
+	padding:10px;
+	margin: 10px;
+	max-width: 410px;
+	max-height: 700px;
+	overflow: auto !important;
+}
+.div-conteudo-info-pessoas{		
+}
+.dialog-info-pessoas .ui-widget-header{
+	padding-left:15px;
+	margin:0px;
+}
+.input-info-nome-pessoas{
+	max-width: 450px;
+	width:100%;
+} 
+.radio-info-sexo-pessoas{
+	margin-top: -10px;
+	margin-bottom: -10px;
+}
+.dialog-info-pessoas .grupo01-info-pessoas{
+	margin-left: -5px !important;	
+}
+.div-cpf-info-pessoas label:first-child{
+	margin-right: 6px;
+	font-weight: 900;
+}
+.input-info-data-pessoas{
+	max-width: 70px;
+} 
+.div-info-tel01-pessoas, .div-info-tel02-pessoas{
+	margin-bottom: -10px;
+}
+.div-info-tel02-pessoas label, .div-info-tel03-pessoas label{
+	color: #999;
+	font-size:0.8em;
+}
+.dialog-info-pessoas button{
+	margin-top:10px;
+	padding: 3px 10px 3px 20px ;
+}
+.dialog-info-pessoas .btao-info-pessoas{
+	margin-left: 10px;
+}
+
+
+/*--Ponto--*/
+/*modal-Infos-ponto*/
+.dialog-info-ponto{
+	padding:10px;
+	margin: 10px;
+	max-width: 500px;
+	max-height: 700px;
+	overflow: auto !important;
+}
+.dialog-info-ponto .ui-widget-header{
+	padding-left:15px;
+	margin:0px;
+}
+.input-info-desc-ponto{
+	max-width: 450px;
+	width:100%;
+}
+.input-info-valor-ponto{
+	max-width: 50px !important;
+	width:100%;
+} 
+
+.dialog-info-ponto button{
+	margin-top:10px;
+	padding: 3px 10px 3px 20px ;
+}
+.btao-info-ponto{
+	margin-left: 10px;
+}
+
+
+/*--Ponto_movimento--*/
+
+/*modal-hitorico-Ponto_movimento*/
+.dialog-ponto-mov{
+	max-width:700px;
+}
+.tabela-dialog-ponto-mov{
+	width:100%;
+}
+
+
+
+
+
+
+
+@media (max-width: 375px) {
+	
+/*modal-Infos-pessoas*/
+.dialog-info-pessoas{
+	padding: 0px;	
+}
+.dialog-info-pessoas .grupo01-info-pessoas{
+	margin-left: -10px !important;	
+}
+
+}
+
+@media (max-width: 346px) {
+/*modal-Infos-pessoas*/	
+.div-dtnsc-info-pessoas{
+	margin-top: -5px;
+	margin-bottom: -5px;
+}
+.dialog-info-pessoas{
+	max-height: 450px;
+}	
+}
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 

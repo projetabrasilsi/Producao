@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	template="/templates/template.xhtml">
+	<h:head>
+		<h:outputStylesheet library="css" name="clubefidelidade.css" />
+	</h:head>
+
+	<ui:define name="conteudo">
+		<h:form id="formlista" style="width:100%;">
+			<p:panel
+				header="Listagem de #{autenticacaojsfController.perfilLogado.paginaAtual.descricao2}"
+				style="width:100%;">
+				<!-- reflow e  ou priority - dá à tabela um formato responsívo -->
+				<p:dataTable id="tabela" emptyMessage="Sem Registros"
+					paginator="true" reflow="true" rows="6" value="#{brinde.itens}"
+					var="registro" style="font-size:12px;" scrollable="true"
+					scrollHeight="250">
+
+					<f:facet name="header">
+						<p:commandButton value="Novo" actionListener="#{brinde.novo()}"
+							update=":formTemplate:formCadastro:painelCadastro
+							:formTemplate:formCadastro"
+							style="width:5%" />
+					</f:facet>
+					<p:column headerText="Descrição" style="width:20%">
+						<h:outputText value="#{registro.descricao}" />
+					</p:column>
+
+					<p:column headerText="quantos pontos cada lealdade?">
+						<h:outputText value="#{registro.ponto} Leal(is)" style="width:20%" />
+					</p:column>
+					<p:column headerText="Foto">						
+						<p:graphicImage id="Fototab" value="#{imagensjsfController.image}"
+						style="max-width:90px;
+    max-height:80px;
+    width: auto;
+    height: auto;">
+						<f:param name="caminho" value="#{registro.caminhodaImagem}" />
+					</p:graphicImage >
+
+					</p:column>
+
+
+
+					<p:column headerText="Editar" style="width:5%">
+						<p:commandButton icon="icon-edit"
+							actionListener="#{brinde.editar}"
+							update=":formTemplate:formCadastro:painelCadastro
+							:formTemplate:formCadastro">
+							<p:confirm header="Confirmação"
+								message="Deseja realmente alterar este registro?"
+								icon="ui-icon-alert" style="width:5%" />
+							<f:attribute name="registroAtual" value="#{registro}" />
+							<f:param name="caminho" value="#{registro.caminhodaImagem}" />
+						</p:commandButton>
+					</p:column>
+					<p:column headerText="Excluir" style="width:5%">
+						<p:commandButton icon="ui-icon-trash"
+							actionListener="#{brinde.excluir}" style="width:80%">
+							<p:confirm header="Confirmação"
+								message="Deseja realmente apagar este registro?"
+								icon="ui-icon-alert"
+								update=":mensagens :formTemplate:formLista:tabela"
+								style="width:5%" />
+							<f:attribute name="registroAtual" value="#{registro}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+				<p:confirmDialog global="true">
+					<p:commandButton value="SIM" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="NÃO" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+			</p:panel>
+		</h:form>
+		<p:dialog
+			header="Formulário de cadastro de - #{autenticacaojsfController.perfilLogado.paginaAtual.descricao2}"
+			widgetVar="dialogoCadastro" resizable="false" modal="true"
+			width="40%" closable="false" appendTo="@(body)" position="60,10">
+			<h:form id="formCadastro">
+				<h:panelGrid id="painelCadastro" columns="2">
+					<p:outputLabel value="Descrição" />
+					<p:outputLabel value="Valor do Ponto" />
+					<p:inputText value="#{brinde.item.descricao}" id="descricao"
+						size="35" required="true" requiredMessage="Informe a descrição">
+					</p:inputText>
+
+
+					<p:inputNumber decimalPlaces="0" value="#{brinde.item.ponto}"
+						id="unidadePorPonto" minValue="0" maxValue="5000" emptyValue="0"
+						symbol="Leal " symbolPosition="p" size="14"
+						title="Informe quantos pontos o cliente precisa atingir para ter este brinde"
+						required="true" requiredMessage="Informe o número de pontos.!!!"
+						validatorMessage="Valor Mínimo para unidade de ponto é '1'">
+						<f:validateLongRange minimum="1" />
+					</p:inputNumber>
+				</h:panelGrid>
+				<h:panelGrid id="pF">
+					<p:outputLabel for="upload" value="buscar e carregar  foto:" />
+					<p:fileUpload id="upload" mode="advanced"
+						fileUploadListener="#{brinde.upload}"
+						update=":mensagens :formTemplate:formCadastro:foto" auto="true"
+						style="font-size:15px;width:490px; " 
+						allowTypes="/(\.|\/)(#{brinde.tipoDeImagem})$/">
+						<p:graphicImage  />
+					</p:fileUpload>
+					<p:graphicImage id="foto" value="#{imagensjsfController.image}"
+					style="max-width:90px;
+    max-height:80px;
+    width: auto;
+    height: auto;">
+						<f:param name="caminho" value="#{brinde.item.caminhodaImagem}" />
+					</p:graphicImage>
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar" process="@form"
+						actionListener="#{brinde.merge()}"
+						update=":mensagens :formTemplate:formlista:tabela :formTemplate:formCadastro:painelCadastro 
+						 :formTemplate:formCadastro:foto" />
+					<p:commandButton value="Cancelar"
+						actionListener="#{brinde.cancelar()}" process="@this" />
+				</h:panelGrid>
+
+
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>

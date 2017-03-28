@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	template="/templates/template.xhtml"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	<ui:define name="conteudo">
+		<h:form id="formLista" style="width:100%;">
+
+
+
+
+
+			<p:panel
+				header="Listagem de #{autenticacaojsfController.perfilLogado.paginaAtual.descricao2}"
+				style="width:100%;">
+				<p:dataTable id="tabela" emptyMessage="" reflow="true"
+					value="#{movimento.mMs}" paginator="true" rows="5" var="registro"
+					style="font-size:12px;">
+					<f:facet name="header">
+						<p:commandButton id="buttonpontuar" value="Novo" process="@this"
+							actionListener="#{movimento.novo()}"
+							update=":formTemplate:formMovimento :formTemplate:formMovimento:p1
+							:formTemplate:formMovimento:p2
+							:formTemplate:formMovimento:p3"
+							style="width:5%">
+						</p:commandButton>
+					</f:facet>
+					<p:column headerText="descricao" style="width:15%">
+						<p:commandLink id="descricao" outcome="#"
+							value="#{registro.descricao}">
+							<f:param name="comboM" value="registro" />
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="Assinante" style="width:10%">
+						<c:set var="ass" value="#{registro.id_Pessoa_Assinante.descricao}" />
+						<h:outputText value="#{fn:substringBefore(ass,' ')}"
+							style="width:5%">
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Total" style="width:10%">
+						<h:outputText id="total" value="R$ #{registro.total}">
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Status" style="width:10%">
+						<h:outputText id="status"
+							value="#{registro.enum_Aux_Status_Movimento.descricao}">
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Status Pagamento" style="width:20%">
+						<h:outputText id="statusPagamento"
+							value="#{registro.enum_Aux_Status_Pagamento.descricao2}">
+						</h:outputText>
+					</p:column>
+
+
+					<p:column headerText="Atualização" style="width:10%">
+						<h:outputText value="#{registro.ultimaAtualizacao.time}">
+							<f:convertDateTime locale="pt_BR" dateStyle="long" type="both"
+								pattern="dd/MM/yyyy HH:mm:ss" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Responsavel" style="width:10%">
+						<c:set var="resp" value="#{registro.id_Pessoa_Registro.descricao}" />
+						<h:outputText value="#{fn:substringBefore(resp,' ')}"
+							style="width:5%">
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Editar">
+						<p:commandButton icon="icon-edit"
+							actionListener="#{movimento.editar}"
+							update=":formTemplate:formMovimento :formTemplate:formMovimento:p1
+							:formTemplate:formMovimento:p2
+							:formTemplate:formMovimento:p3"
+							style="width:80%">
+							<p:confirm header="Confirmação"
+								message="Deseja realmente alterar este registro?"
+								icon="ui-icon-alert" style="width:5%" />
+							<f:attribute name="registroAtual" value="#{registro}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+				<p:confirmDialog global="true">
+					<p:commandButton value="SIM" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="NAO" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+			</p:panel>
+		</h:form>
+
+		<p:dialog widgetVar="dialogoMovimento" closable="false"
+			resizable="false" modal="true" appendTo="@(body)" width="50%"
+			height="60%" position="60,100">
+			<h:form id="formMovimento">
+
+
+
+				<p:focus for="identificador" />
+				<h:panelGrid id="p1" columns="2">
+					<h:outputLabel value="Escolha CPF ou CNPJ" />
+					<p:outputLabel value="Informe CPF/CNPJ" />
+
+					<p:selectOneRadio id="perfil"
+						value="#{movimento.tipoIdentificador}" columns="2"
+						converter="omnifaces.SelectItemsConverter" process="@this">
+						<f:selectItems value="#{movimento.listaTipodeIdentificadores}"
+							var="c" itemLabel="#{c.descricao}" itemValue="#{c}" />
+						<p:ajax event="change" update="identificador cliente"
+							listener="#{movimento.limpadados()}"
+							oncomplete="$(function(){PrimeFaces.focus('formTemplate:formMovimento:identificador');});" />
+					</p:selectOneRadio>
+					<p:inputMask id="identificador" size="30" maxlength="20"
+						value="#{movimento.cpf_Cnpj}"
+						mask="#{movimento.tipoIdentificador.mask}">
+						<p:ajax event="blur" process="@form"
+							listener="#{movimento.verificaPessoa}" update="cliente" />
+
+					</p:inputMask>
+
+				</h:panelGrid>
+				<h:panelGrid id="p2" columns="1">
+					<h:outputLabel value="Cliente" />
+
+					<h:outputLabel id="cliente"
+						value="#{movimento.mM.id_Pessoa_Assinante.descricao}" />
+					<h:outputLabel value="Informe o Combo do Contrato" />
+					<p:selectOneMenu id="tipoCombo" value="#{movimento.cBM}"
+						columns="3" converter="omnifaces.SelectItemsConverter"
+						style="width:420px" panelStyle="width:420px">
+						<f:selectItem itemLabel="selecione um Combo" itemValue="" />
+						<f:selectItems value="#{movimento.cBMs}" var="d" itemValue="#{d}"
+						  
+							itemLabel="#{d.referencia} - #{d.descricao} - R$ #{d.total}" />
+
+						<p:ajax event="change" update="tabelaItens"
+							listener="#{movimento.ajustaComboMestreDetalhe()}"
+							oncomplete="$(function(){PrimeFaces.focus('formTemplate:formMovimento:identificador');});" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<h:panelGrid id="p3">
+					<p:dataTable id="tabelaItens" emptyMessage="" reflow="true"
+						value="#{movimento.mDsTemp}" paginator="true" rows="5"
+						var="registro2" style="font-size:12px;">
+
+						<f:facet name="header">
+							<p:outputLabel value="#{movimento.mM.total}"
+								style="color:blue;font-size:18px;font-weight:900;">
+								<f:convertNumber type="currency" />
+
+							</p:outputLabel>
+						</f:facet>
+						<p:column headerText="descricao" style="width:15%">
+							<p:commandLink id="descricao" outcome="#"
+								value="#{registro2.descricao}">
+								<f:param name="comboM" value="registro" />
+							</p:commandLink>
+						</p:column>
+						<p:column headerText="Qtde" style="width:10%">
+							<h:outputText id="Qtde1" value="#{registro2.qtde}">
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Total" style="width:10%">
+							<p:outputLabel id="total" value="#{registro2.total}">
+								<f:convertNumber type="currency" />
+
+
+							</p:outputLabel>
+						</p:column>
+
+						<p:column headerText="Atualização" style="width:10%">
+							<h:outputText value="#{registro2.ultimaAtualizacao.time}">
+								<f:convertDateTime locale="pt_BR" dateStyle="long" type="both"
+									pattern="dd/MM/yyyy HH:mm:ss" />
+							</h:outputText>
+						</p:column>
+					</p:dataTable>
+				</h:panelGrid>
+				<h:panelGrid id="p4" columns="3">
+					<p:commandButton value="Pagamento" process="@form"
+						style="border: 2px solid #6495ED;margin-top: 25px;float: left;"						
+						actionListener="#{movimento.payPal}"
+						update="mensagens :formTemplate:formLista:tabela">
+						<f:attribute name="paginaAtual" value="PAGINAPAGAMENTO" />
+					</p:commandButton>
+					<p:commandButton value="Confirma Contrato" process="@form"
+						style="border: 2px solid #6495ED;margin-top: 25px;float: left;"
+						actionListener="#{movimento.merge()}"
+						update="mensagens :formTemplate:formLista:tabela">
+
+					</p:commandButton>
+					<p:commandButton value="cancela" process="@form"
+						actionListener="#{movimento.cancelar()}"
+						style="border: 2px solid #6495ED;margin-top: 25px;float: left;">
+					</p:commandButton>
+				</h:panelGrid>
+				
+
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>

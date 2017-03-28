@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<f:facet name="first">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+	</f:facet>
+	<f:metadata>
+		<f:viewParam name="kldasjfsd" value="#{qrcodeConsultaController.kldasjfsd}" />
+	</f:metadata>
+	<title>Projeta Brasil</title>
+</h:head>
+
+
+<h:body styleClass="login-body">
+
+	<div id="login-wrapper" class="qr-wrapper">
+		<p:graphicImage name="img-qrcode/achei-pet.svg" library="images"
+			styleClass="logo-achei-pet" />
+
+		<div class="qr-container">
+			<p:graphicImage name="img-qrcode/dog.jpg" library="images"
+				styleClass="img-dog" />
+
+			<div class="container-info-header">
+				<div class="row info-header">
+					<div class="col-xs-12 col-geral">
+						<h:outputText value="Nº: " styleClass="info-header-label" />
+						<h:outputText value="#{qrcodeConsultaController.qRCode.id}" styleClass="info-header-infos" />
+					</div>
+					<div class="col-xs-12 col-geral">
+						<h:outputText value="Nome: " styleClass="info-header-label" />
+						<h:outputText value="Bola de Pelo" styleClass="info-header-infos" />
+					</div>
+					<div class="col-xs-12 col-geral">
+						<h:outputText value="Nascimento: " styleClass="info-header-label" />
+						<h:outputText value="#{qrcodeConsultaController.qRCode.ultimaAtualizacao.time}" styleClass="info-header-infos" >
+						<f:convertDateTime type="both" dateStyle="short"/>
+						
+						</h:outputText>
+					</div>
+				</div>
+			</div>
+			<div class="container-info-corpo">
+
+				<div class="row info-corpo">
+					
+					
+					
+					
+					
+					
+
+					<h2 class="titulo-geral">
+						<!-- <i class="fa fa-address-book-o"></i> -->
+						Informações do Dono
+					</h2>
+					<div class="col-xs-12 col-geral">
+						<h:outputText value="Dono: " styleClass="info-corpo-label" />
+						<h:outputText value="Eletiburcia da Silva"
+							styleClass="info-corpo-infos" />
+					</div>
+					<div class="col-xs-12 col-geral">
+						<h:outputText value="Tel: " styleClass="info-corpo-label" />
+						<h:outputText value="48 123213312" styleClass="info-corpo-infos" />
+					</div>
+					<div class="col-xs-12 col-geral">
+						<h:outputText value="Tel2: " styleClass="info-corpo-label" />
+						<h:outputText value="48 98098981" styleClass="info-corpo-infos" />
+					</div>
+					<div class="col-xs-12 col-geral">
+						<h:outputText value="E-mail: " styleClass="info-corpo-label" />
+						<h:outputText value="eletiburcia@email.com.br"
+							styleClass="info-corpo-infos" />
+					</div>
+					<h2 class="titulo-geral">
+						<!-- <i class="fa fa-home"></i> -->
+						Endereço
+					</h2>
+					<div class="col-xs-12 col-geral">
+						<h:outputText value="Cidade: " styleClass="info-corpo-label" />
+						<h:outputText value="Floripa" styleClass="info-corpo-infos" />
+					</div>
+					<div class="col-xs-12 col-geral">
+						<h:outputText value="Bairro: " styleClass="info-corpo-label" />
+						<h:outputText value="Cãopeche" styleClass="info-corpo-infos" />
+					</div>
+					<div class="col-xs-12 col-geral">
+						<h:outputText value="Rua: " styleClass="info-corpo-label" />
+						<h:outputText value="Joaquim da Silva"
+							styleClass="info-corpo-infos" />
+					</div>
+					<div class="col-xs-12 col-geral">
+						<h:outputText value="Nº: " styleClass="info-corpo-label" />
+						<h:outputText value="9999" styleClass="info-corpo-infos" />
+					</div>
+					<h2 class="titulo-geral">
+						<!-- <i class="fa fa-paw"></i> -->
+						Informações do Pet
+					</h2>
+					<div class="col-xs-12 col-geral">
+						<h:outputText value="Especie: " styleClass="info-corpo-label" />
+						<h:outputText value="Cão" styleClass="info-corpo-infos" />
+					</div>
+					<div class="col-xs-12 col-geral">
+						<h:outputText value="Raça: " styleClass="info-corpo-label" />
+						<h:outputText value="Vira-Lata" styleClass="info-corpo-infos" />
+					</div>
+					<div class="col-xs-12 col-geral">
+						<h:outputText value="Tamanho: " styleClass="info-corpo-label" />
+						<h:outputText value="1,50cm" styleClass="info-corpo-infos" />
+					</div>
+					<div class="col-xs-12 col-geral">
+						<h:outputText value="Cores: " styleClass="info-corpo-label" />
+						<h:outputText value="Marrom e preto" styleClass="info-corpo-infos" />
+					</div>
+					<div class="col-xs-12 col-geral">
+						<h:outputText value="Temperamento: " styleClass="info-corpo-label" />
+						<h:outputText value="Dócil" styleClass="info-corpo-infos" />
+					</div>
+					<div class="col-xs-12 col-geral">
+						<h:outputText value="Alergias: " styleClass="info-corpo-label" />
+						<h:outputText value="Não tem" styleClass="info-corpo-infos" />
+					</div>
+					<div class="col-xs-12 col-geral">
+						<h:outputText value="Tipo sanguíneo: "
+							styleClass="info-corpo-label" />
+						<h:outputText value="DEA 1" styleClass="info-corpo-infos" />
+					</div>
+				</div>
+			</div>
+
+			<div class="ui-g ui-fluid">
+				<div class="ui-g-12">
+					<p:button value="sair" />
+				</div>
+			</div>
+
+		</div>
+		<!-- /.login-container-->
+
+		<div class="qr-footer">Powered by ProjetaBrasil</div>
+	</div>
+
+
+	<h:outputStylesheet name="css/layout.css" library="omega-layout" />
+	<h:outputStylesheet name="bootstrap-grid.mim.css" library="css" />
+	<h:outputStylesheet name="achei-qrcode.css" library="css" />
+	<h:outputStylesheet name="css/font-awesome.css" library="fa" />
+	<h:outputScript name="achei-qrcode.js" library="js" />
+</h:body>
+</html>

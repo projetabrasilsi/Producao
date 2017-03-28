@@ -1,0 +1,297 @@
+body {
+	background-image: url("#{resource['images/background2.jpeg']}");
+	margin: 0;
+	padding: 0%;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-color: window;
+	background-position: 0px 70px;
+	min-height: 150%;
+	position: relative;
+	
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+
+div#topo {
+	width: 99%;
+	height: 500px;
+	margin-top: 1px;
+	height: 30px;
+	color: #000000;
+	background-color: transparent !important;
+	position: relative;
+}
+
+
+#footer{    
+    background: #FF9900;
+    height
+	position: absolute;
+	font-size: 50% !important;
+	font-stretch: expanded !important;
+	color: white;
+	width: 99%;
+	font-family: Arial, Helvetica, sans-serif;
+	bottom: 0;
+
+}
+
+.cabecalho {
+	z-index: 1;
+	left: 12%;
+	position: relative;
+	font-size: 170% !important;
+	font-stretch: expanded !important;
+	color: white;
+	width: 100%;
+	font-family: Arial, Helvetica, sans-serif;
+	top: 7px;
+}
+
+.titulos {
+	left: 15%;
+	font-size: 170% !important;
+	font-stretch: expanded !important;
+	color: #FF9900;
+	width: 300px;
+	font-weight:900!important;
+	font-family: Arial, Helvetica, sans-serif;
+	top: 7px;
+	background-color: transparent !important;
+	background: transparent !important;
+	
+}
+
+.textos {
+	left: 15%;
+	font-size: 100% !important;
+	font-stretch: expanded !important;
+	color:black;;
+	width: 300px;
+	font-weight:500!important;
+	font-family: Arial, Helvetica, sans-serif;
+	top: 7px;
+	background-color: transparent !important;
+	background: transparent !important;
+	
+}
+.itemum {
+	left: 15%;
+	font-size: 100% !important;	
+	color:#FF9900;	
+	font-weight:700!important;
+	font-family: Arial, Helvetica, sans-serif;
+	top: 7px;
+	background-color: transparent !important;
+	background: transparent !important;
+	line-height: 2!importante;
+}
+
+.itemdois {
+	left: 15%;
+	font-size: 100% !important;	
+	color:black;	
+	font-weight:400!important;
+	font-family: Arial, Helvetica, sans-serif;
+	top: 7px;
+	background-color: transparent !important;
+	background: transparent !important;
+	line-height: 2!importante;
+}
+
+div#conteudo {
+	margin-top: 10px;
+	margin-left:15px;
+	width: 34%;
+	height: 500px;
+	margin-top: 5px;
+	float: left;
+	padding-right: 2px;
+	text-align: center;
+	line-height: 2;
+	background-image: url("#{resource['images/pensando.png']}");
+	background-size: 40%;	
+	
+	background-repeat: no-repeat;
+	background-position: 230px 170px;
+}
+
+div#conteudodois {
+	margin-top: 10px;
+	margin-left:15px;
+	width: 34%;
+	height: 500px;
+	margin-top: 5px;
+	float: left;
+	padding-right: 2px;
+	text-align: left;
+	line-height: 2;
+	
+	background-size: 40%;	
+	background-repeat: no-repeat;
+	background-position: 310px 170px;
+}
+
+div#sidebar {
+	
+	margin-top: 10px;
+	width: 40%;
+	height: 500px;
+	margin-top: 5px;
+	float: right;
+	padding-right: 100px;
+	text-align: justify;
+	line-height: 2;
+	float: right;
+	
+}
+div#sidebartitulocentral {
+	
+	margin-top: 10px;
+	width: 40%;
+	height: 500px;
+	margin-top: 5px;
+	float: right;
+	padding-right: 100px;
+	text-align: center;
+	line-height: 1;
+	float: right;
+	
+}
+
+div#sidebardois {
+	height: 500px;	
+	text-align: left;
+	line-height: 2;
+	float: right;
+}
+
+div#conteudoproposta {
+	margin-top: 10px;
+	width: 34%;
+	height: 500px;
+	margin-top: 5px;
+	float: left;
+	padding-right: 2px;
+	text-align: center;
+	line-height: 2;
+	background-size: 40%;	
+	background-repeat: no-repeat;
+	background-position: 310px 170px;
+}
+
+.botaoum {
+	background-color: transparent !important;
+	background: transparent !important;
+	border-color: #ff0000 #0000ff; */
+	border-color: transparent !important;
+	color: #0aa505 !important e;
+	height: 50px !important e;
+	margin: 0 !important e;
+	font-weight: 600 !important e;
+	font-size: 100% !important e;
+	position: relative !important e;
+	left: 21%;
+	top: 1% !important e;
+	height: 5px !important e;
+	overflow: scroll !important e;
+}
+
+.botaodois {
+	background-color: #d9e5d9 !important;
+	background: transparent !important;
+	border-color: #ff0000 #0000ff; */
+	border-color: transparent !important;
+	color: #3013ec !important e;
+	height: 50px !important e;
+	margin: 0 !important e;
+	font-weight: 600 !important e;
+	font-size: 100% !important e;
+	position: absolute !important e;
+	left: 20%;
+	top: 1% !important e;
+}
+
+.botaogeral {
+	background-color: #d9e5d9 !important;
+	background: transparent !important;
+	border-color: #ff0000 #0000ff; */
+	border-color: transparent !important;
+	color: #3013ec !important e;
+	height: 50px !important e;
+	margin: 0 !important e;
+	font-weight: 600 !important e;
+	font-size: 100% !important e;
+	position: relative !important e;
+	left: 1px;
+	top: 1% !important e;
+}
+
+.botaogeraldois {
+	background-color: #d9e5d9 !important;
+	background: transparent !important;
+	border-color: #ff0000 #0000ff; */
+	border-color: transparent !important;
+	color: #3013ec !important e;
+	height: 50px !important e;
+	margin: 0 !important e;
+	font-weight: 600 !important e;
+	font-size: 100% !important e;
+	position: relative !important e;
+	left: 30px;
+	top: 1% !important e;
+}
+
+
+
+div#topodireita {
+	width: 19%;
+	height: 500px;
+	margin-top: 5px;
+	color: #000000;
+	float: right;
+	background-color: transparent !important;
+	float: right;
+}
+
+div#topocentro {
+	width: 30%;
+	height: 100%;
+	font-size: 150%;
+	color: #FF9900;
+	text-shadow: -2px 0 black, 0 1px black, 1px 0 black, 0 -2px black;
+	padding: 0px;
+	margin: 0px;
+	text-align: center;
+	font-weight: 900;
+	float: right;
+}
+
+div#topoesquerda {
+	width: 30%;
+	height: 100%;
+	font-size: 150%;
+	color: #FF9900;
+	text-shadow: -2px 0 black, 0 1px black, 1px 0 black, 0 -2px black;
+	padding: 0px;
+	margin: 0px;
+	text-align: center;
+	font-weight: 900;
+	float: left;
+}
+
+div#topocentro {
+	width: 30%;
+	height: 100%;
+	font-size: 150%;
+	color: #FF9900;
+	text-shadow: -2px 0 black, 0 1px black, 1px 0 black, 0 -2px black;
+	padding: 0px;
+	margin: 0px;
+	text-align: center;
+	font-weight: 900;
+}
+
