@@ -24,21 +24,25 @@ import br.com.projetabrasil.model.business.PessoaBusiness2;
 import br.com.projetabrasil.model.business.PessoaGenericBusiness;
 import br.com.projetabrasil.model.dao.BairroDAO;
 import br.com.projetabrasil.model.dao.CidadeDAO;
+import br.com.projetabrasil.model.dao.ContatoDAO;
 import br.com.projetabrasil.model.dao.EnderecoDAO;
 import br.com.projetabrasil.model.dao.EstadoDAO;
 import br.com.projetabrasil.model.dao.LogradouroDAO;
 import br.com.projetabrasil.model.dao.PaisDAO;
 import br.com.projetabrasil.model.dao.PessoaDAO;
 import br.com.projetabrasil.model.dao.Pessoa_VinculoDAO;
+import br.com.projetabrasil.model.dao.Prontuario_de_EmergenciaDAO;
 import br.com.projetabrasil.model.dao.UsuarioDAO;
 import br.com.projetabrasil.model.entities.Bairro;
 import br.com.projetabrasil.model.entities.Cidade;
+import br.com.projetabrasil.model.entities.Contato;
 import br.com.projetabrasil.model.entities.Endereco;
 import br.com.projetabrasil.model.entities.Enum_Aux_Perfil_Pagina_Atual;
 import br.com.projetabrasil.model.entities.Enum_Aux_Perfil_Pessoa;
 import br.com.projetabrasil.model.entities.Enum_Aux_Tipo_Identificador;
 import br.com.projetabrasil.model.entities.Enum_Aux_Tipo_Logradouro;
 import br.com.projetabrasil.model.entities.Enum_Aux_Tipo_Pessoa;
+import br.com.projetabrasil.model.entities.Enum_Aux_Tipo_Prontuario_de_Emergencia;
 import br.com.projetabrasil.model.entities.Enum_Aux_Tipo_Relacionamento;
 import br.com.projetabrasil.model.entities.Enum_Aux_Tipo_de_Contato;
 import br.com.projetabrasil.model.entities.Enum_Aux_Ufs;
@@ -48,6 +52,7 @@ import br.com.projetabrasil.model.entities.Pais;
 import br.com.projetabrasil.model.entities.PerfilLogado;
 import br.com.projetabrasil.model.entities.Pessoa;
 import br.com.projetabrasil.model.entities.Pessoa_Vinculo;
+import br.com.projetabrasil.model.entities.Prontuario_de_Emergencia;
 import br.com.projetabrasil.model.entities.Usuario;
 import br.com.projetabrasil.util.CepWebService;
 import br.com.projetabrasil.util.Utilidades;
@@ -72,7 +77,7 @@ public class PessoajsfController extends GenericController implements Serializab
 	private Pais pais;
 	private Enum_Aux_Tipo_de_Contato tipoContato;
 	private List<Enum_Aux_Tipo_de_Contato> listaTipoContato;
-	
+
 	private Enum_Aux_Tipo_Relacionamento tipoRelacionamento;
 	private List<Enum_Aux_Tipo_Relacionamento> listaTipoRelacionamento;
 
@@ -84,34 +89,44 @@ public class PessoajsfController extends GenericController implements Serializab
 	private AutenticacaojsfController autenticacao;
 	private boolean skip;
 	private Enum_Aux_Tipo_Logradouro tipoLogradouro;
-	private List<Enum_Aux_Tipo_Logradouro>  listaTiposLogradouros;
+	private List<Enum_Aux_Tipo_Logradouro> listaTiposLogradouros;
+	private List<Enum_Aux_Tipo_Prontuario_de_Emergencia> listaTiposProntuarioEmergencia;
+	private Enum_Aux_Tipo_Prontuario_de_Emergencia tipoProntuarioEmergencia;
+	private Contato contato;
+	private List<Contato> listaContatos;
+	private Prontuario_de_Emergencia prontuarioEmergencia;
+	private List<Prontuario_de_Emergencia> listaProntuarioEmergencia;
 
 	@PostConstruct
 	public void listar() {
 		tipoContato = Enum_Aux_Tipo_de_Contato.CELULAR;
 		tipoLogradouro = Enum_Aux_Tipo_Logradouro.RUA;
 		tipoRelacionamento = Enum_Aux_Tipo_Relacionamento.PROPRIO;
+		tipoProntuarioEmergencia = Enum_Aux_Tipo_Prontuario_de_Emergencia.TIPOSANGUINEO;
+
 		pais = new Pais();
 		setPais(buscaPais("BRASIL", "BRL"));
 		endereco = new Endereco(new Logradouro(new Cidade(new Estado(pais))), new Bairro(new Cidade(new Estado(pais))));
 		endereco.getLogradouro().setEnum_Aux_Tipo_Logradouro(Enum_Aux_Tipo_Logradouro.RUA);
-		
+
 		pessoas = PessoaBusiness.listar(perfilLogado);
 		pessoa = new Pessoa();
 		usuario = new Usuario();
 		usuario.setPessoa(pessoa);
-
 		paises = new ArrayList<>();
 		estados = new ArrayList<>();
 		cidades = new ArrayList<>();
 		bairros = new ArrayList<>();
 		logradouros = new ArrayList<>();
-		
-		
-		
+		listaProntuarioEmergencia = new ArrayList<>();
+		listaContatos = new ArrayList<>();
+		prontuarioEmergencia = new Prontuario_de_Emergencia();
+		contato = new Contato();
+
 		listarTiposdeLogradouro();
 		listarTiposdeRelacionamento();
 		listarTiposdeContato();
+		listarTiposdeProntuario();
 
 	}
 
@@ -133,8 +148,6 @@ public class PessoajsfController extends GenericController implements Serializab
 		}
 		return p;
 	}
-	
-	
 
 	public void listarPaises() {
 		PaisDAO pDAO = new PaisDAO();
@@ -169,7 +182,6 @@ public class PessoajsfController extends GenericController implements Serializab
 		logradouros = lDAO.listaLogradouroPelaCidade(endereco.getLogradouro().getCidade());
 	}
 
-	
 	public String onFlowProcess(FlowEvent event) {
 		if (skip) {
 			skip = false; // reset in case user goes back
@@ -178,7 +190,7 @@ public class PessoajsfController extends GenericController implements Serializab
 			return event.getNewStep();
 		}
 	}
-	
+
 	public List<Estado> getEstados() {
 		return estados;
 	}
@@ -200,25 +212,29 @@ public class PessoajsfController extends GenericController implements Serializab
 	}
 
 	public void novo(ActionEvent event) {
-		
+
 		perfilLogadoTemp = perfilLogado;
 		pais = new Pais();
 		setPais(buscaPais("BRASIL", "BRL"));
 		pessoa = new Pessoa();
 		endereco = new Endereco(new Logradouro(new Cidade(new Estado(pais))), new Bairro(new Cidade(new Estado(pais))));
-		
+
 		configurarPessoa();
 		pessoa.setEnum_Aux_Tipo_Identificador(Enum_Aux_Tipo_Identificador.CPF);
 		endereco.getLogradouro().setEnum_Aux_Tipo_Logradouro(Enum_Aux_Tipo_Logradouro.RUA);
-		
+
 		tipoLogradouro = Enum_Aux_Tipo_Logradouro.RUA;
 		bairro = new Bairro();
 		logradouro = new Logradouro();
-		
-		tipoContato = Enum_Aux_Tipo_de_Contato.CELULAR;		
+
+		tipoContato = Enum_Aux_Tipo_de_Contato.CELULAR;
 		tipoRelacionamento = Enum_Aux_Tipo_Relacionamento.PROPRIO;
-		 
-		
+
+		listaProntuarioEmergencia = new ArrayList<>();
+		listaContatos = new ArrayList<>();
+		prontuarioEmergencia = new Prontuario_de_Emergencia();
+		contato = new Contato();
+
 		Utilidades.abrirfecharDialogos("dialogoIdentidade", true);
 	}
 
@@ -239,11 +255,23 @@ public class PessoajsfController extends GenericController implements Serializab
 				usuario = new Usuario();
 		}
 		configurarPessoa();
+		contato = new Contato();
+		contato.setId_Pessoa(pessoa);
+		prontuarioEmergencia = new Prontuario_de_Emergencia();
+		prontuarioEmergencia.setId_Pessoa(pessoa);
+		if (perfilLogado.getAssLogado() != null) {
+			prontuarioEmergencia.setId_Pessoa_Registro(perfilLogado.getAssLogado());
+			contato.setId_Pessoa(perfilLogado.getAssLogado());
+		} else {
+			prontuarioEmergencia.setId_Pessoa_Registro(perfilLogado.getUsLogado().getPessoa());
+			contato.setId_Pessoa(perfilLogado.getUsLogado().getPessoa());
+		}
+
 		setarEndereco("editar");
 
 	}
-	
-	public void listarTiposdeLogradouro(){		
+
+	public void listarTiposdeLogradouro() {
 		Enum_Aux_Tipo_Logradouro[] listagem;
 		listagem = Enum_Aux_Tipo_Logradouro.values();
 		listaTiposLogradouros = new ArrayList<Enum_Aux_Tipo_Logradouro>();
@@ -251,8 +279,8 @@ public class PessoajsfController extends GenericController implements Serializab
 			listaTiposLogradouros.add(i);
 		}
 	}
-	
-	public void listarTiposdeRelacionamento(){		
+
+	public void listarTiposdeRelacionamento() {
 		Enum_Aux_Tipo_Relacionamento[] listagem;
 		listagem = Enum_Aux_Tipo_Relacionamento.values();
 		listaTipoRelacionamento = new ArrayList<Enum_Aux_Tipo_Relacionamento>();
@@ -260,14 +288,34 @@ public class PessoajsfController extends GenericController implements Serializab
 			listaTipoRelacionamento.add(i);
 		}
 	}
-	
-	public void listarTiposdeContato(){		
+
+	public void listarTiposdeContato() {
 		Enum_Aux_Tipo_de_Contato[] listagem;
 		listagem = Enum_Aux_Tipo_de_Contato.values();
 		listaTipoContato = new ArrayList<Enum_Aux_Tipo_de_Contato>();
 		for (Enum_Aux_Tipo_de_Contato i : listagem) {
 			listaTipoContato.add(i);
 		}
+	}
+
+	public void listarTiposdeProntuario() {
+		Enum_Aux_Tipo_Prontuario_de_Emergencia[] listagem;
+		listagem = Enum_Aux_Tipo_Prontuario_de_Emergencia.values();
+		listaTiposProntuarioEmergencia = new ArrayList<Enum_Aux_Tipo_Prontuario_de_Emergencia>();
+		for (Enum_Aux_Tipo_Prontuario_de_Emergencia i : listagem) {
+			listaTiposProntuarioEmergencia.add(i);
+		}
+	}
+
+	public void listarContatosdaPessoa() {
+		ContatoDAO cDAO = new ContatoDAO();
+		listaContatos = cDAO.listardeContatosporPessoa(pessoa);
+	}
+
+	public void listarProntuarioEmergenciadaPessoa() {
+		Prontuario_de_EmergenciaDAO pDAO = new Prontuario_de_EmergenciaDAO();
+		listaProntuarioEmergencia = pDAO.listarProntuarioporPessoa(pessoa);
+
 	}
 
 	public void setarEndereco(String acao) {
@@ -384,6 +432,8 @@ public class PessoajsfController extends GenericController implements Serializab
 			this.endereco.setId(null);
 			EnderecoBusiness.merge(endereco);
 		}
+		mergeListaContato();
+		mergeListaProntuarioEmergencia();
 
 		listar();
 
@@ -395,13 +445,14 @@ public class PessoajsfController extends GenericController implements Serializab
 		String uf, est, cid, bai, log, tl, cep;
 		cep = this.endereco.getLogradouro().getCidade().getCep();
 		CepWebService cp = new CepWebService(cep);
-		if (cp.getResultado()==0){
+		if (cp.getResultado() == 0) {
 			this.endereco.getLogradouro().getCidade().setCep("");
-			endereco = new Endereco(new Logradouro(new Cidade(new Estado(pais))),new Bairro(new Cidade(new Estado(pais)))); 
+			endereco = new Endereco(new Logradouro(new Cidade(new Estado(pais))),
+					new Bairro(new Cidade(new Estado(pais))));
 			endereco.setComplemento("");
 			endereco.setNumero(0);
 			return;
-			
+
 		}
 
 		bai = Utilidades.formataString(cp.getBairro());
@@ -457,7 +508,6 @@ public class PessoajsfController extends GenericController implements Serializab
 				c.setId_Pessoa_Registro(perfilLogado.getUsLogado().getPessoa());
 			c = CidadeBusiness.merge(c);
 		}
-		
 
 		b = BairroBusiness.buscaBairroPeloNomeECidade(bai, c);
 		if (b == null && bai.length() > 0) {
@@ -465,7 +515,7 @@ public class PessoajsfController extends GenericController implements Serializab
 			b.setDescricao(bai);
 			b.setId(null);
 			b.setId_Empresa(1);
-			
+
 			b.setUltimaAtualizacao(Utilidades.retornaCalendario());
 			if (perfilLogado.getAssLogado() != null && perfilLogado.getAssLogado().getId() != null)
 				b.setId_Pessoa_Registro(perfilLogado.getAssLogado());
@@ -482,8 +532,7 @@ public class PessoajsfController extends GenericController implements Serializab
 			l.setId(null);
 			l.setId_Empresa(1);
 			l.setCidade(c);
-			
-			
+
 			l.setUltimaAtualizacao(Utilidades.retornaCalendario());
 			if (perfilLogado.getAssLogado() != null && perfilLogado.getAssLogado().getId() != null)
 				l.setId_Pessoa_Registro(perfilLogado.getAssLogado());
@@ -491,38 +540,32 @@ public class PessoajsfController extends GenericController implements Serializab
 				l.setId_Pessoa_Registro(perfilLogado.getUsLogado().getPessoa());
 			l = LogradouroBusiness.merge(l);
 		}
-		
-		if (b== null)
+
+		if (b == null)
 			b = new Bairro(new Cidade(new Estado(pais)));
-		if (l== null)
-		{
-			l = new Logradouro(new Cidade(new Estado(pais)));
+		if (l == null) {
+			cep = endereco.getLogradouro().getCidade().getCep();			
+			l = new Logradouro(new Cidade(new Estado(pais)));					
 			l.setEnum_Aux_Tipo_Logradouro(Enum_Aux_Tipo_Logradouro.RUA);
+			l.setCidade(c);
+			l.getCidade().setEstado(e);
+			l.getCidade().setCep(cep);
 		}
-		
-		if(tl!=null && tl.length()>0)
-		l.setEnum_Aux_Tipo_Logradouro(Enum_Aux_Tipo_Logradouro.valueOf(tl));
-		
-		
-		
-		
-		
+
+		if (tl != null && tl.length() > 0)
+			l.setEnum_Aux_Tipo_Logradouro(Enum_Aux_Tipo_Logradouro.valueOf(tl));
 
 		endereco.setBairro(b);
 		endereco.setLogradouro(l);
-		
-		
-		
+
 		if (endereco.getBairro() == null)
 			endereco.setBairro(new Bairro(c));
 
 		if (endereco.getLogradouro() == null)
 			endereco.setLogradouro(new Logradouro(c));
-		if(tl !=null && tl.length()>0)
-		endereco.getLogradouro().setEnum_Aux_Tipo_Logradouro(Enum_Aux_Tipo_Logradouro.valueOf(tl));
-		
-		
-		
+		if (tl != null && tl.length() > 0)
+			endereco.getLogradouro().setEnum_Aux_Tipo_Logradouro(Enum_Aux_Tipo_Logradouro.valueOf(tl));
+
 		listarBairros();
 		listarLogradouros();
 
@@ -629,8 +672,72 @@ public class PessoajsfController extends GenericController implements Serializab
 	}
 
 	public void excluir(ActionEvent evento) {
-		setPessoa(PessoaBusiness.registroAtualdaLista(evento));
+		setPessoa(PessoaBusiness.registroAtualdaLista(evento));	
 		PessoaBusiness.excluir(pessoa);
+		
+	}
+
+	public void excluirContato(ActionEvent evento) {
+
+		setContato((Contato) evento.getComponent().getAttributes().get("registroAtualContato"));
+		ContatoDAO cDAO = new ContatoDAO();
+		cDAO.excluir(getContato());
+		listarContatosdaPessoa();
+
+	}
+
+	public void excluirProntuario(ActionEvent evento) {
+
+		setProntuarioEmergencia(
+				(Prontuario_de_Emergencia) evento.getComponent().getAttributes().get("registroAtualProntuario"));
+		Prontuario_de_EmergenciaDAO pDAO = new Prontuario_de_EmergenciaDAO();
+		pDAO.excluir(getProntuarioEmergencia());
+		listarProntuarioEmergenciadaPessoa();
+
+	}
+
+	public void incluirContatoNaLista() {
+		contato.setId_Pessoa(pessoa);
+		if (perfilLogado.getAssLogado() != null && perfilLogado.getAssLogado().getId() != null)
+			contato.setId_Pessoa_Registro(perfilLogado.getAssLogado());
+		else
+			contato.setId_Pessoa_Registro(perfilLogado.getUsLogado().getPessoa());
+		contato.setId_Empresa(1);
+		contato.setUltimaAtualizacao(Utilidades.retornaCalendario());
+
+		listaContatos.add(contato);
+	}
+
+	public void incluirProntuarioEmergenciaNaLista() {
+		prontuarioEmergencia.setId_Pessoa(pessoa);
+		if (perfilLogado.getAssLogado() != null && perfilLogado.getAssLogado().getId() != null)
+			prontuarioEmergencia.setId_Pessoa_Registro(perfilLogado.getAssLogado());
+		else
+			prontuarioEmergencia.setId_Pessoa_Registro(perfilLogado.getUsLogado().getPessoa());
+		prontuarioEmergencia.setId_Empresa(1);
+		prontuarioEmergencia.setUltimaAtualizacao(Utilidades.retornaCalendario());
+
+		listaProntuarioEmergencia.add(prontuarioEmergencia);
+	}
+
+	public void mergeListaContato() {
+		for (Contato c : listaContatos) {
+			if(c.getId_Pessoa()==null || c.getId_Pessoa().getId()==null)
+				c.setId_Pessoa(pessoa);
+			ContatoDAO cDAO = new ContatoDAO();
+			cDAO.merge(c);
+		}
+
+	}
+
+	public void mergeListaProntuarioEmergencia() {
+		for (Prontuario_de_Emergencia c : listaProntuarioEmergencia) {
+			if(c.getId_Pessoa()==null || c.getId_Pessoa().getId()==null)
+				c.setId_Pessoa(pessoa);
+			Prontuario_de_EmergenciaDAO cDAO = new Prontuario_de_EmergenciaDAO();
+			cDAO.merge(c);
+		}
+
 	}
 
 	public Pessoa getPessoa() {
@@ -812,7 +919,53 @@ public class PessoajsfController extends GenericController implements Serializab
 		this.tipoLogradouro = tipoLogradouro;
 	}
 
-	
+	public List<Enum_Aux_Tipo_Prontuario_de_Emergencia> getListaTiposProntuarioEmergencia() {
+		return listaTiposProntuarioEmergencia;
+	}
 
-	
+	public void setListaTiposProntuarioEmergencia(
+			List<Enum_Aux_Tipo_Prontuario_de_Emergencia> listaTiposProntuarioEmergencia) {
+		this.listaTiposProntuarioEmergencia = listaTiposProntuarioEmergencia;
+	}
+
+	public Enum_Aux_Tipo_Prontuario_de_Emergencia getTipoProntuarioEmergencia() {
+		return tipoProntuarioEmergencia;
+	}
+
+	public void setTipoProntuarioEmergencia(Enum_Aux_Tipo_Prontuario_de_Emergencia tipoProntuarioEmergencia) {
+		this.tipoProntuarioEmergencia = tipoProntuarioEmergencia;
+	}
+
+	public Contato getContato() {
+		return contato;
+	}
+
+	public void setContato(Contato contato) {
+		this.contato = contato;
+	}
+
+	public List<Contato> getListaContatos() {
+		return listaContatos;
+	}
+
+	public void setListaContatos(List<Contato> listaContatos) {
+		this.listaContatos = listaContatos;
+	}
+
+	public Prontuario_de_Emergencia getProntuarioEmergencia() {
+		return prontuarioEmergencia;
+	}
+
+	public void setProntuarioEmergencia(Prontuario_de_Emergencia prontuarioEmergencia) {
+		this.prontuarioEmergencia = prontuarioEmergencia;
+	}
+
+	public List<Prontuario_de_Emergencia> getListaProntuarioEmergencia() {
+		return listaProntuarioEmergencia;
+	}
+
+	public void setListaProntuarioEmergencia(List<Prontuario_de_Emergencia> listaProntuarioEmergencia) {
+		this.listaProntuarioEmergencia = listaProntuarioEmergencia;
+	}
+
 }

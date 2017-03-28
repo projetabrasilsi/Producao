@@ -72,6 +72,9 @@
 			class="br.com.projetabrasil.model.entities.Movimento_Detalhe_Dias_Disponiveis" />
 		<mapping class="br.com.projetabrasil.model.entities.Agendamento" />
 		<mapping class="br.com.projetabrasil.model.entities.QRCode" />
+		<mapping class="br.com.projetabrasil.model.entities.Profissao" />
+		<mapping class="br.com.projetabrasil.model.entities.Contato" />
+		<mapping class="br.com.projetabrasil.model.entities.prontuario_de_emergencia" />
 	</session-factory>
 
 </hibernate-configuration>

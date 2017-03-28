@@ -68,6 +68,11 @@ public class Pessoa extends GenericDomain implements Serializable{
 	@Column(name="AutoPontuacao")
 	private Enum_Aux_Sim_ou_Nao autoPontuacao;
 	
+	@OneToOne
+	@JoinColumn ( name ="id_Profissao")	//NÃO USAR RECURSO DE HERANÇA PARA ESTA COLUNA NO GENERIC DOMAIN!!!	
+	private Profissao id_Profissao;
+	
+	
 	@Transient
 	private String mensagem;
 	@Transient
@@ -237,7 +242,7 @@ public class Pessoa extends GenericDomain implements Serializable{
 				+ ", fone_5=" + fone_5 + ", email=" + email + ", autoPontuacao=" + autoPontuacao + ", mensagem="
 				+ mensagem + ", cadastrado=" + cadastrado + ", cpf_cnpjValido=" + cpf_cnpjValido + ", senha=" + senha
 				+ ", pontosAnt=" + pontosAnt + ", pontosdoMovimento=" + pontosdoMovimento + ", pontosAtuais="
-				+ pontosAtuais + "]";
+				+ pontosAtuais +", profissao = "+ id_Profissao+"]";
 	}
 	@Override
 	public int hashCode() {
@@ -266,7 +271,16 @@ public class Pessoa extends GenericDomain implements Serializable{
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		
+		
+		
 		return true;
+	}
+	public Profissao getId_Profissao() {
+		return id_Profissao;
+	}
+	public void setId_Profissao(Profissao id_Profissao) {
+		this.id_Profissao = id_Profissao;
 	}
 	
 			

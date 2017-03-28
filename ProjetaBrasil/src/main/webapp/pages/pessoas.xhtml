@@ -309,10 +309,9 @@
 									<p:inputText id="cep" size="12" maxlength="30"
 										style="width:80px"
 										value="#{pessoajsfController.endereco.logradouro.cidade.cep}"
-										required="true" requiredMessage="Campo obrigatório"
 										validatorMessage="O minimo de caracteres para sigla são  '8'"
 										placeholder="Mínimo 8 números">
-										<f:validateLength minimum="8" maximum="8" />
+										<f:validateLength  maximum="8" />
 										<p:ajax listener="#{pessoajsfController.setCEP}"
 											update="cep,iptxEstado,iptxCidade,g_e_2,g_e_3,g_e_4 "
 											render="@form" />
@@ -466,35 +465,127 @@
 									<p:outputLabel value="Contato: " />
 									<h:panelGrid columns="2" cellpadding="5" render="@form">
 
-										<p:inputText id="iptxContato" size="30" maxlength="30"
+										<p:inputMask mask="" id="iptxContato" size="30" maxlength="30"
 											style="width:80px" value="" />
 
-										<p:commandButton value="add" process="@this"
+										
+											
+											<p:commandButton value="add" process="@this"
+									actionListener="#{pessoajsfController.incluirContatoNaLista()}"									
+									styleClass="btao-info-pessoas" 
 											style="width:80px;heigth:5px;important" />
 
 									</h:panelGrid>
 
 								</h:panelGrid>
 
+								<h:form id="formListaContatos">
 
+
+									<p:dataTable id="tabelaContatos" emptyMessage="Sem Registros"
+										resizableColumns="true" value="#{pessoajsfController.listaContatos}"
+										paginator="true" rows="4" var="registro"
+										styleClass="tabela-pessoas">
+
+										<p:column headerText="Tipo de Contato" sortBy="tipoContato.descricao"
+											filterBy="tipoContato.descricao" styleClass="geral-col-pessoas">
+											<h:outputText value="#{registro.tipoContato.descricao}" />
+										</p:column>
+
+										<p:column headerText="Relacionamento" sortBy="tipoRelacionamento.descricao"
+											filterBy="tipoRelacionamento.descricao" styleClass="geral-col-pessoas">
+											<h:outputText value="#{registro.tipoRelacionamento.descricao}">												
+											</h:outputText>
+										</p:column>
+
+										<p:column headerText="Contato" sortBy="contato"
+											filterBy="contato" styleClass="geral-col-pessoas">
+											<p:outputLabel size="30" maxlength="15"
+												value="#{registro.contato}" />
+										</p:column>
+
+
+										<p:column headerText="Excl" style="width:10%;">
+											<p:commandButton icon="ui-icon-trash"
+												actionListener="#{pessoajsfController.excluirContato}"
+												update=":mensagens :formTemplate:formListaContatos:tabelaContatos">
+												<p:confirm header="Confirmação"
+													message="Deseja realmente excluir este registro?"
+													icon="ui-icon-alert" />
+												<f:attribute name="registroAtualContato" value="#{registro}" />
+											</p:commandButton>
+										</p:column>
+									</p:dataTable>
+								</h:form>
 							</p:panel>
 
 
 
 						</p:tab>
 
-						<p:tab id="tab4" title="Dados importantes">
-							<p:panel id="p_dados_importantes" header="Informações Clínicas">
+						<p:tab id="tab4" title="prontuário de emergencia">
+							<p:panel id="p_prontuario_emergencia" header="Prontuário de Emergencia">
 								<h:panelGrid columns="2" cellpadding="5" render="@form">
-									<p:commandButton value="Cancelar" process="@this"
-										actionListener="#{pessoajsfController.cancela}"
-										oncomplete="PF('wiz').loadStep('tab1', true)"
-										styleClass="btao-info-pessoas" />
+									<p:outputLabel value="Tipo de Prontuario:" />
+									<p:outputLabel value="descreva: " />
+									<h:panelGrid columns="3" cellpadding="5" render="@form">
+										<p:selectOneMenu id="tipoProntuario"
+											converter="omnifaces.SelectItemsConverter"
+											value="#{pessoajsfController.tipoProntuarioEmergencia}"
+											style="width:80px;important" rendered="false">
+											<f:selectItem itemLabel="selecione" itemValue=""
+												noSelectionOption="true" />
+											<f:selectItems
+												value="#{pessoajsfController.listaTiposProntuarioEmergencia}"
+												var="o" itemLabel="#{o.descricao}" itemValue="#{o}" />
+										</p:selectOneMenu>
 
-									<p:commandButton value="Salvar" process="@form"
-										actionListener="#{pessoajsfController.merge}"
-										update=":mensagens :formTemplate:formLista:tabela" />
+										<p:inputText id="descricaoEmergencia" size="30" maxlength="30"
+											style="width:80px" value="" />
+
+										<p:commandButton value="add" process="@this"
+									actionListener="#{pessoajsfController.incluirProntuarioEmergenciaNaLista()}"									
+									styleClass="btao-info-pessoas" 
+											style="width:80px;heigth:5px;important" />
+
+									</h:panelGrid>
 								</h:panelGrid>
+
+								
+								<h:form id="formListaProntuario">
+
+
+									<p:dataTable id="tabelaProntuario" emptyMessage="Sem Registros"
+										resizableColumns="true" value="#{pessoajsfController.listaProntuarioEmergencia}"
+										paginator="true" rows="4" var="registro"
+										styleClass="tabela-pessoas">
+
+										<p:column headerText="Classificação" sortBy="tipo_Prontuario_Emergencia.descricao"
+											filterBy="tipo_Prontuario_Emergencia.descricao" styleClass="geral-col-pessoas">
+											<h:outputText value="#{registro.tipo_Prontuario_Emergencia.descricao}" />
+										</p:column>
+
+										<p:column headerText="Descricao" sortBy="descricao"
+											filterBy="descricao" styleClass="geral-col-pessoas">
+											<h:outputText value="#{registro.descricao}">
+												
+											</h:outputText>
+										</p:column>
+
+
+
+										<p:column headerText="Excl" style="width:10%;">
+											<p:commandButton icon="ui-icon-trash"
+												actionListener="#{pessoajsfController.excluirProntuario}"
+												update=":mensagens :formTemplate:formListaProntuario:tabelaProntuario">
+												<p:confirm header="Confirmação"
+													message="Deseja realmente excluir este registro?"
+													icon="ui-icon-alert" />
+												<f:attribute name="registroAtualProntuario" value="#{registro}" />
+											</p:commandButton>
+										</p:column>
+									</p:dataTable>
+								</h:form>
 							</p:panel>
 						</p:tab>
 					</p:wizard>
