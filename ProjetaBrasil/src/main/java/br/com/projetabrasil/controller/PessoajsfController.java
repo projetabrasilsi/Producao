@@ -75,6 +75,10 @@ public class PessoajsfController extends GenericController implements Serializab
 	private Bairro bairro;
 	private Logradouro logradouro;
 	private Pais pais;
+	
+	private String descricaoContato;
+	private String descricaoProntuario;
+	
 	private Enum_Aux_Tipo_de_Contato tipoContato;
 	private List<Enum_Aux_Tipo_de_Contato> listaTipoContato;
 
@@ -704,7 +708,12 @@ public class PessoajsfController extends GenericController implements Serializab
 			contato.setId_Pessoa_Registro(perfilLogado.getUsLogado().getPessoa());
 		contato.setId_Empresa(1);
 		contato.setUltimaAtualizacao(Utilidades.retornaCalendario());
-
+		
+		//PREENCHER ATRIBUTOS À BAIXO
+		contato.setTipoContato(tipoContato);
+		contato.setTipoRelacionamento(tipoRelacionamento);
+		contato.setContato(descricaoContato);
+		
 		listaContatos.add(contato);
 	}
 
@@ -716,7 +725,11 @@ public class PessoajsfController extends GenericController implements Serializab
 			prontuarioEmergencia.setId_Pessoa_Registro(perfilLogado.getUsLogado().getPessoa());
 		prontuarioEmergencia.setId_Empresa(1);
 		prontuarioEmergencia.setUltimaAtualizacao(Utilidades.retornaCalendario());
-
+		
+		//PREENCHER ATRIBUTOS À BAIXO
+		prontuarioEmergencia.setTipo_Prontuario_Emergencia(tipoProntuarioEmergencia);
+		tipoProntuarioEmergencia.setDescricao(descricaoProntuario);
+		
 		listaProntuarioEmergencia.add(prontuarioEmergencia);
 	}
 
@@ -967,5 +980,23 @@ public class PessoajsfController extends GenericController implements Serializab
 	public void setListaProntuarioEmergencia(List<Prontuario_de_Emergencia> listaProntuarioEmergencia) {
 		this.listaProntuarioEmergencia = listaProntuarioEmergencia;
 	}
+
+	public String getDescricaoContato() {
+		return descricaoContato;
+	}
+
+	public void setDescricaoContato(String descricaoContato) {
+		this.descricaoContato = descricaoContato;
+	}
+
+	public String getDescricaoProntuario() {
+		return descricaoProntuario;
+	}
+
+	public void setDescricaoProntuario(String descricaoProntuario) {
+		this.descricaoProntuario = descricaoProntuario;
+	}
+	
+	
 
 }

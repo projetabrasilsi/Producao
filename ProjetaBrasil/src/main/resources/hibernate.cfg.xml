@@ -50,8 +50,7 @@
 
 		<!-- Mapeamento das entidades -->
 		<mapping class="br.com.projetabrasil.model.entities.Ponto" />
-		<mapping
-			class="br.com.projetabrasil.model.entities.Pessoa_Enum_Aux_Perfil_Pessoa" />
+		<mapping class="br.com.projetabrasil.model.entities.Pessoa_Enum_Aux_Perfil_Pessoa" />
 		<mapping class="br.com.projetabrasil.model.entities.Pessoa" />
 		<mapping class="br.com.projetabrasil.model.entities.Pais" />
 		<mapping class="br.com.projetabrasil.model.entities.Estado" />
@@ -68,13 +67,12 @@
 		<mapping class="br.com.projetabrasil.model.entities.Movimento_Mestre" />
 		<mapping class="br.com.projetabrasil.model.entities.Movimento_Detalhe" />
 		<mapping class="br.com.projetabrasil.model.entities.Movimento_Detalhe_A" />
-		<mapping
-			class="br.com.projetabrasil.model.entities.Movimento_Detalhe_Dias_Disponiveis" />
+		<mapping class="br.com.projetabrasil.model.entities.Movimento_Detalhe_Dias_Disponiveis" />
 		<mapping class="br.com.projetabrasil.model.entities.Agendamento" />
 		<mapping class="br.com.projetabrasil.model.entities.QRCode" />
 		<mapping class="br.com.projetabrasil.model.entities.Profissao" />
 		<mapping class="br.com.projetabrasil.model.entities.Contato" />
-		<mapping class="br.com.projetabrasil.model.entities.prontuario_de_emergencia" />
+		<mapping class="br.com.projetabrasil.model.entities.Prontuario_de_Emergencia" />
 	</session-factory>
 
 </hibernate-configuration>

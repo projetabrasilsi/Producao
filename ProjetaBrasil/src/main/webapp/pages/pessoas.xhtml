@@ -435,22 +435,23 @@
 							<p:panel id="p_dados_contatos"
 								header="Telefones Pessoais e de Contatos">
 								<h:panelGrid columns="2" cellpadding="5" render="@form">
-									<p:outputLabel value="Tipo de Contato:" />
-									<p:outputLabel value="Relacionamento:" />
+									
+									<p:outputLabel value="Tipo de Contato:" />									
 									<p:selectOneMenu id="tipoContato"
 										converter="omnifaces.SelectItemsConverter"
 										value="#{pessoajsfController.tipoContato}"
-										style="width:80px;important" rendered="false">
+										style="width:80px;important" rendered="true">
 										<f:selectItem itemLabel="selecione" itemValue=""
 											noSelectionOption="true" />
 										<f:selectItems value="#{pessoajsfController.listaTipoContato}"
 											var="o" itemLabel="#{o.descricao}" itemValue="#{o}" />
 									</p:selectOneMenu>
 
+									<p:outputLabel value="Relacionamento:" />
 									<p:selectOneMenu id="tipoRelacionamento"
 										converter="omnifaces.SelectItemsConverter"
 										value="#{pessoajsfController.tipoRelacionamento}"
-										style="width:80px;important" rendered="false">
+										style="width:80px;important" rendered="true">
 										<f:selectItem itemLabel="Selecione" itemValue=""
 											noSelectionOption="true" />
 										<f:selectItems
@@ -464,17 +465,12 @@
 
 									<p:outputLabel value="Contato: " />
 									<h:panelGrid columns="2" cellpadding="5" render="@form">
-
 										<p:inputMask mask="" id="iptxContato" size="30" maxlength="30"
-											style="width:80px" value="" />
-
-										
-											
-											<p:commandButton value="add" process="@this"
-									actionListener="#{pessoajsfController.incluirContatoNaLista()}"									
-									styleClass="btao-info-pessoas" 
-											style="width:80px;heigth:5px;important" />
-
+											style="width:80px" value="#{pessoajsfController.descricaoContato}" />
+																			
+										<p:commandButton value="add" process="@this" actionListener="#{pessoajsfController.incluirContatoNaLista()}"									
+											styleClass="btao-info-pessoas" 
+											style="width:80px;heigth:5px;important"/>
 									</h:panelGrid>
 
 								</h:panelGrid>
@@ -523,29 +519,29 @@
 
 						</p:tab>
 
-						<p:tab id="tab4" title="prontuário de emergencia">
+						<p:tab id="tab4" title="Prontuário de Emergência">
 							<p:panel id="p_prontuario_emergencia" header="Prontuário de Emergencia">
 								<h:panelGrid columns="2" cellpadding="5" render="@form">
-									<p:outputLabel value="Tipo de Prontuario:" />
-									<p:outputLabel value="descreva: " />
+									<p:outputLabel value="Tipo de Prontuario:" />									
 									<h:panelGrid columns="3" cellpadding="5" render="@form">
 										<p:selectOneMenu id="tipoProntuario"
 											converter="omnifaces.SelectItemsConverter"
 											value="#{pessoajsfController.tipoProntuarioEmergencia}"
-											style="width:80px;important" rendered="false">
+											style="width:80px;important" rendered="true">
 											<f:selectItem itemLabel="selecione" itemValue=""
 												noSelectionOption="true" />
 											<f:selectItems
 												value="#{pessoajsfController.listaTiposProntuarioEmergencia}"
 												var="o" itemLabel="#{o.descricao}" itemValue="#{o}" />
 										</p:selectOneMenu>
-
+										
+										<p:outputLabel value="descreva: " />
 										<p:inputText id="descricaoEmergencia" size="30" maxlength="30"
-											style="width:80px" value="" />
+											style="width:80px" value="#{pessoajsfController.descricaoProntuario}" />
 
 										<p:commandButton value="add" process="@this"
-									actionListener="#{pessoajsfController.incluirProntuarioEmergenciaNaLista()}"									
-									styleClass="btao-info-pessoas" 
+											actionListener="#{pessoajsfController.incluirProntuarioEmergenciaNaLista()}"									
+											styleClass="btao-info-pessoas" 
 											style="width:80px;heigth:5px;important" />
 
 									</h:panelGrid>
