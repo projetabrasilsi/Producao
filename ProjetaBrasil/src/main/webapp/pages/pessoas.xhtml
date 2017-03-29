@@ -251,19 +251,15 @@
 										requiredMessage="#{pessoajsfController.pessoaConfig.labelrg_InscRequiredMessage}"
 										rendered="#{pessoajsfController.pessoaConfig.labelrg_InscRenderiza}">
 									</p:inputText>
-
-									<!-- g-6 -->
-
-
-
-
-
-
-
-
-
-
-
+									
+									<p:outputLabel value="Profissão: " />
+									<h:panelGrid id="g_profissao" columns="2" render="@form">
+									<p:outputLabel size="15" maxlength="15" 
+													value="#{pessoajsfControlle.pessoa.id_Profissao}" />
+									<p:commandButton icon="ui-icon-search" process="@this"
+									onclick="PF('dialogoProfissoes').show();"
+									styleClass="btao-info-pessoas" />
+									</h:panelGrid>
 
 
 									<p:outputLabel value="Informe a Senha" />
@@ -299,23 +295,41 @@
 							<p:panel id="p_endereco">
 								<h:panelGrid id="g_e_1" columns="3" render="@form">
 
+								<p:outputLabel value="CEP:" />
+								<p:outputLabel value="Estado:" />
+								<p:outputLabel value="Cidade:" />
 
+								<!-- PAULO, SEU CÓDIGO ESTÁ LOGO ABAIXO -->
+								<h:panelGrid id="g_cep" columns="2" render="@form">
+								<p:inputText for="comcep" id="cep" size="12" maxlength="30"
+									style="width:80px"
+									value="#{pessoajsfController.endereco.logradouro.cidade.cep}"
+									validatorMessage="O minimo de caracteres para sigla são  '8'"
+									placeholder="Mínimo 8 números">
+								</p:inputText>
+								<p:commandButton id="comcep" icon="ui-icon-search" process="@this"
+										
+										styleClass="btao-info-pessoas">
+								
+									<p:ajax listener="#{pessoajsfController.setCEP}" 
+											update="cep,iptxEstado,iptxCidade,g_e_2,g_e_3,g_e_4 " render="@form" />
+											
+								 </p:commandButton>
+								</h:panelGrid>
 
-
-									<p:outputLabel value="CEP:" />
-									<p:outputLabel value="Estado:" />
-									<p:outputLabel value="Cidade:" />
-
+								<!-- 
 									<p:inputText id="cep" size="12" maxlength="30"
-										style="width:80px"
-										value="#{pessoajsfController.endereco.logradouro.cidade.cep}"
-										validatorMessage="O minimo de caracteres para sigla são  '8'"
-										placeholder="Mínimo 8 números">
-										<f:validateLength  maximum="8" />
-										<p:ajax listener="#{pessoajsfController.setCEP}"
-											update="cep,iptxEstado,iptxCidade,g_e_2,g_e_3,g_e_4 "
-											render="@form" />
+									style="width:80px"
+									value="#{pessoajsfController.endereco.logradouro.cidade.cep}"
+									validatorMessage="O minimo de caracteres para sigla são  '8'"
+									placeholder="Mínimo 8 números">
+									<f:validateLength  maximum="8" />
+									<p:ajax listener="#{pessoajsfController.setCEP}"
+										update="cep,iptxEstado,iptxCidade,g_e_2,g_e_3,g_e_4 "
+										render="@form" />
 									</p:inputText>
+								-->
+
 
 									<p:inputText id="iptxEstado" size="30" maxlength="30"
 										style="width:50px"
@@ -364,7 +378,6 @@
 												var="o" itemLabel="#{o.descricao}" itemValue="#{o}" />
 										</p:selectOneMenu>
 										<p:commandButton value=". . ."
-											actionListener="#{pessoajsfController.novoLogradouro}"
 											style=" width:70px;heigth:10px;important" process="@this" />
 
 									</h:panelGrid>
@@ -668,6 +681,36 @@
 							onclick="PF('dialogoCadastroB').hide();"
 							styleClass="btao-pessoas">
 						</p:commandButton>
+					</h:panelGrid>
+				</h:form>
+			</div>
+		</p:dialog>
+		
+		
+		<p:dialog header="Profissões" widgetVar="dialogoProfissoes"
+			resizable="false" modal="true" closable="false" appendTo="@(body)"
+			dynamic="true" responsive="true">
+			<div class="div-conteudo-info-pessoas">
+				<h:form id="formProfissoes">
+					<h:panelGrid id="painelProfissoes">
+
+						<h:panelGrid id="painelListaProfissoes">
+							<p:outputLabel value="Lista: " />
+									<p:selectOneMenu id="lista_profissoes"
+										value="#{pessoajsfController.pessoa.id_Profissao}"
+										converter="omnifaces.SelectItemsConverter"	style="width:90px!important">
+										<f:selectItem itemValue="Selecione" noSelectionOption="true" />
+										<f:selectItems	value="#{pessoajsfController.listarProfissoes()}" var="o"
+														itemLabel="#{o.descricao}" itemValue="#{o}" />
+									</p:selectOneMenu>
+						</h:panelGrid>
+
+						<p:commandButton value="Fechar"
+							onclick="PF('dialogoProfissoes').hide();"
+							process="@form" styleClass="btao-pessoas">
+						</p:commandButton>
+
+
 					</h:panelGrid>
 				</h:form>
 			</div>
