@@ -272,7 +272,7 @@ public class PessoajsfController extends GenericController implements Serializab
 		}
 
 		setarEndereco("editar");
-
+		
 	}
 
 	public void listarTiposdeLogradouro() {
@@ -714,7 +714,14 @@ public class PessoajsfController extends GenericController implements Serializab
 		contato.setTipoRelacionamento(tipoRelacionamento);
 		contato.setContato(descricaoContato);
 		
+		contato.toString();
 		listaContatos.add(contato);
+		int index = 0;
+		for(Contato c : listaContatos){
+			index++;
+			System.out.println(index + "------------------------------");
+			System.out.println(c.toString());
+		}
 	}
 
 	public void incluirProntuarioEmergenciaNaLista() {

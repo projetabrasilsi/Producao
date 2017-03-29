@@ -468,9 +468,9 @@
 										<p:inputMask mask="" id="iptxContato" size="30" maxlength="30"
 											style="width:80px" value="#{pessoajsfController.descricaoContato}" />
 																			
-										<p:commandButton value="add" process="@this" actionListener="#{pessoajsfController.incluirContatoNaLista()}"									
+										<p:commandButton value="add" process="@this" actionListener="#{pessoajsfController.incluirContatoNaLista}"									
 											styleClass="btao-info-pessoas" 
-											style="width:80px;heigth:5px;important"/>
+											style="width:80px;heigth:5px;important" update=":mensagens :formTemplate:formCadastro:formListaContatos:tabelaContatos"/>																			
 									</h:panelGrid>
 
 								</h:panelGrid>
@@ -504,7 +504,7 @@
 										<p:column headerText="Excl" style="width:10%;">
 											<p:commandButton icon="ui-icon-trash"
 												actionListener="#{pessoajsfController.excluirContato}"
-												update=":mensagens :formTemplate:formListaContatos:tabelaContatos">
+												update=":mensagens :formTemplate:formCadastro:formListaContatos:tabelaContatos">
 												<p:confirm header="Confirmação"
 													message="Deseja realmente excluir este registro?"
 													icon="ui-icon-alert" />
@@ -540,9 +540,9 @@
 											style="width:80px" value="#{pessoajsfController.descricaoProntuario}" />
 
 										<p:commandButton value="add" process="@this"
-											actionListener="#{pessoajsfController.incluirProntuarioEmergenciaNaLista()}"									
+											actionListener="#{pessoajsfController.incluirProntuarioEmergenciaNaLista}"									
 											styleClass="btao-info-pessoas" 
-											style="width:80px;heigth:5px;important" />
+											style="width:80px;heigth:5px;important" update=":mensagens :formTemplate:formCadastro:formListaProntuario:tabelaProntuario"/>
 
 									</h:panelGrid>
 								</h:panelGrid>
