@@ -74,7 +74,7 @@
 		<mapping class="br.com.projetabrasil.model.entities.QRCode" />
 		<mapping class="br.com.projetabrasil.model.entities.Profissao" />
 		<mapping class="br.com.projetabrasil.model.entities.Contato" />
-		<mapping class="br.com.projetabrasil.model.entities.prontuario_de_emergencia" />
+		<mapping class="br.com.projetabrasil.model.entities.Prontuario_de_Emergencia" />
 	</session-factory>
 
 </hibernate-configuration>

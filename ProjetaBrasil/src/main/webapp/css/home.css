@@ -10,7 +10,7 @@
 
 /*-----Barra do menu (header)----*/
 .navbar {
-	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e0e0e0+0,91a8bc+100&1+0,0.36+100 */
+	
 background: -moz-linear-gradient(45deg,  rgba(224,224,224,1) 0%, rgba(145,168,188,0.36) 100%); /* FF3.6-15 */
 background: -webkit-linear-gradient(45deg,  rgba(224,224,224,1) 0%,rgba(145,168,188,0.36) 100%); /* Chrome10-25,Safari5.1-6 */
 background: linear-gradient(45deg,  rgba(224,224,224,1) 0%,rgba(145,168,188,0.36) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
