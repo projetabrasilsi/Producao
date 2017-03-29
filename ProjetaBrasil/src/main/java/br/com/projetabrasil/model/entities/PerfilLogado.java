@@ -133,6 +133,15 @@ public class PerfilLogado implements Serializable {
 		return retorno;
 
 	}
+	
+	public boolean renderizaPelaPagina(String permissao, Pessoa pessoa) {
+		String pAtual = this.getPaginaAtual().toString();
+		if (pAtual.equals(permissao) && pessoa.getDescricao() != null) {
+			return false;
+		}else{
+			return true;
+		}
+	}
 
 	public void listagemPerfisdousLogado() {
 		Pessoa_Enum_Aux_Perfil_PessoasDAO pf = new Pessoa_Enum_Aux_Perfil_PessoasDAO();

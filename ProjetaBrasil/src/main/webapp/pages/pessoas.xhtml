@@ -266,21 +266,22 @@
 
 
 
-									<p:outputLabel value="Informe a Senha" />
+									<p:outputLabel value="Informe a Senha" rendered="#{pessoajsfController.perfilLogado.renderizaPelaPagina('PAGINACLIENTES', pessoajsfController.pessoa)}"/>
 									<p:password size="18" maxlength="8"
 										value="#{pessoajsfController.usuario.senhaSemCript}"
 										required="true" requiredMessage="Informe a senha!!!"
+										rendered="#{pessoajsfController.perfilLogado.renderizaPelaPagina('PAGINACLIENTES', pessoajsfController.pessoa)}"
 										validatorMessage="O minimo de digitos para senha: '8'"
 										placeholder="8 letras e/ou digitos">
 										<f:validateLength minimum="8" />
 									</p:password>
 
 
-									<p:outputLabel value="Confirme a Senha" />
+									<p:outputLabel value="Confirme a Senha" rendered="#{pessoajsfController.perfilLogado.renderizaPelaPagina('PAGINACLIENTES', pessoajsfController.pessoa)}"/>
 									<p:password size="18" maxlength="8"
 										value="#{pessoajsfController.usuario.confSenha}"
-										required="true"
-										requiredMessage="Informe a confirmação de senha."
+										required="true" requiredMessage="Informe a confirmação de senha."
+										rendered="#{pessoajsfController.perfilLogado.renderizaPelaPagina('PAGINACLIENTES', pessoajsfController.pessoa)}"
 										validatorMessage="O minimo de digitos para confirmação senha: '8'"
 										placeholder="8 letras e/ou digitos">
 										<f:validateLength minimum="8" />
