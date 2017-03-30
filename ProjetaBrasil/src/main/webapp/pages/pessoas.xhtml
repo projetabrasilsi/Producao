@@ -438,10 +438,9 @@
 								<h:panelGrid columns="2" cellpadding="5" render="@form">
 									
 									<p:outputLabel value="Tipo de Contato:" />									
-									<p:selectOneMenu id="tipoContato"
-										converter="omnifaces.SelectItemsConverter"
+									<p:selectOneMenu converter="omnifaces.SelectItemsConverter"
 										value="#{pessoajsfController.tipoContato}"
-										style="width:80px;important" rendered="true">
+										style="width:80px;important">
 										<f:selectItem itemLabel="selecione" itemValue=""
 											noSelectionOption="true" />
 										<f:selectItems value="#{pessoajsfController.listaTipoContato}"
@@ -449,10 +448,9 @@
 									</p:selectOneMenu>
 
 									<p:outputLabel value="Relacionamento:" />
-									<p:selectOneMenu id="tipoRelacionamento"
-										converter="omnifaces.SelectItemsConverter"
+									<p:selectOneMenu converter="omnifaces.SelectItemsConverter"
 										value="#{pessoajsfController.tipoRelacionamento}"
-										style="width:80px;important" rendered="true">
+										style="width:80px;important">
 										<f:selectItem itemLabel="Selecione" itemValue=""
 											noSelectionOption="true" />
 										<f:selectItems
@@ -466,10 +464,10 @@
 
 									<p:outputLabel value="Contato: " />
 									<h:panelGrid columns="2" cellpadding="5" render="@form">
-										<p:inputMask mask="" id="iptxContato" size="30" maxlength="30"
+										<p:inputMask mask="" size="30" maxlength="30"
 											style="width:80px" value="#{pessoajsfController.descricaoContato}" />
 																			
-										<p:commandButton value="add" process="@this" actionListener="#{pessoajsfController.incluirContatoNaLista}"									
+										<p:commandButton value="add" process="@form" actionListener="#{pessoajsfController.incluirContatoNaLista}"									
 											styleClass="btao-info-pessoas" 
 											style="width:80px;heigth:5px;important" update=":mensagens :formTemplate:formCadastro:formListaContatos:tabelaContatos"/>																			
 									</h:panelGrid>
@@ -574,7 +572,7 @@
 										<p:column headerText="Excl" style="width:10%;">
 											<p:commandButton icon="ui-icon-trash"
 												actionListener="#{pessoajsfController.excluirProntuario}"
-												update=":mensagens :formTemplate:formListaProntuario:tabelaProntuario">
+												update=":mensagens :formTemplate:formCadastro:formListaProntuario:tabelaProntuario">
 												<p:confirm header="Confirmação"
 													message="Deseja realmente excluir este registro?"
 													icon="ui-icon-alert" />

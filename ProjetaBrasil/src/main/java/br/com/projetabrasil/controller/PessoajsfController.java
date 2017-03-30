@@ -701,6 +701,7 @@ public class PessoajsfController extends GenericController implements Serializab
 	}
 
 	public void incluirContatoNaLista() {
+		contato = new Contato();
 		contato.setId_Pessoa(pessoa);
 		if (perfilLogado.getAssLogado() != null && perfilLogado.getAssLogado().getId() != null)
 			contato.setId_Pessoa_Registro(perfilLogado.getAssLogado());
@@ -710,18 +711,28 @@ public class PessoajsfController extends GenericController implements Serializab
 		contato.setUltimaAtualizacao(Utilidades.retornaCalendario());
 		
 		//PREENCHER ATRIBUTOS À BAIXO
-		contato.setTipoContato(tipoContato);
-		contato.setTipoRelacionamento(tipoRelacionamento);
-		contato.setContato(descricaoContato);
+		contato.setTipoContato(this.tipoContato);
+		contato.setTipoRelacionamento(this.tipoRelacionamento);
+		contato.setContato(this.descricaoContato);
 		
-		contato.toString();
-		listaContatos.add(contato);
 		int index = 0;
 		for(Contato c : listaContatos){
 			index++;
 			System.out.println(index + "------------------------------");
 			System.out.println(c.toString());
 		}
+		System.out.println("------------------------------------------------------------------------\n");
+		listaContatos.add(contato);
+		
+		//TESTE NO CONSOLE
+		
+		index = 0;
+		for(Contato c : listaContatos){
+			index++;
+			System.out.println(index + "------------------------------");
+			System.out.println(c.toString());
+		}
+
 	}
 
 	public void incluirProntuarioEmergenciaNaLista() {
