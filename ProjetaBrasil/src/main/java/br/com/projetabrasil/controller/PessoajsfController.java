@@ -29,8 +29,8 @@ import br.com.projetabrasil.model.dao.EnderecoDAO;
 import br.com.projetabrasil.model.dao.EstadoDAO;
 import br.com.projetabrasil.model.dao.LogradouroDAO;
 import br.com.projetabrasil.model.dao.PaisDAO;
-import br.com.projetabrasil.model.dao.PessoaDAO;
 import br.com.projetabrasil.model.dao.Pessoa_VinculoDAO;
+import br.com.projetabrasil.model.dao.ProfissaoDAO;
 import br.com.projetabrasil.model.dao.Prontuario_de_EmergenciaDAO;
 import br.com.projetabrasil.model.dao.UsuarioDAO;
 import br.com.projetabrasil.model.entities.Bairro;
@@ -52,6 +52,7 @@ import br.com.projetabrasil.model.entities.Pais;
 import br.com.projetabrasil.model.entities.PerfilLogado;
 import br.com.projetabrasil.model.entities.Pessoa;
 import br.com.projetabrasil.model.entities.Pessoa_Vinculo;
+import br.com.projetabrasil.model.entities.Profissao;
 import br.com.projetabrasil.model.entities.Prontuario_de_Emergencia;
 import br.com.projetabrasil.model.entities.Usuario;
 import br.com.projetabrasil.util.CepWebService;
@@ -96,6 +97,9 @@ public class PessoajsfController extends GenericController implements Serializab
 	private List<Contato> listaContatos;
 	private Prontuario_de_Emergencia prontuarioEmergencia;
 	private List<Prontuario_de_Emergencia> listaProntuarioEmergencia;
+	
+	
+
 
 	@PostConstruct
 	public void listar() {
@@ -339,8 +343,8 @@ public class PessoajsfController extends GenericController implements Serializab
 					new Bairro(new Cidade(new Estado(pais))));
 
 		if (acao == "validar") {
-			PessoaDAO pDAO = new PessoaDAO();
-			p = pDAO.retornaPelaIdentificacao(pessoa.getIdentificador());
+//			PessoaDAO pDAO = new PessoaDAO();
+			p = PessoaBusiness.buscaPessoa(p);//pDAO.retornaPelaIdentificacao(pessoa.getIdentificador());
 			if (p != null) {
 				endereco = eDAO.buscaEnderecoPorPessoa(p);
 				// se a pessoa existir mas não tiver endereço --> usa o padrão
@@ -454,7 +458,7 @@ public class PessoajsfController extends GenericController implements Serializab
 			return;
 
 		}
-
+		System.out.println(cp.toString());
 		bai = Utilidades.formataString(cp.getBairro());
 		log = Utilidades.formataString(cp.getLogradouro());
 		cid = Utilidades.formataString(cp.getCidade());
@@ -739,6 +743,19 @@ public class PessoajsfController extends GenericController implements Serializab
 		}
 
 	}
+	
+	
+	
+	public List<Profissao> listarProfissoes(String digitado){
+		
+			ProfissaoDAO proDAO = new ProfissaoDAO();
+			List<Profissao> lPro = new ArrayList<>();
+			
+			lPro = proDAO.listardeProfissoes(digitado);
+			
+		return lPro;
+	}
+	
 
 	public Pessoa getPessoa() {
 		return pessoa;
@@ -967,5 +984,11 @@ public class PessoajsfController extends GenericController implements Serializab
 	public void setListaProntuarioEmergencia(List<Prontuario_de_Emergencia> listaProntuarioEmergencia) {
 		this.listaProntuarioEmergencia = listaProntuarioEmergencia;
 	}
+	
+	public List<Profissao> listarProfissoes(){
+		ProfissaoDAO proDAO = new ProfissaoDAO();
+		return proDAO.listardeProfissoes("");
+	}
+	
 
 }
