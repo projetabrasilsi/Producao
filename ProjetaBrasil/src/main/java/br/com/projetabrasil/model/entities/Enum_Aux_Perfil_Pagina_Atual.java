@@ -16,11 +16,11 @@ public enum Enum_Aux_Perfil_Pagina_Atual {
 	PAGINAITEMDESERVICO("PAGINAITEMDESERVICO","PITEMDESERV",12,Enum_Aux_Perfil_Pessoa.VENDAS,Enum_Aux_Perfil_Pessoa.VENDAS ,false,false,"item_de_movimento.xhtml","itens de serviço"),
 	PAGINAITEMDEPROMOCAO("PAGINAITEMDEPROMOCAO","PITEMDEPROM",13,Enum_Aux_Perfil_Pessoa.VENDAS,Enum_Aux_Perfil_Pessoa.VENDAS ,false,false,"item_de_movimento.xhtml","itens de promoção"),
 	
-	PAGINAPAISES("PAGINAPAISES", "PPAIS",0,null,null,false,true,"paises.xhtml", "países" ),			//FALTA ARRUMAR O FORMUL�?RIO NO XHTML DE PAIS, DEPOIS É SÓ REPLICAR PARA OS OUTROS XHTML's ABAIXO
-	PAGINAESTADOS("PAGINAESTADOS", "PESTADO",0,null,null,false,true,"estados.xhtml", "estados" ),	//CRIAR XHTML PARA ESTADO
-	PAGINACIDADES("PAGINACIDADES", "PCIDADE",0,null,null,false,true,"cidades.xhtml", "cidade" ),	//CRIAR XHTML PARA CIDADE
-	PAGINABAIRROS("PAGINABAIRROS", "PBAIRROS",0,null,null,false,true,"bairros.xhtml", "bairros" ),	//CRIAR XHTML PARA BAIRRO
-	PAGINALOGRADOUROS("PAGINALOGRADOUROS", "PLOGRADOUROS",0,null,null,false,true,"logradouros.xhtml", "logradouros" ),	//CRIAR XHTML PARA LOGRADOURO
+	PAGINAPAISES("PAGINAPAISES", "PPAIS",0,null,null,false,true,"paises.xhtml", "países" ),			
+	PAGINAESTADOS("PAGINAESTADOS", "PESTADO",0,null,null,false,true,"estados.xhtml", "estados" ),	
+	PAGINACIDADES("PAGINACIDADES", "PCIDADE",0,null,null,false,true,"cidades.xhtml", "cidade" ),	
+	PAGINABAIRROS("PAGINABAIRROS", "PBAIRROS",0,null,null,false,true,"bairros.xhtml", "bairros" ),	
+	PAGINALOGRADOUROS("PAGINALOGRADOUROS", "PLOGRADOUROS",0,null,null,false,true,"logradouros.xhtml", "logradouros" ),	
 	
 	PAGINAOUTROS("PAGINAOUTROS","POUTROS",14,Enum_Aux_Perfil_Pessoa.OUTROS,null,false,true,"pessoas.xhtml","outros"),
 	PAGINAINDEX("PAGINAINDEX","PINDEX",15,Enum_Aux_Perfil_Pessoa.OUTROS,null,false,false,"index.xhtml", "página principal"),

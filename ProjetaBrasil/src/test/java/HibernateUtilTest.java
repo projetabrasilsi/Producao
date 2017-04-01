@@ -129,7 +129,67 @@ public class HibernateUtilTest {
 			pp = ppDAO.merge(pp);
 		}
 	}
-		
 	
+	@Test
+	public void cadastraEmpresa() {
+		p = new Pessoa();
+		p.setCpf_Cnpj("41650839000152");
+		p.setCpf_Cnpj(Utilidades.retiraCaracteres(p.getCpf_Cnpj()));
+
+		boolean vf = false;
+		if (p.getCpf_Cnpj().length() == 11)
+			vf = Utilidades.isValidCPF(p.getCpf_Cnpj());
+		else if (p.getCpf_Cnpj().length() == 14)
+			vf = Utilidades.isValidCNPJ(p.getCpf_Cnpj());
+
+		if (vf) {
+
+			p.setIdentificador(p.getCpf_Cnpj());
+			PessoaDAO pDAO = new PessoaDAO();
+			p = pDAO.retornaPelaIdentificacao(p.getIdentificador());
+
+			if (p == null) {
+				p = new Pessoa();
+				p.setCpf_Cnpj("41650839000152");
+				p.setIdentificador(p.getCpf_Cnpj());
+				p.setRg_Insc("708587489925");
+				p.setFone_1("11111111111");
+				p.setFone_2("");
+				p.setFone_3("");
+				p.setEmail("projetabrasil@gmail.com");
+				p.setId_Pessoa_Registro(p);
+				p.setEnum_Aux_Tipo_Identificador(Enum_Aux_Tipo_Identificador.CNPJ);
+				p.setDescricao("Projeta Brasil");
+				p.setFantasia_Apelido("Projeta Brasil");
+			}
+			p = pDAO.merge(p);
+			us = new Usuario();
+			us.setPessoa(p);
+
+			UsuarioDAO usDAO = new UsuarioDAO();
+			us = usDAO.retornaUsuarioPelaPessoa(p);
+
+			if (us == null) {
+				try {
+					us = new Usuario();
+					us.setPessoa(p);
+					us.setAtivo(true);
+					us.setSenhaSemCript("11111111");
+					us.setConfSenha("11111111");
+					//us.setId(null);
+					us.setId_Empresa(1);
+					us.setId_Pessoa_Registro(p);
+					us.setPessoa(p);
+					
+				} catch (RuntimeException error) {
+					error.printStackTrace();
+					throw error;
+				}
+			}
+			
+			us = usDAO.merge(us);
+		}
 		
-}	
+	}
+}		
+

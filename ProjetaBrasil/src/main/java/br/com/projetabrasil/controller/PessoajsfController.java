@@ -107,7 +107,7 @@ public class PessoajsfController extends GenericController implements Serializab
 		tipoLogradouro = Enum_Aux_Tipo_Logradouro.RUA;
 		tipoRelacionamento = Enum_Aux_Tipo_Relacionamento.PROPRIO;
 		tipoProntuarioEmergencia = Enum_Aux_Tipo_Prontuario_de_Emergencia.TIPOSANGUINEO;
-
+		
 		pais = new Pais();
 		setPais(buscaPais("BRASIL", "BRL"));
 		endereco = new Endereco(new Logradouro(new Cidade(new Estado(pais))), new Bairro(new Cidade(new Estado(pais))));
@@ -216,7 +216,12 @@ public class PessoajsfController extends GenericController implements Serializab
 	}
 
 	public void novo(ActionEvent event) {
-
+		
+		if(perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.ADMINISTRADORES)){			
+			perfilLogado.setAssLogado(new Pessoa_VinculoDAO().retornaVinculo_Mestre(perfilLogado.getUsLogado().getPessoa(),
+					Enum_Aux_Perfil_Pessoa.ADMINISTRADORES).getId_pessoa_m());
+		}
+		
 		perfilLogadoTemp = perfilLogado;
 		pais = new Pais();
 		setPais(buscaPais("BRASIL", "BRL"));
@@ -270,8 +275,10 @@ public class PessoajsfController extends GenericController implements Serializab
 			prontuarioEmergencia.setId_Pessoa_Registro(perfilLogado.getUsLogado().getPessoa());
 			contato.setId_Pessoa(perfilLogado.getUsLogado().getPessoa());
 		}
-
+		
+		listarContatosdaPessoa();
 		setarEndereco("editar");
+		Utilidades.abrirfecharDialogos("dialogoIdentidade", true);
 		
 	}
 
@@ -344,18 +351,21 @@ public class PessoajsfController extends GenericController implements Serializab
 
 		if (acao == "validar") {
 			PessoaDAO pDAO = new PessoaDAO();
+			p = new Pessoa();
 			p = pDAO.retornaPelaIdentificacao(pessoa.getIdentificador());
 			if (p != null) {
 				endereco = eDAO.buscaEnderecoPorPessoa(p);
 				// se a pessoa existir mas não tiver endereço --> usa o padrão
 				// do usuario - caso o endereço do usuário também exista
-				if (endereco == null && endUsuario != null && endUsuario.getId() != null)
-					endereco = endUsuario;
-				else
-					// caso pessoa exista e usuário exista mas nenhum dos dois
-					// tenha endereço --> gera um endereço em branco
+				if (endereco == null){
 					endereco = new Endereco(new Logradouro(new Cidade(new Estado(pais))),
-							new Bairro(new Cidade(new Estado(pais))));
+							new Bairro(new Cidade(new Estado(pais))));					
+					if(endUsuario != null && endUsuario.getId() != null){
+						endereco = endUsuario;
+					}
+				}
+				
+					
 			} else
 			// caso pessoa não exista mas endereço do usuário exista --> usa o
 			// do usuário
@@ -368,13 +378,13 @@ public class PessoajsfController extends GenericController implements Serializab
 			endereco = eDAO.buscaEnderecoPorPessoa(pessoa);
 			// Pessoa existe mas não tem endereço e usuário tem endereço --->
 			// usa o do usuario
-			if (endereco == null && endUsuario != null)
-				endereco = endUsuario;
-			else
-				// Pessoa existe mas não tem endereço e nem o usuário tem
-				// endereço --> setar um novo endereço
+			if (endereco == null){
 				endereco = new Endereco(new Logradouro(new Cidade(new Estado(pais))),
-						new Bairro(new Cidade(new Estado(pais))));
+						new Bairro(new Cidade(new Estado(pais))));					
+				if(endUsuario != null && endUsuario.getId() != null){
+					endereco = endUsuario;
+				}
+			}
 
 		}
 
@@ -424,18 +434,17 @@ public class PessoajsfController extends GenericController implements Serializab
 				return;
 			}
 		}
-
+		
 		pessoa = PessoaGenericBusiness.merge(pessoa, usuario, perfilLogado, true);
 		// Endereço MERGE------------
 		if (pessoa != null) {
-			this.endereco.setBairro(this.bairro);
-			this.endereco.setLogradouro(this.logradouro);
 			this.endereco.setId_Empresa(0);
 			this.endereco.setUltimaAtualizacao(Utilidades.retornaCalendario());
 			this.endereco.setPessoa(pessoa);
 			this.endereco.setId(null);
-			EnderecoBusiness.merge(endereco);
+			EnderecoBusiness.merge(this.endereco);
 		}
+		
 		mergeListaContato();
 		mergeListaProntuarioEmergencia();
 
@@ -561,6 +570,7 @@ public class PessoajsfController extends GenericController implements Serializab
 
 		endereco.setBairro(b);
 		endereco.setLogradouro(l);
+		endereco.getLogradouro().getCidade().setCep(cep);
 
 		if (endereco.getBairro() == null)
 			endereco.setBairro(new Bairro(c));
@@ -569,7 +579,7 @@ public class PessoajsfController extends GenericController implements Serializab
 			endereco.setLogradouro(new Logradouro(c));
 		if (tl != null && tl.length() > 0)
 			endereco.getLogradouro().setEnum_Aux_Tipo_Logradouro(Enum_Aux_Tipo_Logradouro.valueOf(tl));
-
+		
 		listarBairros();
 		listarLogradouros();
 
@@ -597,6 +607,8 @@ public class PessoajsfController extends GenericController implements Serializab
 
 		setBairro(BairroBusiness.merge(this.bairro));
 
+		listarBairros();
+		
 		Utilidades.abrirfecharDialogos("dialogoCadastroB", false);
 	}
 
@@ -616,7 +628,9 @@ public class PessoajsfController extends GenericController implements Serializab
 
 		System.out.println(this.logradouro.toString());
 		LogradouroBusiness.merge(this.logradouro);
-
+		
+		listarLogradouros();
+		
 		Utilidades.abrirfecharDialogos("dialogoCadastroL", false);
 	}
 
@@ -663,13 +677,17 @@ public class PessoajsfController extends GenericController implements Serializab
 				}
 
 			}
+			//SOMENETE LISTA SE PESSOA EXISTIR
+			listarContatosdaPessoa();
 		}
 		if (pessoa.getEnum_Aux_Tipo_Identificador().getAux_tipo_pessoa().equals(Enum_Aux_Tipo_Pessoa.OUTROS))
 			pessoa.setEnum_Aux_Tipo_Identificador(Enum_Aux_Tipo_Identificador.CPF);
 		if (!pessoa.getEnum_Aux_Tipo_Identificador().equals(tipoIdent))
 			pessoa.setEnum_Aux_Tipo_Identificador(tipoIdent);
-
+		
 		setarEndereco("validar");
+		listarLogradouros();
+		listarBairros();
 
 		mudaLabel();
 		PessoaGenericBusiness.chamaDialogoCastro();
@@ -686,6 +704,8 @@ public class PessoajsfController extends GenericController implements Serializab
 		setContato((Contato) evento.getComponent().getAttributes().get("registroAtualContato"));
 		ContatoDAO cDAO = new ContatoDAO();
 		cDAO.excluir(getContato());
+		listaContatos.remove(contato);
+		
 		listarContatosdaPessoa();
 
 	}
@@ -715,27 +735,12 @@ public class PessoajsfController extends GenericController implements Serializab
 		contato.setTipoRelacionamento(this.tipoRelacionamento);
 		contato.setContato(this.descricaoContato);
 		
-		int index = 0;
-		for(Contato c : listaContatos){
-			index++;
-			System.out.println(index + "------------------------------");
-			System.out.println(c.toString());
-		}
-		System.out.println("------------------------------------------------------------------------\n");
 		listaContatos.add(contato);
-		
-		//TESTE NO CONSOLE
-		
-		index = 0;
-		for(Contato c : listaContatos){
-			index++;
-			System.out.println(index + "------------------------------");
-			System.out.println(c.toString());
-		}
 
 	}
 
 	public void incluirProntuarioEmergenciaNaLista() {
+		prontuarioEmergencia = new Prontuario_de_Emergencia();
 		prontuarioEmergencia.setId_Pessoa(pessoa);
 		if (perfilLogado.getAssLogado() != null && perfilLogado.getAssLogado().getId() != null)
 			prontuarioEmergencia.setId_Pessoa_Registro(perfilLogado.getAssLogado());
@@ -745,8 +750,8 @@ public class PessoajsfController extends GenericController implements Serializab
 		prontuarioEmergencia.setUltimaAtualizacao(Utilidades.retornaCalendario());
 		
 		//PREENCHER ATRIBUTOS À BAIXO
-		prontuarioEmergencia.setTipo_Prontuario_Emergencia(tipoProntuarioEmergencia);
-		tipoProntuarioEmergencia.setDescricao(descricaoProntuario);
+		prontuarioEmergencia.setTipo_Prontuario_Emergencia(this.tipoProntuarioEmergencia);
+		tipoProntuarioEmergencia.setDescricao(this.descricaoProntuario);
 		
 		listaProntuarioEmergencia.add(prontuarioEmergencia);
 	}
@@ -770,7 +775,7 @@ public class PessoajsfController extends GenericController implements Serializab
 		}
 
 	}
-
+	
 	public Pessoa getPessoa() {
 		return pessoa;
 	}

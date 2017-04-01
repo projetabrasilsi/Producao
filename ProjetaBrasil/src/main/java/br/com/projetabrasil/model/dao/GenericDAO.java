@@ -116,7 +116,7 @@ public class GenericDAO<Entity> {
 		
 	}
 	
-	public Entity  merge(Entity e) {
+	public Entity merge(Entity e) {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		Transaction transacao = null;
 		try {

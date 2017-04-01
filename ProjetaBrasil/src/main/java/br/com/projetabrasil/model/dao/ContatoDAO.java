@@ -19,7 +19,7 @@ public class ContatoDAO extends GenericDAO<Contato> {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		try {
 			Criteria consulta = sessao.createCriteria(Contato.class);
-			consulta.add(Restrictions.eq("id_pessoa",p));
+			consulta.add(Restrictions.eq("id_Pessoa", p));
 			contatos = consulta.list();
 			return contatos;
 		} catch (RuntimeException error) {

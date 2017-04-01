@@ -1,4 +1,56 @@
+
+/*----geral-color----*/
+.btn-color-blue{
+	background: #305997 !important;
+	border: 1px solid #305997 !important;
+}
+.btn-color-blue:hover{
+	background: #1f4277!important;
+}
+
+.btn-color-blue2{
+	background: #326e98 !important;
+	border: 1px solid #326e98 !important;
+}
+.btn-color-blue2:hover{
+	background: #225077 !important;
+}
+
+.btn-color-green{
+	background: #4caf53 !important;
+	border: 1px solid #4caf53 !important;
+}
+.btn-color-green:hover{
+	background: #38923a!important;
+}
+
+.btn-color-green2{
+	background: #358b37 !important;
+	border: 1px solid #358b37 !important;
+}
+.btn-color-green2:hover{
+	background: #266f25 !important;
+}
+
+.btn-color-red{
+	background: #b0241c !important;
+	border: 1px solid #b0241c !important;
+}
+.btn-color-red:hover{
+	background: #981114 !important;
+}
+
+/*----Topbar----*/
+
+.wrapper .topbar{
+	background: #1e7fba;
+}
+
 /*----Sidebar----*/
+.wrapper .sidebar{
+	/*background: #052638;*/
+	background: #0d314a;
+}
 .sidebar .username label{
 	cursor: pointer;
 }
@@ -28,16 +80,17 @@
  	padding-bottom: 7px;
 }
 .sidebar .ui-panelmenu-panel{
-	 border-top: 1px solid #4e5159;	
+	 border-top: 1px solid #173f55;	
 }
 .sidebar .ui-panelmenu-panel:last-child{
-	border-bottom: 1px solid #4e5159;
+	border-bottom: 1px solid #2c455d;
 }
 .sidebar .ui-panelmenu-panel > .ui-panelmenu-content>ul>li:last-child>a{
 	border-bottom: none !important;
 }
 .sidebar .ui-panelmenu-panel > .ui-panelmenu-content>ul>li:first-child>a{
 	border-top: none !important;
+	
 }
 .sidebar ul a:hover{
 	color: #39BC17 !important;
@@ -154,7 +207,9 @@
 .cDialog-edit-pessoas .ui-dialog-footer .ui-icon-close{
 	font-size: 1.2em;
 }
+
 /*modal-cpf-pessoas*/
+
 .dialog-cpf-pessoas{
 	max-width: 305px;
 	margin:10px;
@@ -176,28 +231,56 @@
 	margin-top:10px;
 	padding: 3px 10px 3px 20px ;
 }
+
 /*modal-Infos-pessoas*/
+
 .dialog-info-pessoas{
 	padding:10px;
 	margin: 10px;
-	max-width: 410px;
-	max-height: 700px;
+	max-height: 750px;
 	overflow: auto !important;
+	max-width: 750px;
+	
 }
 .div-conteudo-info-pessoas{		
 }
-.dialog-info-pessoas .ui-widget-header{
+.dialog-info-pessoas .btn-info-pessoas-fechar{
+	width: 25px;
+	padding: 0px !important;
+}
+.dialog-info-pessoas .btn-info-pessoas-fechar span{
+	
+	margin-left: -7px !important;
+}
+.dialog-info-pessoas .ui-dialog-title{
+	color: #999;
+	position: absolute;
+}
+.dialog-info-pessoas .ui-dialog-titlebar{
 	padding-left:15px;
 	margin:0px;
+}
+.dialog-info-pessoas .ui-dialog-titlebar a{
+	padding: 2px 5px 5px 5px;
+	border: 1px solid #e8c6c3;
+}
+.dialog-info-pessoas .ui-dialog-titlebar a:hover{
+	padding: 2px 5px 5px 5px;
+	background: #a50000 !important;
+}
+
+.dialog-info-pessoas .ui-dialog-titlebar a span::before{
+	font-size: 17px !important;
+	color: #a50000 !important;
+}
+.dialog-info-pessoas .ui-dialog-titlebar a:hover span::before{
+	color: #fff !important;
 }
 .input-info-nome-pessoas{
 	max-width: 450px;
 	width:100%;
 } 
-.radio-info-sexo-pessoas{
-	margin-top: -10px;
-	margin-bottom: -10px;
-}
+
 .dialog-info-pessoas .grupo01-info-pessoas{
 	margin-left: -5px !important;	
 }
@@ -219,9 +302,149 @@
 	margin-top:10px;
 	padding: 3px 10px 3px 20px ;
 }
+.
 .dialog-info-pessoas .btao-info-pessoas{
 	margin-left: 10px;
 }
+
+.input-info-pessoas-data input{
+	margin-top:7px;
+	margin-bottom: 5px;
+	padding: 5px;
+}
+.input-info-pessoas-geral{
+	margin-bottom: 5px;
+	padding: 5px;
+}
+
+/*Wizard-Infos-pessoas*/
+.wizard-info-pessoas{
+	width:670px;
+	overflow: hidden !important;
+}
+.div-wizard-pessoas{
+
+}
+.wizard-info-pessoas ul{
+	margin-bottom: 5px;
+	margin-top: 15px;
+}
+.wizard-info-pessoas li{
+	padding-top: 3px;
+	padding-bottom: 3px;
+	font-weight: 200;
+}
+
+.wizard-info-pessoas .ui-wizard-nav-next,
+.wizard-info-pessoas .ui-wizard-nav-back{
+	background: #e7e7e7!important;
+	border: 1px solid #ccc !important;
+	color: #233d52!important;
+	padding-top: 1px;
+	padding-bottom: 1px;
+}
+.wizard-info-pessoas .ui-wizard-nav-next:hover,
+.wizard-info-pessoas .ui-wizard-nav-back:hover{
+	background: #d1d1d1 !important;
+}
+
+
+/*tab2-wizard-Infos-pessoas*/
+.div-wizard-pessoas .row-tab2{
+	margin-bottom: 5px;
+}
+.div-wizard-pessoas .row-tab2 .ui-md-4{
+	/*border: 1px solid red;*/
+}
+.div-wizard-pessoas .row-tab2 .col-tab2-row1{
+	width: 150px;
+}
+.div-wizard-pessoas .row-tab2 .col-tab2-row1:nth-child(2){
+	width: 70px;
+}
+.div-wizard-pessoas .row-tab2 .col-tab2-row1:nth-child(3){
+	width: 240px;
+}
+.btn-info-pessoas-logradouro, .btn-info-pessoas-bairro{
+	width: 40px;
+	height: 25px;
+	margin-top: -3px !important;
+}
+.btn-info-pessoas-logradouro .ui-button-text, .btn-info-pessoas-bairro .ui-button-text{
+	padding: 0;
+	margin: 0;
+}
+.div-wizard-pessoas .row-tab2 .col-tab2-row2{
+	width: 220px;
+}
+.div-wizard-pessoas .wizard-info-pessoas-pgrid-logradouro{	
+	margin-left: -3px;
+}
+
+.div-wizard-pessoas .row-tab2 .col-tab2-row3{
+	width: 250px;
+} 
+.div-wizard-pessoas .row-tab2 .col-tab2-row3:nth-child(1){
+	width: 220px;
+}
+/*tab2-wizard-Infos-pessoas - dialogs*/
+
+.dialog-wizard-tab2 .ui-dialog-titlebar{
+	padding:0;
+	
+}
+.dialog-wizard-tab2 .ui-dialog-titlebar span{
+	margin: 0 !important;
+	color: #999;
+}
+.btn-grid-dialog-tab2-wizard{
+	margin-top: 10px;
+}
+
+
+/*tab3-wizard-Infos-pessoas*/
+.input-info-pessoas-add-cell{
+	margin-left: -3px !important;
+}
+.btn-info-pessoas-add-cell .ui-button-text{
+	padding: 0;
+	margin: 0;
+}
+.btn-info-pessoas-add-cell{
+	width: 80px;
+	height: 25px;
+	margin-top: -1px !important;
+}
+.div-tb-wizard-tab3{
+	
+}
+
+.wizard-tab3-td-col-pessoas{
+	width: 100px !important;
+	margin-top: -5px !important;
+	margin-bottom: -5px !important;
+}
+.wizard-info-pessoas .excl-col-info-pessoas{
+	width: 30px !important;
+}
+.wizard-info-pessoas .excl-btn-info-pessoas{
+	width: 100%;
+	height: 25px;
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+.div-tb-wizard-tab3 .tabela-pessoas tr, 
+.div-tb-wizard-tab3 .tabela-pessoas td{
+	padding-top: 0px !important;
+	padding-bottom: 0px !important;
+}
+
+
+/*tab4-wizard-Infos-pessoas*/
+.btn-info-pessoas-add-cell-tab4{
+	margin-top: 5px !important;
+}
+
 
 
 /*--Ponto--*/
@@ -267,9 +490,48 @@
 
 
 
+/*-----Media Querys-----*/
+
+@media (max-width: 740px) {
+/*Wizard-Infos-pessoas*/
+.wizard-info-pessoas{
+	width:100%;
+	
+}
+}
 
 
+@media (max-width: 590px) {
+/*Wizard-Infos-pessoas*/
 
+.wizard-info-pessoas li{
+	width: 100%;
+	margin-bottom: 1px;
+	border-radius: 0px;
+	border-bottom: 1px solid #e7e7e7!important;
+	border-left: 0px solid #fff !important;
+	border-right: 0px solid #fff !important;
+	border-top: 0px solid #fff !important;
+}
+}
+
+@media (max-width: 534px) {
+.div-tb-wizard-tab3{
+	max-width: 370px;
+}	
+}
+
+@media (max-width: 468px) {
+.div-tb-wizard-tab3{
+	max-width: 325px;
+}	
+}
+
+@media (max-width: 419px) {
+.div-tb-wizard-tab3{
+	max-width: 280px;
+}	
+}
 
 @media (max-width: 375px) {
 	
@@ -291,6 +553,10 @@
 }
 .dialog-info-pessoas{
 	max-height: 450px;
+}
+
+.div-tb-wizard-tab3{
+	max-width: 225px;
 }	
 }
  

@@ -73,6 +73,7 @@ public class PerfilLogado implements Serializable {
 						&& perfilUsLogado.isTemPerfilMestre() && assLogado.getId() != null) {
 			
 			setRenderizaAssociado(true);
+
 			if (assLogado != null && assLogado.getIdentificador() != null && identificadorAssinante != null
 					&& identificadorAssinante.length() > 0
 					&& !assLogado.getIdentificador().equals(identificadorAssinante)) {
