@@ -29,8 +29,8 @@ import br.com.projetabrasil.model.dao.EnderecoDAO;
 import br.com.projetabrasil.model.dao.EstadoDAO;
 import br.com.projetabrasil.model.dao.LogradouroDAO;
 import br.com.projetabrasil.model.dao.PaisDAO;
+import br.com.projetabrasil.model.dao.PessoaDAO;
 import br.com.projetabrasil.model.dao.Pessoa_VinculoDAO;
-import br.com.projetabrasil.model.dao.ProfissaoDAO;
 import br.com.projetabrasil.model.dao.Prontuario_de_EmergenciaDAO;
 import br.com.projetabrasil.model.dao.UsuarioDAO;
 import br.com.projetabrasil.model.entities.Bairro;
@@ -52,7 +52,6 @@ import br.com.projetabrasil.model.entities.Pais;
 import br.com.projetabrasil.model.entities.PerfilLogado;
 import br.com.projetabrasil.model.entities.Pessoa;
 import br.com.projetabrasil.model.entities.Pessoa_Vinculo;
-import br.com.projetabrasil.model.entities.Profissao;
 import br.com.projetabrasil.model.entities.Prontuario_de_Emergencia;
 import br.com.projetabrasil.model.entities.Usuario;
 import br.com.projetabrasil.util.CepWebService;
@@ -76,6 +75,10 @@ public class PessoajsfController extends GenericController implements Serializab
 	private Bairro bairro;
 	private Logradouro logradouro;
 	private Pais pais;
+	
+	private String descricaoContato;
+	private String descricaoProntuario;
+	
 	private Enum_Aux_Tipo_de_Contato tipoContato;
 	private List<Enum_Aux_Tipo_de_Contato> listaTipoContato;
 
@@ -97,9 +100,6 @@ public class PessoajsfController extends GenericController implements Serializab
 	private List<Contato> listaContatos;
 	private Prontuario_de_Emergencia prontuarioEmergencia;
 	private List<Prontuario_de_Emergencia> listaProntuarioEmergencia;
-	
-	
-
 
 	@PostConstruct
 	public void listar() {
@@ -272,7 +272,8 @@ public class PessoajsfController extends GenericController implements Serializab
 		}
 
 		setarEndereco("editar");
-
+		Utilidades.abrirfecharDialogos("dialogoIdentidade", true);
+		
 	}
 
 	public void listarTiposdeLogradouro() {
@@ -343,8 +344,8 @@ public class PessoajsfController extends GenericController implements Serializab
 					new Bairro(new Cidade(new Estado(pais))));
 
 		if (acao == "validar") {
-//			PessoaDAO pDAO = new PessoaDAO();
-			p = PessoaBusiness.buscaPessoa(p);//pDAO.retornaPelaIdentificacao(pessoa.getIdentificador());
+			PessoaDAO pDAO = new PessoaDAO();
+			p = pDAO.retornaPelaIdentificacao(pessoa.getIdentificador());
 			if (p != null) {
 				endereco = eDAO.buscaEnderecoPorPessoa(p);
 				// se a pessoa existir mas não tiver endereço --> usa o padrão
@@ -458,7 +459,7 @@ public class PessoajsfController extends GenericController implements Serializab
 			return;
 
 		}
-		System.out.println(cp.toString());
+
 		bai = Utilidades.formataString(cp.getBairro());
 		log = Utilidades.formataString(cp.getLogradouro());
 		cid = Utilidades.formataString(cp.getCidade());
@@ -701,6 +702,7 @@ public class PessoajsfController extends GenericController implements Serializab
 	}
 
 	public void incluirContatoNaLista() {
+		contato = new Contato();
 		contato.setId_Pessoa(pessoa);
 		if (perfilLogado.getAssLogado() != null && perfilLogado.getAssLogado().getId() != null)
 			contato.setId_Pessoa_Registro(perfilLogado.getAssLogado());
@@ -708,8 +710,20 @@ public class PessoajsfController extends GenericController implements Serializab
 			contato.setId_Pessoa_Registro(perfilLogado.getUsLogado().getPessoa());
 		contato.setId_Empresa(1);
 		contato.setUltimaAtualizacao(Utilidades.retornaCalendario());
-
+		
+		//PREENCHER ATRIBUTOS À BAIXO
+		contato.setTipoContato(tipoContato);
+		contato.setTipoRelacionamento(tipoRelacionamento);
+		contato.setContato(descricaoContato);
+		
+		contato.toString();
 		listaContatos.add(contato);
+		int index = 0;
+		for(Contato c : listaContatos){
+			index++;
+			System.out.println(index + "------------------------------");
+			System.out.println(c.toString());
+		}
 	}
 
 	public void incluirProntuarioEmergenciaNaLista() {
@@ -720,7 +734,11 @@ public class PessoajsfController extends GenericController implements Serializab
 			prontuarioEmergencia.setId_Pessoa_Registro(perfilLogado.getUsLogado().getPessoa());
 		prontuarioEmergencia.setId_Empresa(1);
 		prontuarioEmergencia.setUltimaAtualizacao(Utilidades.retornaCalendario());
-
+		
+		//PREENCHER ATRIBUTOS À BAIXO
+		prontuarioEmergencia.setTipo_Prontuario_Emergencia(tipoProntuarioEmergencia);
+		tipoProntuarioEmergencia.setDescricao(descricaoProntuario);
+		
 		listaProntuarioEmergencia.add(prontuarioEmergencia);
 	}
 
@@ -743,19 +761,6 @@ public class PessoajsfController extends GenericController implements Serializab
 		}
 
 	}
-	
-	
-	
-	public List<Profissao> listarProfissoes(String digitado){
-		
-			ProfissaoDAO proDAO = new ProfissaoDAO();
-			List<Profissao> lPro = new ArrayList<>();
-			
-			lPro = proDAO.listardeProfissoes(digitado);
-			
-		return lPro;
-	}
-	
 
 	public Pessoa getPessoa() {
 		return pessoa;
@@ -984,11 +989,23 @@ public class PessoajsfController extends GenericController implements Serializab
 	public void setListaProntuarioEmergencia(List<Prontuario_de_Emergencia> listaProntuarioEmergencia) {
 		this.listaProntuarioEmergencia = listaProntuarioEmergencia;
 	}
-	
-	public List<Profissao> listarProfissoes(){
-		ProfissaoDAO proDAO = new ProfissaoDAO();
-		return proDAO.listardeProfissoes("");
+
+	public String getDescricaoContato() {
+		return descricaoContato;
 	}
+
+	public void setDescricaoContato(String descricaoContato) {
+		this.descricaoContato = descricaoContato;
+	}
+
+	public String getDescricaoProntuario() {
+		return descricaoProntuario;
+	}
+
+	public void setDescricaoProntuario(String descricaoProntuario) {
+		this.descricaoProntuario = descricaoProntuario;
+	}
+	
 	
 
 }

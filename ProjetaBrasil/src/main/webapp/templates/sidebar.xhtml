@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="profile">
-                      <p:graphicImage name="images/profile2.png" library="omega-layout" />
+                      <p:graphicImage name="images/profile3.svg" library="omega-layout" />
                     <a id="profile-button" href="#">
                         <span class="username"><i class="fa fa-fw fa-cog"></i> <p:outputLabel value="#{autenticacaojsfController.perfilLogado.usLogado.pessoa.descricao}"/></span>
                     </a>
@@ -49,7 +49,7 @@
                         <!--  -->
                        
 						<p:submenu label="Cadastros" rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','SUPERVISORES','REPRESENTANTES','ASSINANTES','ATENDENTES'])}">
-							<p:submenu label="Pessoas" rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','SUPERVISORES','REPRESENTANTES','ASSINANTES','ATENDENTES'])}">
+							<p:submenu label="Perfis" rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','SUPERVISORES','REPRESENTANTES','ASSINANTES','ATENDENTES'])}">
 								<p:menuitem value="Administradores" icon="fa fa-user-circle-o"
 									actionListener="#{paginas.mudaPaginaAtual}"
 									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES'])}">
@@ -82,7 +82,7 @@
 
 								<p:menuitem value="Clientes" icon="fa fa-user"
 									actionListener="#{paginas.mudaPaginaAtual}"
-									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','ASSINANTES','ATENDENTES'])}">
+									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ASSINANTES','ATENDENTES'])}">
 									<f:attribute name="paginaAtual" value="PAGINACLIENTES" />
 								</p:menuitem>
 								<p:menuitem value="Outros" icon="fa fa-users"
