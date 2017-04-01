@@ -276,6 +276,7 @@ public class PessoajsfController extends GenericController implements Serializab
 			contato.setId_Pessoa(perfilLogado.getUsLogado().getPessoa());
 		}
 		
+		listarProntuarioEmergenciadaPessoa();
 		listarContatosdaPessoa();
 		setarEndereco("editar");
 		Utilidades.abrirfecharDialogos("dialogoIdentidade", true);
@@ -677,7 +678,8 @@ public class PessoajsfController extends GenericController implements Serializab
 				}
 
 			}
-			//SOMENETE LISTA SE PESSOA EXISTIR
+			//SOMENTE LISTA SE PESSOA EXISTIR
+			listarProntuarioEmergenciadaPessoa();
 			listarContatosdaPessoa();
 		}
 		if (pessoa.getEnum_Aux_Tipo_Identificador().getAux_tipo_pessoa().equals(Enum_Aux_Tipo_Pessoa.OUTROS))
@@ -751,9 +753,10 @@ public class PessoajsfController extends GenericController implements Serializab
 		
 		//PREENCHER ATRIBUTOS À BAIXO
 		prontuarioEmergencia.setTipo_Prontuario_Emergencia(this.tipoProntuarioEmergencia);
-		tipoProntuarioEmergencia.setDescricao(this.descricaoProntuario);
+		prontuarioEmergencia.setDescricao(this.descricaoProntuario);		
 		
 		listaProntuarioEmergencia.add(prontuarioEmergencia);
+		
 	}
 
 	public void mergeListaContato() {

@@ -556,10 +556,11 @@
 										<p:inputText id="descricaoEmergencia" size="27" maxlength="30"
 											 value="#{pessoajsfController.descricaoProntuario}" />
 
-										<p:commandButton value="Adicionar" process="@this"
+										<p:commandButton value="Adicionar" process="@form"
 											actionListener="#{pessoajsfController.incluirProntuarioEmergenciaNaLista}"									
 											styleClass="btn-info-pessoas-add-cell btn-info-pessoas-add-cell-tab4 btn-color-green2" 
 											update=":mensagens :formTemplate:formCadastro:formListaProntuario:tabelaProntuario"/>
+											                   
 
 									</h:panelGrid>
 								</h:panelGrid>
@@ -571,23 +572,22 @@
 										paginator="true" rows="4" var="registro"
 										styleClass="tabela-pessoas">
 
-										<p:column headerText="Classificação" sortBy="tipo_Prontuario_Emergencia.descricao"
+										<p:column headerText="Classificação" sortBy="registro.tipo_Prontuario_Emergencia.descricao"
+										
 											filterBy="tipo_Prontuario_Emergencia.descricao" styleClass="geral-col-pessoas">
 											<h:outputText value="#{registro.tipo_Prontuario_Emergencia.descricao}" />
 										</p:column>
 
-										<p:column headerText="Descricao" sortBy="descricao"
+										<p:column headerText="Descricao" sortBy="registro.descricao"
 											filterBy="descricao" styleClass="geral-col-pessoas">
-											<h:outputText value="#{registro.descricao}">
-												
-											</h:outputText>
+											<h:outputText value="#{registro.descricao}"/>
 										</p:column>
 
 
 										<p:column headerText="Excluir" styleClass="excl-col-info-pessoas">
 											<p:commandButton icon="ui-icon-trash"
 												actionListener="#{pessoajsfController.excluirProntuario}"
-												update=":mensagens :formTemplate:formListaProntuario:tabelaProntuario"
+												update=":formTemplate:formCadastro:formListaProntuario:tabelaProntuario"
 												styleClass="excl-btn-info-pessoas btn-color-red">
 												<p:confirm header="Confirmação"
 													message="Deseja realmente excluir este registro?"
@@ -600,6 +600,7 @@
 							  </div>
 							  
 							  <p:commandButton value="Salvar" process="@form"
+							  	oncomplete="PF('dialogoIdentidade').hide();"
 								actionListener="#{pessoajsfController.merge}"
 								update=":mensagens :formTemplate:formLista:tabela" />							
 							  

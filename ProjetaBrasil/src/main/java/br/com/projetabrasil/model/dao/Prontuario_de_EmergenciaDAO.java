@@ -20,7 +20,7 @@ public class Prontuario_de_EmergenciaDAO extends GenericDAO<Prontuario_de_Emerge
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		try {
 			Criteria consulta = sessao.createCriteria(Prontuario_de_Emergencia.class);
-			consulta.add(Restrictions.eq("id_pessoa",p));
+			consulta.add(Restrictions.eq("id_Pessoa",p));
 			prontuarios = consulta.list();
 			return prontuarios;
 		} catch (RuntimeException error) {
