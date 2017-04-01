@@ -244,6 +244,14 @@
 }
 .div-conteudo-info-pessoas{		
 }
+.dialog-info-pessoas .btn-info-pessoas-fechar{
+	width: 25px;
+	padding: 0px !important;
+}
+.dialog-info-pessoas .btn-info-pessoas-fechar span{
+	
+	margin-left: -7px !important;
+}
 .dialog-info-pessoas .ui-dialog-title{
 	color: #999;
 	position: absolute;

@@ -141,12 +141,17 @@
 		<!-- Form CPF -->
 
 
-		<!-- From Infos Pessoas -->
+		<!-- Form Infos Pessoas -->
 		<p:dialog
 			header="Formulário de Cadastro - #{autenticacaojsfController.perfilLogado.paginaAtual.perfilPessoa.descricao}"
 			widgetVar="dialogoCadastro" resizable="false" modal="true"
-			closable="true" appendTo="@(body)" dynamic="true" responsive="true"
+			closable="false" appendTo="@(body)" dynamic="true" responsive="true"
 			styleClass="dialog-info-pessoas">
+			
+			<p:commandButton value="X" process="@this"
+				actionListener="#{pessoajsfController.cancela}"
+				styleClass="btao-info-pessoas btn-color-red pull-right btn-info-pessoas-fechar" 
+				oncomplete="PF('wiz').loadStep('tab1', true)" />
 			
 			<div class="div-conteudo-info-pessoas">
 			
@@ -276,9 +281,7 @@
 
 								</h:panelGrid>
 
-								<!-- <p:commandButton value="Cancelar" process="@this"
-									actionListener="#{pessoajsfController.cancela}"
-									styleClass="btao-info-pessoas" /> -->
+								 
 
 							</p:panel>
 						</p:tab>
@@ -433,7 +436,7 @@
 						</p:tab>
 
 
-<p:tab id="tab3" title="Contatos">
+						<p:tab id="tab3" title="Contatos">
 							<p:panel id="p_dados_contatos">
 							
 								<h:panelGrid columns="1" render="@form">
@@ -596,9 +599,11 @@
 					</p:wizard>
 				</div><!-- /.div-wizard-pessoa -->
 				</h:form>
-				 <!-- <p:commandButton value="Cancelar" process="@this"
+				 
+									<!--  <p:commandButton value="Fechar" process="@this"
 									actionListener="#{pessoajsfController.cancela}"
-									styleClass="btao-info-pessoas" />  -->
+									styleClass="btao-info-pessoas btn-color-red pull-right" 
+									oncomplete="PF('wiz').loadStep('tab1', true)" />-->
 			</div>
 			<!-- div conteudo scroll -->
 
