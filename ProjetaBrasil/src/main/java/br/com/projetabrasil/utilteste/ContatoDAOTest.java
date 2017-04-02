@@ -1,3 +1,4 @@
+package br.com.projetabrasil.utilteste;
 import org.junit.Test;
 
 import br.com.projetabrasil.model.dao.ContatoDAO;

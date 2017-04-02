@@ -1,3 +1,4 @@
+package br.com.projetabrasil.utilteste;
 import java.text.ParseException;
 
 import org.hibernate.Criteria;
