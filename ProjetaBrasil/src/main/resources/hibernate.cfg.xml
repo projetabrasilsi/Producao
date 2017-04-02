@@ -65,6 +65,7 @@
 		<mapping class="br.com.projetabrasil.model.entities.Combo_Mestre" />
 		<mapping class="br.com.projetabrasil.model.entities.Item_de_Movimento" />
 		<mapping class="br.com.projetabrasil.model.entities.Movimento_Mestre" />
+		<mapping class="br.com.projetabrasil.model.entities.Objetos_Acesso" />
 		<mapping class="br.com.projetabrasil.model.entities.Movimento_Detalhe" />
 		<mapping class="br.com.projetabrasil.model.entities.Movimento_Detalhe_A" />
 		<mapping class="br.com.projetabrasil.model.entities.Movimento_Detalhe_Dias_Disponiveis" />

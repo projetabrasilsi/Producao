@@ -456,6 +456,8 @@
 											noSelectionOption="true" />
 										<f:selectItems value="#{pessoajsfController.listaTipoContato}"
 											var="o" itemLabel="#{o.descricao}" itemValue="#{o}" />
+										<p:ajax event="change" update="iptxContato" process="@this"
+											oncomplete="$(function(){PrimeFaces.focus('formTemplate:formCadastro:iptxContato');});" />
 									</p:selectOneMenu>
 
 									<p:outputLabel value="Relacionamento:" />
@@ -476,10 +478,11 @@
 
 									<p:outputLabel value="Contato:" />
 									<h:panelGrid columns="2" render="@form">
-										<p:inputMask mask="" id="iptxContato" size="15" maxlength="30"
-											value="#{pessoajsfController.descricaoContato}" 
-											styleClass="input-info-pessoas-add-cell"/>
-																			
+										<p:inputMask id="iptxContato" size="15" maxlength="30"
+											value="#{pessoajsfController.descricaoContato}"
+											mask="#{pessoajsfController.tipoContato.mascara}" 
+											styleClass="input-info-pessoas-add-cell"/>																			
+										
 										<p:commandButton value="Adicionar" process="@form" 
 											actionListener="#{pessoajsfController.incluirContatoNaLista}"									
 											update=":mensagens :formTemplate:formCadastro:formListaContatos:tabelaContatos"
@@ -585,7 +588,7 @@
 
 
 										<p:column headerText="Excluir" styleClass="excl-col-info-pessoas">
-											<p:commandButton icon="ui-icon-trash"
+											<p:commandButton icon="ui-icon-trash" process="@form"
 												actionListener="#{pessoajsfController.excluirProntuario}"
 												update=":formTemplate:formCadastro:formListaProntuario:tabelaProntuario"
 												styleClass="excl-btn-info-pessoas btn-color-red">
@@ -600,7 +603,8 @@
 							  </div>
 							  
 							  <p:commandButton value="Salvar" process="@form"
-							  	oncomplete="PF('dialogoIdentidade').hide();"
+							  	oncomplete="PF('wiz').loadStep('tab1', true)"
+								styleClass="btao-info-pessoas"
 								actionListener="#{pessoajsfController.merge}"
 								update=":mensagens :formTemplate:formLista:tabela" />							
 							  
