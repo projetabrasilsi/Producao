@@ -621,6 +621,65 @@
 								update=":mensagens :formTemplate:formLista:tabela" />							
 							  
 							</p:panel>
+						</p:tab>
+						
+						<p:tab id="tab5" title="Objetos">
+							<p:panel id="objeto_acesso">
+							
+								<h:panelGrid columns="1" render="@form">
+									<p:outputLabel value="Tipo de Prontuario:" />	
+																	
+									<h:panelGrid columns="1" render="@form">
+										<p:selectOneMenu id="tipoObjeto"
+											converter="omnifaces.SelectItemsConverter"
+											value="#{pessoajsfController.tipoObjeto}"
+											rendered="true">
+											<f:selectItem itemLabel="selecione" itemValue=""
+												noSelectionOption="true" />
+											<f:selectItems
+												value="#{pessoajsfController.listaTiposObjeto}"
+												var="o" itemLabel="#{o.descricao}" itemValue="#{o}" />
+										</p:selectOneMenu>
+
+										<p:commandButton value="Adicionar" process="@form"
+											actionListener="#{pessoajsfController.incluirObjetoNaLista}"									
+											styleClass="btn-info-pessoas-add-cell btn-info-pessoas-add-cell-tab4 btn-color-green2" 
+											update=":mensagens :formTemplate:formCadastro:formListaObjeto:tabelaObjeto"/>
+											                   
+
+									</h:panelGrid>
+								</h:panelGrid>
+								
+								<div class="div-tb-wizard-tab3">	
+								<h:form id="formListaObjeto">
+									<p:dataTable id="tabelaObjeto" emptyMessage="Sem Registros"
+										resizableColumns="true" value="#{pessoajsfController.listaObjeto}"
+										paginator="true" rows="4" var="registro"
+										styleClass="tabela-pessoas">
+
+										<p:column headerText="Classificação" sortBy="registro.enum_Aux_Tipos_Objetos.descricao"
+										
+											filterBy="tipo_Prontuario_Emergencia.descricao" styleClass="geral-col-pessoas">
+											<h:outputText value="#{registro.enum_Aux_Tipos_Objetos.descricao}" />
+										</p:column>
+
+
+										<p:column headerText="Excluir" styleClass="excl-col-info-pessoas">
+											<p:commandButton icon="ui-icon-trash" process="@form"
+												actionListener="#{pessoajsfController.excluirObjeto}"
+												update=":formTemplate:formCadastro:formListaObjeto:tabelaObjeto"
+												styleClass="excl-btn-info-pessoas btn-color-red">
+												<p:confirm header="Confirmação"
+													message="Deseja realmente excluir este registro?"
+													icon="ui-icon-alert" />
+												<f:attribute name="registroAtualObjeto" value="#{registro}" />
+											</p:commandButton>
+										</p:column>
+									</p:dataTable>
+								</h:form>
+							  </div>
+							  
+							</p:panel>
 						</p:tab>						
 						
 						

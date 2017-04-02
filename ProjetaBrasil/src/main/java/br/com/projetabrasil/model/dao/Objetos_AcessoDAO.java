@@ -30,7 +30,7 @@ public class Objetos_AcessoDAO extends GenericDAO<Objetos_Acesso> {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		try {
 			Criteria consulta = sessao.createCriteria(Objetos_Acesso.class);
-			consulta.add(Restrictions.eq("pessoa", pessoa));
+			consulta.add(Restrictions.eq("id_Pessoa", pessoa));
 			List<Objetos_Acesso> lista = consulta.list();
 			return lista;
 		} catch (RuntimeException error) {

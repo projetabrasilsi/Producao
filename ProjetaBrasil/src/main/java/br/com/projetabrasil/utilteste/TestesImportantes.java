@@ -11,7 +11,7 @@ public class TestesImportantes {
 	public void inclusaodeProfissoes(){
 		
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
-		Usuario us = usuarioDAO.autenticar("89230906115", "P2a3u0l9");
+		Usuario us = usuarioDAO.autenticar("10554498928", "11111111");
 		Ler_Excel lEx = new Ler_Excel();
 		if(us!=null)
 		lEx.inserirProfissaoBD(us.getPessoa());
