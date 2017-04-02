@@ -18,7 +18,7 @@ public class ProfissaoDAO extends GenericDAO<Profissao> {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		try {
 			Criteria consulta = sessao.createCriteria(Profissao.class);
-			consulta.add(Restrictions.like("descricao","%"+descricao+"%"));
+			consulta.add(Restrictions.like("descricao","%"+descricao+"%").ignoreCase());
 			consulta.addOrder(Order.asc("descricao"));
 			profissoes = consulta.list();
 			return profissoes;
@@ -37,7 +37,7 @@ public class ProfissaoDAO extends GenericDAO<Profissao> {
 		try {
 			Criteria consulta = sessao.createCriteria(Profissao.class);
 			
-			consulta.add(Restrictions.like("descricao",descricao));	
+			consulta.add(Restrictions.like("descricao",descricao).ignoreCase());	
 			consulta.setMaxResults(1);
 			prof = (Profissao) consulta.uniqueResult();
 			return prof;

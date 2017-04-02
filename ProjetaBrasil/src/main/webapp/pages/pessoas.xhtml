@@ -171,7 +171,7 @@
 									<p:outputLabel
 										value="#{pessoajsfController.pessoaConfig.labelNome}"
 										rendered="#{pessoajsfController.pessoaConfig.labelNomeRenderiza}" />
-									<p:inputText size="30" maxlength="90"
+									<p:inputText size="30" maxlength="90" style="text-transform: capitalize"
 										value="#{pessoajsfController.pessoa.descricao}"
 										required="#{pessoajsfController.pessoaConfig.labelNomeObrigatorio}"
 										requiredMessage="#{pessoajsfController.pessoaConfig.labelNomeRequiredMessage}"
@@ -255,6 +255,18 @@
 										rendered="#{pessoajsfController.pessoaConfig.labelrg_InscRenderiza}"
 										styleClass="input-info-pessoas-geral">
 									</p:inputText>
+
+
+
+									<p:outputLabel value="Profissão: " />
+									<h:panelGrid id="g_profissao" columns="2" render="@form">
+									<p:outputLabel id="psel" size="15" maxlength="15" required="true"
+													value="#{pessoajsfController.pessoa.id_Profissao.descricao}" />
+									<p:commandButton icon="ui-icon-search" process="@this"
+									update=":formTemplate:formListaProfissao"
+									onclick="PF('dialogoProfissoes').show();"
+									styleClass="btao-info-pessoas" />
+									</h:panelGrid>
 
 									
 
@@ -708,6 +720,58 @@
 				</h:form>
 			
 		</p:dialog>
+		
+		<p:dialog header="Profissões" widgetVar="dialogoProfissoes"	resizable="false" modal="true" closable="false" 
+					appendTo="@(body)"	dynamic="true" responsive="true">
+			<div class="div-conteudo-info-pessoas">
+			<h:form id="formListaProfissao">
+
+			<p:panel header="Listagem">
+				<p:dataTable id="tabela" emptyMessage="Digite 4 letras para pesquisa" reflow="true"
+						value="#{pessoajsfController.profissoes}" paginator="true" rows="8"
+						var="registro" style="font-size:15px;">
+						<f:facet name="header">
+					  	  <p:inputText id="prodigi" size="40" value="#{pessoajsfController.profissaoBusca}" 
+					    			placeholder="Digite ao menos 4 letras" validatorMessage="Digite ao menos 4 letras" >
+					    			<f:validateLength minimum="4"  />
+					    			</p:inputText>
+							<p:commandButton icon="ui-icon-search"						    
+							actionListener="#{pessoajsfController.listarProfissoesFiltradas()}"
+							process="@form"
+							update=":formTemplate:formListaProfissao" style="width:5%">
+							</p:commandButton>
+							<p:commandButton icon="ui-icon-close" style="width:5%"
+							oncomplete="PF('dialogoProfissoes').hide();">
+							</p:commandButton>
+						</f:facet>
+						<p:column headerText="Número Identificador" sortBy="id"	filterBy="id" style="text-align: center; width: 15%;">
+							<h:outputText value="#{registro.id}" />
+						</p:column>
+						
+						<p:column headerText="Descrição" sortBy="descricao"
+							filterBy="descricao">
+							<h:outputText value="#{registro.descricao}" />
+						</p:column>
+						
+						
+						<!-- 	update=":formTemplate:formCadastro" -->
+						<p:column headerText="Selecionar" style="width:10%;">
+							<p:commandButton icon="ui-icon-check"
+								actionListener="#{pessoajsfController.defineProfissao}"
+								process="@form"
+								update=":formTemplate:formCadastro:psel">
+								<p:confirm header="Confirmação"
+									message="Deseja realmente selecionar esta?"
+									icon="ui-icon-alert" style="width:5%"/>
+								<f:attribute name="registroProfissaoAtual" value="#{registro}" />
+							</p:commandButton>
+						</p:column>
+					
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+			</div>
+		</p:dialog>		
 
 
 	</ui:define>

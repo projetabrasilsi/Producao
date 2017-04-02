@@ -1,9 +1,9 @@
 package br.com.projetabrasil.model.entities;
 
 public enum Enum_Aux_Sexo {
-MASCULINO("M",0,true),
-FEMININO("F",1,true),
-OUTROS("O",2,false);
+MASCULINO("M ",0,true),
+FEMININO("F ",1,true),
+OUTROS("Outros ",2,true);
 
 private String abrev;
 private int id;

@@ -31,6 +31,7 @@ import br.com.projetabrasil.model.dao.LogradouroDAO;
 import br.com.projetabrasil.model.dao.PaisDAO;
 import br.com.projetabrasil.model.dao.PessoaDAO;
 import br.com.projetabrasil.model.dao.Pessoa_VinculoDAO;
+import br.com.projetabrasil.model.dao.ProfissaoDAO;
 import br.com.projetabrasil.model.dao.Prontuario_de_EmergenciaDAO;
 import br.com.projetabrasil.model.dao.UsuarioDAO;
 import br.com.projetabrasil.model.entities.Bairro;
@@ -52,6 +53,7 @@ import br.com.projetabrasil.model.entities.Pais;
 import br.com.projetabrasil.model.entities.PerfilLogado;
 import br.com.projetabrasil.model.entities.Pessoa;
 import br.com.projetabrasil.model.entities.Pessoa_Vinculo;
+import br.com.projetabrasil.model.entities.Profissao;
 import br.com.projetabrasil.model.entities.Prontuario_de_Emergencia;
 import br.com.projetabrasil.model.entities.Usuario;
 import br.com.projetabrasil.util.CepWebService;
@@ -100,6 +102,9 @@ public class PessoajsfController extends GenericController implements Serializab
 	private List<Contato> listaContatos;
 	private Prontuario_de_Emergencia prontuarioEmergencia;
 	private List<Prontuario_de_Emergencia> listaProntuarioEmergencia;
+	
+	private List<Profissao> profissoes;
+	private String profissaoBusca;
 
 	@PostConstruct
 	public void listar() {
@@ -126,6 +131,8 @@ public class PessoajsfController extends GenericController implements Serializab
 		listaContatos = new ArrayList<>();
 		prontuarioEmergencia = new Prontuario_de_Emergencia();
 		contato = new Contato();
+		profissoes = new ArrayList<>();
+		profissaoBusca="";
 
 		listarTiposdeLogradouro();
 		listarTiposdeRelacionamento();
@@ -1021,6 +1028,37 @@ public class PessoajsfController extends GenericController implements Serializab
 
 	public void setDescricaoProntuario(String descricaoProntuario) {
 		this.descricaoProntuario = descricaoProntuario;
+	}
+	
+	public List<Profissao> getProfissoes() {
+		return profissoes;
+	}
+	
+	public void setProfissoes(List<Profissao> profissoes) {
+		this.profissoes = profissoes;
+	}
+
+	public String getProfissaoBusca() {
+		return profissaoBusca;
+	}
+
+	public void setProfissaoBusca(String profissaoBusca) {
+		this.profissaoBusca = profissaoBusca;
+	}
+
+	public void listarProfissoesFiltradas(){
+		ProfissaoDAO proDAO = new ProfissaoDAO();
+		this.profissoes =  proDAO.listardeProfissoes(profissaoBusca);
+	}
+
+	public void defineProfissao(ActionEvent event){
+		Profissao p = (Profissao) event.getComponent().getAttributes().get("registroProfissaoAtual");
+		if(p==null){
+			return;
+		}else{
+			this.pessoa.setId_Profissao(p);
+			Utilidades.abrirfecharDialogos("dialogoProfissoes", false);
+		}
 	}
 	
 	
