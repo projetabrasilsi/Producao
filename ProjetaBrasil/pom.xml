@@ -10,6 +10,8 @@
 	<!-- Codificação dos caracteres -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<gwtVersion>2.7.0</gwtVersion>
 	</properties>
 
 	<!-- Parâmetros de execução -->
@@ -31,6 +33,18 @@
 			</plugin>
 
 		</plugins>
+		<resources>
+    		<resource>
+      			<directory>src/main/resources</directory>
+    		</resource>
+    		<resource>
+      			<directory>src/main/java</directory>
+      			<includes>
+        			<include>**/*.java</include>
+        			<include>**/*.gwt.xml</include>
+      			</includes>
+    		</resource>
+  		</resources>
 	</build>
 
 
@@ -211,6 +225,36 @@
 			<groupId>net.sourceforge.jexcelapi</groupId>
 			<artifactId>jxl</artifactId>
 			<version>2.6.12</version>
+		</dependency>
+		
+		<!-- GWT -->
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>${gwtVersion}</version>
+			<scope>provided</scope>
+		</dependency>
+
+
+		<!--REST -->
+
+		<dependency>
+			<groupId>org.fusesource.restygwt</groupId>
+			<artifactId>restygwt</artifactId>
+			<version>2.0.3</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+
+		<!-- JSON -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.jr</groupId>
+			<artifactId>jackson-jr-objects</artifactId>
+			<version>2.6.3</version>
 		</dependency>
 
 

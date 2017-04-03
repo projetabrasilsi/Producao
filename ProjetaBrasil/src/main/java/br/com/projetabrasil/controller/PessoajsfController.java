@@ -1,5 +1,6 @@
 package br.com.projetabrasil.controller;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,7 @@ import br.com.projetabrasil.model.entities.Bairro;
 import br.com.projetabrasil.model.entities.Cidade;
 import br.com.projetabrasil.model.entities.Contato;
 import br.com.projetabrasil.model.entities.Endereco;
+import br.com.projetabrasil.model.entities.Enum_Aux_Estados;
 import br.com.projetabrasil.model.entities.Enum_Aux_Perfil_Pagina_Atual;
 import br.com.projetabrasil.model.entities.Enum_Aux_Perfil_Pessoa;
 import br.com.projetabrasil.model.entities.Enum_Aux_Tipo_Identificador;
@@ -61,6 +63,8 @@ import br.com.projetabrasil.model.entities.Prontuario_de_Emergencia;
 import br.com.projetabrasil.model.entities.Usuario;
 import br.com.projetabrasil.util.CepWebService;
 import br.com.projetabrasil.util.Utilidades;
+import br.com.projetabrasil.util.viacep.CEP;
+import br.com.projetabrasil.util.viacep.ViaCEPClient;
 
 @SuppressWarnings("serial")
 @ManagedBean
@@ -80,6 +84,7 @@ public class PessoajsfController extends GenericController implements Serializab
 	private Bairro bairro;
 	private Logradouro logradouro;
 	private Pais pais;
+	
 	
 	private String descricaoContato;
 	private String descricaoProntuario;
@@ -113,6 +118,14 @@ public class PessoajsfController extends GenericController implements Serializab
 	
 	private List<Profissao> profissoes;
 	private String profissaoBusca;
+	
+	private String cidadedePesquisa;
+	private String logradourodePesquisa;
+	private List<CEP> listaceps;
+	private CEP cepPesq;
+	
+	private Enum_Aux_Estados estado_Enum;
+	private List<Enum_Aux_Estados> estados_Enum;
 
 	@PostConstruct
 	public void listar() {
@@ -143,6 +156,7 @@ public class PessoajsfController extends GenericController implements Serializab
 		contato = new Contato();
 		objeto = new Objetos_Acesso();
 		profissoes = new ArrayList<>();
+		estados_Enum = new ArrayList<>();
 		profissaoBusca="";
 
 		listarTiposdeLogradouro();
@@ -150,8 +164,179 @@ public class PessoajsfController extends GenericController implements Serializab
 		listarTiposdeContato();
 		listarTiposdeProntuario();
 		listarTiposdeObjeto();
+		listarEstadosEnum();
 
 	}
+	
+	public void chamaDialogoPesquisaCep() {
+		prontuarioEmergencia = new Prontuario_de_Emergencia();
+		contato = new Contato();
+		listaceps = new ArrayList<>();
+		setLogradourodePesquisa("");
+		setCidadedePesquisa("");
+		cepPesq = new CEP();
+		Utilidades.abrirfecharDialogos("dialogoPesqLogradouro", true);
+	}
+	
+	public void consultaLogradouro() throws Exception {
+		String uf,cidade,logradouro;
+		if (this.cidadedePesquisa.length() <= 0 || this.logradourodePesquisa.length() <= 0) {
+			Utilidades.mensagensDisparar("Informe a Cidade e/ou Logradouro");
+			return;
+		}
+
+		CEP cp = new CEP();
+		cp.setLocalidade(cidadedePesquisa);
+		cp.setLogradouro(logradourodePesquisa);
+		cp.setUf(estado_Enum.getAbrev().toUpperCase());
+		cp.setCep("");
+		cp.setIbge("");
+		cp.setBairro("");
+		cp.setComplemento("");
+		uf = Utilidades.removerAcentos(cp.getUf());
+		cidade =  Utilidades.removerAcentos(cp.getLocalidade());
+		logradouro = Utilidades.removerAcentos(cp.getLogradouro());
+
+		ViaCEPClient client = new ViaCEPClient();			
+			listaceps =  client.getEnderecos(uf.toString(), cidade.toString(),logradouro.toString()); //client.getEnderecos(cp.getUf().toUpperCase(), cp.getLocalidade(), cp.getLogradouro());
+	}
+	public void setarEnderecoNovo(){
+		pais = new Pais();
+		setPais(PaisBusiness.VerificaPaisPadrao("BRASIL","BRL",perfilLogado));
+		tipoLogradouro = Enum_Aux_Tipo_Logradouro.RUA;
+		endereco = new Endereco(new Logradouro(new Cidade(new Estado(pais))), new Bairro(new Cidade(new Estado(pais))));
+		
+	}
+	
+	public void ConsultaCEP() {
+		String cep;
+		cep = this.endereco.getCep();	
+		if(cep== null)
+			cep = "";
+		ViaCEPClient client = new ViaCEPClient();
+		CEP cp;
+		try {
+			cp = client.getEndereco(cep);
+			if(cp != null && cp.getLocalidade().length()>0  )
+				setEndereco(fazChecagemDoCEPnaBasedeDados(cp));
+			else{			
+				setarEnderecoNovo();
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void selecionaCEPdaLista(ActionEvent evento) {
+		setCepPesq((CEP) evento.getComponent().getAttributes().get("registroAtualCep"));
+		Utilidades.abrirfecharDialogos("dialogoPesqLogradouro", false);		
+		setEndereco(fazChecagemDoCEPnaBasedeDados(cepPesq));
+	}
+
+	public Endereco fazChecagemDoCEPnaBasedeDados(CEP cep) {
+		// ao setar um endereço novo -- já verificamos se o pais padrão BRASIL está cadastrdo se não estiver cadastrado,
+		// ocorre o merge na base de dados e o atributo geral pais é setado - e o atributo geral endereço também é 
+		// criado e setado com pais e um tipo de logradouro padrão;
+		cep.setBairro(Utilidades.removerAcentos(cep.getBairro().toUpperCase()));
+		cep.setCep(Utilidades.retiraCaracteres(cep.getCep()));
+		cep.setComplemento(Utilidades.removerAcentos(cep.getComplemento()));
+		cep.setLocalidade(Utilidades.removerAcentos(cep.getLocalidade().toUpperCase()));
+		cep.setLogradouro(Utilidades.removerAcentos(cep.getLogradouro()));
+		if(cep.getTipo_Logradouro() !=null && cep.getTipo_Logradouro().length()>0)
+		cep.setTipo_Logradouro(Utilidades.removerAcentos(cep.getTipo_Logradouro().toUpperCase()));
+		else
+		cep.setTipo_Logradouro(Enum_Aux_Tipo_Logradouro.RUA.getDescricao());
+		
+		
+		
+		setarEnderecoNovo();
+		Estado e = new Estado();
+		e = EstadoBusiness.buscaEstadoPelaSigla(cep.getUf());
+		if (e == null) {
+			e = new Estado();
+			e.setSigla(cep.getUf());
+			e.setDescricao(Enum_Aux_Estados.valueOf(cep.getUf()).getDescricao());
+			e.setId_Empresa(1);
+			e.setPais(pais);
+			e.setSigla(cep.getUf());
+			e.setId_Pessoa_Registro(Utilidades.retornaPessoa(perfilLogado));
+			e.setUltimaAtualizacao(Utilidades.retornaCalendario());
+			e = EstadoBusiness.merge(e);
+		}
+
+		Cidade c = new Cidade();
+		c = CidadeBusiness.buscaCidadePeloNomeEEstado(e, cep.getLocalidade());
+		if (c == null && cep.getLocalidade()!=null && cep.getLocalidade().length()>0) {
+			c = new Cidade();
+			ViaCEPClient client = new ViaCEPClient();
+			CEP cepRetorno;			
+			try {
+				cepRetorno = client.getEndereco(cep.getCep());
+				if (cepRetorno != null)
+					c.setCep(Utilidades.retiraCaracteres(cepRetorno.getCep()));
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			c.setDescricao(cep.getLocalidade());
+			c.setEstado(e);
+			c.setId_Empresa(1);
+			c.setId_Pessoa_Registro(Utilidades.retornaPessoa(perfilLogado));
+			c.setUltimaAtualizacao(Utilidades.retornaCalendario());
+			c = CidadeBusiness.merge(c);
+		}
+
+		Logradouro l = new Logradouro();
+		String ll = cep.getLogradouro();
+		if (ll == null) ll = "";
+		l = LogradouroBusiness.buscaLogradouroPeloNomeECidade(ll, c);
+		if (l == null)  {
+			l = new Logradouro( new Cidade(new Estado(pais)));
+			l.setCidade(c);
+			l.setDescricao(ll);
+			l.setId_Empresa(1);
+			l.setId_Pessoa_Registro(Utilidades.retornaPessoa(perfilLogado));
+			l.setUltimaAtualizacao(Utilidades.retornaCalendario());
+			l = LogradouroBusiness.merge(l);
+		}
+
+		
+		
+		Bairro b = new Bairro();
+		String bb = cep.getBairro();
+		if(bb == null) bb = "";
+
+		b = BairroBusiness.buscaBairroPeloNomeECidade(bb, c);
+		if (b == null ) {
+			b = new Bairro();
+			b.setCidade(c);
+			b.setDescricao(cep.getBairro());
+			b.setId_Empresa(1);
+			b.setId_Pessoa_Registro(Utilidades.retornaPessoa(perfilLogado));
+			b.setUltimaAtualizacao(Utilidades.retornaCalendario());
+			b = BairroBusiness.merge(b);
+		}
+		String tpl = cep.getTipo_Logradouro();
+		if(tpl.length()>0){			
+			endereco.getLogradouro().setEnum_Aux_Tipo_Logradouro(Enum_Aux_Tipo_Logradouro.valueOf(cep.getTipo_Logradouro()));
+		}else
+			endereco.getLogradouro().setEnum_Aux_Tipo_Logradouro(Enum_Aux_Tipo_Logradouro.RUA);
+		
+		endereco.setBairro(b);
+		endereco.setLogradouro(l);
+		endereco.setComplemento("");
+		endereco.setId_Empresa(1);
+		endereco.setCep(cep.getCep());
+		endereco.setPessoa(pessoa);
+		endereco.setUltimaAtualizacao(Utilidades.retornaCalendario());
+		listarBairros();
+		listarLogradouros();
+		return endereco;
+	}
+
 
 	public Pais buscaPais(String descricao, String sigla) {
 		Pais p = PaisBusiness.buscaPaisPeloNome(descricao);
@@ -181,6 +366,14 @@ public class PessoajsfController extends GenericController implements Serializab
 		EstadoDAO eDAO = new EstadoDAO();
 		estados = eDAO.buscaEstadoPorPais(p);
 	}
+	public void listarEstadosEnum() {
+		Enum_Aux_Estados[] listagem;
+		listagem = Enum_Aux_Estados.values();
+		estados_Enum = new ArrayList<Enum_Aux_Estados>();
+		for (Enum_Aux_Estados i : listagem) {
+			estados_Enum.add(i);
+		}
+	}
 
 	public void listarCidades() {
 		CidadeDAO cDAO = new CidadeDAO();
@@ -197,12 +390,24 @@ public class PessoajsfController extends GenericController implements Serializab
 
 	public void listarBairros() {
 		BairroDAO bDAO = new BairroDAO();
+		if(endereco.getBairro()!=null && endereco.getBairro().getCidade()!=null)
 		bairros = bDAO.listarBairroPelaCidade(endereco.getBairro().getCidade());
+		else
+			if(endereco.getLogradouro()!=null && endereco.getLogradouro().getCidade()!=null)
+				bairros = bDAO.listarBairroPelaCidade(endereco.getLogradouro().getCidade());
+				else
+		bairros = new ArrayList<>();	
 	}
 
 	public void listarLogradouros() {
 		LogradouroDAO lDAO = new LogradouroDAO();
+		if(endereco.getLogradouro()!=null && endereco.getLogradouro().getCidade()!=null)
 		logradouros = lDAO.listaLogradouroPelaCidade(endereco.getLogradouro().getCidade());
+		else
+			if(endereco.getBairro()!=null && endereco.getBairro().getCidade()!=null)
+			logradouros = lDAO.listaLogradouroPelaCidade(endereco.getBairro().getCidade());
+		else
+			logradouros = new ArrayList<>();
 	}
 
 	public String onFlowProcess(FlowEvent event) {
@@ -859,7 +1064,7 @@ public class PessoajsfController extends GenericController implements Serializab
 	
 	public boolean renderizaPeloPerfil(String tipoRenderizacao) {
 		/* TIPO DE RENDERIZAÇÃO É USADO PRA DETERMINAR A POSIÇÃO DO BOTÃO SALVAR, CASO 
-		ESTEBELECA AS CONDIÇÕES À BAIXO O BOTÃO SALVAR SERÁ RENDERIZADO NA TAB DE OBJETO E NÃO NA DE PRONTUARIO DE EMERGENCIA */
+		ESTEBELECA AS CONDIÇÕES À BAIXO O BOTÃO SALVAR SERÁ RENDERIZADO NA TAB DE OBJETO E NÃO NA DE PRONTUARIO DE EMERGENCIA 
 		if(tipoRenderizacao.equals("TAB")){
 			if(perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.SUPERVISORES)){
 				return true;
@@ -870,8 +1075,8 @@ public class PessoajsfController extends GenericController implements Serializab
 				return false;
 			}
 			return true;
-		}
-		return false;
+		}*/
+		return true;
 	}
 	
 	public Pessoa getPessoa() {
@@ -1179,6 +1384,54 @@ public class PessoajsfController extends GenericController implements Serializab
 
 	public void setListaObjeto(List<Objetos_Acesso> listaObjeto) {
 		this.listaObjeto = listaObjeto;
+	}
+
+	public String getCidadedePesquisa() {
+		return cidadedePesquisa;
+	}
+
+	public void setCidadedePesquisa(String cidadedePesquisa) {
+		this.cidadedePesquisa = cidadedePesquisa;
+	}
+
+	public String getLogradourodePesquisa() {
+		return logradourodePesquisa;
+	}
+
+	public void setLogradourodePesquisa(String logradourodePesquisa) {
+		this.logradourodePesquisa = logradourodePesquisa;
+	}
+
+	public List<CEP> getListaceps() {
+		return listaceps;
+	}
+
+	public void setListaceps(List<CEP> listaceps) {
+		this.listaceps = listaceps;
+	}
+
+	public CEP getCepPesq() {
+		return cepPesq;
+	}
+
+	public void setCepPesq(CEP cepPesq) {
+		this.cepPesq = cepPesq;
+	}
+
+	public Enum_Aux_Estados getEstado_Enum() {
+		return estado_Enum;
+	}
+
+	public void setEstado_Enum(Enum_Aux_Estados estado_Enum) {
+		this.estado_Enum = estado_Enum;
+	}
+
+	public List<Enum_Aux_Estados> getEstados_Enum() {
+		return estados_Enum;
+	}
+
+	public void setEstados_Enum(List<Enum_Aux_Estados> estados_Enum) {
+		this.estados_Enum = estados_Enum;
 	}
 
 	

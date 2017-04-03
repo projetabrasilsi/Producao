@@ -50,15 +50,16 @@ import br.com.projetabrasil.model.dao.Pessoa_Enum_Aux_Perfil_PessoasDAO;
 import br.com.projetabrasil.model.dao.Pessoa_VinculoDAO;
 import br.com.projetabrasil.model.dao.UsuarioDAO;
 import br.com.projetabrasil.model.entities.Agendamento;
-import br.com.projetabrasil.model.entities.CEP;
 import br.com.projetabrasil.model.entities.Enum_Aux_Perfil_Pessoa;
 import br.com.projetabrasil.model.entities.Enum_Aux_Sim_ou_Nao;
 import br.com.projetabrasil.model.entities.Enum_Aux_Tipo_Item_de_Movimento;
 import br.com.projetabrasil.model.entities.Movimento_Detalhe_A;
+import br.com.projetabrasil.model.entities.PerfilLogado;
 import br.com.projetabrasil.model.entities.Pessoa;
 import br.com.projetabrasil.model.entities.Pessoa_Enum_Aux_Perfil_Pessoa;
 import br.com.projetabrasil.model.entities.Pessoa_Vinculo;
 import br.com.projetabrasil.model.entities.Usuario;
+import br.com.projetabrasil.util.viacep.CEP;
 
 @SuppressWarnings("serial")
 public class Utilidades implements Serializable {
@@ -76,6 +77,14 @@ public class Utilidades implements Serializable {
 	private static final String branco = Utilidades.getCaminhobase() + "branco" + Utilidades.getTipoImagem();
 	private static final String naoatingido = "/images/" + "naoatingido" + Utilidades.getTipoImagem();
 	private static final String atingido = "/images/" + "atingido" + Utilidades.getTipoImagem();
+
+	public static Pessoa retornaPessoa(PerfilLogado perfilLogado) {
+
+		if (perfilLogado.getAssLogado() != null && perfilLogado.getAssLogado().getId() != null)
+			return perfilLogado.getAssLogado();
+		else
+			return perfilLogado.getUsLogado().getPessoa();
+	}
 
 	public static String retornaCaminho(String diretorio, boolean temporario) {
 		String retorno = "";
@@ -213,10 +222,11 @@ public class Utilidades implements Serializable {
 	public static String removerAcentos(String str) {
 		return Normalizer.normalize(str, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
 	}
-	public static String formataString(String str){
-				
+
+	public static String formataString(String str) {
+
 		return removerAcentos(str);
-		
+
 	}
 
 	private static int calcularDigito(String str, int[] peso) {
@@ -395,10 +405,10 @@ public class Utilidades implements Serializable {
 		}
 		CEP cp = new CEP();
 		cp = readJson(json);
-		if(cp == null)
+		if (cp == null)
 			cp = new CEP();
 		return cp;
-		
+
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -409,12 +419,12 @@ public class Utilidades implements Serializable {
 			System.out.println("Reading JSON file from Java program");
 			FileReader fileReader = new FileReader(file);
 			JSONObject json = (JSONObject) parser.parse(fileReader);
-		    cep.Bairro = (String) json.get("bairro");
-		    cep.Localidade = (String) json.get("localidade");
-		    cep.Complemento = (String) json.get("complemento");
-		    cep.Ibge = (String) json.get("ibge");
-		    cep.Logradouro = (String) json.get("logradouro");
-		    cep.Uf = (String) json.get("uf");
+		    cep.setBairro((String) json.get("bairro"));
+		    cep.setLocalidade((String) json.get("localidade"));
+		    cep.setComplemento((String) json.get("complemento"));
+		    cep.setIbge((String) json.get("ibge"));
+		    cep.setLogradouro((String) json.get("logradouro"));
+		    cep.setUf((String) json.get("uf"));
 		    
 			JSONArray characters = (JSONArray) json.get("characters");
 			Iterator i = characters.iterator();
@@ -428,8 +438,6 @@ public class Utilidades implements Serializable {
 		}
 		return cep;
 	}
-
-	
 
 	public static String getCaminhofotobrinde() {
 		return caminhoFotoBrinde;

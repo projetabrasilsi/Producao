@@ -75,13 +75,15 @@
 									<f:attribute name="registroAtual" value="#{registro}" />
 								</p:commandButton>
 							</p:column>
-					
+
 						</p:dataTable>
 						<p:confirmDialog global="true" styleClass="cDialog-edit-pessoas">
 							<p:commandButton value="SIM" type="button"
-								styleClass="ui-confirmdialog-yes btn-color-blue2" icon="ui-icon-check" />
+								styleClass="ui-confirmdialog-yes btn-color-blue2"
+								icon="ui-icon-check" />
 							<p:commandButton value="NAO" type="button"
-								styleClass="ui-confirmdialog-no btn-color-blue2" icon="ui-icon-close" />
+								styleClass="ui-confirmdialog-no btn-color-blue2"
+								icon="ui-icon-close" />
 						</p:confirmDialog>
 						<!-- </p:panel> -->
 					</h:form>
@@ -148,696 +150,793 @@
 			closable="false" appendTo="@(body)" dynamic="true" responsive="true"
 			oncomplete="PF('wiz').loadStep('tab1', true)"
 			styleClass="dialog-info-pessoas">
-			
+
 			<p:commandButton value="X" process="@this"
 				actionListener="#{pessoajsfController.cancela}"
-				styleClass="btao-info-pessoas btn-color-red pull-right btn-info-pessoas-fechar" 
+				styleClass="btao-info-pessoas btn-color-red pull-right btn-info-pessoas-fechar"
 				oncomplete="PF('wiz').loadStep('tab1', true)" />
-			
+
 			<div class="div-conteudo-info-pessoas">
-			
+
 				<h:form id="formCadastro">
-				
-				<div class="div-wizard-pessoas">
-					<p:wizard widgetVar="wiz" nextLabel="Próximo" backLabel="Anterior" 						
-						 styleClass="wizard-info-pessoas">
-						
-				
-						<p:tab id="tab1" title="Dados Base">
-							<p:panel id="p_d_p">
-							
-								<h:panelGrid columns="2" id="painelCadastro_6"
-									rendered="#{autenticacaojsfController.perfilLogado.paginaAtual.renderizaCadastrodeUsuarios}">
-									<p:outputLabel
-										value="#{pessoajsfController.pessoaConfig.labelNome}"
-										rendered="#{pessoajsfController.pessoaConfig.labelNomeRenderiza}" />
-									<p:inputText size="30" maxlength="90" style="text-transform: capitalize"
-										value="#{pessoajsfController.pessoa.descricao}"
-										required="#{pessoajsfController.pessoaConfig.labelNomeObrigatorio}"
-										requiredMessage="#{pessoajsfController.pessoaConfig.labelNomeRequiredMessage}"
-										rendered="#{pessoajsfController.pessoaConfig.labelNomeRenderiza}"
-										validatorMessage="O minimo de caracteres para nome são  '5'"
-										placeholder="Mínimo 5 Letras"
-										styleClass="input-info-nome-pessoas input-info-pessoas-geral">
-										<f:validateLength minimum="5" />
-									</p:inputText>
+
+					<div class="div-wizard-pessoas">
+						<p:wizard widgetVar="wiz" nextLabel="Próximo" backLabel="Anterior"
+							styleClass="wizard-info-pessoas">
+
+
+							<p:tab id="tab1" title="Dados Base">
+								<p:panel id="p_d_p">
+
+									<h:panelGrid columns="2" id="painelCadastro_6"
+										rendered="#{autenticacaojsfController.perfilLogado.paginaAtual.renderizaCadastrodeUsuarios}">
+										<p:outputLabel
+											value="#{pessoajsfController.pessoaConfig.labelNome}"
+											rendered="#{pessoajsfController.pessoaConfig.labelNomeRenderiza}" />
+										<p:inputText size="30" maxlength="90"
+											style="text-transform: capitalize"
+											value="#{pessoajsfController.pessoa.descricao}"
+											required="#{pessoajsfController.pessoaConfig.labelNomeObrigatorio}"
+											requiredMessage="#{pessoajsfController.pessoaConfig.labelNomeRequiredMessage}"
+											rendered="#{pessoajsfController.pessoaConfig.labelNomeRenderiza}"
+											validatorMessage="O minimo de caracteres para nome são  '5'"
+											placeholder="Mínimo 5 Letras"
+											styleClass="input-info-nome-pessoas input-info-pessoas-geral">
+											<f:validateLength minimum="5" />
+										</p:inputText>
 
 
 
-									<p:outputLabel
-										value="#{pessoajsfController.pessoaConfig.labelFantasia}"
-										rendered="#{pessoajsfController.pessoaConfig.labelFantasiaRenderiza}" />
-									<p:inputText size="30" maxlength="90"
-										value="#{pessoajsfController.pessoa.fantasia_Apelido}"
-										required="#{pessoajsfController.pessoaConfig.labelFantasiaObrigatorio}"
-										requiredMessage="#{pessoajsfController.pessoaConfig.labelFantasiaRequiredMessage}"
-										rendered="#{pessoajsfController.pessoaConfig.labelFantasiaRenderiza}"
-										validatorMessage="O minimo de caracteres para nome são  '5'"
-										placeholder="Mínimo 5 Letras"
-										styleClass="input-info-nome-pessoas input-info-pessoas-geral">
-										<f:validateLength minimum="5" />
-									</p:inputText>
+										<p:outputLabel
+											value="#{pessoajsfController.pessoaConfig.labelFantasia}"
+											rendered="#{pessoajsfController.pessoaConfig.labelFantasiaRenderiza}" />
+										<p:inputText size="30" maxlength="90"
+											value="#{pessoajsfController.pessoa.fantasia_Apelido}"
+											required="#{pessoajsfController.pessoaConfig.labelFantasiaObrigatorio}"
+											requiredMessage="#{pessoajsfController.pessoaConfig.labelFantasiaRequiredMessage}"
+											rendered="#{pessoajsfController.pessoaConfig.labelFantasiaRenderiza}"
+											validatorMessage="O minimo de caracteres para nome são  '5'"
+											placeholder="Mínimo 5 Letras"
+											styleClass="input-info-nome-pessoas input-info-pessoas-geral">
+											<f:validateLength minimum="5" />
+										</p:inputText>
 
 
 
-									<p:outputLabel
-										value="#{pessoajsfController.pessoaConfig.labelSexo}"
-										rendered="#{pessoajsfController.pessoaConfig.labelSexoRenderiza}" />
-									<p:selectOneRadio id="perfil"
-										value="#{pessoajsfController.pessoa.sexo}" columns="5"
-										converter="omnifaces.SelectItemsConverter"
-										rendered="#{pessoajsfController.pessoaConfig.labelSexoRenderiza}"
-										>
-										<f:selectItems
-											value="#{pessoajsfController.pessoaConfig.listaSexo}" var="c"
-											itemLabel="#{c.abrev}" itemValue="#{c}" />
-										<p:ajax event="change" process="@this"
-											oncomplete="$(function(){PrimeFaces.focus('formTemplate:formCadastro:calendar');});" />
-									</p:selectOneRadio>
+										<p:outputLabel
+											value="#{pessoajsfController.pessoaConfig.labelSexo}"
+											rendered="#{pessoajsfController.pessoaConfig.labelSexoRenderiza}" />
+										<p:selectOneRadio id="perfil"
+											value="#{pessoajsfController.pessoa.sexo}" columns="5"
+											converter="omnifaces.SelectItemsConverter"
+											rendered="#{pessoajsfController.pessoaConfig.labelSexoRenderiza}">
+											<f:selectItems
+												value="#{pessoajsfController.pessoaConfig.listaSexo}"
+												var="c" itemLabel="#{c.abrev}" itemValue="#{c}" />
+											<p:ajax event="change" process="@this"
+												oncomplete="$(function(){PrimeFaces.focus('formTemplate:formCadastro:calendar');});" />
+										</p:selectOneRadio>
 
-								
-									<p:outputLabel
-										value="#{pessoajsfController.pessoaConfig.labelcpf_Cnpj}"
-										rendered="#{pessoajsfController.pessoaConfig.labelcpf_CnpjRenderiza}" />
-									<p:outputLabel id="identificador" size="18" maxlength="15"
-										mask="#{pessoajsfController.pessoa.enum_Aux_Tipo_Identificador.mask}"
-										value="#{pessoajsfController.pessoa.cpf_Cnpj}"
-										converter="mascaraCPFConverter"
-										required="#{pessoajsfController.pessoaConfig.labelcpf_CnpjObrigatorio}"
-										requiredMessage="#{pessoajsfController.pessoaConfig.labelcpf_CnpjRequiredMessage}"
-										rendered="#{pessoajsfController.pessoaConfig.labelcpf_CnpjRenderiza}"
-										>
-									</p:outputLabel>
-								
 
-									<p:outputLabel value="Data de nascimento"
-										rendered="#{pessoajsfController.pessoaConfig.labelDataNascimentoRenderiza}" />
-									<p:calendar id="calendar" size="18" maxlength="15"
-										mask="**/**/****" pattern="dd/MM/yyyy"
-										value="#{pessoajsfController.pessoa.dataNascimento}"
-										required="#{pessoajsfController.pessoaConfig.labelDataNascimentoObrigatorio}"
-										requiredMessage="#{pessoajsfController.pessoaConfig.labelDataNascimentoRequiredMessage}"
-										rendered="#{pessoajsfController.pessoaConfig.labelDataNascimentoRenderiza}"
-										styleClass="input-info-pessoas-data">
-										<f:convertDateTime pattern="dd/MM/yyyy" dateStyle="full"
-											type="both" timezone="GMT+3" />
-									</p:calendar>
+										<p:outputLabel
+											value="#{pessoajsfController.pessoaConfig.labelcpf_Cnpj}"
+											rendered="#{pessoajsfController.pessoaConfig.labelcpf_CnpjRenderiza}" />
+										<p:outputLabel id="identificador" size="18" maxlength="15"
+											mask="#{pessoajsfController.pessoa.enum_Aux_Tipo_Identificador.mask}"
+											value="#{pessoajsfController.pessoa.cpf_Cnpj}"
+											converter="mascaraCPFConverter"
+											required="#{pessoajsfController.pessoaConfig.labelcpf_CnpjObrigatorio}"
+											requiredMessage="#{pessoajsfController.pessoaConfig.labelcpf_CnpjRequiredMessage}"
+											rendered="#{pessoajsfController.pessoaConfig.labelcpf_CnpjRenderiza}">
+										</p:outputLabel>
+
+
+										<p:outputLabel value="Data de nascimento"
+											rendered="#{pessoajsfController.pessoaConfig.labelDataNascimentoRenderiza}" />
+										<p:calendar id="calendar" size="18" maxlength="15"
+											mask="**/**/****" pattern="dd/MM/yyyy"
+											value="#{pessoajsfController.pessoa.dataNascimento}"
+											required="#{pessoajsfController.pessoaConfig.labelDataNascimentoObrigatorio}"
+											requiredMessage="#{pessoajsfController.pessoaConfig.labelDataNascimentoRequiredMessage}"
+											rendered="#{pessoajsfController.pessoaConfig.labelDataNascimentoRenderiza}"
+											styleClass="input-info-pessoas-data">
+											<f:convertDateTime pattern="dd/MM/yyyy" dateStyle="full"
+												type="both" timezone="GMT+3" />
+										</p:calendar>
 
 
 
-									<p:outputLabel
-										value="#{pessoajsfController.pessoaConfig.labelrg_Insc}"
-										rendered="#{pessoajsfController.pessoaConfig.labelrg_InscRenderiza}" />
-									<p:inputText size="18" maxlength="15"
-										value="#{pessoajsfController.pessoa.rg_Insc}"
-										required="#{pessoajsfController.pessoaConfig.labelrg_InscObrigatorio}"
-										requiredMessage="#{pessoajsfController.pessoaConfig.labelrg_InscRequiredMessage}"
-										rendered="#{pessoajsfController.pessoaConfig.labelrg_InscRenderiza}"
-										styleClass="input-info-pessoas-geral">
-									</p:inputText>
+										<p:outputLabel
+											value="#{pessoajsfController.pessoaConfig.labelrg_Insc}"
+											rendered="#{pessoajsfController.pessoaConfig.labelrg_InscRenderiza}" />
+										<p:inputText size="18" maxlength="15"
+											value="#{pessoajsfController.pessoa.rg_Insc}"
+											required="#{pessoajsfController.pessoaConfig.labelrg_InscObrigatorio}"
+											requiredMessage="#{pessoajsfController.pessoaConfig.labelrg_InscRequiredMessage}"
+											rendered="#{pessoajsfController.pessoaConfig.labelrg_InscRenderiza}"
+											styleClass="input-info-pessoas-geral">
+										</p:inputText>
 
 
 
-									<p:outputLabel value="Profissão: " />
-									<h:panelGrid id="g_profissao" columns="2" render="@form">
-									<p:outputLabel id="psel" size="15" maxlength="15" required="true"
-													value="#{pessoajsfController.pessoa.id_Profissao.descricao}" />
-									<p:commandButton icon="ui-icon-search" process="@this"
-									update=":formTemplate:formListaProfissao"
-									onclick="PF('dialogoProfissoes').show();"
-									styleClass="btao-info-pessoas" />
+										<p:outputLabel value="Profissão: " />
+										<h:panelGrid id="g_profissao" columns="2" render="@form">
+											
+
+
+											<p:outputLabel id="psel" size="60" maxlength="60"
+												value="#{pessoajsfController.pessoa.id_Profissao.descricao}" />
+											<p:commandButton icon="ui-icon-search" process="@this"
+												update=":formTemplate:formListaProfissao"
+												onclick="PF('dialogoProfissoes').show();"
+												styleClass="btao-info-pessoas" />
+										</h:panelGrid>
+
+
+
+										<p:outputLabel value="Informe a Senha"
+											rendered="#{pessoajsfController.perfilLogado.renderizaPelaPagina('PAGINACLIENTES', pessoajsfController.pessoa)}" />
+										<p:password size="18" maxlength="8"
+											value="#{pessoajsfController.usuario.senhaSemCript}"
+											required="true" requiredMessage="Informe a senha!!!"
+											rendered="#{pessoajsfController.perfilLogado.renderizaPelaPagina('PAGINACLIENTES', pessoajsfController.pessoa)}"
+											validatorMessage="O minimo de digitos para senha: '8'"
+											placeholder="8 letras e/ou digitos"
+											styleClass="input-info-pessoas-geral">
+											<f:validateLength minimum="8" />
+										</p:password>
+
+
+										<p:outputLabel value="Confirme a Senha"
+											rendered="#{pessoajsfController.perfilLogado.renderizaPelaPagina('PAGINACLIENTES', pessoajsfController.pessoa)}" />
+										<p:password size="18" maxlength="8"
+											value="#{pessoajsfController.usuario.confSenha}"
+											required="true"
+											rendered="#{pessoajsfController.perfilLogado.renderizaPelaPagina('PAGINACLIENTES', pessoajsfController.pessoa)}"
+											requiredMessage="Informe a confirmação de senha."
+											validatorMessage="O minimo de digitos para confirmação senha: '8'"
+											placeholder="8 letras e/ou digitos"
+											styleClass="input-info-pessoas-geral">
+											<f:validateLength minimum="8" />
+										</p:password>
+
 									</h:panelGrid>
 
-									
-
-									<p:outputLabel value="Informe a Senha" rendered="#{pessoajsfController.perfilLogado.renderizaPelaPagina('PAGINACLIENTES', pessoajsfController.pessoa)}"/>
-									<p:password size="18" maxlength="8"
-										value="#{pessoajsfController.usuario.senhaSemCript}"
-										required="true" requiredMessage="Informe a senha!!!"
-										rendered="#{pessoajsfController.perfilLogado.renderizaPelaPagina('PAGINACLIENTES', pessoajsfController.pessoa)}"
-										validatorMessage="O minimo de digitos para senha: '8'"
-										placeholder="8 letras e/ou digitos"
-										styleClass="input-info-pessoas-geral">
-										<f:validateLength minimum="8" />
-									</p:password>
-
-
-									<p:outputLabel value="Confirme a Senha" rendered="#{pessoajsfController.perfilLogado.renderizaPelaPagina('PAGINACLIENTES', pessoajsfController.pessoa)}"/>
-									<p:password size="18" maxlength="8"
-										value="#{pessoajsfController.usuario.confSenha}"
-										required="true"
-										rendered="#{pessoajsfController.perfilLogado.renderizaPelaPagina('PAGINACLIENTES', pessoajsfController.pessoa)}"
-										requiredMessage="Informe a confirmação de senha."
-										validatorMessage="O minimo de digitos para confirmação senha: '8'"
-										placeholder="8 letras e/ou digitos"
-										styleClass="input-info-pessoas-geral">
-										<f:validateLength minimum="8" />
-									</p:password>
-
-								</h:panelGrid>
-
-								<!-- <p:commandButton value="Cancelar" process="@this"
+									<!-- <p:commandButton value="Cancelar" process="@this"
 									actionListener="#{pessoajsfController.cancela}"
 									styleClass="btao-info-pessoas" /> -->
 
-							</p:panel>
-						</p:tab>
-						
-					<p:tab id="tab2" title="Endereço">
-							<p:panel id="p_endereco">
-							
-								<h:form id="g_e_1"  render="@form">
-									
-									<div class="ui-g row-tab2">
-								<div class="ui-g-12 ui-md-4 col-tab2-row1">
+								</p:panel>
+							</p:tab>
+
+							<p:tab id="tab2" title="Endereço">
+								<p:panel id="p_endereco">
+									<h:panelGrid id="g_e_1" columns="1">
 										<p:outputLabel value="CEP:" />
-										<br />
-										<p:inputText id="cep" size="16" maxlength="16"
-											value="#{pessoajsfController.endereco.logradouro.cidade.cep}"
-											validatorMessage="O minimo de caracteres para sigla são  '8'"
-											placeholder="Mínimo 8 números">
-											<f:validateLength  maximum="8" />
-											<p:ajax listener="#{pessoajsfController.setCEP}"
-												update="cep,iptxEstado,iptxCidade,
-												:formTemplate:formCadastro:g_e_2,
-												:formTemplate:formCadastro:g_e_3,
-												:formTemplate:formCadastro:g_e_4 "
-												render="@form" />
-										</p:inputText>
-									</div>	
-									<div class="ui-g-12 ui-md-4 col-tab2-row1">	
-										<p:outputLabel value="Estado:" />
-										<br/>
-										<p:inputText id="iptxEstado" size="5" maxlength="10"
-											value="#{pessoajsfController.endereco.logradouro.cidade.estado.sigla}"
-											readonly="true" />
-									</div>
-									<div class="ui-g-12 ui-md-4 col-tab2-row1">		
-										<p:outputLabel value="Cidade:" />
-										<br/>
-										<p:inputText id="iptxCidade" size="30" maxlength="30"
-											value="#{pessoajsfController.endereco.logradouro.cidade.descricao}"
-											readonly="true" />
-									</div>
-											
-									</div><!--/.ui-g .row-tab2  -->	
-								</h:form>
-								
-							<div class="ui-g row-tab2">	
-								
-								<h:form id="g_e_2" render="@form">
+										<h:panelGrid id="g_e_1_1" columns="3" render="@form">
+											<p:inputText id="cep" size="12" maxlength="30"
+												style="width:80px"
+												value="#{pessoajsfController.endereco.cep}"
+												validatorMessage="O minimo de caracteres para sigla são  '8'"
+												placeholder="Mínimo 8 números">
+												<f:validateLength maximum="8" />
 
-								<div class="ui-g-12 ui-md-4 col-tab2-row2">	
-									<p:outputLabel value="Tipo de Logradouro: " />
-									<br/>
-									<p:selectOneMenu id="tipoLogradouro"
-										value="#{pessoajsfController.endereco.logradouro.enum_Aux_Tipo_Logradouro}"
-										converter="omnifaces.SelectItemsConverter"
-										styleClass="wizard-info-pessoas-select-tipo-log">
-										<f:selectItem itemValue="Selecione" noSelectionOption="true" />
-										<f:selectItems
-											value="#{pessoajsfController.listaTiposLogradouros}" var="o"
-											itemLabel="#{o.descricao}" itemValue="#{o}" />
-									</p:selectOneMenu>
+											</p:inputText>
 
-								</div>
-								</h:form>
+											<p:commandButton icon="ui-icon-search"
+												update="cep,g_e_1_2,g_e_4"
+												styleClass="btao-info-pessoas"
+												actionListener="#{pessoajsfController.ConsultaCEP()}"
+												process="@form">
 
-								<h:form id="g_e_3" >
-								<div class="ui-g-12 ui-md-4 col-tab2-row2">	
-									<p:outputLabel value="Logradouro:" 
-									/>
+
+											</p:commandButton>
+
+											<p:commandButton icon="ui-icon-search" process="@this"
+												actionListener="#{pessoajsfController.chamaDialogoPesquisaCep()}"
+												update=" :formTemplate:formPesqLogradouros "
+												styleClass="btao-info-pessoas" />
+										</h:panelGrid>
+
+										<h:panelGrid id="g_e_1_2" columns="4" render="@form">
+											<p:outputLabel value="Estado:" />
+											<p:outputLabel value="Cidade:" />
+											<p:outputLabel value="Logradouro" />
+											<br />
+
+											<p:inputText id="iptxEstado" size="30" maxlength="30"
+												style="width:50px"
+												value="#{pessoajsfController.endereco.logradouro.cidade.estado.sigla}"
+												readonly="true" />
+											<p:inputText id="iptxCidade" size="30" maxlength="30"
+												style="width:180px"
+												value="#{pessoajsfController.endereco.logradouro.cidade.descricao}"
+												readonly="true" />
+
+											<p:selectOneMenu id="logradouro"
+												value="#{pessoajsfController.endereco.logradouro}"
+												 converter="omnifaces.SelectItemsConverter"
+												style="width:150px !important;">
+
+												<f:selectItem itemLabel="Selecione" itemValue=""
+													noSelectionOption="true" />
+												<f:selectItems value="#{pessoajsfController.logradouros}"
+													var="o" itemLabel="#{o.descricao}" itemValue="#{o}" />
+											</p:selectOneMenu>
+											<p:commandButton value=". . ."
+												actionListener="#{pessoajsfController.novoLogradouro}"
+												process="@this" styleClass="btn-info-pessoas-logradouro" />
+										</h:panelGrid>
+
+									</h:panelGrid>
 									
-									<h:panelGrid id="g_e_3_1" columns="2"
-										columnClasses="layoutColumn1,layoutColumn2" render="@form"
-										styleClass="wizard-info-pessoas-pgrid-logradouro">
-
-										<p:selectOneMenu id="logradouro"
-											value="#{pessoajsfController.endereco.logradouro}"
-											required="true"
-											converter="omnifaces.SelectItemsConverter"
-											style="width:150px !important;">
-											
-											<f:selectItem itemLabel="Selecione" itemValue=""
-												noSelectionOption="true" />
-											<f:selectItems value="#{pessoajsfController.logradouros}"
-												var="o" itemLabel="#{o.descricao}" itemValue="#{o}" />
-										</p:selectOneMenu>
-										<p:commandButton value=". . ."
-											actionListener="#{pessoajsfController.novoLogradouro}"
-											process="@this" styleClass="btn-info-pessoas-logradouro"/>
-
-									</h:panelGrid>
-								</div>
-								</h:form>
-
-							</div><!-- /.ui-g .row-tab2 -->
 
 
-							<div class="ui-g row-tab2">	
-							<div class="ui-g-12 ui-md-4 col-tab2-row3">
-								<h:form id="g_e_4">
-									<p:outputLabel value="Bairro:" />
-									<h:panelGrid id="g_e_4_1" columns="2"
-										columnClasses="layoutColumn1,layoutColumn2" render="@form"
-										styleClass="wizard-info-pessoas-pgrid-logradouro">
+									<div class="ui-g row-tab2">
+										<div class="ui-g-12 ui-md-4 col-tab2-row3">
+											<h:form id="g_e_4">
+												<p:outputLabel value="Bairro:" />
+												<h:panelGrid id="g_e_4_1" columns="2"
+													columnClasses="layoutColumn1,layoutColumn2" render="@form"
+													styleClass="wizard-info-pessoas-pgrid-logradouro">
 
 
-										<p:selectOneMenu id="bairro"
-											value="#{pessoajsfController.endereco.bairro}"
-											converter="omnifaces.SelectItemsConverter"
-											style="width:130px !important;">
+													<p:selectOneMenu id="bairro"
+														value="#{pessoajsfController.endereco.bairro}"
+														converter="omnifaces.SelectItemsConverter"
+														style="width:130px !important;">
 
-											<f:selectItem itemLabel="Selecione" itemValue=""
-												noSelectionOption="true" />
-											<f:selectItems value="#{pessoajsfController.bairros}" var="o"
-												itemLabel="#{o.descricao}" itemValue="#{o}" />
-										</p:selectOneMenu>
-
-
-										<p:commandButton value=". . ."
-											actionListener="#{pessoajsfController.novoBairro}"
-											process="@this" styleClass="btn-info-pessoas-bairro"/>
+														<f:selectItem itemLabel="Selecione" itemValue=""
+															noSelectionOption="true" />
+														<f:selectItems value="#{pessoajsfController.bairros}"
+															var="o" itemLabel="#{o.descricao}" itemValue="#{o}" />
+													</p:selectOneMenu>
 
 
-									</h:panelGrid>
-								</h:form>
-							</div>
-							
-							<div class="ui-g-12 ui-md-4 col-tab2-row3">
-								<h:panelGrid id="g_e_2_1" columns="2" render="@form">
-									<p:outputLabel value="Complemento:" />
-									<p:outputLabel value="Número:" />
-									<p:inputText size="20" maxlength="30" 
-										value="#{pessoajsfController.endereco.complemento}"
-										required="false" requiredMessage="Campo obrigatório">
-									</p:inputText>
-
-									<p:inputText size="6" maxlength="30"
-										value="#{pessoajsfController.endereco.numero}">
-
-									</p:inputText>
-								</h:panelGrid>
-							</div>	
-								
-							</div><!-- /.ui-g .row-tab2 -->
+													<p:commandButton value=". . ."
+														actionListener="#{pessoajsfController.novoBairro}"
+														process="@this" styleClass="btn-info-pessoas-bairro" />
 
 
-								<!-- <p:commandButton value="Cancelar" process="@this"
+												</h:panelGrid>
+											</h:form>
+										</div>
+
+										<div class="ui-g-12 ui-md-4 col-tab2-row3">
+											<h:panelGrid id="g_e_2_1" columns="2" render="@form">
+												<p:outputLabel value="Complemento:" />
+												<p:outputLabel value="Número:" />
+												<p:inputText size="20" maxlength="30"
+													value="#{pessoajsfController.endereco.complemento}"
+													required="false" requiredMessage="Campo obrigatório">
+												</p:inputText>
+
+												<p:inputText size="6" maxlength="30"
+													value="#{pessoajsfController.endereco.numero}">
+
+												</p:inputText>
+											</h:panelGrid>
+										</div>
+
+									</div>
+									<!-- /.ui-g .row-tab2 -->
+
+
+									<!-- <p:commandButton value="Cancelar" process="@this"
 									actionListener="#{pessoajsfController.cancela}"
 									oncomplete="PF('wiz').loadStep('tab1', true)"
 									styleClass="btao-info-pessoas" /> -->
 
 
 
-							</p:panel>
-						</p:tab>
+								</p:panel>
+							</p:tab>
 
 
-						<p:tab id="tab3" title="Contatos">
-							<p:panel id="p_dados_contatos">
-							
-								<h:panelGrid columns="1" render="@form">
+							<p:tab id="tab3" title="Contatos">
+								<p:panel id="p_dados_contatos">
+
+									<h:panelGrid columns="1" render="@form">
+
+										<p:outputLabel value="Tipo de Contato:" />
+										<p:selectOneMenu id="tipoContato"
+											converter="omnifaces.SelectItemsConverter"
+											value="#{pessoajsfController.tipoContato}" rendered="true">
+											<f:selectItem itemLabel="selecione" itemValue=""
+												noSelectionOption="true" />
+											<f:selectItems
+												value="#{pessoajsfController.listaTipoContato}" var="o"
+												itemLabel="#{o.descricao}" itemValue="#{o}" />
+											<p:ajax event="change" update="iptxContato" process="@this"
+												oncomplete="$(function(){PrimeFaces.focus('formTemplate:formCadastro:iptxContato');});" />
+										</p:selectOneMenu>
+
+										<p:outputLabel value="Relacionamento:" />
+										<p:selectOneMenu id="tipoRelacionamento"
+											converter="omnifaces.SelectItemsConverter"
+											value="#{pessoajsfController.tipoRelacionamento}"
+											rendered="true">
+											<f:selectItem itemLabel="Selecione" itemValue=""
+												noSelectionOption="true" />
+											<f:selectItems
+												value="#{pessoajsfController.listaTipoRelacionamento}"
+												var="o" itemLabel="#{o.descricao}" itemValue="#{o}" />
+										</p:selectOneMenu>
+
+									</h:panelGrid>
+
+									<h:panelGrid columns="1" render="@form">
+
+										<p:outputLabel value="Contato:" />
+										<h:panelGrid columns="2" render="@form">
+											<p:inputMask id="iptxContato" size="15" maxlength="30"
+												value="#{pessoajsfController.descricaoContato}"
+												mask="#{pessoajsfController.tipoContato.mascara}"
+												styleClass="input-info-pessoas-add-cell" />
+
+											<p:commandButton value="Adicionar" process="@form"
+												actionListener="#{pessoajsfController.incluirContatoNaLista}"
+												update=":mensagens :formTemplate:formCadastro:formListaContatos:tabelaContatos, :formTemplate:formCadastro:iptxContato"
+												styleClass="btn-info-pessoas-add-cell btn-color-green2" />
+										</h:panelGrid>
+
+									</h:panelGrid>
+
+
+									<div class="div-tb-wizard-tab3">
+										<h:form id="formListaContatos">
+
+											<p:dataTable id="tabelaContatos" emptyMessage="Sem Registros"
+												resizableColumns="true"
+												value="#{pessoajsfController.listaContatos}"
+												paginator="true" rows="4" var="registro"
+												styleClass="tabela-pessoas">
+
+												<p:column headerText="Tipo de Contato"
+													sortBy="tipoContato.descricao"
+													filterBy="tipoContato.descricao"
+													styleClass="wizard-tab3-td-col-pessoas">
+													<h:outputText value="#{registro.tipoContato.descricao}" />
+												</p:column>
+
+												<p:column headerText="Relacionamento"
+													sortBy="tipoRelacionamento.descricao"
+													filterBy="tipoRelacionamento.descricao"
+													styleClass="wizard-tab3-td-col-pessoas">
+													<h:outputText
+														value="#{registro.tipoRelacionamento.descricao}">
+													</h:outputText>
+												</p:column>
+
+												<p:column headerText="Contato" sortBy="contato"
+													filterBy="contato" styleClass="wizard-tab3-td-col-pessoas">
+													<p:outputLabel size="15" maxlength="15"
+														value="#{registro.contato}" />
+												</p:column>
+
+
+												<p:column headerText="Excluir"
+													styleClass="excl-col-info-pessoas">
+													<p:commandButton icon="ui-icon-trash" process="@form"
+														styleClass="excl-btn-info-pessoas btn-color-red"
+														actionListener="#{pessoajsfController.excluirContato}"
+														update=":mensagens :formTemplate:formCadastro:formListaContatos:tabelaContatos">
+														<p:confirm header="Confirmação"
+															message="Deseja realmente excluir este registro?"
+															icon="ui-icon-alert" />
+														<f:attribute name="registroAtualContato"
+															value="#{registro}" />
+													</p:commandButton>
+												</p:column>
+											</p:dataTable>
+										</h:form>
+									</div>
+								</p:panel>
+							</p:tab>
+
+
+
+							<p:tab id="tab4" title="Prontuário de Emergência">
+								<p:panel id="p_prontuario_emergencia">
+
+									<h:panelGrid columns="1" render="@form">
+										<p:outputLabel value="Tipo de Prontuario:" />
+
+										<h:panelGrid columns="1" render="@form">
+											<p:selectOneMenu id="tipoProntuario"
+												converter="omnifaces.SelectItemsConverter"
+												value="#{pessoajsfController.tipoProntuarioEmergencia}"
+												rendered="true">
+												<f:selectItem itemLabel="selecione" itemValue=""
+													noSelectionOption="true" />
+												<f:selectItems
+													value="#{pessoajsfController.listaTiposProntuarioEmergencia}"
+													var="o" itemLabel="#{o.descricao}" itemValue="#{o}" />
+											</p:selectOneMenu>
+
+											<p:outputLabel value="descreva:" />
+											<p:inputText id="descricaoEmergencia" size="27"
+												maxlength="30"
+												value="#{pessoajsfController.descricaoProntuario}" />
+
+											<p:commandButton value="Adicionar" process="@form"
+												actionListener="#{pessoajsfController.incluirProntuarioEmergenciaNaLista}"
+												styleClass="btn-info-pessoas-add-cell btn-info-pessoas-add-cell-tab4 btn-color-green2"
+												update=":mensagens :formTemplate:formCadastro:formListaProntuario:tabelaProntuario" />
+
+
+										</h:panelGrid>
+									</h:panelGrid>
+
+									<div class="div-tb-wizard-tab3">
+										<h:form id="formListaProntuario">
+											<p:dataTable id="tabelaProntuario"
+												emptyMessage="Sem Registros" resizableColumns="true"
+												value="#{pessoajsfController.listaProntuarioEmergencia}"
+												paginator="true" rows="4" var="registro"
+												styleClass="tabela-pessoas">
+
+												<p:column headerText="Classificação"
+													sortBy="registro.tipo_Prontuario_Emergencia.descricao"
+													filterBy="tipo_Prontuario_Emergencia.descricao"
+													styleClass="geral-col-pessoas">
+													<h:outputText
+														value="#{registro.tipo_Prontuario_Emergencia.descricao}" />
+												</p:column>
+
+												<p:column headerText="Descricao" sortBy="registro.descricao"
+													filterBy="descricao" styleClass="geral-col-pessoas">
+													<h:outputText value="#{registro.descricao}" />
+												</p:column>
+
+
+												<p:column headerText="Excluir"
+													styleClass="excl-col-info-pessoas">
+													<p:commandButton icon="ui-icon-trash" process="@form"
+														actionListener="#{pessoajsfController.excluirProntuario}"
+														update=":formTemplate:formCadastro:formListaProntuario:tabelaProntuario"
+														styleClass="excl-btn-info-pessoas btn-color-red">
+														<p:confirm header="Confirmação"
+															message="Deseja realmente excluir este registro?"
+															icon="ui-icon-alert" />
+														<f:attribute name="registroAtualProntuario"
+															value="#{registro}" />
+													</p:commandButton>
+												</p:column>
+											</p:dataTable>
+										</h:form>
+									</div>
+
 									
-									<p:outputLabel value="Tipo de Contato:" />									
-									<p:selectOneMenu id="tipoContato"
-										converter="omnifaces.SelectItemsConverter"
-										value="#{pessoajsfController.tipoContato}"
-										rendered="true">
-										<f:selectItem itemLabel="selecione" itemValue=""
-											noSelectionOption="true" />
-										<f:selectItems value="#{pessoajsfController.listaTipoContato}"
-											var="o" itemLabel="#{o.descricao}" itemValue="#{o}" />
-										<p:ajax event="change" update="iptxContato" process="@this"
-											oncomplete="$(function(){PrimeFaces.focus('formTemplate:formCadastro:iptxContato');});" />
-									</p:selectOneMenu>
 
-									<p:outputLabel value="Relacionamento:" />
-									<p:selectOneMenu id="tipoRelacionamento"
-										converter="omnifaces.SelectItemsConverter"
-										value="#{pessoajsfController.tipoRelacionamento}"
-										rendered="true">
-										<f:selectItem itemLabel="Selecione" itemValue=""
-											noSelectionOption="true" />
-										<f:selectItems
-											value="#{pessoajsfController.listaTipoRelacionamento}"
-											var="o" itemLabel="#{o.descricao}" itemValue="#{o}" />
-									</p:selectOneMenu>
+								</p:panel>
+							</p:tab>
 
-								</h:panelGrid>
+							<p:tab id="tab5" title="Objetos"
+								rendered="#{pessoajsfController.renderizaPeloPerfil('TAB')}">
+								<p:panel id="objeto_acesso">
 
-								<h:panelGrid columns="1" render="@form">
-
-									<p:outputLabel value="Contato:" />
-									<h:panelGrid columns="2" render="@form">
-										<p:inputMask id="iptxContato" size="15" maxlength="30"
-											value="#{pessoajsfController.descricaoContato}"
-											mask="#{pessoajsfController.tipoContato.mascara}" 
-											styleClass="input-info-pessoas-add-cell"/>																			
-										
-										<p:commandButton value="Adicionar" process="@form" 
-											actionListener="#{pessoajsfController.incluirContatoNaLista}"									
-											update=":mensagens :formTemplate:formCadastro:formListaContatos:tabelaContatos, :formTemplate:formCadastro:iptxContato"
-											styleClass="btn-info-pessoas-add-cell btn-color-green2" />																			
-									</h:panelGrid>
-
-								</h:panelGrid>
-								
-								
-							<div class="div-tb-wizard-tab3">
-								<h:form id="formListaContatos">
-
-									<p:dataTable id="tabelaContatos" emptyMessage="Sem Registros"
-										resizableColumns="true" value="#{pessoajsfController.listaContatos}"
-										paginator="true" rows="4" var="registro"
-										styleClass="tabela-pessoas">
-
-										<p:column headerText="Tipo de Contato" sortBy="tipoContato.descricao"
-											filterBy="tipoContato.descricao" styleClass="wizard-tab3-td-col-pessoas">
-											<h:outputText value="#{registro.tipoContato.descricao}" />
-										</p:column>
-
-										<p:column headerText="Relacionamento" sortBy="tipoRelacionamento.descricao"
-											filterBy="tipoRelacionamento.descricao" styleClass="wizard-tab3-td-col-pessoas">
-											<h:outputText value="#{registro.tipoRelacionamento.descricao}">												
-											</h:outputText>
-										</p:column>
-
-										<p:column headerText="Contato" sortBy="contato"
-											filterBy="contato" styleClass="wizard-tab3-td-col-pessoas">
-											<p:outputLabel size="15" maxlength="15"
-												value="#{registro.contato}" />
-										</p:column>
-
-
-										<p:column headerText="Excluir" styleClass="excl-col-info-pessoas">
-											<p:commandButton icon="ui-icon-trash" process="@form"
-												styleClass="excl-btn-info-pessoas btn-color-red"
-												actionListener="#{pessoajsfController.excluirContato}"
-												update=":mensagens :formTemplate:formCadastro:formListaContatos:tabelaContatos">
-												<p:confirm header="Confirmação"
-													message="Deseja realmente excluir este registro?"
-													icon="ui-icon-alert" />
-												<f:attribute name="registroAtualContato" value="#{registro}" />
-											</p:commandButton>
-										</p:column>
-									</p:dataTable>
-								</h:form>
-							</div>
-							</p:panel>
-						</p:tab>
-
-
-
-						<p:tab id="tab4" title="Prontuário de Emergência">
-							<p:panel id="p_prontuario_emergencia">
-							
-								<h:panelGrid columns="1" render="@form">
-									<p:outputLabel value="Tipo de Prontuario:" />	
-																	
 									<h:panelGrid columns="1" render="@form">
-										<p:selectOneMenu id="tipoProntuario"
-											converter="omnifaces.SelectItemsConverter"
-											value="#{pessoajsfController.tipoProntuarioEmergencia}"
-											rendered="true">
-											<f:selectItem itemLabel="selecione" itemValue=""
-												noSelectionOption="true" />
-											<f:selectItems
-												value="#{pessoajsfController.listaTiposProntuarioEmergencia}"
-												var="o" itemLabel="#{o.descricao}" itemValue="#{o}" />
-										</p:selectOneMenu>
-										
-										<p:outputLabel value="descreva:" />
-										<p:inputText id="descricaoEmergencia" size="27" maxlength="30"
-											 value="#{pessoajsfController.descricaoProntuario}" />
+										<p:outputLabel value="Tipo de Prontuario:" />
 
-										<p:commandButton value="Adicionar" process="@form"
-											actionListener="#{pessoajsfController.incluirProntuarioEmergenciaNaLista}"									
-											styleClass="btn-info-pessoas-add-cell btn-info-pessoas-add-cell-tab4 btn-color-green2" 
-											update=":mensagens :formTemplate:formCadastro:formListaProntuario:tabelaProntuario"/>
-											                   
+										<h:panelGrid columns="1" render="@form">
+											<p:selectOneMenu id="tipoObjeto"
+												converter="omnifaces.SelectItemsConverter"
+												value="#{pessoajsfController.tipoObjeto}" rendered="true">
+												<f:selectItem itemLabel="selecione" itemValue=""
+													noSelectionOption="true" />
+												<f:selectItems
+													value="#{pessoajsfController.listaTiposObjeto}" var="o"
+													itemLabel="#{o.descricao}" itemValue="#{o}" />
+											</p:selectOneMenu>
 
+											<p:commandButton value="Adicionar" process="@form"
+												actionListener="#{pessoajsfController.incluirObjetoNaLista}"
+												styleClass="btn-info-pessoas-add-cell btn-info-pessoas-add-cell-tab4 btn-color-green2"
+												update=":mensagens :formTemplate:formCadastro:formListaObjeto:tabelaObjeto" />
+
+
+										</h:panelGrid>
 									</h:panelGrid>
-								</h:panelGrid>
 
-							<div class="div-tb-wizard-tab3">	
-								<h:form id="formListaProntuario">
-									<p:dataTable id="tabelaProntuario" emptyMessage="Sem Registros"
-										resizableColumns="true" value="#{pessoajsfController.listaProntuarioEmergencia}"
-										paginator="true" rows="4" var="registro"
-										styleClass="tabela-pessoas">
+									<div class="div-tb-wizard-tab3">
+										<h:form id="formListaObjeto">
+											<p:dataTable id="tabelaObjeto" emptyMessage="Sem Registros"
+												resizableColumns="true"
+												value="#{pessoajsfController.listaObjeto}" paginator="true"
+												rows="4" var="registro" styleClass="tabela-pessoas">
 
-										<p:column headerText="Classificação" sortBy="registro.tipo_Prontuario_Emergencia.descricao"
-										
-											filterBy="tipo_Prontuario_Emergencia.descricao" styleClass="geral-col-pessoas">
-											<h:outputText value="#{registro.tipo_Prontuario_Emergencia.descricao}" />
-										</p:column>
-
-										<p:column headerText="Descricao" sortBy="registro.descricao"
-											filterBy="descricao" styleClass="geral-col-pessoas">
-											<h:outputText value="#{registro.descricao}"/>
-										</p:column>
+												<p:column headerText="Classificação"
+													sortBy="registro.enum_Aux_Tipos_Objetos.descricao"
+													filterBy="tipo_Prontuario_Emergencia.descricao"
+													styleClass="geral-col-pessoas">
+													<h:outputText
+														value="#{registro.enum_Aux_Tipos_Objetos.descricao}" />
+												</p:column>
 
 
-										<p:column headerText="Excluir" styleClass="excl-col-info-pessoas">
-											<p:commandButton icon="ui-icon-trash" process="@form"
-												actionListener="#{pessoajsfController.excluirProntuario}"
-												update=":formTemplate:formCadastro:formListaProntuario:tabelaProntuario"
-												styleClass="excl-btn-info-pessoas btn-color-red">
-												<p:confirm header="Confirmação"
-													message="Deseja realmente excluir este registro?"
-													icon="ui-icon-alert" />
-												<f:attribute name="registroAtualProntuario" value="#{registro}" />
-											</p:commandButton>
-										</p:column>
-									</p:dataTable>
-								</h:form>
-							  </div>
-							  
-							  <p:commandButton value="Salvar" process="@form"
-							  	oncomplete="PF('wiz').loadStep('tab1', true)"
-								styleClass="btao-info-pessoas"
-								rendered="#{pessoajsfController.renderizaPeloPerfil('SALVAR')}"
-								actionListener="#{pessoajsfController.merge}"
-								update=":mensagens :formTemplate:formLista:tabela" />							
-							  
-							</p:panel>
-						</p:tab>
-						
-						<p:tab id="tab5" title="Objetos" rendered="#{pessoajsfController.renderizaPeloPerfil('TAB')}">
-							<p:panel id="objeto_acesso">
-							
-								<h:panelGrid columns="1" render="@form">
-									<p:outputLabel value="Tipo de Prontuario:" />	
-																	
-									<h:panelGrid columns="1" render="@form">
-										<p:selectOneMenu id="tipoObjeto"
-											converter="omnifaces.SelectItemsConverter"
-											value="#{pessoajsfController.tipoObjeto}"
-											rendered="true">
-											<f:selectItem itemLabel="selecione" itemValue=""
-												noSelectionOption="true" />
-											<f:selectItems
-												value="#{pessoajsfController.listaTiposObjeto}"
-												var="o" itemLabel="#{o.descricao}" itemValue="#{o}" />
-										</p:selectOneMenu>
+												<p:column headerText="Excluir"
+													styleClass="excl-col-info-pessoas">
+													<p:commandButton icon="ui-icon-trash" process="@form"
+														actionListener="#{pessoajsfController.excluirObjeto}"
+														update=":formTemplate:formCadastro:formListaObjeto:tabelaObjeto"
+														styleClass="excl-btn-info-pessoas btn-color-red">
+														<p:confirm header="Confirmação"
+															message="Deseja realmente excluir este registro?"
+															icon="ui-icon-alert" />
+														<f:attribute name="registroAtualObjeto"
+															value="#{registro}" />
+													</p:commandButton>
+												</p:column>
+											</p:dataTable>
+										</h:form>
+									</div>
 
-										<p:commandButton value="Adicionar" process="@form"
-											actionListener="#{pessoajsfController.incluirObjetoNaLista}"									
-											styleClass="btn-info-pessoas-add-cell btn-info-pessoas-add-cell-tab4 btn-color-green2" 
-											update=":mensagens :formTemplate:formCadastro:formListaObjeto:tabelaObjeto"/>
-											                   
+									<p:commandButton value="Salvar" process="@form"
+										oncomplete="PF('wiz').loadStep('tab1', true)"
+										styleClass="btao-info-pessoas"
+										actionListener="#{pessoajsfController.merge}"
+										update=":mensagens :formTemplate:formLista:tabela" />
 
-									</h:panelGrid>
-								</h:panelGrid>
-								
-								<div class="div-tb-wizard-tab3">	
-								<h:form id="formListaObjeto">
-									<p:dataTable id="tabelaObjeto" emptyMessage="Sem Registros"
-										resizableColumns="true" value="#{pessoajsfController.listaObjeto}"
-										paginator="true" rows="4" var="registro"
-										styleClass="tabela-pessoas">
-
-										<p:column headerText="Classificação" sortBy="registro.enum_Aux_Tipos_Objetos.descricao"
-										
-											filterBy="tipo_Prontuario_Emergencia.descricao" styleClass="geral-col-pessoas">
-											<h:outputText value="#{registro.enum_Aux_Tipos_Objetos.descricao}" />
-										</p:column>
+								</p:panel>
+							</p:tab>
 
 
-										<p:column headerText="Excluir" styleClass="excl-col-info-pessoas">
-											<p:commandButton icon="ui-icon-trash" process="@form"
-												actionListener="#{pessoajsfController.excluirObjeto}"
-												update=":formTemplate:formCadastro:formListaObjeto:tabelaObjeto"
-												styleClass="excl-btn-info-pessoas btn-color-red">
-												<p:confirm header="Confirmação"
-													message="Deseja realmente excluir este registro?"
-													icon="ui-icon-alert" />
-												<f:attribute name="registroAtualObjeto" value="#{registro}" />
-											</p:commandButton>
-										</p:column>
-									</p:dataTable>
-								</h:form>
-							  </div>
-							  
-							   <p:commandButton value="Salvar" process="@form"
-							  	oncomplete="PF('wiz').loadStep('tab1', true)"
-								styleClass="btao-info-pessoas"								
-								actionListener="#{pessoajsfController.merge}"
-								update=":mensagens :formTemplate:formLista:tabela" />	
-							  
-							</p:panel>
-						</p:tab>						
-						
-						
-					</p:wizard>
-				</div><!-- /.div-wizard-pessoa -->
+						</p:wizard>
+					</div>
+					<!-- /.div-wizard-pessoa -->
 				</h:form>
-				 
+
 			</div>
 			<!-- div conteudo scroll -->
 
 		</p:dialog>
-		
+
 		<!-- dialog wizard tab2 -->
 		<p:dialog header="Adicionar Logradouro" widgetVar="dialogoCadastroL"
 			resizable="false" modal="true" closable="false" appendTo="@(body)"
-			dynamic="true" responsive="true"
-			styleClass="dialog-wizard-tab2">
-			
-			
-				<h:form id="formCadastroL">
-					<h:panelGrid id="painelCadastro_15">
+			dynamic="true" responsive="true" styleClass="dialog-wizard-tab2">
 
-						<p:outputLabel value="Tipo do Logradouro" />
-						<p:selectOneMenu
-							value="#{pessoajsfController.logradouro.enum_Aux_Tipo_Logradouro}"
-							converter="omnifaces.SelectItemsConverter">
-							<f:selectItem itemLabel="Selecione o Logradouro" itemValue=""
-								noSelectionOption="true" />
-							<f:selectItems
-								value="#{pessoajsfController.listaTiposLogradouros}" var="tt"
-								itemLabel="#{tt.descricao}" itemValue="#{tt}" />
-						</p:selectOneMenu>
 
-						<h:panelGrid id="painelCadastro_14">
-							<p:outputLabel value="Nome do Logradouro" />
-							<p:inputText size="27" maxlength="30"
-								value="#{pessoajsfController.logradouro.descricao}"
-								required="true"
-								requiredMessage="Descrição do logradouro é obrigatória"
-								validatorMessage="O minimo de caracteres para nome são  '3'"
-								placeholder="Mínimo 3 Letras">
-								<f:validateLength minimum="3" />
-							</p:inputText>
-						</h:panelGrid>
-						
-						<h:panelGrid columns="2" styleClass="btn-grid-dialog-tab2-wizard">
-							<p:commandButton value="Adicionar"
-								actionListener="#{pessoajsfController.adicionarLogradouro}"
-								update=":formTemplate:formCadastro :formTemplate:formCadastroL "
-								process="@form" styleClass="btao-pessoas">
-							</p:commandButton>
-	
-							<p:commandButton value="Cancelar"
-								actionListener="#{pessoajsfController.cancela}"
-								onclick="PF('dialogoCadastroL').hide();"
-								styleClass="btao-pessoas">
-							</p:commandButton>
-						</h:panelGrid>
-					
+			<h:form id="formCadastroL">
+				<h:panelGrid id="painelCadastro_15">
+
+					<p:outputLabel value="Tipo do Logradouro" />
+					<p:selectOneMenu
+						value="#{pessoajsfController.logradouro.enum_Aux_Tipo_Logradouro}"
+						converter="omnifaces.SelectItemsConverter">
+						<f:selectItem itemLabel="Selecione o Logradouro" itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems
+							value="#{pessoajsfController.listaTiposLogradouros}" var="tt"
+							itemLabel="#{tt.descricao}" itemValue="#{tt}" />
+					</p:selectOneMenu>
+
+					<h:panelGrid id="painelCadastro_14">
+						<p:outputLabel value="Nome do Logradouro" />
+						<p:inputText size="27" maxlength="30"
+							value="#{pessoajsfController.logradouro.descricao}"
+							required="true"
+							requiredMessage="Descrição do logradouro é obrigatória"
+							validatorMessage="O minimo de caracteres para nome são  '3'"
+							placeholder="Mínimo 3 Letras">
+							<f:validateLength minimum="3" />
+						</p:inputText>
 					</h:panelGrid>
-				</h:form>
-			
+
+					<h:panelGrid columns="2" styleClass="btn-grid-dialog-tab2-wizard">
+						<p:commandButton value="Adicionar"
+							actionListener="#{pessoajsfController.adicionarLogradouro}"
+							update=":formTemplate:formCadastro :formTemplate:formCadastroL "
+							process="@form" styleClass="btao-pessoas">
+						</p:commandButton>
+
+						<p:commandButton value="Cancelar"
+							actionListener="#{pessoajsfController.cancela}"
+							onclick="PF('dialogoCadastroL').hide();"
+							styleClass="btao-pessoas">
+						</p:commandButton>
+					</h:panelGrid>
+
+				</h:panelGrid>
+			</h:form>
+
 		</p:dialog>
 
 		<p:dialog header="Adicionar Bairro" widgetVar="dialogoCadastroB"
 			resizable="false" modal="true" closable="false" appendTo="@(body)"
 			dynamic="true" responsive="true" styleClass="dialog-wizard-tab2">
-			
-				<h:form id="formCadastroB">
-					<h:panelGrid id="painelCadastro_15">
 
-						<h:panelGrid id="painelCadastro_14">
-							<p:outputLabel value="Nome do Bairro" />
-							<p:inputText size="30" maxlength="30"
-								value="#{pessoajsfController.bairro.descricao}" required="true"
-								requiredMessage="Descrição do bairro é obrigatória"
-								validatorMessage="O minimo de caracteres para nome são  '3'"
-								placeholder="Mínimo 3 Letras">
-								<f:validateLength minimum="3" />
-							</p:inputText>
-						</h:panelGrid>
-						
-						<h:panelGrid columns="2" styleClass="btn-grid-dialog-tab2-wizard">
-							<p:commandButton value="Adicionar"
-								update=":formTemplate:formCadastro :formTemplate:formCadastroB "
-								actionListener="#{pessoajsfController.adicionarBairro}"
-								process="@form" styleClass="btao-pessoas">
-							</p:commandButton>
-	
-							<p:commandButton value="Cancelar"
-								actionListener="#{pessoajsfController.cancela}"
-								onclick="PF('dialogoCadastroB').hide();"
-								styleClass="btao-pessoas">
-							</p:commandButton>
-						</h:panelGrid>
+			<h:form id="formCadastroB">
+				<h:panelGrid id="painelCadastro_15">
+
+					<h:panelGrid id="painelCadastro_14">
+						<p:outputLabel value="Nome do Bairro" />
+						<p:inputText size="30" maxlength="30"
+							value="#{pessoajsfController.bairro.descricao}" required="true"
+							requiredMessage="Descrição do bairro é obrigatória"
+							validatorMessage="O minimo de caracteres para nome são  '3'"
+							placeholder="Mínimo 3 Letras">
+							<f:validateLength minimum="3" />
+						</p:inputText>
 					</h:panelGrid>
-				</h:form>
-			
-		</p:dialog>
-		
-		<p:dialog header="Profissões" widgetVar="dialogoProfissoes"	resizable="false" modal="true" closable="false" 
-					appendTo="@(body)"	dynamic="true" responsive="true">
-			<div class="div-conteudo-info-pessoas">
-			<h:form id="formListaProfissao">
 
-			<p:panel header="Listagem">
-				<p:dataTable id="tabela" emptyMessage="Digite 4 letras para pesquisa" reflow="true"
-						value="#{pessoajsfController.profissoes}" paginator="true" rows="8"
-						var="registro" style="font-size:15px;">
-						<f:facet name="header">
-					  	  <p:inputText id="prodigi" size="40" value="#{pessoajsfController.profissaoBusca}" 
-					    			placeholder="Digite ao menos 4 letras" validatorMessage="Digite ao menos 4 letras" >
-					    			<f:validateLength minimum="4"  />
-					    			</p:inputText>
-							<p:commandButton icon="ui-icon-search"						    
-							actionListener="#{pessoajsfController.listarProfissoesFiltradas()}"
-							process="@form"
-							update=":formTemplate:formListaProfissao" style="width:5%">
-							</p:commandButton>
-							<p:commandButton icon="ui-icon-close" style="width:5%"
-							oncomplete="PF('dialogoProfissoes').hide();">
-							</p:commandButton>
-						</f:facet>
-						<p:column headerText="Número Identificador" sortBy="id"	filterBy="id" style="text-align: center; width: 15%;">
-							<h:outputText value="#{registro.id}" />
-						</p:column>
-						
-						<p:column headerText="Descrição" sortBy="descricao"
-							filterBy="descricao">
-							<h:outputText value="#{registro.descricao}" />
-						</p:column>
-						
-						
-						<!-- 	update=":formTemplate:formCadastro" -->
-						<p:column headerText="Selecionar" style="width:10%;">
-							<p:commandButton icon="ui-icon-check"
-								actionListener="#{pessoajsfController.defineProfissao}"
-								process="@form"
-								update=":formTemplate:formCadastro:psel">
-								<p:confirm header="Confirmação"
-									message="Deseja realmente selecionar esta?"
-									icon="ui-icon-alert" style="width:5%"/>
-								<f:attribute name="registroProfissaoAtual" value="#{registro}" />
-							</p:commandButton>
-						</p:column>
-					
-				</p:dataTable>
-			</p:panel>
-		</h:form>
+					<h:panelGrid columns="2" styleClass="btn-grid-dialog-tab2-wizard">
+						<p:commandButton value="Adicionar"
+							update=":formTemplate:formCadastro :formTemplate:formCadastroB "
+							actionListener="#{pessoajsfController.adicionarBairro}"
+							process="@form" styleClass="btao-pessoas">
+						</p:commandButton>
+
+						<p:commandButton value="Cancelar"
+							actionListener="#{pessoajsfController.cancela}"
+							onclick="PF('dialogoCadastroB').hide();"
+							styleClass="btao-pessoas">
+						</p:commandButton>
+					</h:panelGrid>
+				</h:panelGrid>
+			</h:form>
+
+		</p:dialog>
+
+		<p:dialog header="Profissões" widgetVar="dialogoProfissoes"
+			resizable="false" modal="true" closable="false" appendTo="@(body)"
+			dynamic="true" responsive="true">
+			<div class="div-conteudo-info-pessoas">
+				<h:form id="formListaProfissao">
+
+					<p:panel header="Listagem">
+						<p:dataTable id="tabela"
+							emptyMessage="Digite 4 letras para pesquisa" reflow="true"
+							value="#{pessoajsfController.profissoes}" paginator="true"
+							rows="8" var="registro" style="font-size:15px;">
+							<f:facet name="header">
+								<p:inputText id="prodigi" size="40"
+									value="#{pessoajsfController.profissaoBusca}"
+									placeholder="Digite ao menos 4 letras"
+									validatorMessage="Digite ao menos 4 letras">
+									<f:validateLength minimum="4" />
+								</p:inputText>
+								<p:commandButton icon="ui-icon-search"
+									actionListener="#{pessoajsfController.listarProfissoesFiltradas()}"
+									process="@form" update=":formTemplate:formListaProfissao"
+									style="width:5%">
+								</p:commandButton>
+								<p:commandButton icon="ui-icon-close" style="width:5%"
+									oncomplete="PF('dialogoProfissoes').hide();">
+								</p:commandButton>
+							</f:facet>
+							<p:column headerText="Número Identificador" sortBy="id"
+								filterBy="id" style="text-align: center; width: 15%;">
+								<h:outputText value="#{registro.id}" />
+							</p:column>
+
+							<p:column headerText="Descrição" sortBy="descricao"
+								filterBy="descricao">
+								<h:outputText value="#{registro.descricao}" />
+							</p:column>
+
+
+							<!-- 	update=":formTemplate:formCadastro" -->
+							<p:column headerText="Selecionar" style="width:10%;">
+								<p:commandButton icon="ui-icon-check"
+									actionListener="#{pessoajsfController.defineProfissao}"
+									process="@form" update=":formTemplate:formCadastro:psel">
+									<p:confirm header="Confirmação"
+										message="Deseja realmente selecionar esta?"
+										icon="ui-icon-alert" style="width:5%" />
+									<f:attribute name="registroProfissaoAtual" value="#{registro}" />
+								</p:commandButton>
+							</p:column>
+
+						</p:dataTable>
+					</p:panel>
+				</h:form>
 			</div>
-		</p:dialog>		
+		</p:dialog>
+
+		<p:dialog
+			header="Pesquisa de Logradouros - #{autenticacaojsfController.perfilLogado.paginaAtual.perfilPessoa.descricao}"
+			widgetVar="dialogoPesqLogradouro" resizable="false" modal="true"
+			closable="true" appendTo="@(body)" dynamic="true" responsive="true"
+			styleClass="dialog-info-pessoas">
+			<h:form id="formPesqLogradouros">
+
+				<p:panel id="p_pesq_end" header="Pesquisa de Endereços">
+					<h:panelGrid columns="4"  render="@form">
+						<p:outputLabel value="Escolha o Estado:" />
+						<p:outputLabel value="Digite a Cidade: " />
+						<p:outputLabel value="Digite o Logradouro(Rua):" />
+						<p:outputLabel value="  " />
+						
+						<p:selectOneMenu id="enumEstados"
+							converter="omnifaces.SelectItemsConverter"
+							value="#{pessoajsfController.estado_Enum}"
+							style="width:60px;important">
+							<f:selectItem itemLabel="selecione" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems value="#{pessoajsfController.estados_Enum}"
+								var="o" itemLabel="#{o.descricao}" itemValue="#{o}" />
+						</p:selectOneMenu>
+
+
+						<p:inputText id="descricaoCidade" size="30" maxlength="30"
+							style="width:150px;important"
+							value="#{pessoajsfController.cidadedePesquisa}">
+							<f:validateLength minimum="3" />
+						</p:inputText>
+						
+						<p:outputLabel value="" />
+						<p:inputText id="descricaoLogradouro" size="30" maxlength="30"
+							style="width:200px"
+							value="#{pessoajsfController.logradourodePesquisa}">
+							<f:validateLength minimum="3" />
+						</p:inputText>
+
+						<p:commandButton icon="ui-icon-search" process="@form"
+							actionListener="#{pessoajsfController.consultaLogradouro()}"
+							styleClass="btao-info-pessoas"
+							style="width:80px;heigth:5px;important"
+							update=":mensagens  :formTemplate:formPesqLogradouros:tabelaLogradouros" />
+
+
+
+
+					</h:panelGrid>
+
+					
+
+
+
+
+					<p:dataTable id="tabelaLogradouros" emptyMessage="Sem Registros"
+						resizableColumns="true" value="#{pessoajsfController.listaceps}"
+						paginator="true" rows="4" var="registro"
+						styleClass="tabela-pessoas">
+
+						<p:column headerText="Estado" sortBy="#{registro.uf}"
+							filterBy="#{registro.uf}" styleClass="geral-col-pessoas">
+							<h:outputText value="#{registro.uf}" />
+						</p:column>
+
+						<p:column headerText="cidade" sortBy="#{registro.localidade}"
+							filterBy="#{registro.localidade}" styleClass="geral-col-pessoas">
+							<h:outputText value="#{registro.localidade}" />
+						</p:column>
+						<p:column headerText="cidade" sortBy="#{registro.cep}"
+							filterBy="#{registro.cep}" styleClass="geral-col-pessoas">
+							<h:outputText value="#{registro.cep}" />
+						</p:column>
+
+						<p:column headerText="Logradouro" sortBy="#{registro.logradouro}"
+							filterBy="#{registro.logradouro}" styleClass="geral-col-pessoas">
+							<h:outputText value="#{registro.logradouro}" />
+						</p:column>
+
+						<p:column headerText="Bairro" sortBy="#{registro.bairro}"
+							filterBy="#{registro.bairro}" styleClass="geral-col-pessoas">
+							<h:outputText value="#{registro.bairro}" />
+						</p:column>
+
+						<p:column headerText="Selecionar" styleClass="edit-col-pessoas">
+							<p:commandButton icon="ui-icon-pencil"
+								actionListener="#{pessoajsfController.selecionaCEPdaLista}"
+								update=":formTemplate:formCadastro :formTemplate:formCadastro"
+								styleClass="btao-edit-col-pessoas" process="@this">
+								<f:attribute name="registroAtualCep" value="#{registro}" />
+
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+
+				</p:panel>
+			</h:form>
+
+
+
+
+
+		</p:dialog>
 
 
 	</ui:define>

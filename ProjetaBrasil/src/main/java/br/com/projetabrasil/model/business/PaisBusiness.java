@@ -7,6 +7,9 @@ import org.omnifaces.util.Messages;
 
 import br.com.projetabrasil.model.dao.PaisDAO;
 import br.com.projetabrasil.model.entities.Pais;
+import br.com.projetabrasil.model.entities.PerfilLogado;
+import br.com.projetabrasil.model.entities.Pessoa;
+import br.com.projetabrasil.util.Utilidades;
 
 
 
@@ -15,6 +18,26 @@ public class PaisBusiness implements Serializable {
 	
 	public static void mensagensDisparar(String mensagem) {
 		Messages.addGlobalInfo(mensagem);
+	}
+	public static Pais VerificaPaisPadrao(String descricao,String sigla, PerfilLogado perfil){
+		Pessoa pes;
+		Pais p = buscaPaisPeloNome(descricao);
+		if(p == null){
+			p = new Pais();
+			p.setDescricao(descricao);
+			p.setId_Empresa(1);
+			p.setSigla(sigla);
+			p.setUltimaAtualizacao(Utilidades.retornaCalendario());
+			if (perfil.getAssLogado()!=null && perfil.getAssLogado().getId()!=null)
+				pes = perfil.getAssLogado();
+				else
+				pes = perfil.getUsLogado().getPessoa();
+			p.setId_Pessoa_Registro(pes);
+			p = merge(p);			
+		}
+		return p;
+			
+		
 	}
 
 	public static List<Pais> listar() {

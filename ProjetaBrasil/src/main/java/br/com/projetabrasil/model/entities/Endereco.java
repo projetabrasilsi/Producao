@@ -41,6 +41,12 @@ public class Endereco extends GenericDomain implements Serializable {
 	@Column(name="complemento", length=50, nullable=true) 
 	private String complemento;
 	
+	/**
+	 * 
+	 */
+	@Column(name="cep", length=20, nullable=true) 
+	private String cep;
+	
 	public Endereco(){
 		super();
 	}
@@ -118,8 +124,11 @@ public class Endereco extends GenericDomain implements Serializable {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + ((bairro == null) ? 0 : bairro.hashCode());
+		result = prime * result + ((cep == null) ? 0 : cep.hashCode());
+		result = prime * result + ((complemento == null) ? 0 : complemento.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((logradouro == null) ? 0 : logradouro.hashCode());
+		result = prime * result + ((numero == null) ? 0 : numero.hashCode());
 		result = prime * result + ((pessoa == null) ? 0 : pessoa.hashCode());
 		return result;
 	}
@@ -138,6 +147,16 @@ public class Endereco extends GenericDomain implements Serializable {
 				return false;
 		} else if (!bairro.equals(other.bairro))
 			return false;
+		if (cep == null) {
+			if (other.cep != null)
+				return false;
+		} else if (!cep.equals(other.cep))
+			return false;
+		if (complemento == null) {
+			if (other.complemento != null)
+				return false;
+		} else if (!complemento.equals(other.complemento))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -147,6 +166,11 @@ public class Endereco extends GenericDomain implements Serializable {
 			if (other.logradouro != null)
 				return false;
 		} else if (!logradouro.equals(other.logradouro))
+			return false;
+		if (numero == null) {
+			if (other.numero != null)
+				return false;
+		} else if (!numero.equals(other.numero))
 			return false;
 		if (pessoa == null) {
 			if (other.pessoa != null)
@@ -158,7 +182,16 @@ public class Endereco extends GenericDomain implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Endereco [id=" + id + ", bairro=" + bairro + ", logradouro=" + logradouro + ", pessoa=" + pessoa + "]";
+		return "Endereco [id=" + id + ", bairro=" + bairro + ", logradouro=" + logradouro + ", pessoa=" + pessoa
+				+ ", numero=" + numero + ", complemento=" + complemento + ", cep=" + cep + "]";
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
 	}
 	
 	
