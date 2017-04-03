@@ -751,7 +751,6 @@ public class PessoajsfController extends GenericController implements Serializab
 		cDAO.excluir(getContato());
 		listaContatos.remove(contato);
 		
-		listarContatosdaPessoa();
 
 	}
 
@@ -762,7 +761,6 @@ public class PessoajsfController extends GenericController implements Serializab
 		pDAO.excluir(getProntuarioEmergencia());
 		listaProntuarioEmergencia.remove(prontuarioEmergencia);
 		
-		listarProntuarioEmergenciadaPessoa();
 
 	}
 	
@@ -773,7 +771,6 @@ public class PessoajsfController extends GenericController implements Serializab
 		oDAO.excluir(getObjeto());
 		listaObjeto.remove(objeto);
 		
-		listarObjetodaPessoa();
 	}
 
 	public void incluirContatoNaLista() {
@@ -792,6 +789,8 @@ public class PessoajsfController extends GenericController implements Serializab
 		contato.setContato(this.descricaoContato);
 		
 		listaContatos.add(contato);
+		
+		this.descricaoContato= "";
 
 	}
 
@@ -856,6 +855,23 @@ public class PessoajsfController extends GenericController implements Serializab
 			oDAO.merge(o);
 		}
 		
+	}
+	
+	public boolean renderizaPeloPerfil(String tipoRenderizacao) {
+		/* TIPO DE RENDERIZAÇÃO É USADO PRA DETERMINAR A POSIÇÃO DO BOTÃO SALVAR, CASO 
+		ESTEBELECA AS CONDIÇÕES À BAIXO O BOTÃO SALVAR SERÁ RENDERIZADO NA TAB DE OBJETO E NÃO NA DE PRONTUARIO DE EMERGENCIA */
+		if(tipoRenderizacao.equals("TAB")){
+			if(perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.SUPERVISORES)){
+				return true;
+			}
+			return false;
+		}else if(tipoRenderizacao.equals("SALVAR")){
+			if(perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.SUPERVISORES)){
+				return false;
+			}
+			return true;
+		}
+		return false;
 	}
 	
 	public Pessoa getPessoa() {

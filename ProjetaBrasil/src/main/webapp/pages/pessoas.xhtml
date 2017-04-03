@@ -67,7 +67,7 @@
 								<p:commandButton icon="ui-icon-pencil"
 									actionListener="#{pessoajsfController.editar}"
 									rendered="#{autenticacaojsfController.perfilLogado.renderizapessoaeditar}"
-									update=":formTemplate:formCadastro :formTemplate:formCadastro"
+									update=":formTemplate:formCadastro :formTemplate:formCadastro, , :formTemplate:formIdentidade:identificador"
 									styleClass="btao-edit-col-pessoas btn-color-blue">
 									<p:confirm header="Confirmação"
 										message="Deseja realmente alterar este registro?"
@@ -497,7 +497,7 @@
 										
 										<p:commandButton value="Adicionar" process="@form" 
 											actionListener="#{pessoajsfController.incluirContatoNaLista}"									
-											update=":mensagens :formTemplate:formCadastro:formListaContatos:tabelaContatos"
+											update=":mensagens :formTemplate:formCadastro:formListaContatos:tabelaContatos, :formTemplate:formCadastro:iptxContato"
 											styleClass="btn-info-pessoas-add-cell btn-color-green2" />																			
 									</h:panelGrid>
 
@@ -617,13 +617,14 @@
 							  <p:commandButton value="Salvar" process="@form"
 							  	oncomplete="PF('wiz').loadStep('tab1', true)"
 								styleClass="btao-info-pessoas"
+								rendered="#{pessoajsfController.renderizaPeloPerfil('SALVAR')}"
 								actionListener="#{pessoajsfController.merge}"
 								update=":mensagens :formTemplate:formLista:tabela" />							
 							  
 							</p:panel>
 						</p:tab>
 						
-						<p:tab id="tab5" title="Objetos">
+						<p:tab id="tab5" title="Objetos" rendered="#{pessoajsfController.renderizaPeloPerfil('TAB')}">
 							<p:panel id="objeto_acesso">
 							
 								<h:panelGrid columns="1" render="@form">
@@ -678,6 +679,12 @@
 									</p:dataTable>
 								</h:form>
 							  </div>
+							  
+							   <p:commandButton value="Salvar" process="@form"
+							  	oncomplete="PF('wiz').loadStep('tab1', true)"
+								styleClass="btao-info-pessoas"								
+								actionListener="#{pessoajsfController.merge}"
+								update=":mensagens :formTemplate:formLista:tabela" />	
 							  
 							</p:panel>
 						</p:tab>						
