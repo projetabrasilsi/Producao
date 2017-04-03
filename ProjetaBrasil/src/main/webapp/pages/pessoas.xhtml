@@ -531,12 +531,19 @@
 											</p:dataTable>
 										</h:form>
 									</div>
+									
+									<p:commandButton value="Salvar" process="@form" rendered="#{pessoajsfController.renderizaSalvar('SALVARCONTATO')}"
+										oncomplete="PF('wiz').loadStep('tab1', true)"
+										styleClass="btao-info-pessoas"
+										actionListener="#{pessoajsfController.merge}"
+										update=":mensagens :formTemplate:formLista:tabela" />
+									
 								</p:panel>
 							</p:tab>
 
 
 
-							<p:tab id="tab4" title="Prontuário de Emergência">
+							<p:tab id="tab4" title="Prontuário de Emergência" rendered="#{pessoajsfController.renderizaProntuario()}">
 								<p:panel id="p_prontuario_emergencia">
 
 									<h:panelGrid columns="1" render="@form">
@@ -606,14 +613,19 @@
 											</p:dataTable>
 										</h:form>
 									</div>
-
+									
+									<p:commandButton value="Salvar" process="@form" rendered="#{pessoajsfController.renderizaSalvar('SALVARPRONTUARIO')}"
+										oncomplete="PF('wiz').loadStep('tab1', true)"
+										styleClass="btao-info-pessoas"
+										actionListener="#{pessoajsfController.merge}"
+										update=":mensagens :formTemplate:formLista:tabela" />
 									
 
 								</p:panel>
 							</p:tab>
 
 							<p:tab id="tab5" title="Objetos"
-								rendered="#{pessoajsfController.renderizaPeloPerfil('TAB')}">
+								rendered="#{pessoajsfController.renderizaObjeto()}">
 								<p:panel id="objeto_acesso">
 
 									<h:panelGrid columns="1" render="@form">
@@ -672,7 +684,7 @@
 										</h:form>
 									</div>
 
-									<p:commandButton value="Salvar" process="@form"
+									<p:commandButton value="Salvar" process="@form" rendered="#{pessoajsfController.renderizaSalvar('SALVAROBJETO')}"
 										oncomplete="PF('wiz').loadStep('tab1', true)"
 										styleClass="btao-info-pessoas"
 										actionListener="#{pessoajsfController.merge}"

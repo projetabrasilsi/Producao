@@ -1062,21 +1062,47 @@ public class PessoajsfController extends GenericController implements Serializab
 		
 	}
 	
-	public boolean renderizaPeloPerfil(String tipoRenderizacao) {
-		/* TIPO DE RENDERIZAÇÃO É USADO PRA DETERMINAR A POSIÇÃO DO BOTÃO SALVAR, CASO 
-		ESTEBELECA AS CONDIÇÕES À BAIXO O BOTÃO SALVAR SERÁ RENDERIZADO NA TAB DE OBJETO E NÃO NA DE PRONTUARIO DE EMERGENCIA 
-		if(tipoRenderizacao.equals("TAB")){
-			if(perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.SUPERVISORES)){
-				return true;
-			}
-			return false;
-		}else if(tipoRenderizacao.equals("SALVAR")){
-			if(perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.SUPERVISORES)){
+	public boolean renderizaSalvar(String tipoSalvar) {
+		if(renderizaObjeto()){
+			if(tipoSalvar.equals("SALVARCONTATO")){
 				return false;
 			}
+			if(tipoSalvar.equals("SALVARPRONTUARIO")){
+				return false;
+			}
+			if(tipoSalvar.equals("SALVAROBJETO")){
+				return true;
+			}
+		}
+		
+		if(renderizaProntuario()){
+			if(tipoSalvar.equals("SALVARCONTATO")){
+				return false;
+			}
+			if(tipoSalvar.equals("SALVARPRONTUARIO")){
+				return true;
+			}
+		}
+		
+		if(tipoSalvar.equals("SALVARCONTATO")){
 			return true;
-		}*/
-		return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean renderizaProntuario() {
+		if(pessoa.getEnum_Aux_Tipo_Identificador().equals(Enum_Aux_Tipo_Identificador.CPF)){
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean renderizaObjeto() {
+		if(perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.SUPERVISORES)){
+			return true;
+		}
+		return false;
 	}
 	
 	public Pessoa getPessoa() {
