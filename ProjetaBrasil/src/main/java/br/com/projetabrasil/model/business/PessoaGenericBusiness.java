@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import br.com.projetabrasil.model.dao.PessoaDAO;
 import br.com.projetabrasil.model.dao.Pessoa_Enum_Aux_Perfil_PessoasDAO;
+import br.com.projetabrasil.model.entities.Enum_Aux_Perfil_Pagina_Atual;
 import br.com.projetabrasil.model.entities.Enum_Aux_Perfil_Pessoa;
 import br.com.projetabrasil.model.entities.PerfilLogado;
 import br.com.projetabrasil.model.entities.Pessoa;
@@ -67,7 +68,9 @@ public class PessoaGenericBusiness implements Serializable {
 		
 		
 		if (pessoa.getId() != null 	&& (perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.ATENDENTES) || 
-				perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.CLIENTES))) 		
+				perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.CLIENTES)) || 
+					perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.DISTRIBUIDORES) ||
+						perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.REVENDEDORES)) 		
 		vincularPessoa(pessoa, perfilLogado);
 		
 		
@@ -83,8 +86,15 @@ public class PessoaGenericBusiness implements Serializable {
 		pVinc.setEnum_Aux_Perfil_Pessoa(perfilLogado.getPaginaAtual().getPerfilPessoa());
 		pVinc.setUltimaAtualizacao(Utilidades.retornaCalendario());
 		pVinc.setId_pessoa_d(quem);
-
-		pVinc.setId_pessoa_m(perfilLogado.getAssLogado());
+				
+		//DEPENDENDO DO PERFIL É NECESSÁRIO VINCULAR AO USUÁRIO E NÃO À EMPRESA
+		if((perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.REPRESENTANTES) && perfilLogado.getPaginaAtual().equals(Enum_Aux_Perfil_Pagina_Atual.PAGINADISTRIBUIDORES))
+				|| (perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.ATENDENTES) && perfilLogado.getPaginaAtual().equals(Enum_Aux_Perfil_Pagina_Atual.PAGINAREVENDEDORES))){
+			pVinc.setId_pessoa_m(perfilLogado.getUsLogado().getPessoa());
+		}else{
+			pVinc.setId_pessoa_m(perfilLogado.getAssLogado());
+		}
+		
 		pVinc.setId_Pessoa_Registro(perfilLogado.getUsLogado().getPessoa());
 		pVinc.setUltimaAtualizacao(Utilidades.retornaCalendario());
 		Pessoa_VinculoBusiness.merge(pVinc);

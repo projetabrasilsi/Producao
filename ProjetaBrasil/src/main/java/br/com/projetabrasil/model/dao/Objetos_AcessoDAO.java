@@ -26,6 +26,7 @@ public class Objetos_AcessoDAO extends GenericDAO<Objetos_Acesso> {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Objetos_Acesso> listarObjetoAcessoPorPessoa(Pessoa pessoa) {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		try {

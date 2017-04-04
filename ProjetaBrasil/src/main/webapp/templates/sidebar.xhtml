@@ -85,11 +85,25 @@
 									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ASSINANTES','ATENDENTES'])}">
 									<f:attribute name="paginaAtual" value="PAGINACLIENTES" />
 								</p:menuitem>
+								
+								<p:menuitem value="Distribuidores" icon="fa fa-user"
+									actionListener="#{paginas.mudaPaginaAtual}"
+									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['REPRESENTANTES'])}">
+									<f:attribute name="paginaAtual" value="PAGINADISTRIBUIDORES" />
+								</p:menuitem>
+								
+								<p:menuitem value="Revendedores" icon="fa fa-user"
+									actionListener="#{paginas.mudaPaginaAtual}"
+									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ATENDENTES'])}">
+									<f:attribute name="paginaAtual" value="PAGINAREVENDEDORES" />
+								</p:menuitem>
+								
 								<p:menuitem value="Outros" icon="fa fa-users"
 									actionListener="#{paginas.mudaPaginaAtual}"
 									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES'])}">
 									<f:attribute name="paginaAtual" value="PAGINAOUTROS" />
 								</p:menuitem>
+								
 								<p:menuitem value="Vendas" icon="fa fa-shopping-cart"
 									actionListener="#{paginas.mudaPaginaAtual}"
 									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES'])}">

@@ -7,9 +7,11 @@ public enum Enum_Aux_Perfil_Pessoa {
 	CLIENTES("Clientes",2,false,"CLT",true,true,true),
 	ATENDENTES("Atendentes",3,true,"ATE",true,true,false),
 	REPRESENTANTES("Representantes",4,true,"REP",true,true,true),
-	SUPERVISORES("Supervisores",5,true,"SUP",true,false,true),
-	OUTROS("Outros",6,true,"OUT",false,false,false),
-	VENDAS("Vendas",7,true,"VEN",true,false,false);
+	REVENDEDORES("Revendedores",5,true,"RVN",true,true,true),
+	DISTRIBUIDORES("Distribuidores",6,true,"DTB",true,true,true),
+	SUPERVISORES("Supervisores",7,true,"SUP",true,false,true),
+	OUTROS("Outros",8,true,"OUT",false,false,false),
+	VENDAS("Vendas",9,true,"VEN",true,false,false);
 	
 	
 	private String descricao;
@@ -19,6 +21,7 @@ public enum Enum_Aux_Perfil_Pessoa {
 	private boolean temPerfilMestre;
 	private boolean possuiVinculo;
 	private boolean possuiDescentes;
+	
 	Enum_Aux_Perfil_Pessoa(String descricao, int id, boolean renderizaSenha, 
 			String sigla,boolean temPerfilMestre, boolean possuiVinculo,boolean possuiDescentes){
 		this.id = id;

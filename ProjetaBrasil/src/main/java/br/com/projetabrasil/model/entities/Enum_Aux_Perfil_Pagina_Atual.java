@@ -7,6 +7,8 @@ public enum Enum_Aux_Perfil_Pagina_Atual {
 	PAGINACLIENTES("PAGINACLIENTES","PCLI",3,Enum_Aux_Perfil_Pessoa.CLIENTES,Enum_Aux_Perfil_Pessoa.ASSINANTES,true,true ,"pessoas.xhtml", "clientes"),	
 	PAGINAATENDENTES("PAGINAATENDENTES","PATE",4,Enum_Aux_Perfil_Pessoa.ATENDENTES,Enum_Aux_Perfil_Pessoa.ASSINANTES,true,true,"pessoas.xhtml", "atendentes"),
 	PAGINAREPRESENTANTES("PAGINAREPRESENTANTES","PREP",5,Enum_Aux_Perfil_Pessoa.REPRESENTANTES,Enum_Aux_Perfil_Pessoa.SUPERVISORES,false,true,"pessoas.xhtml", "representantes"),
+	PAGINAREVENDEDORES("PAGINAREVENDEDORES","PRVN",5,Enum_Aux_Perfil_Pessoa.REVENDEDORES,Enum_Aux_Perfil_Pessoa.ATENDENTES,false,true,"pessoas.xhtml", "revendedores"),
+	PAGINADISTRIBUIDORES("PAGINADISTRIBUIDORES","PDTB",5,Enum_Aux_Perfil_Pessoa.DISTRIBUIDORES,Enum_Aux_Perfil_Pessoa.REPRESENTANTES,false,true,"pessoas.xhtml", "distribuidores"),
 	PAGINAVENDAS("PAGINAVENDAS","PVEN",6,Enum_Aux_Perfil_Pessoa.VENDAS,Enum_Aux_Perfil_Pessoa.ADMINISTRADORES,false,true,"pessoas.xhtml", "vendas"),
 	PAGINAAUTENTICACAO("PAGINAAUTENTICACAO","PAUT",7,Enum_Aux_Perfil_Pessoa.OUTROS ,Enum_Aux_Perfil_Pessoa.OUTROS,false,false,"autenticacao.xhtml", "autenticacao"),
 	PAGINAPONTO("PAGINAPONTO","PPONTO",8, Enum_Aux_Perfil_Pessoa.ASSINANTES,Enum_Aux_Perfil_Pessoa.ASSINANTES,true,false,"ponto.xhtml", "Configuração de pontos"),
