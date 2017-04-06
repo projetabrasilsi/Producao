@@ -74,6 +74,10 @@
 		<mapping class="br.com.projetabrasil.model.entities.Profissao" />
 		<mapping class="br.com.projetabrasil.model.entities.Contato" />
 		<mapping class="br.com.projetabrasil.model.entities.Prontuario_de_Emergencia" />
+		<mapping class="br.com.projetabrasil.model.entities.Marca_e_Raca" />
+		<mapping class="br.com.projetabrasil.model.entities.Modelo_de_Marca_e_Raca" />
+		<mapping class="br.com.projetabrasil.model.entities.Cor" />
+		<mapping class="br.com.projetabrasil.model.entities.Objeto" />
 	</session-factory>
 
 </hibernate-configuration>

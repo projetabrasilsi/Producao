@@ -31,6 +31,7 @@ public class Objetos_AcessoDAO extends GenericDAO<Objetos_Acesso> {
 		try {
 			Criteria consulta = sessao.createCriteria(Objetos_Acesso.class);
 			consulta.add(Restrictions.eq("id_Pessoa", pessoa));
+			@SuppressWarnings("unchecked")
 			List<Objetos_Acesso> lista = consulta.list();
 			return lista;
 		} catch (RuntimeException error) {
