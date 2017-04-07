@@ -111,12 +111,10 @@
 					<f:selectItems
 						value="#{pessoajsfController.pessoaConfig.listaTipodeIdentificadores}"
 						var="c" itemLabel="#{c.descricao}" itemValue="#{c}" />
-
-
-
 					<p:ajax event="change" update="identificador" process="@this"
 						oncomplete="$(function(){PrimeFaces.focus('formTemplate:formIdentidade:identificador');});" />
 				</p:selectOneRadio>
+				
 				<div class="ui-g-12">
 					<p:outputLabel value="Informe CPF/CNPJ " />
 					<p:inputMask id="identificador" size="30" maxlength="20"
@@ -125,6 +123,7 @@
 						mask="#{pessoajsfController.pessoa.enum_Aux_Tipo_Identificador.mask}"
 						styleClass="input-cpf-pessoas" />
 				</div>
+				
 				<div class="ui-g-5">
 					<p:commandButton value="Validar"
 						actionListener="#{pessoajsfController.buscaPessoa()}"

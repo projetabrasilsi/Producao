@@ -3,15 +3,20 @@ package br.com.projetabrasil.model.entities;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @SuppressWarnings("serial")
+@Entity
+@Table(name="cor")
 public class Cor extends GenericDomain implements Serializable{
+	
 	@Id
 	@SequenceGenerator(name="pk_cor", sequenceName="messsounds_cor",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="pk_cor")
@@ -20,8 +25,10 @@ public class Cor extends GenericDomain implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="id_Pessoa_Registro")
 	Pessoa id_Pessoa_Registro;
+	
 	@Column(name="descricao", nullable=false, length=50 )
 	private String descricao;
+	
 	public Long getId() {
 		return id;
 	}

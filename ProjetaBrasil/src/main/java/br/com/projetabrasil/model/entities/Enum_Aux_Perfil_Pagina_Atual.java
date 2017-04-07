@@ -24,6 +24,8 @@ public enum Enum_Aux_Perfil_Pagina_Atual {
 	PAGINABAIRROS("PAGINABAIRROS", "PBAIRROS",0,null,null,false,true,"bairros.xhtml", "bairros" ),	
 	PAGINALOGRADOUROS("PAGINALOGRADOUROS", "PLOGRADOUROS",0,null,null,false,true,"logradouros.xhtml", "logradouros" ),	
 	
+	PAGINAOBJETOS("PAGINALOGRADOUROS", "POBJETOS",0,null,null,false,true,"objetos.xhtml", "objetos" ),
+	
 	PAGINAOUTROS("PAGINAOUTROS","POUTROS",14,Enum_Aux_Perfil_Pessoa.OUTROS,null,false,true,"pessoas.xhtml","outros"),
 	PAGINAINDEX("PAGINAINDEX","PINDEX",15,Enum_Aux_Perfil_Pessoa.OUTROS,null,false,false,"index.xhtml", "página principal"),
 	PAGINACOMBO("PAGINACOMBO","PCOMBO",16,Enum_Aux_Perfil_Pessoa.VENDAS,Enum_Aux_Perfil_Pessoa.VENDAS ,false,false,"combo.xhtml","combo"),

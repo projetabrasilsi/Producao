@@ -61,9 +61,11 @@ public class Pessoa extends GenericDomain implements Serializable{
 	@Column(name="email", length=90,nullable=true)
 	
 	private String email;
+	
 	@OneToOne
 	@JoinColumn ( name ="id_Pessoa_Registro")	//NÃO USAR RECURSO DE HERANÇA PARA ESTA COLUNA NO GENERIC DOMAIN!!!	
 	private Pessoa id_Pessoa_Registro;
+	
 	@Enumerated(EnumType.STRING)
 	@Column(name="AutoPontuacao")
 	private Enum_Aux_Sim_ou_Nao autoPontuacao;

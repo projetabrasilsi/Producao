@@ -43,9 +43,10 @@ public class Objeto extends GenericDomain implements Serializable{
 	@Enumerated(EnumType.STRING)
 	@Column(name="perfil_do_Momento_do_Registro", nullable=false)
 	Enum_Aux_Perfil_Pessoa perfil_do_Momento_do_Registro;
+	
 	@ManyToOne
 	@JoinColumn(name="id_Pessoa_Vinculo", nullable=false)
-	private Pessoa id_Pessoa_Vinculo;
+	private Pessoa_Vinculo id_Pessoa_Vinculo;
 	
 	@ManyToOne
 	@JoinColumn(name="cor", nullable=true)
@@ -90,10 +91,10 @@ public class Objeto extends GenericDomain implements Serializable{
 	public void setPerfil_do_Momento_do_Registro(Enum_Aux_Perfil_Pessoa perfil_do_Momento_do_Registro) {
 		this.perfil_do_Momento_do_Registro = perfil_do_Momento_do_Registro;
 	}
-	public Pessoa getId_Pessoa_Vinculo() {
+	public Pessoa_Vinculo getId_Pessoa_Vinculo() {
 		return id_Pessoa_Vinculo;
 	}
-	public void setId_Pessoa_Vinculo(Pessoa id_Pessoa_Vinculo) {
+	public void setId_Pessoa_Vinculo(Pessoa_Vinculo id_Pessoa_Vinculo) {
 		this.id_Pessoa_Vinculo = id_Pessoa_Vinculo;
 	}
 	public Cor getCor() {

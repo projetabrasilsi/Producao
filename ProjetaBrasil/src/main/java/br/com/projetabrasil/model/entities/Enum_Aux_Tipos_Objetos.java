@@ -14,7 +14,7 @@ public enum Enum_Aux_Tipos_Objetos {
 					/* labelDescricao */"Informe a descrição do seu Eletronico", /* labelCor */"Informe a Cor", /* id */2,
 					/* renderPlaca */false, /* renderAno */false, /* renderModelo */false, /* renderCor */true,
 					/* renderSachis */false, /* renderDtNascimento */false, /* renderEmai */true,
-					/* labelEmai */"Informe o Emai do Celular"),
+					/* labelEmai */"Informe o Email do Celular"),
 	OUTROS(/* descricao */"OUTROS", /* abreviacao */"Out",
 			/* labelDescricao */"Informe a descrição do Objeto", /* labelCor */"Informe a Cor", /* id */2,
 			/* renderPlaca */false, /* renderAno */false, /* renderModelo */false, /* renderCor */true,

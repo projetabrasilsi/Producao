@@ -10,6 +10,7 @@ import org.hibernate.criterion.Restrictions;
 
 import br.com.projetabrasil.model.entities.Objeto;
 import br.com.projetabrasil.model.entities.Pessoa;
+import br.com.projetabrasil.model.entities.Pessoa_Vinculo;
 import br.com.projetabrasil.util.HibernateUtil;
 
 public class ObjetoDAO extends GenericDAO<Objeto> {
@@ -43,14 +44,14 @@ public class ObjetoDAO extends GenericDAO<Objeto> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Objeto> lista_Objetos(Pessoa p){
+	public List<Objeto> lista_Objetos(Pessoa_Vinculo pVin){
 		List<Objeto> objs = new ArrayList<>();
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		try{
-		Criteria crit = sessao.createCriteria(Objeto.class);
-		crit.add(Restrictions.eq("id_Pessoa_Vinculo",p));
-		crit.addOrder(Order.desc("id"));
-		objs = crit.list();
+			Criteria crit = sessao.createCriteria(Objeto.class);
+			crit.add(Restrictions.eq("id_Pessoa_Vinculo", pVin));
+			crit.addOrder(Order.desc("id"));
+			objs = crit.list();
 		}catch(RuntimeException e){
 			e.printStackTrace();			
 		}

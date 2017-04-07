@@ -137,6 +137,13 @@
 									<f:attribute name="paginaAtual" value="PAGINALOGRADOUROS" />
 								</p:menuitem>
 							</p:submenu>
+							<p:submenu label="Objetos" rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES'])}">	
+								<p:menuitem value="Objeto" icon="fa fa-map-marker"
+									actionListener="#{paginas.mudaPaginaAtual}"
+									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES'])}">
+									<f:attribute name="paginaAtual" value="PAGINAOBJETOS" />
+								</p:menuitem>		
+							</p:submenu>
 						</p:submenu>
 						<p:submenu label="Pontos" icon="fa fa-home" rendered="#{autenticacaojsfController.perfilLogado.temPermissoes2(['ADMINISTRADORES','ASSINANTES','ATENDENTES','VENDAS'])}">
 							<p:menuitem value="Pontuar" icon="fa fa-home"
