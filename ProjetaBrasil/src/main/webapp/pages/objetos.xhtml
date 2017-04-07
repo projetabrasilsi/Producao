@@ -117,7 +117,7 @@
 										
 				<div class="ui-g-5">
 					<p:commandButton value="Validar"
-						actionListener="#{objetojsfController.buscaPessoa()}"
+						actionListener="#{objetojsfController.buscaPessoa}"
 						process="@form" oncomplete="PF('dialogoIdentidade').hide();"
 						update=":mensagens :formTemplate:formLista:tabela"
 						styleClass="btn-color-blue2">
@@ -147,12 +147,12 @@
 				<h:panelGrid id="painelCadastro_1">
 					<h:panelGrid id="painelCadastro_11">
 						<p:outputLabel
-							value="Nome do País"
+							value="Descrição do Objeto"
 							 />
 						<p:inputText size="30" maxlength="30"
 							value="#{objetojsfController.objeto.descricao}"
 							required="true"
-							requiredMessage="Descrição do país é obrigatória"
+							requiredMessage="Descrição do objeto é obrigatória"
 							
 							validatorMessage="O minimo de caracteres para nome são  '3'"
 							placeholder="Mínimo 3 Letras">
@@ -161,6 +161,7 @@
 					</h:panelGrid>
 					
 					<h:panelGrid id="painelCadastro_13">
+					
 						<p:outputLabel value="Tipo de Objeto:" />
 								<p:selectOneMenu id="tipoObjeto"
 									converter="omnifaces.SelectItemsConverter"
@@ -170,23 +171,64 @@
 									<f:selectItems
 										value="#{objetojsfController.listaTiposObjeto}" var="o"
 										itemLabel="#{o.descricao}" itemValue="#{o}" />
-									<p:ajax event="change" update="iptxContato" process="@this"
+									<p:ajax event="change" update="tipoObjeto" process="@this"
 										oncomplete="$(function(){PrimeFaces.focus('formTemplate:formCadastro:iptxContato');});" />
 								</p:selectOneMenu>
+								
+						<p:outputLabel value="Raça / Marca:" />
+								<p:selectOneMenu id="raca_marca"
+									converter="omnifaces.SelectItemsConverter"
+									value="#{objetojsfController.objeto.id_Marca_e_Raca}" rendered="true">
+									<f:selectItem itemLabel="selecione" itemValue=""
+										noSelectionOption="true" />
+									<f:selectItems
+										value="#{objetojsfController.listaTiposObjeto}" var="o"
+										itemLabel="#{o.descricao}" itemValue="#{o}" />
+									<p:ajax event="change" update="raca_marca" process="@this"
+										oncomplete="$(function(){PrimeFaces.focus('formTemplate:formCadastro:iptxContato');});" />
+								</p:selectOneMenu>
+								
+						<p:outputLabel value="Modelo / Porte:" />
+								<p:selectOneMenu id="modelo_porte"
+									converter="omnifaces.SelectItemsConverter"
+									value="#{objetojsfController.objeto.id_Modelo_de_Marca_e_Raca}" rendered="true">
+									<f:selectItem itemLabel="selecione" itemValue=""
+										noSelectionOption="true" />
+									<f:selectItems
+										value="#{objetojsfController.listaTiposObjeto}" var="o"
+										itemLabel="#{o.descricao}" itemValue="#{o}" />
+									<p:ajax event="change" update="modelo_porte" process="@this"
+										oncomplete="$(function(){PrimeFaces.focus('formTemplate:formCadastro:iptxContato');});" />
+								</p:selectOneMenu>
+								
+								
+						<p:outputLabel value="Cor:" />
+								<p:selectOneMenu id="cor"
+									converter="omnifaces.SelectItemsConverter"
+									value="#{objetojsfController.objeto.id_Modelo_de_Marca_e_Raca}" rendered="true">
+									<f:selectItem itemLabel="selecione" itemValue=""
+										noSelectionOption="true" />
+									<f:selectItems
+										value="#{objetojsfController.listaTiposObjeto}" var="o"
+										itemLabel="#{o.descricao}" itemValue="#{o}" />
+									<p:ajax event="change" update="modelo_porte" process="@this"
+										oncomplete="$(function(){PrimeFaces.focus('formTemplate:formCadastro:iptxContato');});" />
+								</p:selectOneMenu>
+								
+								
+								<p:outputLabel value="Data de nascimento" />
+										<p:calendar id="calendar" size="18" maxlength="15"
+											mask="**/**/****" pattern="dd/MM/yyyy"
+											value="#{pessoajsfController.pessoa.dataNascimento}"
+											styleClass="input-info-pessoas-data">
+											<f:convertDateTime pattern="dd/MM/yyyy" dateStyle="full"
+												type="both" timezone="GMT+3" />
+										</p:calendar>
+								
 					</h:panelGrid>
-					<h:panelGrid id="painelCadastro_14">
-						<p:outputLabel
-							value="Padrão Código de Área"
-							 />
-						<p:inputText size="30" maxlength="30"
-							value="#{objetojsfController.objeto.cor}"
-							required="true"
-							requiredMessage="Campo obrigatório"
-							validatorMessage="O minimo de caracteres para código são  '4'"
-							placeholder="00000-000">
-							<f:validateLength minimum="4" />
-						</p:inputText>
-					</h:panelGrid>
+					
+
+
 
 				</h:panelGrid>
 
