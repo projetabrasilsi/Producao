@@ -19,9 +19,6 @@ public class Combo_DetalheDAO extends GenericDAO<Combo_Detalhe> {
 		List<Combo_Detalhe> lista = new ArrayList<Combo_Detalhe>();
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		Criteria crit;
-		
-		
-		
 		try{
 			crit = sessao.createCriteria(Combo_Detalhe.class)
 					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
