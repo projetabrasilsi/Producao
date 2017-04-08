@@ -37,17 +37,17 @@
 					
 					<p:column headerText="Ano" sortBy="ano_objeto"
 						filterBy="ano_objeto">
-						<h:outputText value="#{registro.ano_objeto}" />
+						<h:outputText value="#{registro.ano_Objeto}" />
 					</p:column>
 					
 					<p:column headerText="Marca/Raça" sortBy="enum_aux_tipos_objeto"
 						filterBy="enum_aux_tipos_objeto">
-						<h:outputText value="#{registro.enum_aux_tipos_objeto}" />
+						<h:outputText value="#{registro.enum_Aux_Tipos_Objeto}" />
 					</p:column>
 					
 					<p:column headerText="Cor" sortBy="cor"
 						filterBy="cor">
-						<h:outputText value="#{registro.cor}" />
+						<h:outputText value="#{registro.cor.descricao}" />
 					</p:column>
 					
 					<p:column headerText="Editar" style="width:5%;">
@@ -118,14 +118,14 @@
 				<div class="ui-g-5">
 					<p:commandButton value="Validar"
 						actionListener="#{objetojsfController.buscaPessoa}"
-						process="@form" oncomplete="PF('dialogoIdentidade').hide();"
+						process="@form" 
 						update=":mensagens :formTemplate:formLista:tabela"
 						styleClass="btn-color-blue2">
 					</p:commandButton>
 				</div>
 				<div class="ui-g-5">
-					<p:commandButton value="Cancelar"
-						oncomplete="PF('dialogoIdentidade').hide();"
+					<p:commandButton value="Cancelar" process="@this"
+						actionListener="#{objetojsfController.cancelaValidacao}"
 						styleClass="btn-color-blue2">
 					</p:commandButton>
 				</div>
@@ -226,12 +226,24 @@
 										</p:calendar>
 								
 					</h:panelGrid>
-					
-
-
 
 				</h:panelGrid>
-
+				
+				<h:panelGrid id="pF">
+					<p:outputLabel for="upload" value="buscar e carregar  foto:" />
+					<p:fileUpload id="upload" mode="advanced"
+						fileUploadListener="#{brinde.upload}"
+						update=":mensagens :formTemplate:formCadastro:foto" auto="true"
+						style="font-size:15px;width:490px; " 
+						allowTypes="/(\.|\/)(#{brinde.tipoDeImagem})$/">
+						<p:graphicImage  />
+					</p:fileUpload>
+					<p:graphicImage id="foto" value="#{imagensjsfController.image}"
+						style="max-width:90px; max-height:80px; width: auto; height: auto;">
+						<f:param name="caminho" value="#{brinde.item.caminhodaImagem}" />
+					</p:graphicImage>
+				</h:panelGrid>
+				
 				<h:panelGrid columns="2" id="painelCadastro_7">
 					<p:panelGrid>
 						<p:commandButton value="Salvar" process="@form"

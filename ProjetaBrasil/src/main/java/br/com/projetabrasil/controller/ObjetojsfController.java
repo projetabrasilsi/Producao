@@ -57,6 +57,8 @@ public class ObjetojsfController extends GenericController implements Serializab
 		objeto = new Objeto();
 		configurarPessoa();
 		
+		pessoa.setEnum_Aux_Tipo_Identificador(Enum_Aux_Tipo_Identificador.CPF);
+		
 		listarTiposdeObjeto();
 		
 		Utilidades.abrirfecharDialogos("dialogoIdentidade", true);
@@ -107,6 +109,17 @@ public class ObjetojsfController extends GenericController implements Serializab
 		}
 	}
 	
+	public void cancelaValidacao() {		
+		Utilidades.abrirfecharDialogos("dialogoIdentidade",false);
+
+		if (perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.OUTROS)) {
+			perfilLogado = new PerfilLogado();
+			autenticacao.redirecionaPaginas("alfapage.xhtml", "Erro ao tentar chamar a pagina alfapage",true);				    			
+		}
+		
+		autenticacao.redirecionaPaginas("index.xhtml", null, true);
+	}
+	
 	public void listarTiposdeObjeto() {
 		Enum_Aux_Tipos_Objetos[] listagem;
 		listagem = Enum_Aux_Tipos_Objetos.values();
@@ -127,11 +140,16 @@ public class ObjetojsfController extends GenericController implements Serializab
 		usuario.setPessoa(pessoa);
 		if (!PessoaBusiness2.validaDados(usuario, perfilLogado, true, true, true))
 			return;
-
+		
 		String identificador;
 		identificador = pessoa.getIdentificador();
 		pessoa = PessoaBusiness.buscaPessoa(pessoa);
-
+		
+		if(pessoa.getId() == null){
+			mensagensDisparar("Este CPF não existe na base de dados");
+			return;
+		}
+		
 		if (pessoa.getIdentificador() == null || pessoa.getIdentificador().length() <= 0) {
 			pessoa.setIdentificador(identificador);
 			pessoa.setCpf_Cnpj(identificador);
@@ -157,17 +175,17 @@ public class ObjetojsfController extends GenericController implements Serializab
 		if (!pessoa.getEnum_Aux_Tipo_Identificador().equals(tipoIdent))
 			pessoa.setEnum_Aux_Tipo_Identificador(tipoIdent);
 		
-		Pessoa_Vinculo pVin = new Pessoa_VinculoDAO().buscar(5l);
 		
 		ObjetoDAO oDAO = new ObjetoDAO();
 		if(perfilLogado!=null && perfilLogado.getPerfilUsLogado()!=null)
-			objetos = oDAO.lista_Objetos(pVin);
+			objetos = oDAO.lista_Objetos(pessoa);
 		
 		for(Objeto o : objetos){
 			System.out.println(o.toString());
 		}
 		
 		mudaLabel();
+		Utilidades.abrirfecharDialogos("dialogoIdentidade", false);
 	}
 	
 	public void mudaLabel() {

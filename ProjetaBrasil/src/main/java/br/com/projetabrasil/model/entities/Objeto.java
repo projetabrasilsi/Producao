@@ -46,7 +46,7 @@ public class Objeto extends GenericDomain implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name="id_Pessoa_Vinculo", nullable=false)
-	private Pessoa_Vinculo id_Pessoa_Vinculo;
+	private Pessoa id_Pessoa_Vinculo;
 	
 	@ManyToOne
 	@JoinColumn(name="cor", nullable=true)
@@ -91,10 +91,10 @@ public class Objeto extends GenericDomain implements Serializable{
 	public void setPerfil_do_Momento_do_Registro(Enum_Aux_Perfil_Pessoa perfil_do_Momento_do_Registro) {
 		this.perfil_do_Momento_do_Registro = perfil_do_Momento_do_Registro;
 	}
-	public Pessoa_Vinculo getId_Pessoa_Vinculo() {
+	public Pessoa getId_Pessoa_Vinculo() {
 		return id_Pessoa_Vinculo;
 	}
-	public void setId_Pessoa_Vinculo(Pessoa_Vinculo id_Pessoa_Vinculo) {
+	public void setId_Pessoa_Vinculo(Pessoa id_Pessoa_Vinculo) {
 		this.id_Pessoa_Vinculo = id_Pessoa_Vinculo;
 	}
 	public Cor getCor() {
@@ -193,14 +193,6 @@ public class Objeto extends GenericDomain implements Serializable{
 			return false;
 		return true;
 	}
-	@Override
-	public String toString() {
-		return "Objeto [id=" + id + ", enum_Aux_Tipos_Objeto=" + enum_Aux_Tipos_Objeto + ", id_Marca_e_Raca="
-				+ id_Marca_e_Raca + ", id_Modelo_de_Marca_e_Raca=" + id_Modelo_de_Marca_e_Raca + ", id_Pessoa_Registro="
-				+ id_Pessoa_Registro + ", perfil_do_Momento_do_Registro=" + perfil_do_Momento_do_Registro
-				+ ", id_Pessoa_Vinculo=" + id_Pessoa_Vinculo + ", cor=" + cor + ", descricao=" + descricao
-				+ ", ano_Objeto=" + ano_Objeto + ", mod_Veiculo=" + mod_Veiculo + "]";
-	}
 	
-	
+		
 	}

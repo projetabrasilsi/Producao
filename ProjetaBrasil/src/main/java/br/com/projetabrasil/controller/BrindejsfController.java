@@ -38,7 +38,7 @@ public class BrindejsfController extends GenericController {
 	private PerfilLogado perfilLogado;
 	private List<Item_de_Movimento> itens;
 	private Item_de_Movimento item;
-	UploadedFile upLoaded;
+	private UploadedFile upLoaded;
 	private byte[] fileContents;
 	private String branco = Utilidades.getCaminhobase()+"branco"+Utilidades.getTipoImagem();
 	private StreamedContent foto = null;
