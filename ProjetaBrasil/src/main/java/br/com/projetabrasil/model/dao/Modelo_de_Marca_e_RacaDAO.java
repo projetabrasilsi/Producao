@@ -102,5 +102,23 @@ public class Modelo_de_Marca_e_RacaDAO extends GenericDAO<Modelo_de_Marca_e_Raca
 		}
 		return lista;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Modelo_de_Marca_e_Raca>  listar_Modelo_de_Marca_e_Raca_Por_Marca_e_Raca(Marca_e_Raca m){		
+		List<Modelo_de_Marca_e_Raca> lista = new ArrayList<>();
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		try{
+			Criteria crit = sessao.createCriteria(Modelo_de_Marca_e_Raca.class); ;
+		    crit.add(Restrictions.eq("marca_e_Raca",m));
+		    crit.addOrder(Order.asc("descricao"));
+		    lista = crit.list();
+		}catch(RuntimeException e){
+			e.printStackTrace();
+			
+		}finally {
+			sessao.close();
+		}
+		return lista;
+	}
 
 }

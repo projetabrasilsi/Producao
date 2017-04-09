@@ -162,68 +162,58 @@
 					
 					<h:panelGrid id="painelCadastro_13">
 					
-						<p:outputLabel value="Tipo de Objeto:" />
+						<p:outputLabel value="Classificação de Objeto:" />
 								<p:selectOneMenu id="tipoObjeto"
 									converter="omnifaces.SelectItemsConverter"
-									value="#{objetojsfController.tipoObjeto}" rendered="true">
+									value="#{objetojsfController.classificacaoObjeto}" rendered="true">
 									<f:selectItem itemLabel="selecione" itemValue=""
 										noSelectionOption="true" />
 									<f:selectItems
-										value="#{objetojsfController.listaTiposObjeto}" var="o"
+										value="#{objetojsfController.listaClassificacaoObjeto}" var="o"
 										itemLabel="#{o.descricao}" itemValue="#{o}" />
-									<p:ajax event="change" update="tipoObjeto" process="@this"
-										oncomplete="$(function(){PrimeFaces.focus('formTemplate:formCadastro:iptxContato');});" />
+									<p:ajax listener="#{objetojsfController.listarRacaMarca}" update="raca_marca,modelo" />									
 								</p:selectOneMenu>
+								
 								
 						<p:outputLabel value="Raça / Marca:" />
 								<p:selectOneMenu id="raca_marca"
 									converter="omnifaces.SelectItemsConverter"
-									value="#{objetojsfController.objeto.id_Marca_e_Raca}" rendered="true">
+									value="#{objetojsfController.racaMarca}" rendered="true">
 									<f:selectItem itemLabel="selecione" itemValue=""
 										noSelectionOption="true" />
 									<f:selectItems
-										value="#{objetojsfController.listaTiposObjeto}" var="o"
-										itemLabel="#{o.descricao}" itemValue="#{o}" />
-									<p:ajax event="change" update="raca_marca" process="@this"
-										oncomplete="$(function(){PrimeFaces.focus('formTemplate:formCadastro:iptxContato');});" />
+										value="#{objetojsfController.listaRacaMarca}" var="o"
+										itemLabel="#{o.descricao}" itemValue="#{o}" />	
+									<p:ajax listener="#{objetojsfController.listarModelo}" update="modelo" />								
 								</p:selectOneMenu>
 								
-						<p:outputLabel value="Modelo / Porte:" />
-								<p:selectOneMenu id="modelo_porte"
+								
+						<p:outputLabel value="Modelo:" />
+								<p:selectOneMenu id="modelo"
 									converter="omnifaces.SelectItemsConverter"
-									value="#{objetojsfController.objeto.id_Modelo_de_Marca_e_Raca}" rendered="true">
+									value="#{objetojsfController.modelo}" rendered="true">
 									<f:selectItem itemLabel="selecione" itemValue=""
 										noSelectionOption="true" />
 									<f:selectItems
-										value="#{objetojsfController.listaTiposObjeto}" var="o"
-										itemLabel="#{o.descricao}" itemValue="#{o}" />
-									<p:ajax event="change" update="modelo_porte" process="@this"
-										oncomplete="$(function(){PrimeFaces.focus('formTemplate:formCadastro:iptxContato');});" />
+										value="#{objetojsfController.listaModelo}" var="o"
+										itemLabel="#{o.descricao}" itemValue="#{o}" />																										
 								</p:selectOneMenu>
 								
 								
 						<p:outputLabel value="Cor:" />
 								<p:selectOneMenu id="cor"
 									converter="omnifaces.SelectItemsConverter"
-									value="#{objetojsfController.objeto.id_Modelo_de_Marca_e_Raca}" rendered="true">
+									value="#{objetojsfController.cor}" rendered="true">
 									<f:selectItem itemLabel="selecione" itemValue=""
 										noSelectionOption="true" />
 									<f:selectItems
-										value="#{objetojsfController.listaTiposObjeto}" var="o"
-										itemLabel="#{o.descricao}" itemValue="#{o}" />
-									<p:ajax event="change" update="modelo_porte" process="@this"
-										oncomplete="$(function(){PrimeFaces.focus('formTemplate:formCadastro:iptxContato');});" />
+										value="#{objetojsfController.listaCor}" var="o"
+										itemLabel="#{o.descricao}" itemValue="#{o}" />									
 								</p:selectOneMenu>
 								
-								
-								<p:outputLabel value="Data de nascimento" />
-										<p:calendar id="calendar" size="18" maxlength="15"
-											mask="**/**/****" pattern="dd/MM/yyyy"
-											value="#{pessoajsfController.pessoa.dataNascimento}"
-											styleClass="input-info-pessoas-data">
-											<f:convertDateTime pattern="dd/MM/yyyy" dateStyle="full"
-												type="both" timezone="GMT+3" />
-										</p:calendar>
+						 
+					    <p:outputLabel value="Ano" />	
+						 		<p:inputMask id="ano" value="objetojsfController.objeto.ano_objeto" mask="9999"/> 
 								
 					</h:panelGrid>
 

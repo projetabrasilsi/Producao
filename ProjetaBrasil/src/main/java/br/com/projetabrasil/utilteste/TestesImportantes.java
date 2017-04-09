@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import br.com.projetabrasil.model.dao.Marca_e_RacaDAO;
@@ -20,8 +19,7 @@ import br.com.projetabrasil.util.viacep.ViaCEPClient;
 
 public class TestesImportantes {
 
-	@Test	
-	@Ignore	
+	@Test		
 	public void selecao() {
 		Marca_e_Raca marca = new Marca_e_Raca();
 		marca.setDescricao("CHEVROLET");
@@ -47,8 +45,6 @@ public class TestesImportantes {
 	}
 	
 	@Test
-	//Teste 1 
-	@Ignore
 	public void inclusaodeProfissoes() {
 
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
@@ -59,60 +55,58 @@ public class TestesImportantes {
 	}
 	
 	@Test	
-	@Ignore
-	//Teste 2
 	public void inclusaodeMarcasERacas() {
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
-		Usuario us = usuarioDAO.autenticar("89230906115", "P2a3u0l9");
+		Usuario us = usuarioDAO.autenticar("10554498928", "11111111");
 		Ler_Excel lEx = new Ler_Excel();
 
 		if (us != null) {
-			String caminho = "C:\\ProjetaBrasil Repositorio\\marcas-e-modelos\\marcas-caminhao.xls";
+			String caminho = "C:\\InserirDB\\marca_raca\\marcas-caminhao.xls";
 			lEx.inserirMarca_e_RacaBD(us.getPessoa(), caminho, Enum_Aux_Classificacao_Objetos.CAMINHOES);
 
-			caminho = "C:\\ProjetaBrasil Repositorio\\marcas-e-modelos\\marcas-carros.xls";
+			caminho = "C:\\InserirDB\\marca_raca\\marcas-carros.xls";
 			lEx.inserirMarca_e_RacaBD(us.getPessoa(), caminho, Enum_Aux_Classificacao_Objetos.CARROS);
-			caminho = "C:\\ProjetaBrasil Repositorio\\marcas-e-modelos\\marcas-motos.xls";
+			
+			caminho = "C:\\InserirDB\\marca_raca\\marcas-motos.xls";
 			lEx.inserirMarca_e_RacaBD(us.getPessoa(), caminho, Enum_Aux_Classificacao_Objetos.MOTOS);
 
-			caminho = "C:\\ProjetaBrasil Repositorio\\marcas-e-modelos\\marcas-nautica.xls";
+			caminho = "C:\\InserirDB\\marca_raca\\marcas-nautica.xls";
 			lEx.inserirMarca_e_RacaBD(us.getPessoa(), caminho, Enum_Aux_Classificacao_Objetos.NAUTICOS);
 			
-			caminho = "C:\\ProjetaBrasil Repositorio\\marcas-e-modelos\\PETS - CAES.xls";
+			caminho = "C:\\InserirDB\\marca_raca\\PETS - CAES.xls";
 			lEx.inserirMarca_e_RacaBD(us.getPessoa(), caminho, Enum_Aux_Classificacao_Objetos.CAES);
 			
-			caminho = "C:\\ProjetaBrasil Repositorio\\marcas-e-modelos\\PETS - CAVALOS.xls";
+			caminho = "C:\\InserirDB\\marca_raca\\PETS - CAVALOS.xls";
 			lEx.inserirMarca_e_RacaBD(us.getPessoa(), caminho, Enum_Aux_Classificacao_Objetos.CAVALOS);
 			
-			caminho = "C:\\ProjetaBrasil Repositorio\\marcas-e-modelos\\PETS - COELHOS.xls";
+			caminho = "C:\\InserirDB\\marca_raca\\PETS - COELHOS.xls";
 			lEx.inserirMarca_e_RacaBD(us.getPessoa(), caminho, Enum_Aux_Classificacao_Objetos.COELHOS);
 			
-			caminho = "C:\\ProjetaBrasil Repositorio\\marcas-e-modelos\\PETS - GATOS.xls";
+			caminho = "C:\\InserirDB\\marca_raca\\PETS - GATOS.xls";
 			lEx.inserirMarca_e_RacaBD(us.getPessoa(), caminho, Enum_Aux_Classificacao_Objetos.GATOS);
 			
-			caminho = "C:\\ProjetaBrasil Repositorio\\marcas-e-modelos\\PETS - HAMSTERS.xls";
+			caminho = "C:\\InserirDB\\marca_raca\\PETS - HAMSTERS.xls";
 			lEx.inserirMarca_e_RacaBD(us.getPessoa(), caminho, Enum_Aux_Classificacao_Objetos.HAMSTERS);
-			caminho = "C:\\ProjetaBrasil Repositorio\\marcas-e-modelos\\LISTA DE BICILETAS.xls";
+			caminho = "C:\\InserirDB\\marca_raca\\LISTA DE BICILETAS.xls";
 			lEx.inserirMarca_e_RacaBD(us.getPessoa(), caminho, Enum_Aux_Classificacao_Objetos.BICILETAS);
 		}
 
 	}
 
 	@Test	
-	// 3
 	public void inclusaodeModelosdeMarcasERacas() {
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
-		Usuario us = usuarioDAO.autenticar("89230906115", "P2a3u0l9");
+		Usuario us = usuarioDAO.autenticar("10554498928", "11111111");
 		Ler_Excel lEx = new Ler_Excel();
 
 		if (us != null) {
-			String caminho = "C:\\ProjetaBrasil Repositorio\\marcas-e-modelos\\modelos-caminhao.xls";
+			String caminho = "C:\\InserirDB\\modelos\\modelos-caminhao.xls";
 			lEx.inserirModelo_de_Marca_e_RacaBD(us.getPessoa(), caminho, Enum_Aux_Classificacao_Objetos.CAMINHOES);
-			caminho = "C:\\ProjetaBrasil Repositorio\\marcas-e-modelos\\modelos-carro.xls";
+			caminho = "C:\\InserirDB\\modelos\\modelos-carro.xls";
 			lEx.inserirModelo_de_Marca_e_RacaBD(us.getPessoa(), caminho, Enum_Aux_Classificacao_Objetos.CARROS);
-			caminho = "C:\\ProjetaBrasil Repositorio\\marcas-e-modelos\\modelos-moto.xls";
+			caminho = "C:\\InserirDB\\modelos\\modelos-moto.xls";
 			lEx.inserirModelo_de_Marca_e_RacaBD(us.getPessoa(), caminho, Enum_Aux_Classificacao_Objetos.MOTOS);
-			caminho = "C:\\ProjetaBrasil Repositorio\\marcas-e-modelos\\modelos-nautica.xls";
+			caminho = "C:\\InserirDB\\modelos\\modelos-nautica.xls";
 			lEx.inserirModelo_de_Marca_e_RacaBD(us.getPessoa(), caminho, Enum_Aux_Classificacao_Objetos.NAUTICOS);
 			
 			
@@ -125,7 +119,6 @@ public class TestesImportantes {
 	
 
 	@Test
-	@Ignore
 	public void BuscaCep() throws IOException {
 
 		CEP cep = new CEP();

@@ -14,13 +14,19 @@ import br.com.projetabrasil.controller.entitiesconfig.PessoaConfig;
 import br.com.projetabrasil.model.business.ObjetoBusiness;
 import br.com.projetabrasil.model.business.PessoaBusiness;
 import br.com.projetabrasil.model.business.PessoaBusiness2;
+import br.com.projetabrasil.model.dao.CoresDAO;
+import br.com.projetabrasil.model.dao.Marca_e_RacaDAO;
+import br.com.projetabrasil.model.dao.Modelo_de_Marca_e_RacaDAO;
 import br.com.projetabrasil.model.dao.ObjetoDAO;
 import br.com.projetabrasil.model.dao.Pessoa_VinculoDAO;
+import br.com.projetabrasil.model.entities.Cor;
+import br.com.projetabrasil.model.entities.Enum_Aux_Classificacao_Objetos;
 import br.com.projetabrasil.model.entities.Enum_Aux_Perfil_Pagina_Atual;
 import br.com.projetabrasil.model.entities.Enum_Aux_Perfil_Pessoa;
 import br.com.projetabrasil.model.entities.Enum_Aux_Tipo_Identificador;
 import br.com.projetabrasil.model.entities.Enum_Aux_Tipo_Pessoa;
-import br.com.projetabrasil.model.entities.Enum_Aux_Tipos_Objetos;
+import br.com.projetabrasil.model.entities.Marca_e_Raca;
+import br.com.projetabrasil.model.entities.Modelo_de_Marca_e_Raca;
 import br.com.projetabrasil.model.entities.Objeto;
 import br.com.projetabrasil.model.entities.PerfilLogado;
 import br.com.projetabrasil.model.entities.Pessoa;
@@ -39,8 +45,17 @@ public class ObjetojsfController extends GenericController implements Serializab
 	private PessoaConfig pessoaConfig;
 	private Usuario usuario;
 	
-	private List<Enum_Aux_Tipos_Objetos> listaTiposObjeto;
-	private Enum_Aux_Tipos_Objetos tipoObjeto;
+	private List<Enum_Aux_Classificacao_Objetos> listaClassificacaoObjeto;
+	private Enum_Aux_Classificacao_Objetos classificacaoObjeto;
+	
+	private List<Marca_e_Raca> listaRacaMarca;
+	private Marca_e_Raca racaMarca;
+	
+	private List<Modelo_de_Marca_e_Raca> listaModelo;
+	private Modelo_de_Marca_e_Raca modelo;
+	
+	private List<Cor> listaCor;
+	private Cor cor;
 	
 	@ManagedProperty(value = "#{autenticacaojsfController.perfilLogado}")
 	private PerfilLogado perfilLogado;
@@ -53,13 +68,25 @@ public class ObjetojsfController extends GenericController implements Serializab
 	public void listar() {	
 		pessoa = new Pessoa();
 		usuario = new Usuario();
+		
 		objetos = new ArrayList<>();
 		objeto = new Objeto();
+		
+		racaMarca = new Marca_e_Raca();
+		listaRacaMarca = new ArrayList<>();
+		
+		modelo = new Modelo_de_Marca_e_Raca();
+		listaModelo = new ArrayList<>();
+		
+		cor = new Cor();
+		listaCor = new ArrayList<>();
+		
 		configurarPessoa();
 		
 		pessoa.setEnum_Aux_Tipo_Identificador(Enum_Aux_Tipo_Identificador.CPF);
 		
-		listarTiposdeObjeto();
+		listarClassificacaodeObjeto();
+		listarCor();
 		
 		Utilidades.abrirfecharDialogos("dialogoIdentidade", true);
 		
@@ -82,6 +109,14 @@ public class ObjetojsfController extends GenericController implements Serializab
 		}else{
 			this.objeto.setId_Pessoa_Registro(perfilLogado.getAssLogado());
 		}
+		
+		objeto.setId_Empresa(0);
+		objeto.setId(null);
+		objeto.setPerfil_do_Momento_do_Registro(perfilLogado.getPerfilUsLogado());		
+		objeto.setCor(cor);
+		objeto.setId_Marca_e_Raca(racaMarca);
+		objeto.setId_Modelo_de_Marca_e_Raca(modelo);
+		objeto.setEnum_Aux_Tipos_Objeto(classificacaoObjeto.getEnum_Aux_Tipos_Objetos());
 		
 		ObjetoBusiness.merge(this.objeto);
 		listar(); 
@@ -120,12 +155,12 @@ public class ObjetojsfController extends GenericController implements Serializab
 		autenticacao.redirecionaPaginas("index.xhtml", null, true);
 	}
 	
-	public void listarTiposdeObjeto() {
-		Enum_Aux_Tipos_Objetos[] listagem;
-		listagem = Enum_Aux_Tipos_Objetos.values();
-		listaTiposObjeto = new ArrayList<Enum_Aux_Tipos_Objetos>();
-		for(Enum_Aux_Tipos_Objetos i : listagem){
-			listaTiposObjeto.add(i);
+	public void listarClassificacaodeObjeto() {
+		Enum_Aux_Classificacao_Objetos[] listagem;
+		listagem = Enum_Aux_Classificacao_Objetos.values();
+		listaClassificacaoObjeto = new ArrayList<Enum_Aux_Classificacao_Objetos>();
+		for(Enum_Aux_Classificacao_Objetos i : listagem){
+			listaClassificacaoObjeto.add(i);
 		}
 	}
 	
@@ -186,6 +221,20 @@ public class ObjetojsfController extends GenericController implements Serializab
 		
 		mudaLabel();
 		Utilidades.abrirfecharDialogos("dialogoIdentidade", false);
+	}
+	
+	public void listarRacaMarca() {
+		setListaRacaMarca(new Marca_e_RacaDAO().listar_Marca_e_Raca(classificacaoObjeto));
+		modelo = new Modelo_de_Marca_e_Raca();
+		listaModelo = new ArrayList<>();
+	}
+	
+	public void listarModelo() {
+		setListaModelo(new Modelo_de_Marca_e_RacaDAO().listar_Modelo_de_Marca_e_Raca_Por_Marca_e_Raca(racaMarca));
+	}
+	
+	public void listarCor() {
+		setListaCor(new CoresDAO().listar());
 	}
 	
 	public void mudaLabel() {
@@ -252,20 +301,20 @@ public class ObjetojsfController extends GenericController implements Serializab
 		this.autenticacao = autenticacao;
 	}
 
-	public List<Enum_Aux_Tipos_Objetos> getListaTiposObjeto() {
-		return listaTiposObjeto;
+	public List<Enum_Aux_Classificacao_Objetos> getListaClassificacaoObjeto() {
+		return listaClassificacaoObjeto;
 	}
 
-	public void setListaTiposObjeto(List<Enum_Aux_Tipos_Objetos> listaTiposObjeto) {
-		this.listaTiposObjeto = listaTiposObjeto;
+	public void setListaClassificacaoObjeto(List<Enum_Aux_Classificacao_Objetos> listaClassificacaoObjeto) {
+		this.listaClassificacaoObjeto = listaClassificacaoObjeto;
 	}
 
-	public Enum_Aux_Tipos_Objetos getTipoObjeto() {
-		return tipoObjeto;
+	public Enum_Aux_Classificacao_Objetos getClassificacaoObjeto() {
+		return classificacaoObjeto;
 	}
 
-	public void setTipoObjeto(Enum_Aux_Tipos_Objetos tipoObjeto) {
-		this.tipoObjeto = tipoObjeto;
+	public void setClassificacaoObjeto(Enum_Aux_Classificacao_Objetos classificacaoObjeto) {
+		this.classificacaoObjeto = classificacaoObjeto;
 	}
 
 	public Usuario getUsuario() {
@@ -275,6 +324,53 @@ public class ObjetojsfController extends GenericController implements Serializab
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
+
+	public List<Marca_e_Raca> getListaRacaMarca() {
+		return listaRacaMarca;
+	}
+
+	public void setListaRacaMarca(List<Marca_e_Raca> listaRacaMarca) {
+		this.listaRacaMarca = listaRacaMarca;
+	}
+
+	public Marca_e_Raca getRacaMarca() {
+		return racaMarca;
+	}
+
+	public void setRacaMarca(Marca_e_Raca racaMarca) {
+		this.racaMarca = racaMarca;
+	}
+
+	public List<Modelo_de_Marca_e_Raca> getListaModelo() {
+		return listaModelo;
+	}
+
+	public void setListaModelo(List<Modelo_de_Marca_e_Raca> listaModelo) {
+		this.listaModelo = listaModelo;
+	}
+
+	public Modelo_de_Marca_e_Raca getModelo() {
+		return modelo;
+	}
+
+	public void setModelo(Modelo_de_Marca_e_Raca modelo) {
+		this.modelo = modelo;
+	}
+
+	public List<Cor> getListaCor() {
+		return listaCor;
+	}
+
+	public void setListaCor(List<Cor> listaCor) {
+		this.listaCor = listaCor;
+	}
+
+	public Cor getCor() {
+		return cor;
+	}
+
+	public void setCor(Cor cor) {
+		this.cor = cor;
+	}
 	
 }

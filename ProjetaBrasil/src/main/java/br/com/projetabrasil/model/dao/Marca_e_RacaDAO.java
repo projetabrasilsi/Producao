@@ -128,14 +128,33 @@ public class Marca_e_RacaDAO extends GenericDAO<Marca_e_Raca> {
 		return lista;
 	}
 	
-@SuppressWarnings("unchecked")
-public List<Marca_e_Raca> listar_Marca_e_Raca(String descricao){
+	@SuppressWarnings("unchecked")
+	public List<Marca_e_Raca> listar_Marca_e_Raca(String descricao){
 		
 		List<Marca_e_Raca> lista = new ArrayList<>();
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		try{	   	
 			Criteria crit = sessao.createCriteria(Marca_e_Raca.class); ;
 		   	crit.add(Restrictions.eq("descricao", "%"+descricao+"%").ignoreCase());
+		   	crit.addOrder(Order.asc("descricao"));
+		   	lista = crit.list();		   	
+		}catch(RuntimeException e){
+			e.printStackTrace();
+		}
+		finally{
+			sessao.close();
+		}
+		return lista;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Marca_e_Raca> listar_Marca_e_Raca(Enum_Aux_Classificacao_Objetos classificacao){
+		
+		List<Marca_e_Raca> lista = new ArrayList<>();
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		try{	   	
+			Criteria crit = sessao.createCriteria(Marca_e_Raca.class); ;
+		   	crit.add(Restrictions.eq("enum_Aux_Classificacao_Objetos", classificacao));
 		   	crit.addOrder(Order.asc("descricao"));
 		   	lista = crit.list();		   	
 		}catch(RuntimeException e){
