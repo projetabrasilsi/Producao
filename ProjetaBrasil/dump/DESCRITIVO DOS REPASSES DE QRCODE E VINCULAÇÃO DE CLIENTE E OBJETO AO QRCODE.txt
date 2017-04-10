@@ -1,0 +1,162 @@
+DESCRITIVO DOS REPASSES DE QRCODE E VINCULAÇÃO DE CLIENTE E OBJETO AO QRCODE
+
+*	- PROJETA BRASIL --> Pessoa reponsável pelos repasses através dos perfis(ADMINISTRADOR/DIRETOR/LOGISTICA)
+*	- DISTRIBUIDOR 	 --> Empresa que irá comprar em grande quantidade qrcodes para 
+			     distribuir(inicialmente será por consignação(não entra no software, só explicação))
+*	- REPRESENTANTE  --> Empresa/Pessoa que representa o distribuidor junto aos estabelecimentos comerciais ou até mesmo consumidor final
+*	- REVENDA	 --> Empresa que adquire os QRCODES para vender ao cliente(consumidor final) -- PETSHOPS, LOJAS DE CELULARES, CLÍNICAS MÉDICAS e OUTROS
+*	- CONSUMIDOR FINAL --> Quem compra e registra o qrcode para um objeto(celular, pets, carros e outros)
+
+
+QRCODE é um Registro.
+
+Quais os processos ele possui?
+São 2.
+		1º - Pode ser o REPASSE. E isso acontece de que forma?
+		Pode ocorrer 	da PROJETA BRASIL para o DISTRIBUIDOR
+			     	da PROJETA BRASIL para a REVENDA
+			
+				do DISTRIBUIDOR para o REPRESENTANTE
+				do DISTRIBUIDOR para a REVENDA
+				
+				do REPRESENTANTE para
+
+ a REVENDA
+		
+		2º - Pode ser a venda direta ao CONSUMIDOR FINAL.
+		     De que forma isso se dá?
+		
+				PROJETA BRASIL faz o VINCULO do CLIENTE e seu OBJETO com o QRCODE;
+				DISTRIBUIDOR   faz o VINCULO do CLIENTE e seu OBJETO com o QRCODE;
+				REPRESENTANTE  faz o VINCULO do CLIENTE e seu OBJETO com o QRCODE;
+				REVENDA	       faz o VINCULO do CLIENTE e seu OBJETO com o QRCODE;
+
+	Regra 1ª - PROJETA BRASIL
+		Uma Vez que A Projeta Brasil faz o repasse, seja para o distribuidor, seja para o representante,
+		seja para revenda. 
+		A Projeta Brasil não pode reverter estes repasses de maneira alguma caso
+		este qrcode(registro) já esteja vinculado à um cliente e objeto.
+
+		A Projeta Brasil poderá retirar os repasses feito para a REVENDA e Somente a Revenda que ela atendeu,
+		nos seguintes Casos: A REVENDA NÃO PAGOU os registros. Então Deverá haver esta abertura para retornar/retirar
+		o repasse.
+
+		A Projeta Brasil poderá retirar os repasses feito para o DISTRIBUIDOR e no caso, QUALQUER DISTRIBUIDOR,
+		nos seguintes Casos: DISTRIBUIDOR  NÃO PAGOU os registros. Ou Então o DISTRIBUIDOR desistiu.
+		Então Deverá haver esta abertura para retornar/retirar	o repasse.		
+				
+
+	Regra 2ª - DISTRIBUIDOR
+		Uma Vez que O DISTRIBUIDOR  faz o repasse, seja para o representante, seja para revenda. 
+		O DISTRIBUIDOR não pode reverter estes repasses de maneira alguma caso
+		este qrcode(registro) já esteja vinculado à um cliente e objeto.
+
+		O DISTRIBUIDOR poderá retirar os repasses feito para a REVENDA e Somente a REPRESENTANTE que ela atendeu,
+		nos seguintes Casos: A REVENDA NÃO PAGOU os registros. Então Deverá haver esta abertura para retornar/retirar
+		o repasse.
+		O DISTRIBUIDOR poderá retirar os repasses feito para o REPRESENTANTE e Somente O REPRESENTANTE de sua EQUIPE que ele fez o repasse de QRCODES,
+		nos seguintes Casos: O REPRESENTANTE NÃO PAGOU os registros, REPRESENTANTE DESISTIU ou REPRESENTANTE foi desvinculado do trabalho. 
+		Então Deverá haver esta abertura para retornar/retirar o repasse.
+
+	Regra 3ª - REPRESENTANTE
+		Uma Vez que O REPRESENTANTE  faz o repasse, seja para o representante, para a revenda. 
+		O REPRESENTANTE não pode reverter estes repasses de maneira alguma caso
+		este qrcode(registro) já esteja vinculado à um cliente e objeto.
+
+		O REPRESENTANTE poderá retirar os repasses feito para a REVENDA e Somente a REPRESENTANTE que ela atendeu,
+		nos seguintes Casos: A REVENDA NÃO PAGOU os registros ou DESISTIU ou o REPRESENTANTE não vai mais atender esta REVENDA
+		Então Deverá haver esta abertura para retornar/retirar o repasse.
+
+
+	Regra 4ª - A PROJETA BRASIL
+		Não poderá repassar um QRCODE NOVAMENTE que já esteja repassado para outro DISTRIBUIDOR ou REVENDA ou REPRESENTANTE.
+
+
+	Regra 5ª - DISTRIBUIDOR
+		Não poderá repassar um QRCODE NOVAMENTE que já esteja repassado para outra REVENDA ou REPRESENTANTE.
+
+	Regra 6ª - REPRESENTANTE
+		Não poderá repassar um QRCODE NOVAMENTE que já esteja repassado para outra REVENDA
+
+
+	Quais são os STATUS ATUAL do QRCODE	- Livre/Distribuido/Representado/Revendido/Vendido
+						Livre 		- Está em poder da Projeta Brasil
+						Distribuído	- Está em poder do Distribuidor(quem compra da projeta brasil em larga escala)
+						Representado	- Está em poder do Representante(funcionário do distribuidor)
+						Revendido	- Está em poder da Revenda(petsshop e outros)
+						Vendido		- Está em poder do cliente(consumidor final)
+
+	Toda vez que ocorrer um repasse ou uma vinculação do objeto e do cliente ao QRCODE o Status ATUAL deste QRCODE deverá ser mudado
+
+	EXEMPLOS: 
+	CASO	PROJETA BRASIL -----------------------------------------------------------------------------------------------------------------------------------
+
+		Quando o QRCODE Estiver em Posso da Projeta Brasil
+	Id - 1	QRCODE	STATUS ATUAL	Id_Distribuidor(Pessoa)	Id_Representante(Pessoa) Id_Revenda(Pessoa) Id_Cliente(Pessoa) Id_Objeto(Objeto)
+	1	xjdhyd  LIVRE		null			null			 null		    null		null
+
+		Quando a PROJETABRASIL repassar para o DISTRIBUIDOR
+	Id - 1	QRCODE	STATUS ATUAL	Id_Distribuidor(Pessoa)	Id_Representante(Pessoa) Id_Revenda(Pessoa) Id_Cliente(Pessoa) Id_Objeto(Objeto)
+	1	xjdhyd  DISTRIBUIDO	5			null			 null		    null		null
+
+	Quando a PROJETABRASIL repassar DIRETAMENTE para o REVENDA sem intermediarios(distribuidor)
+	Id - 1	QRCODE	STATUS ATUAL	Id_Distribuidor(Pessoa)	Id_Representante(Pessoa) Id_Revenda(Pessoa) Id_Cliente(Pessoa) Id_Objeto(Objeto)
+	1	xjdhyd  REVENDIDO	null			null			 15		    null		null
+	
+
+	Quando a PROJETABRASIL repassar DIRETAMENTE para o CONSUMIDOR FINAL sem intermediarios(distribuidor/revenda) ===> VINCULAÇÃO DO CLIENTE/OBJETO AO QRCODE
+	Id - 1	QRCODE	STATUS ATUAL	Id_Distribuidor(Pessoa)	Id_Representante(Pessoa) Id_Revenda(Pessoa) Id_Cliente(Pessoa) Id_Objeto(Objeto)
+	1	xjdhyd  VENDIDO		null			null			 null		    19			72
+
+
+
+	CASO	DISTRIBUIDOR -----------------------------------------------------------------------------------------------------------------------------------
+
+		Quando o QRCODE Estiver em Posso do DISTRIBUIDOR
+	Id - 1	QRCODE	STATUS ATUAL	Id_Distribuidor(Pessoa)	Id_Representante(Pessoa) Id_Revenda(Pessoa) Id_Cliente(Pessoa) Id_Objeto(Objeto)
+	1	xjdhyd  DISTRIBUIDOR	null			null			 null		    null		null
+
+		Quando o DISTRIBUIDOR	repassar para a REPRESENTANTE
+	Id - 1	QRCODE	STATUS ATUAL	Id_Distribuidor(Pessoa)	Id_Representante(Pessoa) Id_Revenda(Pessoa) Id_Cliente(Pessoa) Id_Objeto(Objeto)
+	1	xjdhyd  REPRESENTADO	5			92			 null		    null		null
+
+
+		Quando o DISTRIBUIDOR	repassar diretamente para REVENDA sem intermediários(representante)
+	Id - 1	QRCODE	STATUS ATUAL	Id_Distribuidor(Pessoa)	Id_Representante(Pessoa) Id_Revenda(Pessoa) Id_Cliente(Pessoa) Id_Objeto(Objeto)
+	1	xjdhyd  REVENDIDO	5			null			 15		    null		null
+
+
+		Quando o DISTRIBUIDOR	repassar diretamente para o CONSUMIDOR sem intermediários(representante/revenda) ===> VINCULAÇÃO DO CLIENTE/OBJETO AO QRCODE
+	Id - 1	QRCODE	STATUS ATUAL	Id_Distribuidor(Pessoa)	Id_Representante(Pessoa) Id_Revenda(Pessoa) Id_Cliente(Pessoa) Id_Objeto(Objeto)
+	1	xjdhyd  VENDIDO	5			null			 null		    19			72
+
+
+	CASO	REPRESENTANTE -----------------------------------------------------------------------------------------------------------------------------------
+
+		Quando o QRCODE Estiver em PossE do DO REPRESENTANTE
+	Id - 1	QRCODE	STATUS ATUAL	Id_Distribuidor(Pessoa)	Id_Representante(Pessoa) Id_Revenda(Pessoa) Id_Cliente(Pessoa) Id_Objeto(Objeto)
+	1	xjdhyd  REPRESENTADO	5			92			 null		    null		null
+
+
+
+		Quando o REPRESENTANTE	repassar diretamente para REVENDA
+	Id - 1	QRCODE	STATUS ATUAL	Id_Distribuidor(Pessoa)	Id_Representante(Pessoa) Id_Revenda(Pessoa) Id_Cliente(Pessoa) Id_Objeto(Objeto)
+	1	xjdhyd  REVENDIDO	5			92			 15		    null		null
+
+
+		Quando o REPRESENTANTE	repassar diretamente para o CONSUMIDOR sem intermediários(revenda)
+	Id - 1	QRCODE	STATUS ATUAL	Id_Distribuidor(Pessoa)	Id_Representante(Pessoa) Id_Revenda(Pessoa) Id_Cliente(Pessoa) Id_Objeto(Objeto)
+	1	xjdhyd  VENDIDO		5			92			 null		    19			72
+
+
+	CASO	REVENDA -----------------------------------------------------------------------------------------------------------------------------------
+
+		Quando o QRCODE Estiver em PossE do DO REVENDA
+	Id - 1	QRCODE	STATUS ATUAL	Id_Distribuidor(Pessoa)	Id_Representante(Pessoa) Id_Revenda(Pessoa) Id_Cliente(Pessoa) Id_Objeto(Objeto)
+	1	xjdhyd  REVENDIDO	5			92			 15		    null		null
+
+
+
+		Quando a REVENDA	vende para o cliente(CONSUMIDOR FINAL
+	Id - 1	QRCODE	STATUS ATUAL	Id_Distribuidor(Pessoa)	Id_Representante(Pessoa) Id_Revenda(Pessoa) Id_Cliente(Pessoa) Id_Objeto(Objeto)
+	1	xjdhyd  VENDIDO		5			92			 15		    19			72
