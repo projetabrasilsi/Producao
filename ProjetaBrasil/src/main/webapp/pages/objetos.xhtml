@@ -203,13 +203,17 @@
 						<p:outputLabel value="Cor:" />
 								<p:selectOneMenu id="cor"
 									converter="omnifaces.SelectItemsConverter"
-									value="#{objetojsfController.cor}" rendered="true">
+									value="#{objetojsfController.objeto.cor}" rendered="true">
 									<f:selectItem itemLabel="selecione" itemValue=""
 										noSelectionOption="true" />
 									<f:selectItems
 										value="#{objetojsfController.listaCor}" var="o"
 										itemLabel="#{o.descricao}" itemValue="#{o}" />									
 								</p:selectOneMenu>
+								
+						<p:commandButton value=". . ."
+								actionListener="#{objetojsfController.novaCor}"
+								process="@this" styleClass="btn-info-objetos-cor" />
 								
 						 
 					    <p:outputLabel value="Ano" />	
@@ -248,5 +252,41 @@
 				</h:panelGrid>
 			</h:form>
 		</p:dialog>
+		
+		<p:dialog header="Adicionar Cor" widgetVar="dialogoCadastroCor"
+			resizable="false" modal="true" closable="false" appendTo="@(body)"
+			dynamic="true" responsive="true" styleClass="dialog-wizard-tab2">
+
+			<h:form id="formCadastroCor">
+				<h:panelGrid id="painelCadastro_115">
+
+					<h:panelGrid id="painelCadastro_114">
+						<p:outputLabel value="Descrição da Cor" />
+						<p:inputText size="30" maxlength="30"
+							value="#{objetojsfController.cor.descricao}" required="true"
+							requiredMessage="Descrição da cor é obrigatória"
+							validatorMessage="O minimo de caracteres para nome são  '4'"
+							placeholder="Mínimo 4 Letras">
+							<f:validateLength minimum="4" />
+						</p:inputText>
+					</h:panelGrid>
+
+					<h:panelGrid columns="2" styleClass="btn-grid-dialog-tab2-wizard">
+						<p:commandButton value="Adicionar"
+							update=":formTemplate:formCadastro:formTemplate:formCadastroCor"
+							actionListener="#{objetojsfController.adicionarCor}"
+							process="@form" styleClass="btao-objetos">
+						</p:commandButton>
+
+						<p:commandButton value="Cancelar"
+							onclick="PF('dialogoCadastroCor').hide();"
+							styleClass="btao-objetos">
+						</p:commandButton>
+					</h:panelGrid>
+				</h:panelGrid>
+			</h:form>
+
+		</p:dialog>
+		
 	</ui:define>
 </ui:composition>

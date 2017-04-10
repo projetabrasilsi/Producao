@@ -244,6 +244,22 @@ public class ObjetojsfController extends GenericController implements Serializab
 	public void configurarPessoa() {
 		pessoaConfig = new PessoaConfig();
 	}
+	
+	
+	public void novaCor(){
+		this.cor = new Cor();
+		Utilidades.abrirfecharDialogos("dialogoCadastroCor", true);
+	}
+
+	public void adicionarCor(ActionEvent event) {
+		if(new CoresDAO().verifica_Cor(cor.getDescricao()) == null){
+			new CoresDAO().salvar(cor);
+		}
+		
+		listarCor();
+		Utilidades.abrirfecharDialogos("formCadastroCor", false);
+	}
+
 
 	public Objeto getObjeto() {
 		return objeto;
