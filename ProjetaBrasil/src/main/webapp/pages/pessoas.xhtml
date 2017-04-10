@@ -430,9 +430,18 @@
 
 								</p:panel>
 							</p:tab>
+							
+							<p:tab id="tab3" title="Foto de Perfil" rendered="#{pessoajsfController.renderizaFoto()}">
+								<p:panel id="p_perfil">
 
+									<h:panelGrid columns="1" render="@form">
+										<p:outputLabel value="Tipo de Contato:" />
+									</h:panelGrid>							
 
-							<p:tab id="tab3" title="Contatos">
+								</p:panel>
+							</p:tab>
+
+							<p:tab id="tab4" title="Contatos">
 								<p:panel id="p_dados_contatos">
 
 									<h:panelGrid columns="1" render="@form">
@@ -542,7 +551,7 @@
 
 
 
-							<p:tab id="tab4" title="Prontuário de Emergência" rendered="#{pessoajsfController.renderizaProntuario()}">
+							<p:tab id="tab5" title="Prontuário de Emergência" rendered="#{pessoajsfController.renderizaProntuario()}">
 								<p:panel id="p_prontuario_emergencia">
 
 									<h:panelGrid columns="1" render="@form">
@@ -623,7 +632,7 @@
 								</p:panel>
 							</p:tab>
 
-							<p:tab id="tab5" title="Objetos"
+							<p:tab id="tab6" title="Objetos"
 								rendered="#{pessoajsfController.renderizaObjeto()}">
 								<p:panel id="objeto_acesso">
 

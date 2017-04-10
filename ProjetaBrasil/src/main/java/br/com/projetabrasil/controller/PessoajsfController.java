@@ -1105,6 +1105,13 @@ public class PessoajsfController extends GenericController implements Serializab
 		return false;
 	}
 	
+	public boolean renderizaFoto() {
+		if(pessoa.getEnum_Aux_Tipo_Identificador().equals(Enum_Aux_Tipo_Identificador.CPF)){
+			return true;
+		}
+		return false;
+	}
+	
 	public Pessoa getPessoa() {
 		return pessoa;
 	}
