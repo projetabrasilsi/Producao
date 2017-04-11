@@ -1031,7 +1031,7 @@ public class PessoajsfController extends GenericController implements Serializab
 		
 		listaObjeto.add(objeto);
 	}
-
+	Pessoa p = new PessoaDAO().buscar(2l);
 	public void mergeListaContato() {
 		for (Contato c : listaContatos) {
 			if(c.getId_Pessoa()==null || c.getId_Pessoa().getId()==null)

@@ -253,11 +253,11 @@ public class ObjetojsfController extends GenericController implements Serializab
 
 	public void adicionarCor(ActionEvent event) {
 		if(new CoresDAO().verifica_Cor(cor.getDescricao()) == null){
-			new CoresDAO().salvar(cor);
+			new CoresDAO().merge(cor);
 		}
 		
 		listarCor();
-		Utilidades.abrirfecharDialogos("formCadastroCor", false);
+		Utilidades.abrirfecharDialogos("dialogoCadastroCor", false);
 	}
 
 

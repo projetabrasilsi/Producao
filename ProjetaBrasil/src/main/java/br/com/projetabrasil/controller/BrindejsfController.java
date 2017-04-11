@@ -111,7 +111,7 @@ public class BrindejsfController extends GenericController {
 		Path origem = caminhoTemp;
 		Path destino = Paths.get(item.getCaminhodaImagem());
 		try {
-			 Utilidades.gravaDiretorio(item.getCaminhodaImagem());
+			Utilidades.gravaDiretorio(item.getCaminhodaImagem());
 			Files.copy(origem, destino, StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException error) {
 			mensagensDisparar("Ocorreu um erro ao tentar salvar a imagem");

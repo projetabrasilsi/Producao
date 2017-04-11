@@ -24,6 +24,7 @@ import br.com.projetabrasil.util.Utilidades;
 @SuppressWarnings("serial")
 @Entity
 public class Item_de_Movimento extends GenericDomain implements Serializable {
+	
 	@Id
 	@SequenceGenerator(name="pk_item_de_movimento",sequenceName="messounds_item_de_movimento", allocationSize=1 )
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="pk_item_de_movimento")
