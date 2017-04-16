@@ -91,7 +91,7 @@ public class GeradorQRCodeOficial {
 				//cell.setFixedHeight(120f);
 				table2.addCell(cell);
 				
-				System.out.println("realizado: "+i+"/"+ nEtiq );
+				
 
 			}
 
@@ -306,7 +306,7 @@ public class GeradorQRCodeOficial {
 			QRCode e = new QRCode(pf.getUsLogado().getPessoa(), Enum_Aux_Status_QRCodes.LIVRES, cript);			
 			qDAO.merge(e);
 			
-			System.out.println("gerou...: " + cp + " - :" + cript);
+			
 
 		}
 

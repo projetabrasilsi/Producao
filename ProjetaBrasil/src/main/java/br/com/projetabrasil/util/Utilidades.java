@@ -427,7 +427,7 @@ public class Utilidades implements Serializable {
 		JSONParser parser = new JSONParser();
 		CEP cep = new CEP();
 		try {
-			System.out.println("Reading JSON file from Java program");
+			
 			FileReader fileReader = new FileReader(file);
 			JSONObject json = (JSONObject) parser.parse(fileReader);
 		    cep.setBairro((String) json.get("bairro"));
@@ -440,9 +440,7 @@ public class Utilidades implements Serializable {
 			JSONArray characters = (JSONArray) json.get("characters");
 			Iterator i = characters.iterator();
 
-			while (i.hasNext()) {
-				System.out.println(" " + i.next());
-			}
+			
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();

@@ -8,6 +8,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
 import br.com.projetabrasil.model.entities.Enum_Aux_Perfil_Pagina_Atual;
+import br.com.projetabrasil.model.entities.Enum_Aux_Perfil_Pessoa;
 import br.com.projetabrasil.model.entities.Enum_Aux_Tipo_Mov_Ponto;
 import br.com.projetabrasil.model.entities.PerfilLogado;
 import br.com.projetabrasil.model.entities.Ponto_Movimento;
@@ -32,6 +33,12 @@ public class PaginasjsfController implements Serializable {
 	public void mudaPaginaAtual(ActionEvent event) {
 		// String paginaAtual
 		String paginaAtual = (String) event.getComponent().getAttributes().get("paginaAtual");
+		String descricao = Enum_Aux_Perfil_Pagina_Atual.PAGINATRANSFERENCIASQRCODE.getDescricao();
+		if(paginaAtual.equals(descricao)){
+			String perfilTransferencia = (String) event.getComponent().getAttributes().get("perfildeTransferencia");
+			perfilLogado.setPerfildeTransferencia(Enum_Aux_Perfil_Pessoa.valueOf(perfilTransferencia) );
+		}
+		
 		if (Enum_Aux_Perfil_Pagina_Atual.valueOf(paginaAtual) != null)
 			perfilLogado.setPaginaAtual(Enum_Aux_Perfil_Pagina_Atual.valueOf(paginaAtual));
 		paginaAtual = perfilLogado.getPaginaAtual().getUrl();

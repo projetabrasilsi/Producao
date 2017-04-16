@@ -69,8 +69,9 @@ public class GeradorQRCodeOficial2 {
 			cript = hash.toHex();
 			QRCode e = new QRCode(pf.getUsLogado().getPessoa(), Enum_Aux_Status_QRCodes.LIVRES, cript);
 			qDAO.merge(e);
+			System.out.println("Gerando: "+i+"/"+qtde);
 
-			System.out.println("gerou...: " + cp + " - :" + cript);
+			
 
 		}
 
@@ -197,7 +198,7 @@ public class GeradorQRCodeOficial2 {
 					String especificacao = "etiqueta.jpeg";
 					f = new File(caminho +  especificacao);
 					boolean success = ImageIO.write(dimensionado, "jpeg", f);
-					System.out.println("escreveu: "+success );
+					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -212,7 +213,7 @@ public class GeradorQRCodeOficial2 {
 		    " nLinhas "+nLin+"lin x nColunas "+nCol+"col"+" - total "+nLin*nCol+".jpeg";
 			f = new File(caminho +  especificacao);
 			boolean success = ImageIO.write(imageGeral, "jpeg", f);
-			System.out.println("escreveu: "+success );
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

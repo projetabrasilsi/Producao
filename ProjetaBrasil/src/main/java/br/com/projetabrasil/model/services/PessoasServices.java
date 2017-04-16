@@ -40,8 +40,7 @@ public class PessoasServices {
 		p = pDAO.retornaPelaIdentificacao(codigo);
 		Gson g = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
 		String pes = g.toJson(p);
-		System.out.println("Pessoa: " + p.getDataNascimento());
-		System.out.println("String: " + pes);
+		
 		return pes;
 	}
 	

@@ -112,37 +112,26 @@ public class QRCodeDAO extends GenericDAO<QRCode> {
 			Disjunction or = Restrictions.disjunction();
 			if (perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.ADMINISTRADORES)
 					|| perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.LOGISTICA)) {
-				or.add(Restrictions.eq("status", Enum_Aux_Status_QRCodes.LIVRES));
-				or.add(Restrictions.eq("status", Enum_Aux_Status_QRCodes.LOGISTICA));
-				or.add(Restrictions.eq("status", Enum_Aux_Status_QRCodes.DISTRIBUIDOS));
-				or.add(Restrictions.eq("status", Enum_Aux_Status_QRCodes.REPRESENTADOS));
-				or.add(Restrictions.eq("status", Enum_Aux_Status_QRCodes.REVENDIDOS));
-				or.add(Restrictions.eq("status", Enum_Aux_Status_QRCodes.VENDIDOS));
+				crit.add(Restrictions.eq("status", Enum_Aux_Status_QRCodes.LIVRES));
+				
 			} else
 
 			if (perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.DISTRIBUIDORES)) {
  			    crit.add(Restrictions.eq("id_Pessoa_Distribuicao", pes));
+ 			   crit.add(Restrictions.eq("status", Enum_Aux_Status_QRCodes.DISTRIBUIDOS));
 
-				or.add(Restrictions.eq("status", Enum_Aux_Status_QRCodes.DISTRIBUIDOS));
-				or.add(Restrictions.eq("status", Enum_Aux_Status_QRCodes.REPRESENTADOS));
-				or.add(Restrictions.eq("status", Enum_Aux_Status_QRCodes.REVENDIDOS));
-				or.add(Restrictions.eq("status", Enum_Aux_Status_QRCodes.VENDIDOS));
+				
 
 			} else if (perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.REPRESENTANTES)) {
 				crit.add(Restrictions.eq("id_Pessoa_Representacao", pes));
-				or.add(Restrictions.eq("status", Enum_Aux_Status_QRCodes.REPRESENTADOS));
-				or.add(Restrictions.eq("status", Enum_Aux_Status_QRCodes.REVENDIDOS));
-				or.add(Restrictions.eq("status", Enum_Aux_Status_QRCodes.VENDIDOS));
+				crit.add(Restrictions.eq("status", Enum_Aux_Status_QRCodes.REPRESENTADOS));
 			} else if (perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.REVENDEDORES)) {
 				crit.add(Restrictions.eq("id_Pessoa_Revenda	", pes));
-				or.add(Restrictions.eq("status", Enum_Aux_Status_QRCodes.REVENDIDOS));
-				or.add(Restrictions.eq("status", Enum_Aux_Status_QRCodes.VENDIDOS));
+				crit.add(Restrictions.eq("status", Enum_Aux_Status_QRCodes.REVENDIDOS));
 			}
 
-			crit.add(or);
-			if (disponivel) {
-				crit.add(Restrictions.eq("status", Enum_Aux_Status_QRCodes.LIVRES));
-			}
+			
+			
 
 			@SuppressWarnings("unchecked")
 			List<QRCode> resultado = crit.list();

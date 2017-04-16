@@ -70,7 +70,9 @@ public class PessoaGenericBusiness implements Serializable {
 		if (pessoa.getId() != null 	&& (perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.ATENDENTES) || 
 				perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.CLIENTES)) || 
 					perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.DISTRIBUIDORES) ||
-						perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.REVENDEDORES)) 		
+						perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.REVENDEDORES)
+						||
+						perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.REPRESENTANTES)) 		
 		vincularPessoa(pessoa, perfilLogado);
 		
 		
@@ -87,12 +89,26 @@ public class PessoaGenericBusiness implements Serializable {
 		pVinc.setUltimaAtualizacao(Utilidades.retornaCalendario());
 		pVinc.setId_pessoa_d(quem);
 				
-		//DEPENDENDO DO PERFIL É NECESSÁRIO VINCULAR AO USUÁRIO E NÃO À EMPRESA
-		if((perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.REPRESENTANTES) && perfilLogado.getPaginaAtual().equals(Enum_Aux_Perfil_Pagina_Atual.PAGINADISTRIBUIDORES))
-				|| (perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.ATENDENTES) && perfilLogado.getPaginaAtual().equals(Enum_Aux_Perfil_Pagina_Atual.PAGINAREVENDEDORES))){
-			pVinc.setId_pessoa_m(perfilLogado.getUsLogado().getPessoa());
-		}else{
+		//DEPENDENDO DO PERFIL É NECESSÁRIO VINCULAR AO ASSOCIADO LOGADO E NÃO À EMPRESA
+		if(
+				(perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.DISTRIBUIDORES) &&
+				 perfilLogado.getPaginaAtual().equals(Enum_Aux_Perfil_Pagina_Atual.PAGINAREPRESENTANTES)
+				 )
+				|| 
+				(perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.DISTRIBUIDORES) && 
+						perfilLogado.getPaginaAtual().equals(Enum_Aux_Perfil_Pagina_Atual.PAGINAREVENDEDORES))
+				||
+				(perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.REPRESENTANTES) &&
+						 perfilLogado.getPaginaAtual().equals(Enum_Aux_Perfil_Pagina_Atual.PAGINADISTRIBUIDORES)
+						 )
+						|| 
+						(perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.REVENDEDORES) && 
+								perfilLogado.getPaginaAtual().equals(Enum_Aux_Perfil_Pagina_Atual.PAGINAFUNCIONARIOS))
+				){
 			pVinc.setId_pessoa_m(perfilLogado.getAssLogado());
+			
+		}else{
+			pVinc.setId_pessoa_m(perfilLogado.getUsLogado().getPessoa());
 		}
 		
 		pVinc.setId_Pessoa_Registro(perfilLogado.getUsLogado().getPessoa());

@@ -667,13 +667,21 @@ public class PessoajsfController extends GenericController implements Serializab
 
 		if (!PessoaBusiness2.validaDados(usuario, perfilLogado, true, true, true))
 			return;
-
+        // se o perfil atual para cadastrar uma pessoa(pf ou pj) for ATENDENTES, REPRESENTANTES,CLIENTES,FUNCIONARIOS,REVENDA
 		if (pessoa.getId() != null
-				&& perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.ATENDENTES)) {
+				
+				&& (perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.ATENDENTES)
+						||perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.REPRESENTANTES)
+						||perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.CLIENTES)
+								||perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.FUNCIONARIOS)
+								||perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.REVENDEDORES))
+				&& perfilLogado.getPerfilUsLogado().isPossuiDescentes()
+				
+				) {
 			Pessoa_Vinculo pVin = new Pessoa_Vinculo();
 			Pessoa_VinculoDAO pVinDAO = new Pessoa_VinculoDAO();
 			pVin.setId_pessoa_d(pessoa);
-			pVin = pVinDAO.retornaVinculo_Mestre(pessoa, Enum_Aux_Perfil_Pessoa.ATENDENTES);
+			pVin = pVinDAO.retornaVinculo_Mestre(pessoa, perfilLogado.getPaginaAtual().getPerfilPessoa());
 			if (pVin != null && !perfilLogado.getUsLogado().getPessoa().getId().equals(pVin.getId_pessoa_m().getId())) {
 				Pessoa p = pVin.getId_pessoa_m();
 				mensagensDisparar(
@@ -874,7 +882,7 @@ public class PessoajsfController extends GenericController implements Serializab
 		else
 			this.logradouro.setId_Pessoa_Registro(perfilLogado.getUsLogado().getPessoa());
 
-		System.out.println(this.logradouro.toString());
+		
 		LogradouroBusiness.merge(this.logradouro);
 		
 		listarLogradouros();

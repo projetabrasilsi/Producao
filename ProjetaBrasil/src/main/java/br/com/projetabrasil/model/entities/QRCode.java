@@ -31,19 +31,24 @@ public class QRCode extends GenericDomain implements Serializable {
 	@JoinColumn(name = "id_Pessoa_Registro", nullable = false)
 	private Pessoa id_Pessoa_Registro;
 
-	@Column(name = "id_Pessoa_Logistica", nullable = true)
-	private Pessoa id_Pessoa_Logistica;
+	@ManyToOne
+	@JoinColumn(name = "id_Pessoa_Logistica", nullable = true)
+	private Pessoa id_Pessoa_Logistica;	
 
-	@Column(name = "id_Pessoa_Distribuicao", nullable = true)
+	@ManyToOne
+	@JoinColumn(name = "id_Pessoa_Distribuicao", nullable = true)
 	private Pessoa id_Pessoa_Distribuicao;
 
-	@Column(name = "id_Pessoa_Representacao", nullable = true)
+	@ManyToOne
+	@JoinColumn(name = "id_Pessoa_Representacao", nullable = true)
 	private Pessoa id_Pessoa_Representacao;
 
-	@Column(name = "id_Pessoa_Revenda", nullable = true)
+	@ManyToOne
+	@JoinColumn(name = "id_Pessoa_Revenda", nullable = true)
 	private Pessoa id_Pessoa_Revenda;
 
-	@Column(name = "id_Pessoa_Cliente", nullable = true)
+	@ManyToOne
+	@JoinColumn(name = "id_Pessoa_Cliente", nullable = true)
 	private Pessoa id_Pessoa_Cliente;
 
 	@Enumerated(EnumType.STRING)

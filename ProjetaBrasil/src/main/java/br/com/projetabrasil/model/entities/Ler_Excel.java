@@ -30,9 +30,9 @@ public class Ler_Excel {
 
 					prof = new Profissao(responsavel, descricao);
 					profDAO.merge(prof);
-					System.out.println("Inseririu profissão no BD");
+					
 				}
-				System.out.println("Profissão: " + descricao + " - " + i + "/" + linhas);
+				
 
 			}
 			workbook.close();
@@ -78,10 +78,9 @@ public class Ler_Excel {
 					mR.setId_Pessoa_Registro(responsavel);
 					mR.setUltimaAtualizacao(Utilidades.retornaCalendario());
 					mR = mRDAO.merge(mR);
-					System.out.println("Inseririu no BD: " + mR.getId() + " - " + mR.getDescricao());
+					
 				}
-				System.out.println(
-						"Classe: " + classificacao.getDescricao() + " - " + descricao + " - " + i + "/" + linhas);
+				
 
 			}
 			workbook.close();
@@ -137,10 +136,9 @@ public class Ler_Excel {
 						mR.setId_Pessoa_Registro(responsavel);
 						mR.setUltimaAtualizacao(Utilidades.retornaCalendario());
 						mR = mRDAO.merge(mR);
-						System.out.println("Inseririu no BD: " + mR.getId() + " - " + mR.getDescricao());
+						
 					}
-					System.out.println("modelo - marca: " + mR.getDescricao() + " - Marca: "
-							+ mR.getMarca_e_Raca().getDescricao() + " - " + i + "/" + linhas);
+					
 
 				}
 

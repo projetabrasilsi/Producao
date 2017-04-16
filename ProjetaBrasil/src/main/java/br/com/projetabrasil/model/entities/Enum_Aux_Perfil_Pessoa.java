@@ -4,7 +4,7 @@ public enum Enum_Aux_Perfil_Pessoa {
 	
 	ADMINISTRADORES("Administradores",0,true,"ADM",false,false,false),	
 	ASSINANTES("Assinantes",1,true,"ASS",true,true,false), 
-	CLIENTES("Clientes",2,false,"CLT",true,true,true),
+	CLIENTES("Clientes",2,false,"CLT",true,true,false),
 	ATENDENTES("Atendentes",3,true,"ATE",true,true,false),
 	REPRESENTANTES("Representantes",4,true,"REP",true,true,true),
 	REVENDEDORES("Revendedores",5,true,"RVN",true,true,true),

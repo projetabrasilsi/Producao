@@ -32,6 +32,7 @@ public class PerfilLogado implements Serializable {
 	private List<Ponto> pontos;
 	@ManagedProperty(value = "#{AutenticacaojsfController}")
 	private AutenticacaojsfController autenticacao;
+	private Enum_Aux_Perfil_Pessoa  perfildeTransferencia;
 
 	public boolean isRenderizapessoanovo() {
 		return renderizapessoanovo;
@@ -261,7 +262,10 @@ public class PerfilLogado implements Serializable {
 	public void setPerfilUsLogado(Enum_Aux_Perfil_Pessoa perfilUsLogado) {
 		this.perfilUsLogado = perfilUsLogado;
 		if ( this.perfilUsLogado.equals(Enum_Aux_Perfil_Pessoa.ASSINANTES)
-				|| perfilUsLogado.equals(Enum_Aux_Perfil_Pessoa.VENDAS))
+				|| perfilUsLogado.equals(Enum_Aux_Perfil_Pessoa.VENDAS)
+						|| perfilUsLogado.equals(Enum_Aux_Perfil_Pessoa.DISTRIBUIDORES)
+								|| perfilUsLogado.equals(Enum_Aux_Perfil_Pessoa.REPRESENTANTES)
+										|| perfilUsLogado.equals(Enum_Aux_Perfil_Pessoa.REVENDEDORES))
 			setAssLogado(usLogado.getPessoa());
 		else 
 			if (perfilUsLogado.equals(Enum_Aux_Perfil_Pessoa.ATENDENTES)) {
@@ -337,6 +341,14 @@ public class PerfilLogado implements Serializable {
 
 	public void setIdentificadorAssinante(String identificadorAssinante) {
 		this.identificadorAssinante = identificadorAssinante;
+	}
+
+	public Enum_Aux_Perfil_Pessoa getPerfildeTransferencia() {
+		return perfildeTransferencia;
+	}
+
+	public void setPerfildeTransferencia(Enum_Aux_Perfil_Pessoa perfildeTransferencia) {
+		this.perfildeTransferencia = perfildeTransferencia;
 	}
 
 }

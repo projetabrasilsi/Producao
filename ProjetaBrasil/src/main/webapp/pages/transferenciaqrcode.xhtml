@@ -32,14 +32,18 @@
 							styleClass="tabela-pessoas"
 							selection="#{qrcodejsfController.qRCodesSelecionados}"
 							rowKey="#{registro.id}">
- 
- 
-							<f:facet name="header">Checkbox</f:facet>
+							<f:facet name="header">
+								<p:commandButton value="Transferir"
+									actionListener="#{qrcodejsfController.identidade}"
+									styleClass="btao-pessoas btn-color-green" update=":mensagens
+									 
+									:formTemplate:formIdentidade">
+								</p:commandButton>
+
+							</f:facet>
+
 							<p:column selectionMode="multiple"
 								style="width:16px;text-align:center" />
-
-
-
 
 							<p:column headerText="ID" sortBy="id" filterBy="id"
 								styleClass="geral-col-pessoas" style="width:10%">
@@ -99,24 +103,6 @@
 
 								</h:outputText>
 							</p:column>
-
-							<f:facet name="footer">
-								<p:commandButton process="tabela"
-									actionListener="#{qrcodejsfController.imprimeListagem()}"
-									icon="ui-icon-search" value="listar" />
-							</f:facet>
-
-							<f:facet name="footer">
-								<p:commandButton process="tabela" />
-							</f:facet>
-
-
-
-
-
-
-
-
 						</p:dataTable>
 						<p:confirmDialog global="true" styleClass="cDialog-edit-pessoas">
 							<p:commandButton value="SIM" type="button"
@@ -132,6 +118,53 @@
 				</div>
 			</div>
 		</div>
+
+
+		<p:dialog widgetVar="dialogoIdentidade" closable="false"
+			resizable="false" modal="true" appendTo="@(body)"
+			header="Escolha o Tipo de Identificação" dynamic="true"
+			responsive="true" styleClass="dialog-cpf-pessoas">
+
+			<h:form id="formIdentidade">
+
+				<p:focus for="identificador" />
+				<p:selectOneRadio id="perfil"
+					value="#{qrcodejsfController.pessoa.enum_Aux_Tipo_Identificador}"
+					layout="pageDirection" columns="5"
+					converter="omnifaces.SelectItemsConverter">
+					<f:selectItems
+						value="#{qrcodejsfController.pessoaConfig.listaTipodeIdentificadores}"
+						var="c" itemLabel="#{c.descricao}" itemValue="#{c}" />
+					<p:ajax event="change" update="identificador" process="@this"
+						oncomplete="$(function(){PrimeFaces.focus('formTemplate:formIdentidade:identificador');});" />
+				</p:selectOneRadio>
+
+				<div class="ui-g-12">
+					<p:outputLabel value="Informe CPF/CNPJ " />
+					<p:inputMask id="identificador" size="30" maxlength="20"
+						value="#{qrcodejsfController.pessoa.cpf_Cnpj}" required="true"
+						requiredMessage="É preciso informar a identificação!!!"
+						mask="#{qrcodejsfController.pessoa.enum_Aux_Tipo_Identificador.mask}"
+						styleClass="input-cpf-pessoas" />
+				</div>
+
+				<div class="ui-g-5">
+					<p:commandButton value="Transferir" styleClass="btn-color-blue2"
+					actionListener="#{qrcodejsfController.RealizarTransferencia()}"
+					update=":mensagens :formTemplate:formIdentidade"
+							process="@form">
+						
+
+					</p:commandButton>
+				</div>
+				<div class="ui-g-5">
+					<p:commandButton value="Cancelar"
+						oncomplete="PF('dialogoIdentidade').hide();"
+						styleClass="btn-color-blue2">
+					</p:commandButton>
+				</div>
+			</h:form>
+		</p:dialog>
 
 
 

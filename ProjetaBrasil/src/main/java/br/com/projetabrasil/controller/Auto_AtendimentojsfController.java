@@ -344,7 +344,7 @@ public class Auto_AtendimentojsfController implements Serializable {
 			} else
 				setRenderizaSenha(true);
 		}
-		System.out.println("renderiza: "+isRenderizaSenha());
+		
 
 	}
 
