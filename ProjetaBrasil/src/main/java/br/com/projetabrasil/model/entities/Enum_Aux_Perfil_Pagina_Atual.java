@@ -9,6 +9,7 @@ public enum Enum_Aux_Perfil_Pagina_Atual {
 	PAGINAREPRESENTANTES("PAGINAREPRESENTANTES","PREP",5,Enum_Aux_Perfil_Pessoa.REPRESENTANTES,Enum_Aux_Perfil_Pessoa.SUPERVISORES,false,true,"pessoas.xhtml", "representantes"),
 	PAGINAREVENDEDORES("PAGINAREVENDEDORES","PRVN",5,Enum_Aux_Perfil_Pessoa.REVENDEDORES,Enum_Aux_Perfil_Pessoa.ATENDENTES,false,true,"pessoas.xhtml", "revendedores"),
 	PAGINADISTRIBUIDORES("PAGINADISTRIBUIDORES","PDTB",5,Enum_Aux_Perfil_Pessoa.DISTRIBUIDORES,Enum_Aux_Perfil_Pessoa.REPRESENTANTES,false,true,"pessoas.xhtml", "distribuidores"),
+	LOGISTICA("PAGINALOGISTICA","PLGT",5,Enum_Aux_Perfil_Pessoa.ADMINISTRADORES,Enum_Aux_Perfil_Pessoa.LOGISTICA,false,true,"pessoas.xhtml", "logistica"),
 	PAGINAVENDAS("PAGINAVENDAS","PVEN",6,Enum_Aux_Perfil_Pessoa.VENDAS,Enum_Aux_Perfil_Pessoa.ADMINISTRADORES,false,true,"pessoas.xhtml", "vendas"),
 	PAGINAAUTENTICACAO("PAGINAAUTENTICACAO","PAUT",7,Enum_Aux_Perfil_Pessoa.OUTROS ,Enum_Aux_Perfil_Pessoa.OUTROS,false,false,"autenticacao.xhtml", "autenticacao"),
 	PAGINAPONTO("PAGINAPONTO","PPONTO",8, Enum_Aux_Perfil_Pessoa.ASSINANTES,Enum_Aux_Perfil_Pessoa.ASSINANTES,true,false,"ponto.xhtml", "Configuração de pontos"),
@@ -22,10 +23,8 @@ public enum Enum_Aux_Perfil_Pagina_Atual {
 	PAGINAESTADOS("PAGINAESTADOS", "PESTADO",0,null,null,false,true,"estados.xhtml", "estados" ),	
 	PAGINACIDADES("PAGINACIDADES", "PCIDADE",0,null,null,false,true,"cidades.xhtml", "cidade" ),	
 	PAGINABAIRROS("PAGINABAIRROS", "PBAIRROS",0,null,null,false,true,"bairros.xhtml", "bairros" ),	
-	PAGINALOGRADOUROS("PAGINALOGRADOUROS", "PLOGRADOUROS",0,null,null,false,true,"logradouros.xhtml", "logradouros" ),	
-	
-	PAGINAOBJETOS("PAGINAOBJETOS", "POBJETOS",0,null,null,false,true,"objetos.xhtml", "objetos" ),
-	
+	PAGINALOGRADOUROS("PAGINALOGRADOUROS", "PLOGRADOUROS",0,null,null,false,true,"logradouros.xhtml", "logradouros" ),
+	PAGINAOBJETOS("PAGINAOBJETOS", "POBJETOS",0,null,null,false,true,"objetos.xhtml", "objetos" ),	
 	PAGINAOUTROS("PAGINAOUTROS","POUTROS",14,Enum_Aux_Perfil_Pessoa.OUTROS,null,false,true,"pessoas.xhtml","outros"),
 	PAGINAINDEX("PAGINAINDEX","PINDEX",15,Enum_Aux_Perfil_Pessoa.OUTROS,null,false,false,"index.xhtml", "página principal"),
 	PAGINACOMBO("PAGINACOMBO","PCOMBO",16,Enum_Aux_Perfil_Pessoa.VENDAS,Enum_Aux_Perfil_Pessoa.VENDAS ,false,false,"combo.xhtml","combo"),
@@ -35,7 +34,8 @@ public enum Enum_Aux_Perfil_Pagina_Atual {
 	PAGINAAGENDAMENTO("PAGINAAGENDAMENTO","PAGENDA",20,Enum_Aux_Perfil_Pessoa.ASSINANTES,Enum_Aux_Perfil_Pessoa.ASSINANTES ,true,false,"agendamento.xhtml","Vouchers"),
 	PAGINAPAGAMENTO("PAGINAPAGAMENTO","PPAGTO",21,Enum_Aux_Perfil_Pessoa.ASSINANTES,Enum_Aux_Perfil_Pessoa.ASSINANTES ,true,false,"pagamento.xhtml","Pagamento PayPal"),
 	PAGINAALFA("PAGINAALFATA","PALFA",22,Enum_Aux_Perfil_Pessoa.OUTROS,Enum_Aux_Perfil_Pessoa.OUTROS ,true,true,"alfapage.xhtml","Pagina Inicial"),
-	PAGINAACHEI("PAGINAACHEI","PACHE",23,Enum_Aux_Perfil_Pessoa.OUTROS,Enum_Aux_Perfil_Pessoa.OUTROS ,true,true,"achei.xhtml","Pagina Achei");
+	PAGINAACHEI("PAGINAACHEI","PACHE",23,Enum_Aux_Perfil_Pessoa.OUTROS,Enum_Aux_Perfil_Pessoa.OUTROS ,true,true,"achei.xhtml","Pagina Achei"),
+	TRANSFERENCIASOBJETOS("TRANSFERENCIASOBJETOS","PTRANSFOBJ",24,Enum_Aux_Perfil_Pessoa.OUTROS,Enum_Aux_Perfil_Pessoa.OUTROS ,true,true,"transferenciaqrcode.xhtml","Pagina Transferencia de QrCodes");
 	
     private String descricao;    
 	private String sigla;

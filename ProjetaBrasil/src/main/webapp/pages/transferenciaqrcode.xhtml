@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	template="/templates/template.xhtml">
+	<h:head>
+		<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="./js/pessoas.js" />
+	</h:head>
+	<f:event listener="#{paginas.mudaPaginaAtual}" type="preRenderView" />
+
+	<ui:define name="conteudo">
+
+
+		<div class="ui-g">
+			<div class="ui-g-12">
+				<div class="card card-pessoas">
+					<h1>
+						<p:outputLabel
+							value="Listagem de #{autenticacaojsfController.perfilLogado.paginaAtual.descricao2}" />
+					</h1>
+					<h:form id="formLista">
+						<p:dataTable id="tabela" emptyMessage="Sem Registros"
+							resizableColumns="true" value="#{qrcodejsfController.qRCodes}"
+							paginator="true" rows="15" var="registro"
+							styleClass="tabela-pessoas"
+							selection="#{qrcodejsfController.qRCodesSelecionados}"
+							rowKey="#{registro.id}">
+ 
+ 
+							<f:facet name="header">Checkbox</f:facet>
+							<p:column selectionMode="multiple"
+								style="width:16px;text-align:center" />
+
+
+
+
+							<p:column headerText="ID" sortBy="id" filterBy="id"
+								styleClass="geral-col-pessoas" style="width:10%">
+								<h:outputText value="#{registro.id}" />
+							</p:column>
+							<p:column headerText="Status" sortBy="status"
+								filterBy="identificador" styleClass="geral-col-pessoas"
+								style="width:15%">
+								<p:outputLabel id="status" size="30" maxlength="15"
+									value="#{registro.status}" />
+							</p:column>
+							<p:column headerText="Data Ultimo Status"
+								sortBy="ultimaAtualizacao" filterBy="ultimaAtualizacao"
+								styleClass="geral-col-pessoas">
+								<h:outputText value="#{registro.ultimaAtualizacao.time}">
+									<f:convertDateTime locale="pt_BR" dateStyle="long" type="both"
+										pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Distribuidor"
+								sortBy="registro.id_Pessoa_Distribuicao.descricao"
+								filterBy="registro.id_Pessoa_Distribuicao.descricao"
+								styleClass="geral-col-pessoas">
+								<h:outputText
+									value="#{fn:substring(registro.id_Pessoa_Distribuicao.descricao,0,15)}">
+
+
+								</h:outputText>
+							</p:column>
+
+							<p:column headerText="Representante"
+								sortBy="#{registro.id_Pessoa_Representacao.descricao}"
+								filterBy="registro.id_Pessoa_Representacao.descricao"
+								styleClass="geral-col-pessoas">
+								<h:outputText
+									value="#{fn:substring(registro.id_Pessoa_Representacao.descricao,0,15)}">
+
+								</h:outputText>
+							</p:column>
+
+							<p:column headerText="Revenda"
+								sortBy="#{registro.id_Pessoa_Revenda.descricao}"
+								filterBy="registro.id_Pessoa_Revenda.descricao"
+								styleClass="geral-col-pessoas">
+								<h:outputText
+									value="#{fn:substring(registro.id_Pessoa_Revenda.descricao,0,15)}">
+
+								</h:outputText>
+							</p:column>
+
+							<p:column headerText="Cliente"
+								sortBy="#{registro.id_Pessoa_Cliente.descricao}"
+								filterBy="registro.id_Pessoa_Cliente.descricao"
+								styleClass="geral-col-pessoas">
+								<h:outputText
+									value="#{fn:substring(registro.id_Pessoa_Cliente.descricao,0,15)}">
+
+								</h:outputText>
+							</p:column>
+
+							<f:facet name="footer">
+								<p:commandButton process="tabela"
+									actionListener="#{qrcodejsfController.imprimeListagem()}"
+									icon="ui-icon-search" value="listar" />
+							</f:facet>
+
+							<f:facet name="footer">
+								<p:commandButton process="tabela" />
+							</f:facet>
+
+
+
+
+
+
+
+
+						</p:dataTable>
+						<p:confirmDialog global="true" styleClass="cDialog-edit-pessoas">
+							<p:commandButton value="SIM" type="button"
+								styleClass="ui-confirmdialog-yes btn-color-blue2"
+								icon="ui-icon-check" />
+							<p:commandButton value="NAO" type="button"
+								styleClass="ui-confirmdialog-no btn-color-blue2"
+								icon="ui-icon-close" />
+						</p:confirmDialog>
+
+					</h:form>
+
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+
+	</ui:define>
+</ui:composition>

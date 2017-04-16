@@ -32,12 +32,7 @@ public class Item_de_MovimentoDAO extends GenericDAO<Item_de_Movimento> {
 			        if(foraTipodeItem!=null){
 			        	 crit.add(Restrictions.not(
 			        			    Restrictions.in("enum_Aux_Tipo_Item_de_Movimento",foraTipodeItem)));
-			        	
 			        	}
-			        	
-			
-			
-			                              
 			lista = crit.list();
 		}catch(RuntimeException error){
 	      error.printStackTrace();

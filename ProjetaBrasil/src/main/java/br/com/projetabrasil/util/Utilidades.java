@@ -77,6 +77,7 @@ public class Utilidades implements Serializable {
 	private static final String branco = Utilidades.getCaminhobase() + "branco" + Utilidades.getTipoImagem();
 	private static final String naoatingido = "/images/" + "naoatingido" + Utilidades.getTipoImagem();
 	private static final String atingido = "/images/" + "atingido" + Utilidades.getTipoImagem();
+	private static final float umaTememCm = 2.54f;
 
 	public static Pessoa retornaPessoa(PerfilLogado perfilLogado) {
 
@@ -598,6 +599,13 @@ public class Utilidades implements Serializable {
 		} catch (IOException error) {
 			error.printStackTrace();
 		}
+	}
+	
+	public static float convertcentimetroparaDpi(float cm, EnumDpi dpi) {
+		float x = cm * dpi.getDpi() / umaTememCm;
+
+		return x;
+
 	}
 
 	public static String getCaminhopdf() {

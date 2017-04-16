@@ -2,10 +2,12 @@ package br.com.projetabrasil.model.entities;
 
 public enum Enum_Aux_Status_QRCodes {
 	LIVRES("LIVRES","Lvr",0),
-	REPRESENTADOS("REPRESENTADO","Rpd",1),
-	ASSINADOS("ASSINADOS","Ass",2),
-	REGISTRADOS("REGISTRADOS","Rgd",3),
-	SUPERVISIONADOS("SUPERVISIONADOS","Spv",3);
+	LOGISTICA("LOGISTICA","Lgt",1),
+	DISTRIBUIDOS("DISTRIBUIDOS","dtb",2),
+	REPRESENTADOS("REPRESENTADO","Rpd",3),
+	REVENDIDOS("REVENDIDOS","Rvd",4),
+	VENDIDOS("VENDIDOS","vnd",5);
+	
 	
 	private String status;
 	private String abreviatura;

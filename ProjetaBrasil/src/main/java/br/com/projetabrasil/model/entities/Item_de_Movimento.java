@@ -3,6 +3,7 @@ package br.com.projetabrasil.model.entities;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -107,92 +108,152 @@ public class Item_de_Movimento extends GenericDomain implements Serializable {
 	     
 		 
 	 }
-	
-	
-	
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public Pessoa getId_Pessoa_Registro() {
 		return id_Pessoa_Registro;
 	}
+
 	public void setId_Pessoa_Registro(Pessoa id_Pessoa_Registro) {
 		this.id_Pessoa_Registro = id_Pessoa_Registro;
 	}
-	public String getDescricao() {
-		return descricao;
-	}
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-	public double getValordaUnidade() {
-		return valordaUnidade;
-	}
-	public void setValordaUnidade(double valordaUnidade) {
-		this.valordaUnidade = valordaUnidade;
-	}
-	public String getReferencia() {
-		return referencia;
-	}
-	public void setReferencia(String referencia) {
-		this.referencia = referencia;
-	}
+
 	public Pessoa getId_Pessoa_Assinante() {
 		return id_Pessoa_Assinante;
 	}
+
 	public void setId_Pessoa_Assinante(Pessoa id_Pessoa_Assinante) {
 		this.id_Pessoa_Assinante = id_Pessoa_Assinante;
 	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public double getValordaUnidade() {
+		return valordaUnidade;
+	}
+
+	public void setValordaUnidade(double valordaUnidade) {
+		this.valordaUnidade = valordaUnidade;
+	}
+
+	public String getReferencia() {
+		return referencia;
+	}
+
+	public void setReferencia(String referencia) {
+		this.referencia = referencia;
+	}
+
+	public Enum_Aux_Tipo_Item_de_Movimento getEnum_Aux_Tipo_Item_de_Movimento() {
+		return enum_Aux_Tipo_Item_de_Movimento;
+	}
+
+	public void setEnum_Aux_Tipo_Item_de_Movimento(Enum_Aux_Tipo_Item_de_Movimento enum_Aux_Tipo_Item_de_Movimento) {
+		this.enum_Aux_Tipo_Item_de_Movimento = enum_Aux_Tipo_Item_de_Movimento;
+	}
+
 	public Enum_Aux_Sim_ou_Nao getIsPrecoUnico() {
 		return isPrecoUnico;
 	}
+
 	public void setIsPrecoUnico(Enum_Aux_Sim_ou_Nao isPrecoUnico) {
 		this.isPrecoUnico = isPrecoUnico;
 	}
-	
+
+	public Enum_Aux_Sim_ou_Nao getIsAnual() {
+		return isAnual;
+	}
+
+	public void setIsAnual(Enum_Aux_Sim_ou_Nao isAnual) {
+		this.isAnual = isAnual;
+	}
+
 	public double getPonto() {
 		return ponto;
 	}
+
 	public void setPonto(double ponto) {
 		this.ponto = ponto;
 	}
+
+	public int getUltimaReferencia() {
+		return ultimaReferencia;
+	}
+
+	public void setUltimaReferencia(int ultimaReferencia) {
+		this.ultimaReferencia = ultimaReferencia;
+	}
+
 	public String getCaminhodaImagem() {
 		return caminhodaImagem;
 	}
+
 	public void setCaminhodaImagem(String caminhodaImagem) {
 		this.caminhodaImagem = caminhodaImagem;
 	}
+
 	public String getCaminhodaImagem2() {
 		return caminhodaImagem2;
 	}
+
 	public void setCaminhodaImagem2(String caminhodaImagem2) {
 		this.caminhodaImagem2 = caminhodaImagem2;
 	}
+
 	public StreamedContent getFoto() {
 		return foto;
 	}
+
 	public void setFoto(StreamedContent foto) {
 		this.foto = foto;
 	}
+
 	public StreamedContent getFoto2() {
 		return foto2;
 	}
+
 	public void setFoto2(StreamedContent foto2) {
 		this.foto2 = foto2;
 	}
+
+	public String getTipodeImagem() {
+		return tipodeImagem;
+	}
+
+	public void setTipodeImagem(String tipodeImagem) {
+		this.tipodeImagem = tipodeImagem;
+	}
+
+	public String getCaminhoTemp() {
+		return caminhoTemp;
+	}
+
+	public void setCaminhoTemp(String caminhoTemp) {
+		this.caminhoTemp = caminhoTemp;
+	}
+
 	@Override
 	public String toString() {
 		return "Item_de_Movimento [id=" + id + ", id_Pessoa_Registro=" + id_Pessoa_Registro + ", id_Pessoa_Assinante="
 				+ id_Pessoa_Assinante + ", descricao=" + descricao + ", valordaUnidade=" + valordaUnidade
 				+ ", referencia=" + referencia + ", enum_Aux_Tipo_Item_de_Movimento=" + enum_Aux_Tipo_Item_de_Movimento
 				+ ", isPrecoUnico=" + isPrecoUnico + ", isAnual=" + isAnual + ", ponto=" + ponto + ", ultimaReferencia="
-				+ ultimaReferencia + ", caminhodaImagem=" + caminhodaImagem + ", caminhodaImagem2=" + caminhodaImagem2
-				+ ", foto=" + foto + ", foto2=" + foto2 + ", tipodeImagem=" + tipodeImagem + ", caminhoTemp="
-				+ caminhoTemp + "]";
+				+ ultimaReferencia + "]";
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -203,6 +264,7 @@ public class Item_de_Movimento extends GenericDomain implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((id_Pessoa_Assinante == null) ? 0 : id_Pessoa_Assinante.hashCode());
 		result = prime * result + ((id_Pessoa_Registro == null) ? 0 : id_Pessoa_Registro.hashCode());
+		result = prime * result + ((isAnual == null) ? 0 : isAnual.hashCode());
 		result = prime * result + ((isPrecoUnico == null) ? 0 : isPrecoUnico.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(ponto);
@@ -213,6 +275,7 @@ public class Item_de_Movimento extends GenericDomain implements Serializable {
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -244,6 +307,8 @@ public class Item_de_Movimento extends GenericDomain implements Serializable {
 				return false;
 		} else if (!id_Pessoa_Registro.equals(other.id_Pessoa_Registro))
 			return false;
+		if (isAnual != other.isAnual)
+			return false;
 		if (isPrecoUnico != other.isPrecoUnico)
 			return false;
 		if (Double.doubleToLongBits(ponto) != Double.doubleToLongBits(other.ponto))
@@ -259,47 +324,8 @@ public class Item_de_Movimento extends GenericDomain implements Serializable {
 			return false;
 		return true;
 	}
-	public Enum_Aux_Tipo_Item_de_Movimento getEnum_Aux_Tipo_Item_de_Movimento() {
-		return enum_Aux_Tipo_Item_de_Movimento;
-	}
-	public void setEnum_Aux_Tipo_Item_de_Movimento(Enum_Aux_Tipo_Item_de_Movimento enum_Aux_Tipo_Item_de_Movimento) {
-		this.enum_Aux_Tipo_Item_de_Movimento = enum_Aux_Tipo_Item_de_Movimento;
-	}
-
-
-
-	public int getUltimaReferencia() {
-		return ultimaReferencia;
-	}
-
-
-
-	public void setUltimaReferencia(int ultimaReferencia) {
-		this.ultimaReferencia = ultimaReferencia;
-	}
-
-	public String getTipodeImagem() {
-		return tipodeImagem;
-	}
-
-	public void setTipodeImagem(String tipodeImagem) {
-		this.tipodeImagem = tipodeImagem;
-	}
-
-	public String getCaminhoTemp() {
-		return caminhoTemp;
-	}
-
-	public void setCaminhoTemp(String caminhoTemp) {
-		this.caminhoTemp = caminhoTemp;
-	}
-
-	public Enum_Aux_Sim_ou_Nao getIsAnual() {
-		return isAnual;
-	}
-
-	public void setIsAnual(Enum_Aux_Sim_ou_Nao isAnual) {
-		this.isAnual = isAnual;
-	}
-		 
+	
+	
+	
+				 
 	}

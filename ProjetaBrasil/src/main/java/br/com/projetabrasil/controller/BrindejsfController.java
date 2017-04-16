@@ -25,6 +25,7 @@ import br.com.projetabrasil.model.entities.Enum_Aux_Sim_ou_Nao;
 import br.com.projetabrasil.model.entities.Enum_Aux_Tipo_Item_de_Movimento;
 import br.com.projetabrasil.model.entities.Item_de_Movimento;
 import br.com.projetabrasil.model.entities.PerfilLogado;
+import br.com.projetabrasil.model.entities.Pessoa;
 import br.com.projetabrasil.util.Utilidades;
 
 
@@ -62,28 +63,45 @@ public class BrindejsfController extends GenericController {
 		itens = new ArrayList<Item_de_Movimento>(); 
 		
 		Item_de_MovimentoDAO iMDAO = new Item_de_MovimentoDAO();
-		List<Item_de_Movimento> l = iMDAO.listar(perfilLogado.getAssLogado(),Enum_Aux_Tipo_Item_de_Movimento.BRINDE,null);
+		Pessoa p;
+		if(perfilLogado.getAssLogado()!=null && perfilLogado.getAssLogado().getId()!=null)
+			p = perfilLogado.getAssLogado();
+		else
+			p = perfilLogado.getUsLogado().getPessoa();
+			
+		List<Item_de_Movimento> l = iMDAO.listar(p,Enum_Aux_Tipo_Item_de_Movimento.BRINDE,null);
 		
 		
-		int x = 0;
-		for (Item_de_Movimento i : l) {			
+		int x=0;
+		Item_de_Movimento i;
+		for (Item_de_Movimento item_de_Movimento : l) {
+			i = new Item_de_Movimento();
 			i.setCaminhodaImagem(Utilidades.getCaminhofotobrinde()+""+i.getId()+Utilidades.getTipoimagem());
-			
-			
-			
 			i.setTipodeImagem(Utilidades.tipodeImagem());
 						
 			itens.add(x,i);
 			x++;
+			
 		}
+		
+		
 		
 	}
 
 	
 
 	public void novo() {
-		item = new Item_de_Movimento(perfilLogado.getUsLogado().getPessoa(), perfilLogado.getAssLogado() , 
+		Pessoa p;
+		if (perfilLogado.getAssLogado()== null || perfilLogado.getAssLogado().getId()==null)
+		p = perfilLogado.getUsLogado().getPessoa();
+		else
+			p =perfilLogado.getAssLogado(); 
+		
+		item = new Item_de_Movimento(perfilLogado.getUsLogado().getPessoa(), p , 
 				 Enum_Aux_Sim_ou_Nao.SIM,Enum_Aux_Tipo_Item_de_Movimento.BRINDE);
+		
+		
+		
 		Utilidades.abrirfecharDialogos("dialogoCadastro", true);
 	}
 
@@ -106,6 +124,7 @@ public class BrindejsfController extends GenericController {
 		
 		
 		item = iMDAO.merge(item);
+		System.out.println("caminho da imagem: " +Utilidades.getCaminhofotobrinde()+""+item.getId()+Utilidades.getTipoimagem() );
 		item.setCaminhodaImagem(Utilidades.getCaminhofotobrinde()+""+item.getId()+Utilidades.getTipoimagem());
 
 		Path origem = caminhoTemp;

@@ -34,17 +34,17 @@
 
 		</plugins>
 		<resources>
-    		<resource>
-      			<directory>src/main/resources</directory>
-    		</resource>
-    		<resource>
-      			<directory>src/main/java</directory>
-      			<includes>
-        			<include>**/*.java</include>
-        			<include>**/*.gwt.xml</include>
-      			</includes>
-    		</resource>
-  		</resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.java</include>
+					<include>**/*.gwt.xml</include>
+				</includes>
+			</resource>
+		</resources>
 	</build>
 
 
@@ -226,7 +226,7 @@
 			<artifactId>jxl</artifactId>
 			<version>2.6.12</version>
 		</dependency>
-		
+
 		<!-- GWT -->
 		<dependency>
 			<groupId>com.google.gwt</groupId>
@@ -256,6 +256,65 @@
 			<artifactId>jackson-jr-objects</artifactId>
 			<version>2.6.3</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-transcoder -->
+		<dependency>
+			<groupId>org.apache.xmlgraphics</groupId>
+			<artifactId>batik-transcoder</artifactId>
+			<version>1.8</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-lang/commons-lang -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.jfree/jfreesvg -->
+		<dependency>
+			<groupId>org.jfree</groupId>
+			<artifactId>jfreesvg</artifactId>
+			<version>3.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.google.zxing/core -->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>3.3.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-svg-dom -->
+		<dependency>
+			<groupId>org.apache.xmlgraphics</groupId>
+			<artifactId>batik-svg-dom</artifactId>
+			<version>1.7</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-svggen -->
+		<dependency>
+			<groupId>org.apache.xmlgraphics</groupId>
+			<artifactId>batik-svggen</artifactId>
+			<version>1.7</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.imgscalr/imgscalr-lib -->
+		<dependency>
+			<groupId>org.imgscalr</groupId>
+			<artifactId>imgscalr-lib</artifactId>
+			<version>4.2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/net.coobird/thumbnailator -->
+		<dependency>
+			<groupId>net.coobird</groupId>
+			<artifactId>thumbnailator</artifactId>
+			<version>0.4.8</version>
+		</dependency>
+
+
+
+
+
+
 
 
 
