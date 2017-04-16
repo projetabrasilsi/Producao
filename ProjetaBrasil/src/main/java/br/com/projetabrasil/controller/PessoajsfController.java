@@ -2,6 +2,10 @@ package br.com.projetabrasil.controller;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +15,11 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.FlowEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
+import org.primefaces.model.UploadedFile;
 
 import br.com.projetabrasil.controller.entitiesconfig.PessoaConfig;
 import br.com.projetabrasil.model.business.BairroBusiness;
@@ -126,7 +134,12 @@ public class PessoajsfController extends GenericController implements Serializab
 	
 	private Enum_Aux_Estados estado_Enum;
 	private List<Enum_Aux_Estados> estados_Enum;
-
+	
+	//ATRIBUTOS PARA FOTO
+	private final String tipoDeImagem = Utilidades.getTipoImagemSemPonto();
+	private StreamedContent foto = null;
+	private UploadedFile upLoaded;
+	
 	@PostConstruct
 	public void listar() {
 		tipoContato = Enum_Aux_Tipo_de_Contato.CELULAR;
@@ -1120,6 +1133,33 @@ public class PessoajsfController extends GenericController implements Serializab
 		return false;
 	}
 	
+	public void upload(FileUploadEvent event) {		
+		try {
+			try {
+	            foto = new DefaultStreamedContent(event.getFile().getInputstream());
+	            this.setUpLoaded(event.getFile());
+	        } catch (IOException e) {
+	            
+	        }
+			
+			UploadedFile arquivoUpload = event.getFile();
+			
+			
+			// Messages.addGlobalInfo(arquivoUpload.getContentType()+"-"+arquivoUpload.getSize()+"-"+arquivoUpload.getFileName()+"-");
+			Path arquivoTemp = Files.createTempFile(null, null);
+			
+			Files.copy(arquivoUpload.getInputstream(), arquivoTemp, StandardCopyOption.REPLACE_EXISTING);
+			
+			
+			pessoa.setCaminhoTemp(arquivoTemp.toString());
+			pessoa.setCaminhodaImagem(pessoa.getCaminhoTemp());
+			mensagensDisparar("Arquivo carregado com sucesso");
+		} catch (IOException erro) {
+			mensagensDisparar("Ocorreu um erro ao tentar realizar carregamento do arquivo");
+			erro.printStackTrace();
+		}
+	}
+	
 	public Pessoa getPessoa() {
 		return pessoa;
 	}
@@ -1475,7 +1515,25 @@ public class PessoajsfController extends GenericController implements Serializab
 		this.estados_Enum = estados_Enum;
 	}
 
-	
+	public StreamedContent getFoto() {
+		return foto;
+	}
+
+	public void setFoto(StreamedContent foto) {
+		this.foto = foto;
+	}
+
+	public UploadedFile getUpLoaded() {
+		return upLoaded;
+	}
+
+	public void setUpLoaded(UploadedFile upLoaded) {
+		this.upLoaded = upLoaded;
+	}
+
+	public String getTipoDeImagem() {
+		return tipoDeImagem;
+	}
 	
 
 }

@@ -35,6 +35,7 @@ import br.com.projetabrasil.model.entities.Enum_Aux_Perfil_Pagina_Atual;
 import br.com.projetabrasil.model.entities.Enum_Aux_Perfil_Pessoa;
 import br.com.projetabrasil.model.entities.Enum_Aux_Tipo_Identificador;
 import br.com.projetabrasil.model.entities.Enum_Aux_Tipo_Pessoa;
+import br.com.projetabrasil.model.entities.Enum_Aux_Tipos_Objetos;
 import br.com.projetabrasil.model.entities.Marca_e_Raca;
 import br.com.projetabrasil.model.entities.Modelo_de_Marca_e_Raca;
 import br.com.projetabrasil.model.entities.Objeto;
@@ -55,15 +56,11 @@ public class ObjetojsfController extends GenericController implements Serializab
 	private PessoaConfig pessoaConfig;
 	private Usuario usuario;
 
-	private List<Enum_Aux_Classificacao_Objetos> listaClassificacaoObjeto;
-	
-	
+	private List<Enum_Aux_Classificacao_Objetos> listaClassificacaoObjeto;	
 
 	private List<Marca_e_Raca> listaRacaMarca;
-	
 
 	private List<Modelo_de_Marca_e_Raca> listaModelo;
-	
 
 	private List<Cor> listaCor;
 	private Cor cor;
@@ -80,6 +77,9 @@ public class ObjetojsfController extends GenericController implements Serializab
 	private StreamedContent foto = null;
 	private UploadedFile upLoaded;
 
+	//REVER ATRIBUTOS A BAIXO
+	private String labelAno;
+	
 	@PostConstruct
 	public void listar() {
 		pessoa = new Pessoa();
@@ -112,6 +112,7 @@ public class ObjetojsfController extends GenericController implements Serializab
 	public void novo(ActionEvent event) {
 		perfilLogadoTemp = perfilLogado;
 		objeto = new Objeto();
+		mudaLabelAno();
 		Utilidades.abrirfecharDialogos("dialogoCadastro", true);
 	}
 
@@ -287,6 +288,14 @@ public class ObjetojsfController extends GenericController implements Serializab
 	public void mudaLabel() {
 		pessoaConfig.mudarLabels(pessoa.getEnum_Aux_Tipo_Identificador().getAux_tipo_pessoa());
 	}
+	
+	public void mudaLabelAno() {
+		if(perfilLogado.getPaginaAtual().getClassificacaoObjeto().getEnum_Aux_Tipos_Objetos().equals(Enum_Aux_Tipos_Objetos.PETS)){
+			setLabelAno("Ano de Nascimento:");
+		}else{
+			setLabelAno("Ano:");
+		}
+	}
 
 	public void configurarPessoa() {
 		pessoaConfig = new PessoaConfig();
@@ -329,6 +338,20 @@ public class ObjetojsfController extends GenericController implements Serializab
 			mensagensDisparar("Ocorreu um erro ao tentar realizar carregamento do arquivo");
 			erro.printStackTrace();
 		}
+	}
+	
+	public boolean renderizaPorClassificacao(){
+		if(perfilLogado.getPaginaAtual().getClassificacaoObjeto().getEnum_Aux_Tipos_Objetos().equals(Enum_Aux_Tipos_Objetos.PETS)){
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean renderizaProntuario() {
+		if(perfilLogado.getPaginaAtual().getClassificacaoObjeto().getEnum_Aux_Tipos_Objetos().equals(Enum_Aux_Tipos_Objetos.PETS)){
+			return true;
+		}
+		return false;
 	}
 
 	public Objeto getObjeto() {
@@ -459,6 +482,14 @@ public class ObjetojsfController extends GenericController implements Serializab
 
 	public String getTipoDeImagem() {
 		return tipoDeImagem;
+	}
+
+	public String getLabelAno() {
+		return labelAno;
+	}
+
+	public void setLabelAno(String labelAno) {
+		this.labelAno = labelAno;
 	}
 
 }

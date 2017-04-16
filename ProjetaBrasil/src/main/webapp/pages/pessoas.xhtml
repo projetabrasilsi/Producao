@@ -434,8 +434,21 @@
 							<p:tab id="tab3" title="Foto de Perfil" rendered="false">
 								<p:panel id="p_perfil">
 
-									<h:panelGrid columns="1" render="@form">
-										<p:outputLabel value="Tipo de Contato:" />
+									<h:panelGrid id="pF">
+										
+										<p:outputLabel for="upload" value="buscar e carregar  foto:" />
+											<p:fileUpload id="upload" mode="advanced"
+												fileUploadListener="#{pessoajsfController.upload}"
+												update=":mensagens :formTemplate:formCadastro:foto" auto="true"
+												style="font-size:15px;width:490px; " 
+												allowTypes="/(\.|\/)(#{pessoajsfController.tipoDeImagem})$/">
+												<p:graphicImage  />
+											</p:fileUpload>
+											<p:graphicImage id="foto" value="#{imagensjsfController.image}"
+												style="max-width:90px; max-height:80px; width: auto; height: auto;">
+												<f:param name="caminho" value="#{pessoajsfController.pessoa.caminhodaImagem}" />											
+											</p:graphicImage>
+									
 									</h:panelGrid>							
 
 								</p:panel>

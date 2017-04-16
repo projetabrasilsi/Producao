@@ -139,94 +139,187 @@
     font-size: 15px;
     text-align: left;overflow:auto;">
 			<h:form id="formCadastro">
-				<h:panelGrid id="painelCadastro_1">
-					<h:panelGrid id="painelCadastro_11">
-						<p:outputLabel value="Descrição do Objeto" />
-						<p:inputText size="30" maxlength="30"
-							value="#{objetojsfController.objeto.descricao}" required="true"
-							requiredMessage="Descrição do objeto é obrigatória"
-							validatorMessage="O minimo de caracteres para nome são  '3'"
-							placeholder="Mínimo 3 Letras">
-							<f:validateLength minimum="3" />
-						</p:inputText>
-					</h:panelGrid>
-
-					<h:panelGrid id="painelCadastro_13">
-
-						<p:outputLabel value="Raça / Marca:" />
-						<p:selectOneMenu id="raca_marca"
-							converter="omnifaces.SelectItemsConverter"
-							value="#{objetojsfController.objeto.id_Marca_e_Raca}" rendered="true">
-							<f:selectItem itemLabel="selecione" itemValue=""
-								noSelectionOption="true" />
-							<f:selectItems value="#{objetojsfController.listaRacaMarca}"
-								var="o" itemLabel="#{o.descricao}" itemValue="#{o}" />
-							<p:ajax listener="#{objetojsfController.listarModelo}"
-								update="modelo" />
-						</p:selectOneMenu>
+			
+				<p:wizard widgetVar="wiz" nextLabel="Próximo" backLabel="Anterior"
+							styleClass="wizard-info-pessoas">
 
 
-						<p:outputLabel value="Modelo:" />
-						<p:selectOneMenu id="modelo"
-							converter="omnifaces.SelectItemsConverter"
-							value="#{objetojsfController.objeto.id_Modelo_de_Marca_e_Raca}" rendered="true">
-							<f:selectItem itemLabel="selecione" itemValue=""
-								noSelectionOption="true" />
-							<f:selectItems value="#{objetojsfController.listaModelo}" var="o"
-								itemLabel="#{o.descricao}" itemValue="#{o}" />
-						</p:selectOneMenu>
+							<p:tab id="tab1" title="Dados Base">
+								<h:panelGrid id="painelCadastro_1">
+									<h:panelGrid id="painelCadastro_11">
+										<p:outputLabel value="Descrição do Objeto" />
+										<p:inputText size="30" maxlength="30"
+											value="#{objetojsfController.objeto.descricao}" required="true"
+											requiredMessage="Descrição do objeto é obrigatória"
+											validatorMessage="O minimo de caracteres para nome são  '3'"
+											placeholder="Mínimo 3 Letras">
+											<f:validateLength minimum="3" />
+										</p:inputText>
+									</h:panelGrid>
+				
+									<h:panelGrid id="painelCadastro_13">
+				
+										<p:outputLabel value="Raça / Marca:" />
+										<p:selectOneMenu id="raca_marca"
+											converter="omnifaces.SelectItemsConverter"
+											value="#{objetojsfController.objeto.id_Marca_e_Raca}" rendered="true">
+											<f:selectItem itemLabel="selecione" itemValue=""
+												noSelectionOption="true" />
+											<f:selectItems value="#{objetojsfController.listaRacaMarca}"
+												var="o" itemLabel="#{o.descricao}" itemValue="#{o}" />
+											<p:ajax listener="#{objetojsfController.listarModelo}"
+												update="modelo" />
+										</p:selectOneMenu>
+				
+				
+										<p:outputLabel value="Modelo:" rendered="#{objetojsfController.renderizaPorClassificacao()}"/>
+										<p:selectOneMenu id="modelo"
+											converter="omnifaces.SelectItemsConverter"
+											value="#{objetojsfController.objeto.id_Modelo_de_Marca_e_Raca}"
+											rendered="#{objetojsfController.renderizaPorClassificacao()}">
+											<f:selectItem itemLabel="selecione" itemValue=""
+												noSelectionOption="true" />
+											<f:selectItems value="#{objetojsfController.listaModelo}" var="o"
+												itemLabel="#{o.descricao}" itemValue="#{o}" />
+										</p:selectOneMenu>
+				
+				
+										<p:outputLabel value="Cor:" />
+										<p:selectOneMenu id="cor"
+											converter="omnifaces.SelectItemsConverter"
+											value="#{objetojsfController.objeto.cor}" rendered="true">
+											<f:selectItem itemLabel="selecione" itemValue=""
+												noSelectionOption="true" />
+											<f:selectItems value="#{objetojsfController.listaCor}" var="o"
+												itemLabel="#{o.descricao}" itemValue="#{o}" />
+										</p:selectOneMenu>
+				
+										<p:commandButton value=". . ."
+											actionListener="#{objetojsfController.novaCor}" process="@this"
+											styleClass="btn-info-objetos-cor" />
+				
+				
+										<p:outputLabel value="#{objetojsfController.labelAno}" />
+										<p:inputMask id="ano"
+											value="objetojsfController.objeto.ano_objeto" mask="9999"/>
+				
+									</h:panelGrid>
+				
+								</h:panelGrid>
+				
+								<h:panelGrid id="pF">
+									<p:outputLabel for="upload" value="buscar e carregar  foto:" />
+									<p:fileUpload id="upload" mode="advanced"
+										fileUploadListener="#{objetojsfController.upload}"
+										update=":mensagens :formTemplate:formCadastro:foto" auto="true"
+										style="font-size:15px;width:490px; "
+										allowTypes="/(\.|\/)(#{objetojsfController.tipoDeImagem})$/">
+										<p:graphicImage />
+									</p:fileUpload>
+									<p:graphicImage id="foto" value="#{imagensjsfController.image}"
+										style="max-width:90px; max-height:80px; width: auto; height: auto;">
+										<f:param name="caminho"
+											value="#{objetojsfController.objeto.caminhodaImagem}" />
+									</p:graphicImage>
+								</h:panelGrid>
+				
+								<h:panelGrid columns="2" id="painelCadastro_7">
+									<p:panelGrid>
+										<p:commandButton value="Salvar" process="@form"
+											rendered="#{objetojsfController.renderizaPorClassificacao()}"
+											actionListener="#{objetojsfController.merge}"
+											update=":mensagens :formTemplate:formLista:tabela" />
+									</p:panelGrid>
+									<p:panelGrid>
+										<p:commandButton value="Cancelar" process="@this"
+											actionListener="#{objetojsfController.cancela}" />
+									</p:panelGrid>
+								</h:panelGrid>			
+							</p:tab>
+							
+							<p:tab id="tab2" title="Prontuário de Emergência" rendered="#{objetojsfController.renderizaProntuario()}">
+								<p:panel id="p_prontuario_emergencia">
+
+									<h:panelGrid columns="1" render="@form">
+										<p:outputLabel value="Tipo de Prontuario:" />
+
+										<h:panelGrid columns="1" render="@form">
+											<p:selectOneMenu id="tipoProntuario"
+												converter="omnifaces.SelectItemsConverter"
+												value="#{pessoajsfController.tipoProntuarioEmergencia}"
+												rendered="true">
+												<f:selectItem itemLabel="selecione" itemValue=""
+													noSelectionOption="true" />
+												<f:selectItems
+													value="#{pessoajsfController.listaTiposProntuarioEmergencia}"
+													var="o" itemLabel="#{o.descricao}" itemValue="#{o}" />
+											</p:selectOneMenu>
+
+											<p:outputLabel value="descreva:" />
+											<p:inputText id="descricaoEmergencia" size="27"
+												maxlength="30"
+												value="#{pessoajsfController.descricaoProntuario}" />
+
+											<p:commandButton value="Adicionar" process="@form"
+												actionListener="#{pessoajsfController.incluirProntuarioEmergenciaNaLista}"
+												styleClass="btn-info-pessoas-add-cell btn-info-pessoas-add-cell-tab4 btn-color-green2"
+												update=":mensagens :formTemplate:formCadastro:formListaProntuario:tabelaProntuario" />
 
 
-						<p:outputLabel value="Cor:" />
-						<p:selectOneMenu id="cor"
-							converter="omnifaces.SelectItemsConverter"
-							value="#{objetojsfController.objeto.cor}" rendered="true">
-							<f:selectItem itemLabel="selecione" itemValue=""
-								noSelectionOption="true" />
-							<f:selectItems value="#{objetojsfController.listaCor}" var="o"
-								itemLabel="#{o.descricao}" itemValue="#{o}" />
-						</p:selectOneMenu>
+										</h:panelGrid>
+									</h:panelGrid>
 
-						<p:commandButton value=". . ."
-							actionListener="#{objetojsfController.novaCor}" process="@this"
-							styleClass="btn-info-objetos-cor" />
+									<div class="div-tb-wizard-tab3">
+										<h:form id="formListaProntuario">
+											<p:dataTable id="tabelaProntuario"
+												emptyMessage="Sem Registros" resizableColumns="true"
+												value="#{pessoajsfController.listaProntuarioEmergencia}"
+												paginator="true" rows="4" var="registro"
+												styleClass="tabela-pessoas">
+
+												<p:column headerText="Classificação"
+													sortBy="registro.tipo_Prontuario_Emergencia.descricao"
+													filterBy="tipo_Prontuario_Emergencia.descricao"
+													styleClass="geral-col-pessoas">
+													<h:outputText
+														value="#{registro.tipo_Prontuario_Emergencia.descricao}" />
+												</p:column>
+
+												<p:column headerText="Descricao" sortBy="registro.descricao"
+													filterBy="descricao" styleClass="geral-col-pessoas">
+													<h:outputText value="#{registro.descricao}" />
+												</p:column>
 
 
-						<p:outputLabel value="Ano" />
-						<p:inputMask id="ano"
-							value="objetojsfController.objeto.ano_objeto" mask="9999" />
+												<p:column headerText="Excluir"
+													styleClass="excl-col-info-pessoas">
+													<p:commandButton icon="ui-icon-trash" process="@form"
+														actionListener="#{pessoajsfController.excluirProntuario}"
+														update=":formTemplate:formCadastro:formListaProntuario:tabelaProntuario"
+														styleClass="excl-btn-info-pessoas btn-color-red">
+														<p:confirm header="Confirmação"
+															message="Deseja realmente excluir este registro?"
+															icon="ui-icon-alert" />
+														<f:attribute name="registroAtualProntuario"
+															value="#{registro}" />
+													</p:commandButton>
+												</p:column>
+											</p:dataTable>
+										</h:form>
+									</div>
+									
+									<p:commandButton value="Salvar" process="@form"
+										oncomplete="PF('wiz').loadStep('tab1', true)"
+										styleClass="btao-info-pessoas"
+										actionListener="#{objetojsfController.merge}"
+										update=":mensagens :formTemplate:formLista:tabela" />
+									
 
-					</h:panelGrid>
-
-				</h:panelGrid>
-
-				<h:panelGrid id="pF">
-					<p:outputLabel for="upload" value="buscar e carregar  foto:" />
-					<p:fileUpload id="upload" mode="advanced"
-						fileUploadListener="#{objetojsfController.upload}"
-						update=":mensagens :formTemplate:formCadastro:foto" auto="true"
-						style="font-size:15px;width:490px; "
-						allowTypes="/(\.|\/)(#{objetojsfController.tipoDeImagem})$/">
-						<p:graphicImage />
-					</p:fileUpload>
-					<p:graphicImage id="foto" value="#{imagensjsfController.image}"
-						style="max-width:90px; max-height:80px; width: auto; height: auto;">
-						<f:param name="caminho"
-							value="#{objetojsfController.objeto.caminhodaImagem}" />
-					</p:graphicImage>
-				</h:panelGrid>
-
-				<h:panelGrid columns="2" id="painelCadastro_7">
-					<p:panelGrid>
-						<p:commandButton value="Salvar" process="@form"
-							actionListener="#{objetojsfController.merge}"
-							update=":mensagens :formTemplate:formLista:tabela" />
-					</p:panelGrid>
-					<p:panelGrid>
-						<p:commandButton value="Cancelar" process="@this"
-							actionListener="#{objetojsfController.cancela}" />
-					</p:panelGrid>
-				</h:panelGrid>
+								</p:panel>
+							</p:tab>
+				
+				</p:wizard>
+				
 			</h:form>
 		</p:dialog>
 

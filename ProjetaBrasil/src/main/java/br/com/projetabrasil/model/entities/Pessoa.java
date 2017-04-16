@@ -74,6 +74,12 @@ public class Pessoa extends GenericDomain implements Serializable{
 	@JoinColumn ( name ="id_Profissao")	//NÃO USAR RECURSO DE HERANÇA PARA ESTA COLUNA NO GENERIC DOMAIN!!!	
 	private Profissao id_Profissao;
 	
+	@Transient
+	@Column(name = "caminhodaImagem")	
+	private String caminhodaImagem;
+	@Transient
+	@Column(name = "caminhoTemp")	
+	private String caminhoTemp;
 	
 	@Transient
 	private String mensagem;
@@ -284,6 +290,17 @@ public class Pessoa extends GenericDomain implements Serializable{
 	public void setId_Profissao(Profissao id_Profissao) {
 		this.id_Profissao = id_Profissao;
 	}
-	
+	public String getCaminhodaImagem() {
+		return caminhodaImagem;
+	}
+	public void setCaminhodaImagem(String caminhodaImagem) {
+		this.caminhodaImagem = caminhodaImagem;
+	}
+	public String getCaminhoTemp() {
+		return caminhoTemp;
+	}
+	public void setCaminhoTemp(String caminhoTemp) {
+		this.caminhoTemp = caminhoTemp;
+	}
 			
 }
