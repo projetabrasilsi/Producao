@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @SuppressWarnings("serial")
 @Entity
@@ -29,7 +30,7 @@ public class Objeto extends GenericDomain implements Serializable{
 	Enum_Aux_Tipos_Objetos enum_Aux_Tipos_Objeto;
 	
 	@ManyToOne
-	@JoinColumn(name="id_Marca_e_Raca", nullable=true)
+	@JoinColumn(name="id_Marca_e_Raca")
 	private Marca_e_Raca id_Marca_e_Raca;
 	
 	@ManyToOne
@@ -53,6 +54,23 @@ public class Objeto extends GenericDomain implements Serializable{
 	private Cor cor;	
 	private String descricao;
 	
+	@Transient
+	@Column(name = "caminhodaImagem")	
+	private String caminhodaImagem;
+	@Transient
+	@Column(name = "caminhoTemp")	
+	private String caminhoTemp;
+	
+	@Transient
+	@Column(name = "tipodeImagem")	
+	private String tipodeImagem;
+	
+	public String getTipodeImagem() {
+		return tipodeImagem;
+	}
+	public void setTipodeImagem(String tipodeImagem) {
+		this.tipodeImagem = tipodeImagem;
+	}
 	int ano_Objeto;
 	int mod_Veiculo;
 	public Long getId() {
@@ -120,6 +138,18 @@ public class Objeto extends GenericDomain implements Serializable{
 	}
 	public void setMod_Veiculo(int mod_Veiculo) {
 		this.mod_Veiculo = mod_Veiculo;
+	}
+	public String getCaminhodaImagem() {
+		return caminhodaImagem;
+	}
+	public void setCaminhodaImagem(String caminhodaImagem) {
+		this.caminhodaImagem = caminhodaImagem;
+	}
+	public String getCaminhoTemp() {
+		return caminhoTemp;
+	}
+	public void setCaminhoTemp(String caminhoTemp) {
+		this.caminhoTemp = caminhoTemp;
 	}
 	@Override
 	public int hashCode() {

@@ -12,7 +12,8 @@ public enum Enum_Aux_Perfil_Pessoa {
 	SUPERVISORES("Supervisores",7,true,"SUP",true,false,true),
 	OUTROS("Outros",8,true,"OUT",false,false,false),
 	VENDAS("Vendas",9,true,"VEN",true,false,false),
-	LOGISTICA("Logistica",10,true,"LOG",true,false,false);
+	LOGISTICA("Logistica",10,true,"LOG",true,false,false),
+	FUNCIONARIOS("Funcionarios",11,true,"FUN",true,true,false);
 	
 	
 	private String descricao;

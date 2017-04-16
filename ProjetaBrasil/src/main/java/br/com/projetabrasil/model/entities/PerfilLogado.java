@@ -127,9 +127,9 @@ public class PerfilLogado implements Serializable {
 			pontos = pDAO.retornarListaPontoConfig(usLogado.getPessoa(), Enum_Aux_Tipo_Item_de_Movimento.PONTO);
 
 		setPontos(pontos);
-		if (retorno)
+		/*if (retorno)
 			if (pontos == null || pontos.isEmpty())
-				retorno = false;
+				retorno = false;*/
 
 		return retorno;
 

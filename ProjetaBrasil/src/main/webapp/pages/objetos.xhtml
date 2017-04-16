@@ -15,67 +15,64 @@
 	</h:head>
 	<f:event listener="#{paginas.mudaPaginaAtual}" type="preRenderView" />
 	<ui:define name="conteudo">
-	    
+
 		<h:form id="formLista">
 
-			<p:panel header="Listagem de #{autenticacaojsfController.perfilLogado.paginaAtual.descricao2}">
+			<p:panel id="painelgeral"
+				header="Listagem de Animais/Objetos/Pessoas. Proprietário(#{ObjetojsfController.pessoa.descricao})">
 				<p:dataTable id="tabela" emptyMessage="" reflow="true"
 					value="#{objetojsfController.objetos}" paginator="true" rows="5"
 					var="registro" style="font-size:15px;">
 					<f:facet name="header">
-					    
-						<p:commandButton value="Novo"						    
-							actionListener="#{objetojsfController.novo}"
-							process="@form"
+
+						<p:commandButton value="Novo"
+							actionListener="#{objetojsfController.novo}" process="@form"
 							update=":formTemplate:formCadastro" style="width:5%">
 						</p:commandButton>
 					</f:facet>
+					<p:column headerText="Foto">
+						<p:graphicImage id="Fototab" value="#{imagensjsfController.image}"
+							style="max-width:90px;max-height:80px;width: auto;height: auto;">
+							<f:param name="caminho" value="#{registro.caminhodaImagem}" />
+						</p:graphicImage>
+
+					</p:column>
+
 					<p:column headerText="Descricao" sortBy="descricao"
 						filterBy="descricao">
 						<h:outputText value="#{registro.descricao}" />
 					</p:column>
-					
+
 					<p:column headerText="Ano" sortBy="ano_objeto"
 						filterBy="ano_objeto">
 						<h:outputText value="#{registro.ano_Objeto}" />
 					</p:column>
-					
-					<p:column headerText="Marca/Raça" sortBy="enum_aux_tipos_objeto"
-						filterBy="enum_aux_tipos_objeto">
-						<h:outputText value="#{registro.enum_Aux_Tipos_Objeto}" />
+
+					<p:column headerText="Marca/Raça" sortBy="registro.id_Marca_e_Raca.descricao"
+						filterBy="registro.id_Marca_e_Raca.descricao">
+						<h:outputText value="#{registro.id_Marca_e_Raca.descricao}" />
 					</p:column>
-					
-					<p:column headerText="Cor" sortBy="cor"
-						filterBy="cor">
+
+					<p:column headerText="Cor" sortBy="cor" filterBy="cor">
 						<h:outputText value="#{registro.cor.descricao}" />
 					</p:column>
-					
+
 					<p:column headerText="Editar" style="width:5%;">
-					
-					
+
+
 						<p:commandButton icon="ui-icon-pencil"
 							actionListener="#{objetojsfController.editar}"
 							rendered="#{autenticacaojsfController.perfilLogado.renderizapessoaeditar}"
-							
 							update=":formTemplate:formCadastro :formTemplate:formCadastro
 							">
 							<p:confirm header="Confirmacao"
 								message="Deseja realmente alterar este registro?"
-								icon="ui-icon-alert" style="width:5%"/>
+								icon="ui-icon-alert" style="width:5%" />
 
 							<f:attribute name="registroAtual" value="#{registro}" />
 						</p:commandButton>
 					</p:column>
-				<!--	<p:column headerText="Excl" style="width:10%;">
-						<p:commandButton icon="ui-icon-trash"
-							actionListener="#{pessoajsfController.excluir}"
-							update=":mensagens :formTemplate:formLista:tabela">
-							<p:confirm header="Confirmação"
-								message="Deseja realmente excluir este registro?"
-								icon="ui-icon-alert" />
-							<f:attribute name="registroAtual" value="#{registro}" />
-						</p:commandButton>
-					</p:column>-->
+					
 				</p:dataTable>
 				<p:confirmDialog global="true">
 					<p:commandButton value="SIM" type="button"
@@ -86,7 +83,7 @@
 				</p:confirmDialog>
 			</p:panel>
 		</h:form>
-		
+
 		<p:dialog widgetVar="dialogoIdentidade" closable="false"
 			resizable="false" modal="true" appendTo="@(body)"
 			header="Escolha o Tipo de Identificação" dynamic="true"
@@ -105,7 +102,7 @@
 					<p:ajax event="change" update="identificador" process="@this"
 						oncomplete="$(function(){PrimeFaces.focus('formTemplate:formIdentidade:identificador');});" />
 				</p:selectOneRadio>
-				
+
 				<div class="ui-g-12">
 					<p:outputLabel value="Informe CPF/CNPJ " />
 					<p:inputMask id="identificador" size="30" maxlength="20"
@@ -113,13 +110,12 @@
 						requiredMessage="É preciso informar a identificação!!!"
 						mask="#{objetojsfController.pessoa.enum_Aux_Tipo_Identificador.mask}"
 						styleClass="input-cpf-pessoas" />
-				</div>		
-										
+				</div>
+
 				<div class="ui-g-5">
 					<p:commandButton value="Validar"
 						actionListener="#{objetojsfController.buscaPessoa}"
-						process="@form" 
-						update=":mensagens :formTemplate:formLista:tabela"
+						process="@form" update=":mensagens :formTemplate:formLista:tabela   :formTemplate:formLista:painelgeral "
 						styleClass="btn-color-blue2">
 					</p:commandButton>
 				</div>
@@ -131,12 +127,11 @@
 				</div>
 			</h:form>
 		</p:dialog>
-		
+
 		<p:dialog
-			header="Formulário de Cadastro de Objetos"
+			header="Formulário de Cadastro - #{autenticacaojsfController.perfilLogado.paginaAtual.classificacaoObjeto.descricao}"
 			widgetVar="dialogoCadastro" resizable="false" modal="true"
-			closable="false" appendTo="@(body)" dynamic="true"
-			responsive="true" 
+			closable="false" appendTo="@(body)" dynamic="true" responsive="true"
 			style="float: left;
     padding: 10px;
     font-family: calibri;
@@ -146,98 +141,81 @@
 			<h:form id="formCadastro">
 				<h:panelGrid id="painelCadastro_1">
 					<h:panelGrid id="painelCadastro_11">
-						<p:outputLabel
-							value="Descrição do Objeto"
-							 />
+						<p:outputLabel value="Descrição do Objeto" />
 						<p:inputText size="30" maxlength="30"
-							value="#{objetojsfController.objeto.descricao}"
-							required="true"
+							value="#{objetojsfController.objeto.descricao}" required="true"
 							requiredMessage="Descrição do objeto é obrigatória"
-							
 							validatorMessage="O minimo de caracteres para nome são  '3'"
 							placeholder="Mínimo 3 Letras">
 							<f:validateLength minimum="3" />
 						</p:inputText>
 					</h:panelGrid>
-					
+
 					<h:panelGrid id="painelCadastro_13">
-					
-						<p:outputLabel value="Classificação de Objeto:" />
-								<p:selectOneMenu id="tipoObjeto"
-									converter="omnifaces.SelectItemsConverter"
-									value="#{objetojsfController.classificacaoObjeto}" rendered="true">
-									<f:selectItem itemLabel="selecione" itemValue=""
-										noSelectionOption="true" />
-									<f:selectItems
-										value="#{objetojsfController.listaClassificacaoObjeto}" var="o"
-										itemLabel="#{o.descricao}" itemValue="#{o}" />
-									<p:ajax listener="#{objetojsfController.listarRacaMarca}" update="raca_marca,modelo" />									
-								</p:selectOneMenu>
-								
-								
+
 						<p:outputLabel value="Raça / Marca:" />
-								<p:selectOneMenu id="raca_marca"
-									converter="omnifaces.SelectItemsConverter"
-									value="#{objetojsfController.racaMarca}" rendered="true">
-									<f:selectItem itemLabel="selecione" itemValue=""
-										noSelectionOption="true" />
-									<f:selectItems
-										value="#{objetojsfController.listaRacaMarca}" var="o"
-										itemLabel="#{o.descricao}" itemValue="#{o}" />	
-									<p:ajax listener="#{objetojsfController.listarModelo}" update="modelo" />								
-								</p:selectOneMenu>
-								
-								
+						<p:selectOneMenu id="raca_marca"
+							converter="omnifaces.SelectItemsConverter"
+							value="#{objetojsfController.objeto.id_Marca_e_Raca}" rendered="true">
+							<f:selectItem itemLabel="selecione" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems value="#{objetojsfController.listaRacaMarca}"
+								var="o" itemLabel="#{o.descricao}" itemValue="#{o}" />
+							<p:ajax listener="#{objetojsfController.listarModelo}"
+								update="modelo" />
+						</p:selectOneMenu>
+
+
 						<p:outputLabel value="Modelo:" />
-								<p:selectOneMenu id="modelo"
-									converter="omnifaces.SelectItemsConverter"
-									value="#{objetojsfController.modelo}" rendered="true">
-									<f:selectItem itemLabel="selecione" itemValue=""
-										noSelectionOption="true" />
-									<f:selectItems
-										value="#{objetojsfController.listaModelo}" var="o"
-										itemLabel="#{o.descricao}" itemValue="#{o}" />																										
-								</p:selectOneMenu>
-								
-								
+						<p:selectOneMenu id="modelo"
+							converter="omnifaces.SelectItemsConverter"
+							value="#{objetojsfController.objeto.id_Modelo_de_Marca_e_Raca}" rendered="true">
+							<f:selectItem itemLabel="selecione" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems value="#{objetojsfController.listaModelo}" var="o"
+								itemLabel="#{o.descricao}" itemValue="#{o}" />
+						</p:selectOneMenu>
+
+
 						<p:outputLabel value="Cor:" />
-								<p:selectOneMenu id="cor"
-									converter="omnifaces.SelectItemsConverter"
-									value="#{objetojsfController.objeto.cor}" rendered="true">
-									<f:selectItem itemLabel="selecione" itemValue=""
-										noSelectionOption="true" />
-									<f:selectItems
-										value="#{objetojsfController.listaCor}" var="o"
-										itemLabel="#{o.descricao}" itemValue="#{o}" />									
-								</p:selectOneMenu>
-								
+						<p:selectOneMenu id="cor"
+							converter="omnifaces.SelectItemsConverter"
+							value="#{objetojsfController.objeto.cor}" rendered="true">
+							<f:selectItem itemLabel="selecione" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItems value="#{objetojsfController.listaCor}" var="o"
+								itemLabel="#{o.descricao}" itemValue="#{o}" />
+						</p:selectOneMenu>
+
 						<p:commandButton value=". . ."
-								actionListener="#{objetojsfController.novaCor}"
-								process="@this" styleClass="btn-info-objetos-cor" />
-								
-						 
-					    <p:outputLabel value="Ano" />	
-						 		<p:inputMask id="ano" value="objetojsfController.objeto.ano_objeto" mask="9999"/> 
-								
+							actionListener="#{objetojsfController.novaCor}" process="@this"
+							styleClass="btn-info-objetos-cor" />
+
+
+						<p:outputLabel value="Ano" />
+						<p:inputMask id="ano"
+							value="objetojsfController.objeto.ano_objeto" mask="9999" />
+
 					</h:panelGrid>
 
 				</h:panelGrid>
-				
+
 				<h:panelGrid id="pF">
 					<p:outputLabel for="upload" value="buscar e carregar  foto:" />
 					<p:fileUpload id="upload" mode="advanced"
-						fileUploadListener="#{brinde.upload}"
+						fileUploadListener="#{objetojsfController.upload}"
 						update=":mensagens :formTemplate:formCadastro:foto" auto="true"
-						style="font-size:15px;width:490px; " 
-						allowTypes="/(\.|\/)(#{brinde.tipoDeImagem})$/">
-						<p:graphicImage  />
+						style="font-size:15px;width:490px; "
+						allowTypes="/(\.|\/)(#{objetojsfController.tipoDeImagem})$/">
+						<p:graphicImage />
 					</p:fileUpload>
 					<p:graphicImage id="foto" value="#{imagensjsfController.image}"
 						style="max-width:90px; max-height:80px; width: auto; height: auto;">
-						<f:param name="caminho" value="#{brinde.item.caminhodaImagem}" />
+						<f:param name="caminho"
+							value="#{objetojsfController.objeto.caminhodaImagem}" />
 					</p:graphicImage>
 				</h:panelGrid>
-				
+
 				<h:panelGrid columns="2" id="painelCadastro_7">
 					<p:panelGrid>
 						<p:commandButton value="Salvar" process="@form"
@@ -246,13 +224,12 @@
 					</p:panelGrid>
 					<p:panelGrid>
 						<p:commandButton value="Cancelar" process="@this"
-						actionListener="#{objetojsfController.cancela}"
-						 />
+							actionListener="#{objetojsfController.cancela}" />
 					</p:panelGrid>
 				</h:panelGrid>
 			</h:form>
 		</p:dialog>
-		
+
 		<p:dialog header="Adicionar Cor" widgetVar="dialogoCadastroCor"
 			resizable="false" modal="true" closable="false" appendTo="@(body)"
 			dynamic="true" responsive="true" styleClass="dialog-wizard-tab2">
@@ -287,6 +264,6 @@
 			</h:form>
 
 		</p:dialog>
-		
+
 	</ui:define>
 </ui:composition>

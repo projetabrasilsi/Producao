@@ -70,22 +70,14 @@ public class BrindejsfController extends GenericController {
 			p = perfilLogado.getUsLogado().getPessoa();
 			
 		List<Item_de_Movimento> l = iMDAO.listar(p,Enum_Aux_Tipo_Item_de_Movimento.BRINDE,null);
-		
-		
 		int x=0;
-		Item_de_Movimento i;
-		for (Item_de_Movimento item_de_Movimento : l) {
-			i = new Item_de_Movimento();
+		for (Item_de_Movimento i : l) {
 			i.setCaminhodaImagem(Utilidades.getCaminhofotobrinde()+""+i.getId()+Utilidades.getTipoimagem());
 			i.setTipodeImagem(Utilidades.tipodeImagem());
-						
 			itens.add(x,i);
 			x++;
 			
 		}
-		
-		
-		
 	}
 
 	
@@ -122,9 +114,9 @@ public class BrindejsfController extends GenericController {
 		
 		Item_de_MovimentoDAO iMDAO = new Item_de_MovimentoDAO();
 		
-		
+			
 		item = iMDAO.merge(item);
-		System.out.println("caminho da imagem: " +Utilidades.getCaminhofotobrinde()+""+item.getId()+Utilidades.getTipoimagem() );
+		
 		item.setCaminhodaImagem(Utilidades.getCaminhofotobrinde()+""+item.getId()+Utilidades.getTipoimagem());
 
 		Path origem = caminhoTemp;
@@ -144,8 +136,12 @@ public class BrindejsfController extends GenericController {
 
 	public void editar(ActionEvent event) {
 		item = (Item_de_Movimento) event.getComponent().getAttributes().get("registroAtual");
+		
+		
 		item.setCaminhodaImagem(Utilidades.getCaminhofotobrinde()+""+item.getId()+Utilidades.getTipoimagem());
+		
 		item.setCaminhoTemp(item.getCaminhodaImagem());
+		
 		Utilidades.abrirfecharDialogos("dialogoCadastro", true);
 
 	}

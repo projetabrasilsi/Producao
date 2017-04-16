@@ -66,6 +66,16 @@ public class Utilidades implements Serializable {
 	private static final int[] pesoCPF = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
 	private static final int[] pesoCNPJ = { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
 	private static final String caminhoFotoBrinde = System.getProperty("user.home") + "/imagens/brindes/";
+	private static final String caminhoFotoPessoas = System.getProperty("user.home") + "/imagens/pessoas/";
+	private static final String caminhoFotoObjetos = System.getProperty("user.home") + "/imagens/objetos/";
+	public static String getCaminhofotopessoas() {
+		return caminhoFotoPessoas;
+	}
+
+	public static String getCaminhofotoobjetos() {
+		return caminhoFotoObjetos;
+	}
+
 	private static final String caminhoFotoVouchers = System.getProperty("user.home") + "/imagens/vouchers/";
 	private static final String caminhoFotoAgendamento = System.getProperty("user.home") + "/imagens/agendamento/";
 	private static String caminhoFotoComprovante = System.getProperty("user.home") + "/imagens/comprovantes/";
