@@ -114,7 +114,7 @@
 					<p:ajax event="change" update="identificador" process="@this"
 						oncomplete="$(function(){PrimeFaces.focus('formTemplate:formIdentidade:identificador');});" />
 				</p:selectOneRadio>
-				
+
 				<div class="ui-g-12">
 					<p:outputLabel value="Informe CPF/CNPJ " />
 					<p:inputMask id="identificador" size="30" maxlength="20"
@@ -123,7 +123,7 @@
 						mask="#{pessoajsfController.pessoa.enum_Aux_Tipo_Identificador.mask}"
 						styleClass="input-cpf-pessoas" />
 				</div>
-				
+
 				<div class="ui-g-5">
 					<p:commandButton value="Validar"
 						actionListener="#{pessoajsfController.buscaPessoa()}"
@@ -260,7 +260,7 @@
 
 										<p:outputLabel value="Profissão: " />
 										<h:panelGrid id="g_profissao" columns="2" render="@form">
-											
+
 
 
 											<p:outputLabel id="psel" size="60" maxlength="60"
@@ -323,8 +323,7 @@
 											</p:inputText>
 
 											<p:commandButton icon="ui-icon-search"
-												update="cep,g_e_1_2,g_e_4"
-												styleClass="btao-info-pessoas"
+												update="cep,g_e_1_2,g_e_4" styleClass="btao-info-pessoas"
 												actionListener="#{pessoajsfController.ConsultaCEP()}"
 												process="@form">
 
@@ -354,7 +353,7 @@
 
 											<p:selectOneMenu id="logradouro"
 												value="#{pessoajsfController.endereco.logradouro}"
-												 converter="omnifaces.SelectItemsConverter"
+												converter="omnifaces.SelectItemsConverter"
 												style="width:150px !important;">
 
 												<f:selectItem itemLabel="Selecione" itemValue=""
@@ -368,7 +367,7 @@
 										</h:panelGrid>
 
 									</h:panelGrid>
-									
+
 
 
 									<div class="ui-g row-tab2">
@@ -430,9 +429,10 @@
 
 								</p:panel>
 							</p:tab>
-							
+
 							<p:tab id="tab3" title="Foto de Perfil" rendered="false">
 								<p:panel id="p_perfil">
+
 
 									<h:panelGrid id="pF">
 										
@@ -450,6 +450,11 @@
 											</p:graphicImage>
 									
 									</h:panelGrid>							
+
+									<h:panelGrid columns="1" render="@form">
+										<p:outputLabel value="Tipo de Contato:" />
+									</h:panelGrid>
+
 
 								</p:panel>
 							</p:tab>
@@ -552,19 +557,22 @@
 											</p:dataTable>
 										</h:form>
 									</div>
-									
+
 									<p:commandButton value="Salvar" process="@form" rendered="#{pessoajsfController.renderizaSalvar('SALVARCONTATO')}"
 										oncomplete="PF('wiz').loadStep('tab1', true)"
 										styleClass="btao-info-pessoas"
 										actionListener="#{pessoajsfController.merge}"
 										update=":mensagens :formTemplate:formLista:tabela" />
-									
+
+
+
 								</p:panel>
 							</p:tab>
 
 
 
-							<p:tab id="tab5" title="Prontuário de Emergência" rendered="#{pessoajsfController.renderizaProntuario()}">
+							<p:tab id="tab5" title="Prontuário de Emergência"
+								rendered="#{pessoajsfController.renderizaProntuario()}">
 								<p:panel id="p_prontuario_emergencia">
 
 									<h:panelGrid columns="1" render="@form">
@@ -634,13 +642,19 @@
 											</p:dataTable>
 										</h:form>
 									</div>
-									
+
 									<p:commandButton value="Salvar" process="@form" rendered="#{pessoajsfController.renderizaSalvar('SALVARPRONTUARIO')}"
 										oncomplete="PF('wiz').loadStep('tab1', true)"
 										styleClass="btao-info-pessoas"
 										actionListener="#{pessoajsfController.merge}"
 										update=":mensagens :formTemplate:formLista:tabela" />
+
 									
+										
+									
+
+
+
 
 								</p:panel>
 							</p:tab>
@@ -705,11 +719,18 @@
 										</h:form>
 									</div>
 
-									<p:commandButton value="Salvar" process="@form" rendered="#{pessoajsfController.renderizaSalvar('SALVAROBJETO')}"
+
+										
+										<p:commandButton value="Salvar" process="@form" rendered="#{pessoajsfController.renderizaSalvar('SALVAROBJETO')}"
 										oncomplete="PF('wiz').loadStep('tab1', true)"
 										styleClass="btao-info-pessoas"
 										actionListener="#{pessoajsfController.merge}"
 										update=":mensagens :formTemplate:formLista:tabela" />
+
+									
+
+
+
 
 								</p:panel>
 							</p:tab>
@@ -876,12 +897,12 @@
 			<h:form id="formPesqLogradouros">
 
 				<p:panel id="p_pesq_end" header="Pesquisa de Endereços">
-					<h:panelGrid columns="4"  render="@form">
+					<h:panelGrid columns="4" render="@form">
 						<p:outputLabel value="Escolha o Estado:" />
 						<p:outputLabel value="Digite a Cidade: " />
 						<p:outputLabel value="Digite o Logradouro(Rua):" />
 						<p:outputLabel value="  " />
-						
+
 						<p:selectOneMenu id="enumEstados"
 							converter="omnifaces.SelectItemsConverter"
 							value="#{pessoajsfController.estado_Enum}"
@@ -898,7 +919,7 @@
 							value="#{pessoajsfController.cidadedePesquisa}">
 							<f:validateLength minimum="3" />
 						</p:inputText>
-						
+
 						<p:outputLabel value="" />
 						<p:inputText id="descricaoLogradouro" size="30" maxlength="30"
 							style="width:200px"
@@ -917,7 +938,7 @@
 
 					</h:panelGrid>
 
-					
+
 
 
 

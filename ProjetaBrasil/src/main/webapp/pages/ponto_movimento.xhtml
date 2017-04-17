@@ -333,7 +333,7 @@
 						value="#{ponto_mov.pessoaPontuada.cpf_Cnpj}" required="true"
 						requiredMessage="É preciso informar a identificação!!!"
 						mask="#{ponto_mov.tipoIdentificador.mask}">
-						<p:ajax event="blur" process="@this"
+						<p:ajax event="blur" process="@form"
 							listener="#{ponto_mov.verificaPessoa}"
 							update=":formTemplate:formCadastro   valPontuacao soma valaPontuar
 						 pessoa_cliente validade" />

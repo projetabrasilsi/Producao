@@ -16,6 +16,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import br.com.projetabrasil.util.Utilidades;
 
@@ -50,6 +51,10 @@ public class QRCode extends GenericDomain implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_Pessoa_Cliente", nullable = true)
 	private Pessoa id_Pessoa_Cliente;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_Objeto", nullable = true)
+    private Objeto id_Objeto;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "status", nullable = false)
@@ -81,6 +86,14 @@ public class QRCode extends GenericDomain implements Serializable {
 	private int numero_Meses;
 	@Column(name = "coders")
 	private String coders;
+	
+	@Transient
+	@Column(name = "caminhodaImagem")	
+	private String caminhodaImagem;
+	
+	@Transient
+	@Column(name = "tipodeImagem")	
+	private String tipodeImagem;
 
 	public QRCode() {
 
@@ -243,6 +256,7 @@ public class QRCode extends GenericDomain implements Serializable {
 		result = prime * result + ((data_Vencimento == null) ? 0 : data_Vencimento.hashCode());
 		result = prime * result + ((data_Venda == null) ? 0 : data_Venda.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((id_Objeto == null) ? 0 : id_Objeto.hashCode());
 		result = prime * result + ((id_Pessoa_Cliente == null) ? 0 : id_Pessoa_Cliente.hashCode());
 		result = prime * result + ((id_Pessoa_Distribuicao == null) ? 0 : id_Pessoa_Distribuicao.hashCode());
 		result = prime * result + ((id_Pessoa_Logistica == null) ? 0 : id_Pessoa_Logistica.hashCode());
@@ -304,6 +318,11 @@ public class QRCode extends GenericDomain implements Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (id_Objeto == null) {
+			if (other.id_Objeto != null)
+				return false;
+		} else if (!id_Objeto.equals(other.id_Objeto))
+			return false;
 		if (id_Pessoa_Cliente == null) {
 			if (other.id_Pessoa_Cliente != null)
 				return false;
@@ -348,11 +367,38 @@ public class QRCode extends GenericDomain implements Serializable {
 		return "QRCode [id=" + id + ", id_Pessoa_Registro=" + id_Pessoa_Registro + ", id_Pessoa_Logistica="
 				+ id_Pessoa_Logistica + ", id_Pessoa_Distribuicao=" + id_Pessoa_Distribuicao
 				+ ", id_Pessoa_Representacao=" + id_Pessoa_Representacao + ", id_Pessoa_Revenda=" + id_Pessoa_Revenda
-				+ ", id_Pessoa_Cliente=" + id_Pessoa_Cliente + ", status=" + status + ", tipo_Objeto=" + tipo_Objeto
-				+ ", data_Logistica=" + data_Logistica + ", data_Distribuicao=" + data_Distribuicao
-				+ ", data_Representacao=" + data_Representacao + ", data_Revenda=" + data_Revenda + ", data_Venda="
-				+ data_Venda + ", data_Vencimento=" + data_Vencimento + ", numero_Meses=" + numero_Meses + ", coders="
-				+ coders + "]";
+				+ ", id_Pessoa_Cliente=" + id_Pessoa_Cliente + ", id_Objeto=" + id_Objeto + ", status=" + status
+				+ ", tipo_Objeto=" + tipo_Objeto + ", data_Logistica=" + data_Logistica + ", data_Distribuicao="
+				+ data_Distribuicao + ", data_Representacao=" + data_Representacao + ", data_Revenda=" + data_Revenda
+				+ ", data_Venda=" + data_Venda + ", data_Vencimento=" + data_Vencimento + ", numero_Meses="
+				+ numero_Meses + ", coders=" + coders + "]";
 	}
+
+	public String getCaminhodaImagem() {
+		return caminhodaImagem;
+	}
+
+	public void setCaminhodaImagem(String caminhodaImagem) {
+		this.caminhodaImagem = caminhodaImagem;
+	}
+
+
+
+	public String getTipodeImagem() {
+		return tipodeImagem;
+	}
+
+	public void setTipodeImagem(String tipodeImagem) {
+		this.tipodeImagem = tipodeImagem;
+	}
+
+	public Objeto getId_Objeto() {
+		return id_Objeto;
+	}
+
+	public void setId_Objeto(Objeto id_Objeto) {
+		this.id_Objeto = id_Objeto;
+	}
+
 
 }

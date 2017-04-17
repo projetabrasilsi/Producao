@@ -34,7 +34,8 @@ public class PaginasjsfController implements Serializable {
 		// String paginaAtual
 		String paginaAtual = (String) event.getComponent().getAttributes().get("paginaAtual");
 		String descricao = Enum_Aux_Perfil_Pagina_Atual.PAGINATRANSFERENCIASQRCODE.getDescricao();
-		if(paginaAtual.equals(descricao)){
+		String descricao2 = Enum_Aux_Perfil_Pagina_Atual.PAGINAVINCULARQRCODE.getDescricao();
+		if(paginaAtual.equals(descricao)||paginaAtual.equals(descricao2)){
 			String perfilTransferencia = (String) event.getComponent().getAttributes().get("perfildeTransferencia");
 			perfilLogado.setPerfildeTransferencia(Enum_Aux_Perfil_Pessoa.valueOf(perfilTransferencia) );
 		}
