@@ -39,6 +39,19 @@
 .btn-color-red:hover{
 	background: #981114 !important;
 }
+.btn-color-silver{
+	background: #dbdce8 !important;
+	border: 1px solid #a8a6b9 !important;
+}
+.btn-color-silver:hover{
+	background: #cacbd9 !important;
+}
+
+/*----geral-btn----*/
+.btn-lupa span::before{
+	color: #495d85;
+}
+
 
 /*----Topbar----*/
 
@@ -53,10 +66,11 @@
 }
 .sidebar .username label{
 	cursor: pointer;
+	
 }
 .radio-perfil-sidebar{
 	padding: 20px;
-	
+	background: #0b2033;
 }
 .radio-perfil-sidebar .ui-selectoneradio > tbody > tr > td >label{
 	color: #ffffff;
@@ -142,8 +156,8 @@
  .wrapper .sidebar ul li > a:hover{
 	background: none;
  } 
- .ui-button-text{
- 	margin-left: -10px !important;
+.ui-button-text{
+ 	margin-left: -10px;
  }
 
 
@@ -208,6 +222,7 @@
 	font-size: 1.2em;
 }
 
+
 /*modal-cpf-pessoas*/
 
 .dialog-cpf-pessoas{
@@ -225,7 +240,7 @@
 	padding-bottom: 10px;
 }
 .input-cpf-pessoas{
-	max-width: 120px;
+	max-width: 133px;
 }
 .dialog-cpf-pessoas button{
 	margin-top:10px;
@@ -245,12 +260,13 @@
 .div-conteudo-info-pessoas{		
 }
 .dialog-info-pessoas .btn-info-pessoas-fechar{
-	width: 25px;
+	width: 27px;
 	padding: 0px !important;
+	margin-top: -5px;
 }
 .dialog-info-pessoas .btn-info-pessoas-fechar span{
-	
-	margin-left: -7px !important;
+	margin-left: -8px !important;
+	font-size: 1.2em !important;
 }
 .dialog-info-pessoas .ui-dialog-title{
 	color: #999;
@@ -268,7 +284,6 @@
 	padding: 2px 5px 5px 5px;
 	background: #a50000 !important;
 }
-
 .dialog-info-pessoas .ui-dialog-titlebar a span::before{
 	font-size: 17px !important;
 	color: #a50000 !important;
@@ -276,11 +291,6 @@
 .dialog-info-pessoas .ui-dialog-titlebar a:hover span::before{
 	color: #fff !important;
 }
-.input-info-nome-pessoas{
-	max-width: 450px;
-	width:100%;
-} 
-
 .dialog-info-pessoas .grupo01-info-pessoas{
 	margin-left: -5px !important;	
 }
@@ -312,10 +322,7 @@
 	margin-bottom: 5px;
 	padding: 5px;
 }
-.input-info-pessoas-geral{
-	margin-bottom: 5px;
-	padding: 5px;
-}
+
 
 /*Wizard-Infos-pessoas*/
 .wizard-info-pessoas{
@@ -347,48 +354,146 @@
 .wizard-info-pessoas .ui-wizard-nav-back:hover{
 	background: #d1d1d1 !important;
 }
+.input-info-pessoas-geral{
+	margin-bottom: 5px;
+	padding: 5px;
+}
+.wizard-info-pessoas .btao-info-pessoas-lupa{
+	width: 15px;
+	height: 21px;
+}
+
+/*tab1-wizard-Infos-pessoas*/
+.input-info-nome-pessoas{
+	max-width: 320px;
+	width:100%;
+	margin-top: 5px;
+} 
+.row-tab1{
+	width: 100%;	
+}
+.grupo1-info-pessoas-tab1 .ui-g-3,
+.grupo1-info-pessoas-tab1 .ui-g-2,
+.grupo2-info-pessoas-tab1 .ui-g-2,
+.grupo3-info-pessoas-tab1 .ui-g-3{
+	/*border: 1px solid red;*/	
+	
+}
+.grupo1-info-pessoas-tab1 .ui-g-3:nth-child(1){
+	padding-right: 20px;
+	min-width: 320px;
+}
+.grupo1-info-pessoas-tab1 .ui-g-2{
+	min-width: 150px;
+}
+.grupo1-info-pessoas-tab1 .ui-g-2:nth-child(3){
+	margin-top: 5px;	
+}
+.grupo2-info-pessoas-tab1 .ui-g-2{
+	min-width: 160px;
+}
+.grupo2-info-pessoas-tab1 .ui-g-2:nth-child(2) input{
+	margin-top: 5px;
+}
+.grupo3-info-pessoas-tab1 .ui-g-3{
+	min-width: 160px;
+}
+.grupo3-info-pessoas-tab1 .ui-g-3 input{
+	margin-top: 5px;
+}
+/*tab1-wizard-Infos-pessoas - dialogs*/
+.dialog-info-profissao-wizard-tab1{
+	max-width: 720px;
+}
+.dialog-info-profissao-wizard-tab1 .ui-dialog-title{
+	color:#999;
+	font-size: 1.7em !important;
+}
+.tabela-info-pessoas-wizard-tab1{
+	margin: 0px 10px 15px 10px;
+}
+.descricao-info-pessoas-wizard-tab1{
+	width: 400px;
+}
+.selecionar-info-pessoas-wizard-tab1{
+	width: 50px;
+}
 
 
 /*tab2-wizard-Infos-pessoas*/
 .div-wizard-pessoas .row-tab2{
 	margin-bottom: 5px;
 }
-.div-wizard-pessoas .row-tab2 .ui-md-4{
+.div-wizard-pessoas .row-tab2 .ui-md-4,
+.div-wizard-pessoas .row-tab2 .ui-g-4,
+.div-wizard-pessoas .row-tab2 .ui-g-6,
+.div-wizard-pessoas .row-tab2 .ui-g-2,
+.div-wizard-pessoas .row-tab2 .ui-g-1,
+.div-wizard-pessoas .row-tab2 .ui-g-12,
+.div-wizard-pessoas .row-tab2 .ui-g-3{
 	/*border: 1px solid red;*/
 }
-.div-wizard-pessoas .row-tab2 .col-tab2-row1{
-	width: 150px;
+.div-wizard-pessoas .row-tab2 .ui-g-12{
+	border-bottom: 1px solid #e2e2e2;
+	margin-bottom: 5px;
+	padding-bottom: 10px !important;
 }
-.div-wizard-pessoas .row-tab2 .col-tab2-row1:nth-child(2){
-	width: 70px;
+
+.div-wizard-pessoas .row-tab2 .ui-g-1{
+	min-width: 70px;
 }
-.div-wizard-pessoas .row-tab2 .col-tab2-row1:nth-child(3){
-	width: 240px;
+.div-wizard-pessoas .row-tab2 .ui-g-4{
+	min-width: 250px;
 }
-.btn-info-pessoas-logradouro, .btn-info-pessoas-bairro{
-	width: 40px;
-	height: 25px;
-	margin-top: -3px !important;
+.div-wizard-pessoas .row-tab2 .ui-g-3{
+	min-width: 175px;
+}
+.div-wizard-pessoas .row-tab2 .ui-g-3 input,
+.div-wizard-pessoas .row-tab2 .ui-g-3 .ui-selectonemenu,
+.div-wizard-pessoas .row-tab2 .ui-g-1 input,
+.div-wizard-pessoas .row-tab2 .ui-g-4 input{
+	margin-top: 5px !important;
 }
 .btn-info-pessoas-logradouro .ui-button-text, .btn-info-pessoas-bairro .ui-button-text{
 	padding: 0;
 	margin: 0;
+	margin-left: -10px;
 }
-.div-wizard-pessoas .row-tab2 .col-tab2-row2{
-	width: 220px;
+
+.btn-info-pessoas-logradouro, .btn-info-pessoas-bairro{
+	width: 40px;
+	height: 25px;
+	margin-left: 5px;
+	position: absolute;
+	margin-top: 5px !important;
 }
+
 .div-wizard-pessoas .wizard-info-pessoas-pgrid-logradouro{	
 	margin-left: -3px;
 }
 
-.div-wizard-pessoas .row-tab2 .col-tab2-row3{
-	width: 250px;
-} 
-.div-wizard-pessoas .row-tab2 .col-tab2-row3:nth-child(1){
-	width: 220px;
+.btn-tab2-info-pessoas-lupa{
+	height: 25px;
 }
-/*tab2-wizard-Infos-pessoas - dialogs*/
+.row-tab2 .btn-auto-completar{
+	height: 27px;
+	padding: 0px 0px 0px 10px;
+	margin-left: 10px;
+}
+.row-tab2 .btn-auto-completar span{
+	margin-top: -2px;
+}
+.row-tab2 .div-complemento-info-pessoas,
+.row-tab2 .div-estado-info-pessoas,
+.row-tab2 .div-cidade-info-pessoas{
+	margin-right: -10px !important;
+}
 
+
+/*tab2-wizard-Infos-pessoas - dialogs*/
+.dialog-tab2-wizard-pessoas{
+	max-width: 700px;
+}
 .dialog-wizard-tab2 .ui-dialog-titlebar{
 	padding:0;
 	
@@ -400,6 +505,51 @@
 .btn-grid-dialog-tab2-wizard{
 	margin-top: 10px;
 }
+/*Dialog tab2 Pesquisa de Logradouros*/
+.row-tab2-dialog-pesquisa .ui-g-3{
+	max-width: 180px;
+	min-width: 175px;
+}
+
+.row-tab2-dialog-pesquisa .ui-g-4{
+	min-width: 240px;
+}
+.row-tab2-dialog-pesquisa .ui-g-4-cicade-tab2{
+	min-width: 200px;
+} 
+.row-tab2-dialog-pesquisa .ui-g-4,
+.row-tab2-dialog-pesquisa .ui-g-3{
+	/*border: 1px solid red;*/
+}
+.row-tab2-dialog-pesquisa .ui-g-4 input, 
+.row-tab2-dialog-pesquisa .ui-g-3 .ui-selectonemenu{
+	margin-top: 5px;
+}
+.tabela-pesq-logadouro{
+	width: auto !important;
+}
+.btn-info-pessoas-buscar{
+	height: 30px;
+	padding: 0;
+}
+.btn-info-pessoas-buscar span{
+	margin-top: -2px;	
+}
+.div-tb-wizard-tab2{
+	background: #ccc;
+	
+}
+.col-td-tab2-estado{
+	width: 50px !important;
+}
+.edit-col-pessoas-tab2{
+	width: 70px !important;
+}
+.btn-selc-col-tab2{
+	height: 25px !important;
+	margin: 0 !important;
+	width: 100%;
+}
 
 
 /*tab3-wizard-Infos-pessoas*/
@@ -409,16 +559,13 @@
 .btn-info-pessoas-add-cell .ui-button-text{
 	padding: 0;
 	margin: 0;
+	margin-left: -10px;
 }
 .btn-info-pessoas-add-cell{
 	width: 80px;
-	height: 25px;
+	height: 30px;
 	margin-top: -1px !important;
 }
-.div-tb-wizard-tab3{
-	
-}
-
 .wizard-tab3-td-col-pessoas{
 	width: 100px !important;
 	margin-top: -5px !important;
@@ -438,14 +585,38 @@
 	padding-top: 0px !important;
 	padding-bottom: 0px !important;
 }
+.row-tab3 .ui-g-4, .row-tab3 .ui-g-3{
+	/*border: 1px solid red;*/	
+}
+
+.row-tab3 .ui-g-3{
+	max-width: 130px;
+	min-width: 130px;
+}
+.row-tab3 .ui-g-4{
+	min-width: 220px !important;
+}
+
+.row-tab3 .ui-g-3:nth-child(3) button{
+	margin-top: 13px !important;
+}
 
 
 /*tab4-wizard-Infos-pessoas*/
 .btn-info-pessoas-add-cell-tab4{
 	margin-top: 5px !important;
+	margin-left: -5px;
 }
+.row-tab4 .ui-g-6{
+	min-width: 230px;
+	max-width: 250px;
+}
+.row-tab4 .ui-g-6 input, .row-tab4 .ui-g-6 .ui-selectonemenu{
+	margin-top: 5px;
+}
+.btn-info-pessoas-salvar-wizard{
 
-
+}
 
 /*--Ponto--*/
 /*modal-Infos-ponto*/
@@ -492,14 +663,27 @@
 
 /*-----Media Querys-----*/
 
+@media (max-width: 788px) {
+.tabela-pesq-logadouro{
+	
+}	
+}
+
 @media (max-width: 740px) {
 /*Wizard-Infos-pessoas*/
 .wizard-info-pessoas{
-	width:100%;
-	
+	width:100%;	
 }
 }
 
+@media (max-width: 648px) {
+/*tab1-wizard-Infos-pessoas*/
+
+.grupo1-info-pessoas-tab1 .ui-g-3,
+.grupo1-info-pessoas-tab1 .ui-g-2{
+	width: 100%;
+}	
+}
 
 @media (max-width: 590px) {
 /*Wizard-Infos-pessoas*/
@@ -513,6 +697,11 @@
 	border-right: 0px solid #fff !important;
 	border-top: 0px solid #fff !important;
 }
+/*tab1-wizard-Infos-pessoas*/
+
+.grupo2-info-pessoas-tab1 .ui-g-2:nth-child(3){
+	width: 100%;
+}	
 }
 
 @media (max-width: 534px) {
