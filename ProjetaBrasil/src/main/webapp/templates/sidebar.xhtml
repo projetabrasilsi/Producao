@@ -79,7 +79,7 @@
 									</p:menuitem>
 									<p:menuitem value="Revendedores" icon="fa fa-user"
 										actionListener="#{paginas.mudaPaginaAtual}"
-										rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['DISTRIBUIDORES'])}">
+										rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['DISTRIBUIDORES','REPRESENTANTES'])}">
 										<f:attribute name="paginaAtual" value="PAGINAREVENDEDORES" />
 									</p:menuitem>
 									<p:menuitem value="Funcionarios" icon="fa fa-male"
@@ -132,9 +132,9 @@
 							</p:submenu>
 							
 							
-							<p:submenu label="Objetos" rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES'])}">
+							<p:submenu label="Objetos" rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA','DISTRIBUIDORES','REPRESENTANTES','REVENDEDORES','FUNCIONARIOS'])}">
 								
-								<p:submenu label="Pets" rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES'])}">
+								<p:submenu label="Pets" rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA','DISTRIBUIDORES','REPRESENTANTES','REVENDEDORES','FUNCIONARIOS'])}">
 									<p:menuitem value="Cao" icon="fa fa-map-marker"
 										actionListener="#{paginas.mudaPaginaAtual}">
 										<f:attribute name="paginaAtual" value="PAGINACAES" />
@@ -162,7 +162,7 @@
 								</p:submenu>
 								
 								
-								<p:submenu label="Mobilidade" rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES'])}">
+								<p:submenu label="Mobilidade" rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA','DISTRIBUIDORES','REPRESENTANTES','REVENDEDORES','FUNCIONARIOS'])}">
 									<p:menuitem value="Carro" icon="fa fa-map-marker"
 										actionListener="#{paginas.mudaPaginaAtual}">
 										<f:attribute name="paginaAtual" value="PAGINACARROS" />
@@ -185,7 +185,7 @@
 								</p:submenu>
 								
 								
-								<p:submenu label="Eletronicos" rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES'])}">
+								<p:submenu label="Eletronicos" rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA','DISTRIBUIDORES','REPRESENTANTES','REVENDEDORES','FUNCIONARIOS'])}">
 									<p:menuitem value="Smartphone/Telefone" icon="fa fa-map-marker"
 										actionListener="#{paginas.mudaPaginaAtual}">
 										<f:attribute name="paginaAtual" value="PAGINACELULARES" />
@@ -203,7 +203,7 @@
 								</p:submenu>
 								
 								
-								<p:submenu label="Outros" rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES'])}">
+								<p:submenu label="Outros" rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA','DISTRIBUIDORES','REPRESENTANTES','REVENDEDORES','FUNCIONARIOS'])}">
 									<p:menuitem value="Bolsas" icon="fa fa-map-marker"
 										actionListener="#{paginas.mudaPaginaAtual}">
 										<f:attribute name="paginaAtual" value="PAGINABOLSAS" />
@@ -217,8 +217,8 @@
 																			
 							</p:submenu>
 						</p:submenu>
-						<p:submenu label=" Transferencias de QRCodes"
-								rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA','DISTRIBUIDORES','REPRESENTANTES'])}">
+						<p:submenu label="Vinculos e Transferencias de QRCodes"
+								rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA','DISTRIBUIDORES','REPRESENTANTES','REVENDEDORES'])}">
 								<p:menuitem value="Vizualização" icon="fa fa-map-marker"
 									actionListener="#{paginas.mudaPaginaAtual}"
 									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA'])}">
@@ -245,6 +245,13 @@
 									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA','DISTRIBUIDORES','REPRESENTANTES'])}">
 									<f:attribute name="paginaAtual" value="PAGINATRANSFERENCIASQRCODE" />
 									<f:attribute name="perfildeTransferencia" value="REVENDEDORES" />
+								</p:menuitem>
+								
+								<p:menuitem value="Vingular QRCode" icon="fa fa-map-marker"
+									actionListener="#{paginas.mudaPaginaAtual}"
+									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA','DISTRIBUIDORES','REPRESENTANTES','REVENDEDORES'])}">
+									<f:attribute name="paginaAtual" value="PAGINAVINCULARQRCODE" />
+									<f:attribute name="perfildeTransferencia" value="CLIENTES" />
 								</p:menuitem>
 
 

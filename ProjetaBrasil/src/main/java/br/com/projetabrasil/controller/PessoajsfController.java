@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.primefaces.event.FlowEvent;
@@ -681,11 +682,12 @@ public class PessoajsfController extends GenericController implements Serializab
 			Pessoa_Vinculo pVin = new Pessoa_Vinculo();
 			Pessoa_VinculoDAO pVinDAO = new Pessoa_VinculoDAO();
 			pVin.setId_pessoa_d(pessoa);
-			pVin = pVinDAO.retornaVinculo_Mestre(pessoa, perfilLogado.getPaginaAtual().getPerfilPessoa());
+			pVin = pVinDAO.retornaVinculo_emOutroMestre(pessoa,perfilLogado.getAssLogado(), perfilLogado.getPaginaAtual().getPerfilPessoa());
 			if (pVin != null && !perfilLogado.getUsLogado().getPessoa().getId().equals(pVin.getId_pessoa_m().getId())) {
 				Pessoa p = pVin.getId_pessoa_m();
-				mensagensDisparar(
+				Utilidades.mensagensDisparar(
 						"Este atendente já tem um Vinculo com um Outro Associado: " + p.getFantasia_Apelido());
+				
 				return;
 			}
 		}

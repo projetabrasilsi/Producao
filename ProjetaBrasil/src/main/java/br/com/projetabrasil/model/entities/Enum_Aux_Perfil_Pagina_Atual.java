@@ -51,7 +51,8 @@ public enum Enum_Aux_Perfil_Pagina_Atual {
 	PAGINAACHEI("PAGINAACHEI","PACHE",42,null,Enum_Aux_Perfil_Pessoa.OUTROS,Enum_Aux_Perfil_Pessoa.OUTROS ,true,true,"achei.xhtml","Pagina Achei"),
 	PAGINATRANSFERENCIASQRCODE("PAGINATRANSFERENCIASQRCODE","PTRANS",43,null,Enum_Aux_Perfil_Pessoa.OUTROS,Enum_Aux_Perfil_Pessoa.OUTROS ,true,true,"transferenciaqrcode.xhtml","Pagina de transferencia de QRCode"),
 	PAGINALOGISTICA("PAGINALOGISTICA","PLOG",44,null,Enum_Aux_Perfil_Pessoa.LOGISTICA,Enum_Aux_Perfil_Pessoa.LOGISTICA,false,true,"pessoas.xhtml", "logistica"),
-	PAGINAFUNCIONARIOS("PAGINAFUNCIONARIOS","PFUNC",45,null,Enum_Aux_Perfil_Pessoa.FUNCIONARIOS,Enum_Aux_Perfil_Pessoa.REVENDEDORES,false,true,"pessoas.xhtml", "logistica");
+	PAGINAFUNCIONARIOS("PAGINAFUNCIONARIOS","PFUNC",45,null,Enum_Aux_Perfil_Pessoa.FUNCIONARIOS,Enum_Aux_Perfil_Pessoa.REVENDEDORES,false,true,"pessoas.xhtml", "logistica"),
+	PAGINAVINCULARQRCODE("PAGINAVINCULARQRCODE","PVINC",46,null,Enum_Aux_Perfil_Pessoa.OUTROS,Enum_Aux_Perfil_Pessoa.OUTROS ,true,true,"transferenciaqrcode.xhtml","QRCodes para vínculo");
 	
     private String descricao;    
 	private String sigla;

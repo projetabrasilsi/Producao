@@ -68,13 +68,7 @@ public class Utilidades implements Serializable {
 	private static final String caminhoFotoBrinde = System.getProperty("user.home") + "/imagens/brindes/";
 	private static final String caminhoFotoPessoas = System.getProperty("user.home") + "/imagens/pessoas/";
 	private static final String caminhoFotoObjetos = System.getProperty("user.home") + "/imagens/objetos/";
-	public static String getCaminhofotopessoas() {
-		return caminhoFotoPessoas;
-	}
-
-	public static String getCaminhofotoobjetos() {
-		return caminhoFotoObjetos;
-	}
+	
 
 	private static final String caminhoFotoVouchers = System.getProperty("user.home") + "/imagens/vouchers/";
 	private static final String caminhoFotoAgendamento = System.getProperty("user.home") + "/imagens/agendamento/";
@@ -84,7 +78,9 @@ public class Utilidades implements Serializable {
 	private static String tipoImagem = ".jpeg";
 	private static String tipoImagemSemPonto = "jpeg";
 	private static final String caminhobase = System.getProperty("user.home") + "/imagens/";
+	private static String caminhobase2 = System.getProperty("user.home") + "\\imagens\\";
 	private static final String branco = Utilidades.getCaminhobase() + "branco" + Utilidades.getTipoImagem();
+	private static final String branco2 = Utilidades.getCaminhobase2() + "branco" + Utilidades.getTipoImagem();
 	private static final String naoatingido = "/images/" + "naoatingido" + Utilidades.getTipoImagem();
 	private static final String atingido = "/images/" + "atingido" + Utilidades.getTipoImagem();
 	private static final float umaTememCm = 2.54f;
@@ -143,6 +139,13 @@ public class Utilidades implements Serializable {
 			}
 		}
 
+	}
+	public static String getCaminhofotopessoas() {
+		return caminhoFotoPessoas;
+	}
+
+	public static String getCaminhofotoobjetos() {
+		return caminhoFotoObjetos;
 	}
 
 	public static String tipodeImagem() {
@@ -654,6 +657,20 @@ public class Utilidades implements Serializable {
 
 	public static void setCaminhofotocomprovante(String caminhofotocomprovante) {
 		caminhoFotoComprovante = caminhofotocomprovante;
+	}
+
+	public static String getBranco2() {
+		return branco2;
+	}
+
+	
+
+	public static String getCaminhobase2() {
+		return caminhobase2;
+	}
+
+	public static void setCaminhobase2(String caminhobase2) {
+		Utilidades.caminhobase2 = caminhobase2;
 	}
 
 }

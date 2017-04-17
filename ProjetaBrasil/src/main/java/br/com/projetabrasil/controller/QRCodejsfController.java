@@ -18,12 +18,14 @@ import org.primefaces.event.UnselectEvent;
 import br.com.projetabrasil.controller.entitiesconfig.PessoaConfig;
 import br.com.projetabrasil.model.business.PessoaBusiness;
 import br.com.projetabrasil.model.business.PessoaBusiness2;
+import br.com.projetabrasil.model.dao.ObjetoDAO;
 import br.com.projetabrasil.model.dao.Pessoa_Enum_Aux_Perfil_PessoasDAO;
 import br.com.projetabrasil.model.dao.Pessoa_VinculoDAO;
 import br.com.projetabrasil.model.dao.QRCodeDAO;
 import br.com.projetabrasil.model.entities.Enum_Aux_Perfil_Pessoa;
 import br.com.projetabrasil.model.entities.Enum_Aux_Status_QRCodes;
 import br.com.projetabrasil.model.entities.Enum_Aux_Tipo_Identificador;
+import br.com.projetabrasil.model.entities.Objeto;
 import br.com.projetabrasil.model.entities.PerfilLogado;
 import br.com.projetabrasil.model.entities.Pessoa;
 import br.com.projetabrasil.model.entities.Pessoa_Enum_Aux_Perfil_Pessoa;
@@ -46,9 +48,73 @@ public class QRCodejsfController implements Serializable {
 	private PessoaConfig pessoaConfig;
 	private Pessoa pessoa;
 	private Usuario usuario;
+	private QRCode q;
+	private boolean ok;
+	private List<Objeto> objetos;
+	private Objeto objeto;
+	private boolean renderizacheck;
+	private String selectionMode;
 
 	public void cancelaTransferencia() {
 		Utilidades.abrirfecharDialogos("dialogoIdentidade", false);
+	}
+
+	public void abreDialogodeBuscadePessoas(ActionEvent event) {
+		pessoa = new Pessoa();
+		pessoa.setEnum_Aux_Tipo_Identificador(Enum_Aux_Tipo_Identificador.CPF);
+
+		q = (QRCode) event.getComponent().getAttributes().get("registroAtual");
+		Utilidades.abrirfecharDialogos("dialogoIdentidadeEObjeto", true);
+
+	}
+
+	public void buscaClienteEObjetos() {
+		if (q.getStatus().equals(Enum_Aux_Status_QRCodes.VENDIDOS)) {
+			Utilidades.mensagensDisparar("Este QRCode já Está Vendido");
+			Utilidades.abrirfecharDialogos("dialogoIdentidadeEObjeto", false);
+			return;
+		}
+		if (!buscaPessoa()) {
+			Utilidades.abrirfecharDialogos("dialogoIdentidadeEObjeto", false);
+			return;
+		}
+
+		Pessoa_Enum_Aux_Perfil_Pessoa pp = new Pessoa_Enum_Aux_Perfil_Pessoa();
+		Pessoa_Enum_Aux_Perfil_PessoasDAO ppDAO = new Pessoa_Enum_Aux_Perfil_PessoasDAO();
+		pp.setId_pessoa(pessoa);
+		pp.setEnum_Aux_Perfil_Pessoa(Enum_Aux_Perfil_Pessoa.CLIENTES);
+		pp = ppDAO.isPerfilExiste(pp);
+		if (pp == null) {
+			Utilidades.mensagensDisparar("Pessoa do CPF informado, não tem o perfil \n"
+					+ "de Cliente\n para que ocorra a VINCULAÇÃO ao QRCode");
+			Utilidades.abrirfecharDialogos("dialogoIdentidadeEObjeto", false);
+			return;
+		}
+
+		ObjetoDAO objDAO = new ObjetoDAO();
+		objetos = objDAO.lista_Objetos(pessoa);
+
+		if (objetos == null || objetos.size() == 0) {
+
+			Utilidades.mensagensDisparar("Cliente: " + pessoa.getDescricao() + "\n ainda"
+					+ " não tem nenhum tipo de \n Objeto Cadastrado!!!");
+			Utilidades.abrirfecharDialogos("dialogoIdentidadeEObjeto", false);
+			return;
+		}
+
+		List<Objeto> objetosEImagens = new ArrayList<Objeto>();
+
+		int x = 0;
+		for (Objeto i : objetos) {
+			i.setCaminhodaImagem(Utilidades.getCaminhofotoobjetos() + "" + i.getId() + Utilidades.getTipoimagem());
+			i.setTipodeImagem(Utilidades.tipodeImagem());
+			objetosEImagens.add(x, i);
+			x++;
+		}
+		objetos = objetosEImagens;
+		Utilidades.abrirfecharDialogos("dialogoIdentidadeEObjeto", false);
+		Utilidades.abrirfecharDialogos("dialogoObjetos", true);
+
 	}
 
 	public void RealizarTransferencia() {
@@ -61,9 +127,9 @@ public class QRCodejsfController implements Serializable {
 		pp.setEnum_Aux_Perfil_Pessoa(perfilLogado.getPerfildeTransferencia());
 		pp = ppDAO.isPerfilExiste(pp);
 		if (pp == null) {
-			Utilidades.mensagensDisparar("Pessoado CPF informado, não tem o perfil \n"
+			Utilidades.mensagensDisparar("Pessoa do CPF informado, não tem o perfil \n"
 					+ perfilLogado.getPerfildeTransferencia() + "\n para que a transferencia possa ocorrer");
-			
+
 			return;
 		}
 
@@ -73,7 +139,8 @@ public class QRCodejsfController implements Serializable {
 			Pessoa_VinculoDAO pVinDAO = new Pessoa_VinculoDAO();
 			pVin.setId_pessoa_d(pessoa);
 			pVin.setId_pessoa_m(perfilLogado.getAssLogado());
-			pVin = pVinDAO.retornaVinculo_Mestre(pessoa,pVin.getId_pessoa_m(),  perfilLogado.getPerfildeTransferencia());
+			pVin = pVinDAO.retornaVinculo_emOutroMestre(pessoa, pVin.getId_pessoa_m(),
+					perfilLogado.getPerfildeTransferencia());
 			if (pVin == null) {
 				if (perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.REPRESENTANTES))
 					Utilidades.mensagensDisparar("Representante não está cadastrado para este Distribuidor");
@@ -81,15 +148,13 @@ public class QRCodejsfController implements Serializable {
 				else if (perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.REVENDEDORES)) {
 					if (perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.DISTRIBUIDORES))
 						Utilidades.mensagensDisparar("Revenda não está cadastrado para este Distribuidor");
-					
+
 					else if (perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.REPRESENTANTES))
 						Utilidades.mensagensDisparar("Revenda não está cadastrado para este Representante");
-					
-					
 
 				}
 
- 				return;
+				return;
 			}
 
 		}
@@ -169,6 +234,15 @@ public class QRCodejsfController implements Serializable {
 
 	@PostConstruct
 	public void listargemQrCode() {
+		if (perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.CLIENTES))
+			setRenderizacheck(false);
+		else
+			setRenderizacheck(true);
+		q = new QRCode();
+		ok = false;
+		objetos = new ArrayList<>();
+		objeto = new Objeto();
+
 		pessoa = new Pessoa();
 		usuario = new Usuario();
 		QRCodeDAO qDAO = new QRCodeDAO();
@@ -180,12 +254,54 @@ public class QRCodejsfController implements Serializable {
 			livre = false;
 
 		qRCodes = qDAO.listarQRCodersPorPerfil(perfilLogado, livre);
+		
 
 		qRCodesSelecionados = new ArrayList<>();
 		configurarPessoa();
 		pessoa = new Pessoa();
 		pessoa.setEnum_Aux_Tipo_Identificador(Enum_Aux_Tipo_Identificador.CNPJ);
+		if (perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.CLIENTES))
+			pegarCaminhodaImagem();
+		
 	}
+
+	public void pegarCaminhodaImagem() {
+		if (!perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.CLIENTES))
+			return;
+		
+		int x = 0;
+		for (QRCode qrCode : qRCodes) {
+			if (qrCode.getId_Objeto() != null) {				
+				qrCode.setCaminhodaImagem(Utilidades.getCaminhofotoobjetos() + "" + qrCode.getId_Objeto().getId()+ Utilidades.getTipoimagem());
+				qrCode.setTipodeImagem(Utilidades.tipodeImagem());				
+				
+			}else{
+				qrCode.setCaminhodaImagem(Utilidades.getBranco2());
+			}
+			qRCodes.set(x,qrCode);
+			x++;
+		}
+		
+
+	}
+	public void vincularObjetos(ActionEvent event) {
+		q.setId_Objeto((Objeto) event.getComponent().getAttributes().get("registroAtual"));
+		q.setCaminhodaImagem(Utilidades.getCaminhofotoobjetos() + "" + q.getId_Objeto() + Utilidades.getTipoimagem());
+		q.setTipodeImagem(Utilidades.tipodeImagem());
+		q.setStatus(Enum_Aux_Status_QRCodes.VENDIDOS);
+		q.setId_Pessoa_Cliente(q.getId_Objeto().getId_Pessoa_Vinculo());
+		q.setData_Venda(Utilidades.retornaCalendario());
+		q.setId_Pessoa_Registro(perfilLogado.getUsLogado().getPessoa());
+		q.setUltimaAtualizacao(Utilidades.retornaCalendario());
+		q.setTipo_Objeto(q.getId_Objeto().getEnum_Aux_Tipos_Objeto());
+		QRCodeDAO qDAO = new QRCodeDAO();
+		qDAO.merge(q);
+		Utilidades.abrirfecharDialogos("dialogoObjetos", false);
+		listargemQrCode();
+		
+
+	}
+
 
 	public void identidade(ActionEvent event) {
 		configurarPessoa();
@@ -256,6 +372,58 @@ public class QRCodejsfController implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public QRCode getQ() {
+		return q;
+	}
+
+	public void setQ(QRCode q) {
+		this.q = q;
+	}
+
+	public boolean isOk() {
+		return ok;
+	}
+
+	public void setOk(boolean ok) {
+		this.ok = ok;
+	}
+
+	public List<Objeto> getObjetos() {
+		return objetos;
+	}
+
+	public void setObjetos(List<Objeto> objetos) {
+		this.objetos = objetos;
+	}
+
+	public Objeto getObjeto() {
+		return objeto;
+	}
+
+	public void setObjeto(Objeto objeto) {
+		this.objeto = objeto;
+	}
+
+	public boolean isRenderizacheck() {
+		return renderizacheck;
+	}
+
+	public void setRenderizacheck(boolean renderizacheck) {
+		this.renderizacheck = renderizacheck;
+		if (this.renderizacheck)
+			setSelectionMode("multiple");
+		else
+			setSelectionMode("single");
+	}
+
+	public String getSelectionMode() {
+		return selectionMode;
+	}
+
+	public void setSelectionMode(String selectionMode) {
+		this.selectionMode = selectionMode;
 	}
 
 }
