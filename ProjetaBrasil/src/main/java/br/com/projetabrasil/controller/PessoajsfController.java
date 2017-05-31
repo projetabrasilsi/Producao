@@ -13,7 +13,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.primefaces.event.FileUploadEvent;
@@ -128,6 +127,9 @@ public class PessoajsfController extends GenericController implements Serializab
 	private List<Profissao> profissoes;
 	private String profissaoBusca;
 	
+	private List<Pessoa> indicacoes;
+	private String indicacaoBusca;
+	
 	private String cidadedePesquisa;
 	private String logradourodePesquisa;
 	private List<CEP> listaceps;
@@ -154,7 +156,7 @@ public class PessoajsfController extends GenericController implements Serializab
 		endereco = new Endereco(new Logradouro(new Cidade(new Estado(pais))), new Bairro(new Cidade(new Estado(pais))));
 		endereco.getLogradouro().setEnum_Aux_Tipo_Logradouro(Enum_Aux_Tipo_Logradouro.RUA);
 
-		pessoas = PessoaBusiness.listar(perfilLogado);
+		listaPessoasecaminhosdeimagem();
 		pessoa = new Pessoa();
 		usuario = new Usuario();
 		usuario.setPessoa(pessoa);
@@ -688,7 +690,8 @@ public class PessoajsfController extends GenericController implements Serializab
 						||perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.REPRESENTANTES)
 						||perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.CLIENTES)
 								||perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.FUNCIONARIOS)
-								||perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.REVENDEDORES))
+								||perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.REVENDEDORES)
+								||perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.VETERINARIOS))
 				&& perfilLogado.getPerfilUsLogado().isPossuiDescentes()
 				
 				) {
@@ -704,6 +707,37 @@ public class PessoajsfController extends GenericController implements Serializab
 				return;
 			}
 		}
+		
+		// VALIDACAO PARA FOTO
+		Path caminhoTemp;
+		if (pessoa.getCaminhoTemp() == null || pessoa.getCaminhoTemp() == "") {
+			mensagensDisparar("Imagem é obrigatória!!!");
+			return;
+		} else {
+			caminhoTemp = Paths.get(pessoa.getCaminhoTemp());
+			if (!Files.exists(caminhoTemp)) {
+				mensagensDisparar("Imagem é obrigatória!!!");
+				return;
+			}
+		} 
+		       
+		pessoa = PessoaGenericBusiness.merge(pessoa, usuario, perfilLogado, true);
+		
+		pessoa.setCaminhodaImagem(
+				Utilidades.getCaminhofotopessoas() + "" + pessoa.getId() + Utilidades.getTipoimagem());
+
+		Path origem = caminhoTemp;
+		Path destino = Paths.get(pessoa.getCaminhodaImagem());
+		try {
+			Utilidades.gravaDiretorio(pessoa.getCaminhodaImagem());
+			Files.copy(origem, destino, StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException error) {
+			mensagensDisparar("Ocorreu um erro ao tentar salvar a imagem");
+
+			error.printStackTrace();
+		}
+
+		listaPessoasecaminhosdeimagem();
 		
 		pessoa = PessoaGenericBusiness.merge(pessoa, usuario, perfilLogado, true);
 		// Endereço MERGE------------
@@ -723,6 +757,22 @@ public class PessoajsfController extends GenericController implements Serializab
 
 		cancela();
 
+	}
+	
+	public void listaPessoasecaminhosdeimagem() {
+		this.pessoas = PessoaBusiness.listar(perfilLogado);
+		List<Pessoa> pessoasEImagens = new ArrayList<Pessoa>();
+
+		PessoaDAO pDAO = new PessoaDAO();
+
+		int x = 0;
+		for (Pessoa p : pessoas) {
+			p.setCaminhodaImagem(Utilidades.getCaminhofotopessoas() + "" + p.getId() + Utilidades.getTipoimagem());
+			p.setTipodeImagem(Utilidades.tipodeImagem());
+			pessoasEImagens.add(x, p);
+			x++;
+		}
+		this.pessoas = pessoasEImagens;
 	}
 
 	public void setCEP() {
@@ -1049,7 +1099,6 @@ public class PessoajsfController extends GenericController implements Serializab
 			objeto.setId_Pessoa_Registro(perfilLogado.getUsLogado().getPessoa());
 		objeto.setId_Empresa(1);
 		objeto.setUltimaAtualizacao(Utilidades.retornaCalendario());
-		
 		objeto.setEnum_Aux_Tipos_Objetos(tipoObjeto);
 		
 		listaObjeto.add(objeto);
@@ -1160,7 +1209,7 @@ public class PessoajsfController extends GenericController implements Serializab
 			mensagensDisparar("Ocorreu um erro ao tentar realizar carregamento do arquivo");
 			erro.printStackTrace();
 		}
-	}
+	}	
 	
 	public Pessoa getPessoa() {
 		return pessoa;
@@ -1436,6 +1485,21 @@ public class PessoajsfController extends GenericController implements Serializab
 			Utilidades.abrirfecharDialogos("dialogoProfissoes", false);
 		}
 	}
+	
+	public void listarIndicacoesFiltradas(){
+		PessoaDAO pDAO = new PessoaDAO();
+		this.indicacoes =  pDAO.listardeIndicacoes(indicacaoBusca);
+	}
+
+	public void defineIndicacao(ActionEvent event){
+		Pessoa p = (Pessoa) event.getComponent().getAttributes().get("registroIndicacaoAtual");
+		if(p==null){
+			return;
+		}else{
+			this.pessoa.setId_Pessoa_Indicacao(p);
+			Utilidades.abrirfecharDialogos("dialogoIndicacoes", false);
+		}
+	}
 
 	public Enum_Aux_Tipos_Objetos getTipoObjeto() {
 		return tipoObjeto;
@@ -1536,6 +1600,23 @@ public class PessoajsfController extends GenericController implements Serializab
 	public String getTipoDeImagem() {
 		return tipoDeImagem;
 	}
+
+	public List<Pessoa> getIndicacoes() {
+		return indicacoes;
+	}
+
+	public void setIndicacoes(List<Pessoa> indicacoes) {
+		this.indicacoes = indicacoes;
+	}
+
+	public String getIndicacaoBusca() {
+		return indicacaoBusca;
+	}
+
+	public void setIndicacaoBusca(String indicacaoBusca) {
+		this.indicacaoBusca = indicacaoBusca;
+	}
+	
 	
 
 }

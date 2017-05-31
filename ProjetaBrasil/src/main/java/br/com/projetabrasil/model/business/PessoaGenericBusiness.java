@@ -72,7 +72,9 @@ public class PessoaGenericBusiness implements Serializable {
 					perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.DISTRIBUIDORES) ||
 						perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.REVENDEDORES)
 						||
-						perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.REPRESENTANTES)) 		
+						perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.REPRESENTANTES)
+						||
+						perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.FUNCIONARIOS)) 		
 		vincularPessoa(pessoa, perfilLogado);
 		
 		
@@ -91,6 +93,7 @@ public class PessoaGenericBusiness implements Serializable {
 				
 		//DEPENDENDO DO PERFIL É NECESSÁRIO VINCULAR AO ASSOCIADO LOGADO E NÃO À EMPRESA
 		if(
+				 
 				(perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.DISTRIBUIDORES) &&
 				 perfilLogado.getPaginaAtual().equals(Enum_Aux_Perfil_Pagina_Atual.PAGINAREPRESENTANTES)
 				 )
@@ -103,7 +106,18 @@ public class PessoaGenericBusiness implements Serializable {
 						 )
 						|| 
 						(perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.REVENDEDORES) && 
-								perfilLogado.getPaginaAtual().equals(Enum_Aux_Perfil_Pagina_Atual.PAGINAFUNCIONARIOS))
+								perfilLogado.getPaginaAtual().equals(Enum_Aux_Perfil_Pagina_Atual.PAGINAFUNCIONARIOS)
+						)
+						
+						|| 
+						(perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.REVENDEDORES) && 
+								perfilLogado.getPaginaAtual().equals(Enum_Aux_Perfil_Pagina_Atual.PAGINACLIENTES)
+						)
+						|| 
+						(perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.FUNCIONARIOS) && 
+								perfilLogado.getPaginaAtual().equals(Enum_Aux_Perfil_Pagina_Atual.PAGINACLIENTES)
+						)
+						
 				){
 			pVinc.setId_pessoa_m(perfilLogado.getAssLogado());
 			

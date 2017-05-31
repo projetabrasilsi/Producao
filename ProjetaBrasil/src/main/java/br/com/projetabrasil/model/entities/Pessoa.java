@@ -28,8 +28,8 @@ public class Pessoa extends GenericDomain implements Serializable{
 	private Long id;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name="enum_Aux_Tipo_Identificador", nullable=false)	
-	private Enum_Aux_Tipo_Identificador enum_Aux_Tipo_Identificador ;
+	@Column(name="enum_Aux_Tipo_Identificador", nullable=true)	
+	private Enum_Aux_Tipo_Identificador enum_Aux_Tipo_Identificador;
 	
 	@Column(name="descricao", length = 90, nullable=false)
 	private String descricao;
@@ -63,15 +63,19 @@ public class Pessoa extends GenericDomain implements Serializable{
 	private String email;
 	
 	@OneToOne
-	@JoinColumn ( name ="id_Pessoa_Registro")	//NÃO USAR RECURSO DE HERANÇA PARA ESTA COLUNA NO GENERIC DOMAIN!!!	
+	@JoinColumn ( name ="id_Pessoa_Registro")	
 	private Pessoa id_Pessoa_Registro;
+	
+	@OneToOne
+	@JoinColumn ( name ="id_Pessoa_indicacao")		
+	private Pessoa id_Pessoa_Indicacao;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="AutoPontuacao")
 	private Enum_Aux_Sim_ou_Nao autoPontuacao;
 	
 	@OneToOne
-	@JoinColumn ( name ="id_Profissao")	//NÃO USAR RECURSO DE HERANÇA PARA ESTA COLUNA NO GENERIC DOMAIN!!!	
+	@JoinColumn ( name ="id_Profissao")		
 	private Profissao id_Profissao;
 	
 	@Transient
@@ -80,6 +84,10 @@ public class Pessoa extends GenericDomain implements Serializable{
 	@Transient
 	@Column(name = "caminhoTemp")	
 	private String caminhoTemp;
+	
+	@Transient
+	@Column(name = "tipodeImagem")	
+	private String tipodeImagem;
 	
 	@Transient
 	private String mensagem;
@@ -238,9 +246,19 @@ public class Pessoa extends GenericDomain implements Serializable{
 	}
 	public void setPontosAtuais(double pontosAtuais) {
 		this.pontosAtuais = pontosAtuais;
+	}	
+	public Pessoa getId_Pessoa_Indicacao() {
+		return id_Pessoa_Indicacao;
 	}
-	
-	
+	public void setId_Pessoa_Indicacao(Pessoa id_Pessoa_Indicacao) {
+		this.id_Pessoa_Indicacao = id_Pessoa_Indicacao;
+	}	
+	public String getTipodeImagem() {
+		return tipodeImagem;
+	}
+	public void setTipodeImagem(String tipodeImagem) {
+		this.tipodeImagem = tipodeImagem;
+	}
 	@Override
 	public String toString() {
 		return "Pessoa [id=" + id + ", enum_Aux_Tipo_Identificador=" + enum_Aux_Tipo_Identificador + ", descricao="

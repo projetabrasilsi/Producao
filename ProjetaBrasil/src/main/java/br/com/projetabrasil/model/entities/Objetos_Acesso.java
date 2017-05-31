@@ -2,7 +2,10 @@ package br.com.projetabrasil.model.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,6 +31,10 @@ public class Objetos_Acesso extends GenericDomain implements Serializable{
 	@ManyToOne
 	@JoinColumn ( name ="id_Pessoa", nullable=false)	
 	private Pessoa id_Pessoa;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="enum_Aux_Status_Pet", nullable=true)	
+	private Enum_Aux_Status_Pet enum_Aux_Status_Pet;
 	
 	private Enum_Aux_Tipos_Objetos enum_Aux_Tipos_Objetos; 
 	

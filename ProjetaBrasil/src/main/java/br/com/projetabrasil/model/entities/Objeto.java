@@ -29,6 +29,14 @@ public class Objeto extends GenericDomain implements Serializable{
 	@Column(name="enum_aux_Tipos_Objeto", nullable=false)
 	Enum_Aux_Tipos_Objetos enum_Aux_Tipos_Objeto;
 	
+	@Enumerated(EnumType.STRING)
+	@Column(name="enum_Aux_Status_Pet", nullable=true)	
+	private Enum_Aux_Status_Pet enum_Aux_Status_Pet;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="enum_Aux_Sexo", nullable=true)	
+	private Enum_Aux_Sexo sexo;
+	
 	@ManyToOne
 	@JoinColumn(name="id_Marca_e_Raca")
 	private Marca_e_Raca id_Marca_e_Raca;
@@ -150,6 +158,18 @@ public class Objeto extends GenericDomain implements Serializable{
 	}
 	public void setCaminhoTemp(String caminhoTemp) {
 		this.caminhoTemp = caminhoTemp;
+	}
+	public Enum_Aux_Status_Pet getEnum_Aux_Status_Pet() {
+		return enum_Aux_Status_Pet;
+	}
+	public void setEnum_Aux_Status_Pet(Enum_Aux_Status_Pet enum_Aux_Status_Pet) {
+		this.enum_Aux_Status_Pet = enum_Aux_Status_Pet;
+	}	
+	public Enum_Aux_Sexo getSexo() {
+		return sexo;
+	}
+	public void setSexo(Enum_Aux_Sexo sexo) {
+		this.sexo = sexo;
 	}
 	@Override
 	public int hashCode() {

@@ -19,7 +19,12 @@ public enum Enum_Aux_Tipos_Objetos {
 			/* labelDescricao */"Informe a descrição do Objeto", /* labelCor */"Informe a Cor", /* id */2,
 			/* renderPlaca */false, /* renderAno */false, /* renderModelo */false, /* renderCor */true,
 			/* renderSachis */false, /* renderDtNascimento */false, /* renderEmai */true,
-			/* labelEmai */"Informe o Emai do Celular");
+			/* labelEmai */"Informe o Emai do Celular"),
+	PESSOAS(/* descricao */"PESSOAS", /* abreviacao */"PESS",
+			/* labelDescricao */"Informe a descrição da Pessoa", /* labelCor */"", /* id */2,
+			/* renderPlaca */false, /* renderAno */false, /* renderModelo */false, /* renderCor */true,
+			/* renderSachis */false, /* renderDtNascimento */false, /* renderEmai */true,
+			/* labelEmai */"");
 
 	private String descricao;
 	private String abreviacao;

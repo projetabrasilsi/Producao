@@ -25,41 +25,87 @@
 						<p:outputLabel
 							value="Listagem de #{autenticacaojsfController.perfilLogado.paginaAtual.descricao2}" />
 					</h1>
+					
 					<h:form id="formLista">
+						<p:commandButton value="Transferir" rendered="#{qrcodejsfController.renderizacheck}"
+										actionListener="#{qrcodejsfController.identidade}"
+										styleClass="btao-pessoas btn-color-green btn-qr"
+										update=":mensagens
+										:formTemplate:formIdentidade">
+						</p:commandButton>
 						<p:dataTable id="tabela" emptyMessage="Sem Registros"
 							resizableColumns="true" value="#{qrcodejsfController.qRCodes}"
 							paginator="true" rows="15" var="registro"
-							styleClass="tabela-pessoas"
+							styleClass="tabela-pessoas tabela-vizualizacao"
 							selection="#{qrcodejsfController.qRCodesSelecionados}"
 							rowKey="#{registro.id}">
-							<f:facet name="header">
-								<p:commandButton value="Transferir" rendered="#{qrcodejsfController.renderizacheck}"
-									actionListener="#{qrcodejsfController.identidade}"
-									styleClass="btao-pessoas btn-color-green"
-									update=":mensagens
-									 
-									:formTemplate:formIdentidade">
-								</p:commandButton>
+							
+							
+							<p:column headerText="Vincular" rendered="#{!qrcodejsfController.renderizacheck}"
+							styleClass="col-qr-vinq">
 
-							</f:facet>
+								<p:commandButton icon="ui-icon-check"
+									actionListener="#{qrcodejsfController.abreDialogodeBuscadePessoas}"
+									update=":formTemplate:formIdentidadeEObjeto" styleClass="btn-qr-vinq btn-color-blue">
+									<p:confirm header="Confirmação"
+										message="Deseja realmente Vincular este registro?"
+										icon="ui-icon-alert" />
+									<f:attribute name="registroAtual" value="#{registro}" />
+								</p:commandButton>
+							</p:column>
+							
 
 							<p:column selectionMode="#{qrcodejsfController.selectionMode}"
 								style="width:16px;text-align:center"
 								rendered="#{qrcodejsfController.renderizacheck}" />
 
 							<p:column headerText="ID" sortBy="id" filterBy="id"
-								styleClass="geral-col-pessoas" style="width:10%">
+								styleClass="col-qr-id">
 								<h:outputText value="#{registro.id}" />
 							</p:column>
 							<p:column headerText="Status" sortBy="status"
-								filterBy="identificador" styleClass="geral-col-pessoas"
-								style="width:15%">
+								filterBy="identificador" styleClass="col-qr-status"
+								>
 								<p:outputLabel id="status" size="30" maxlength="15"
 									value="#{registro.status}" />
 							</p:column>
+							
+							
+							
+							<p:column headerText="Foto" rendered="#{!qrcodejsfController.renderizacheck}"
+							styleClass="col-qr-foto" >
+							<p:graphicImage id="Fotoobjeto"
+								value="#{imagensjsfController.image}"
+								styleClass="img-qr-foto"
+								>
+								<f:param name="caminho" value="#{registro.caminhodaImagem}" />
+							</p:graphicImage>
+
+						</p:column>
+						<p:column headerText="objeto" rendered="#{!qrcodejsfController.renderizacheck}"
+								sortBy="#{registro.id_Objeto.descricao}"
+								filterBy="registro.id_Objeto.descricao"
+								styleClass="col-qr-ojeto">
+								<h:outputText
+									value="#{fn:substring(registro.id_Objeto.descricao,0,15)}">
+
+								</h:outputText>
+							</p:column>
+						
+						
+							<p:column headerText="Cliente"
+								sortBy="#{registro.id_Pessoa_Cliente.descricao}"
+								filterBy="registro.id_Pessoa_Cliente.descricao"
+								styleClass="col-qr-cliente">
+								<h:outputText
+									value="#{fn:substring(registro.id_Pessoa_Cliente.descricao,0,15)}">
+
+								</h:outputText>
+							</p:column>
+							
 							<p:column headerText="Data Ultimo Status"
 								sortBy="ultimaAtualizacao" filterBy="ultimaAtualizacao"
-								styleClass="geral-col-pessoas">
+								styleClass="col-qr-data">
 								<h:outputText value="#{registro.ultimaAtualizacao.time}">
 									<f:convertDateTime locale="pt_BR" dateStyle="long" type="both"
 										pattern="dd/MM/yyyy" />
@@ -68,10 +114,9 @@
 							<p:column headerText="Distribuidor"
 								sortBy="registro.id_Pessoa_Distribuicao.descricao"
 								filterBy="registro.id_Pessoa_Distribuicao.descricao"
-								styleClass="geral-col-pessoas">
+								styleClass="col-qr-distribuidor">
 								<h:outputText
 									value="#{fn:substring(registro.id_Pessoa_Distribuicao.descricao,0,15)}">
-
 
 								</h:outputText>
 							</p:column>
@@ -79,7 +124,7 @@
 							<p:column headerText="Representante"
 								sortBy="#{registro.id_Pessoa_Representacao.descricao}"
 								filterBy="registro.id_Pessoa_Representacao.descricao"
-								styleClass="geral-col-pessoas">
+								styleClass="col-qr-representante">
 								<h:outputText
 									value="#{fn:substring(registro.id_Pessoa_Representacao.descricao,0,15)}">
 
@@ -89,59 +134,23 @@
 							<p:column headerText="Revenda"
 								sortBy="#{registro.id_Pessoa_Revenda.descricao}"
 								filterBy="registro.id_Pessoa_Revenda.descricao"
-								styleClass="geral-col-pessoas">
+								styleClass="col-qr-revenda">
 								<h:outputText
 									value="#{fn:substring(registro.id_Pessoa_Revenda.descricao,0,15)}">
 
 								</h:outputText>
 							</p:column>
 
-							<p:column headerText="Cliente"
-								sortBy="#{registro.id_Pessoa_Cliente.descricao}"
-								filterBy="registro.id_Pessoa_Cliente.descricao"
-								styleClass="geral-col-pessoas">
-								<h:outputText
-									value="#{fn:substring(registro.id_Pessoa_Cliente.descricao,0,15)}">
-
-								</h:outputText>
-							</p:column>
 							
-							<p:column headerText="objeto" rendered="#{!qrcodejsfController.renderizacheck}"
-								sortBy="#{registro.id_Objeto.descricao}"
-								filterBy="registro.id_Objeto.descricao"
-								styleClass="geral-col-pessoas">
-								<h:outputText
-									value="#{fn:substring(registro.id_Objeto.descricao,0,15)}">
-
-								</h:outputText>
-							</p:column>
 							
-							<p:column headerText="Foto" rendered="#{!qrcodejsfController.renderizacheck}" >
-							<p:graphicImage id="Fotoobjeto"
-								value="#{imagensjsfController.image}"
-								style="max-width:90px;max-height:80px;width: auto;height: auto;">
-								<f:param name="caminho" value="#{registro.caminhodaImagem}" />
-							</p:graphicImage>
-
-						</p:column>
 							
 
-							<p:column headerText="Vincular" rendered="#{!qrcodejsfController.renderizacheck}">
-
-								<p:commandButton icon="fa-qrcode"
-									actionListener="#{qrcodejsfController.abreDialogodeBuscadePessoas}"
-									update=":formTemplate:formIdentidadeEObjeto">
-									<p:confirm header="Confirmação"
-										message="Deseja realmente Vincular este registro?"
-										icon="ui-icon-alert" />
-									<f:attribute name="registroAtual" value="#{registro}" />
-								</p:commandButton>
-							</p:column>
 
 
 
 
 						</p:dataTable>
+						
 						<p:confirmDialog global="true" styleClass="cDialog-edit-pessoas">
 							<p:commandButton value="SIM" type="button"
 								styleClass="ui-confirmdialog-yes btn-color-blue2"
@@ -190,8 +199,6 @@
 					<p:commandButton value="Transferir" styleClass="btn-color-blue2"
 						actionListener="#{qrcodejsfController.RealizarTransferencia()}"
 						update=":mensagens :formTemplate:formIdentidade" process="@form">
-
-
 					</p:commandButton>
 				</div>
 				<div class="ui-g-5">
@@ -209,7 +216,7 @@
 			responsive="true" styleClass="dialog-cpf-pessoas">
 
 			<h:form id="formIdentidadeEObjeto"
-				title="Busca de cliente e seus objetos">
+				title="Busca de cliente e seus pertences">
 
 				<p:focus for="cpf_cnpj" />
 				<p:selectOneRadio id="tipo_Identificador"
@@ -230,19 +237,16 @@
 						requiredMessage="É preciso informar a identificação!!!"
 						mask="#{qrcodejsfController.pessoa.enum_Aux_Tipo_Identificador.mask}"
 						styleClass="input-cpf-pessoas">
-
-
-
-
 					</p:inputMask>
 				</div>
 
 
-				<div class="ui-g-5">
-					<p:commandButton value="Pesquisar" process="@form"
+				<div class="ui-g-12">
+					
+					
+					<p:commandButton value="Vincular" process="@form" 
 						actionListener="#{qrcodejsfController.buscaClienteEObjetos}"
-						update=":mensagens      
-						:formTemplate:formObjetos :formTemplate:formObjetos:tabelaObjetos"
+						update=":mensagens :formTemplate:formLista  :formTemplate:formObjetos:tabelaObjetos"   
 						styleClass="btn-color-blue2">
 					</p:commandButton>
 
@@ -258,11 +262,17 @@
 
 
 		<p:dialog widgetVar="dialogoObjetos" closable="false" modal="true"
-			appendTo="@(body)" header="Escolha qual objeto deseja vincular"
-			dynamic="true" responsive="true">
+			appendTo="@(body)" header="Escolha qual PET deseja vincular" responsive="true" 
+			style="max-width:800px;!important">
 			
-			<div class="card card-pessoas">
+			<div class="card card-pessoas"  >
 				<h:form id="formObjetos" >
+				<p:commandButton value="Cancelar"
+										actionListener="#{qrcodejsfController.cancelarVinculo()}"
+										styleClass="btao-pessoas btn-color-green btn-qr"
+										update=":mensagens
+										:formTemplate:formLista">
+						</p:commandButton>
 					<p:dataTable id="tabelaObjetos" emptyMessage="Sem Registros"
 						resizableColumns="true" value="#{qrcodejsfController.objetos}"
 						paginator="true" rows="15" var="registro"
@@ -271,12 +281,24 @@
 							<p:outputLabel
 								value="Objetos/Pets pertecentes a: #{qrcodejsfController.pessoa.descricao} " />
 						</f:facet>
+						
+						<p:column headerText="escolher"  width="50" >
+
+								<p:commandButton icon="fa-qrcode" process="@form"
+									actionListener="#{qrcodejsfController.vincularObjetos}"
+									update=":mensagens :formTemplate:formLista">
+									<p:confirm header="Confirmação"
+										message="Confirma vinculação deste registro?"
+										icon="ui-icon-alert" />
+									<f:attribute name="registroAtual" value="#{registro}" />
+								</p:commandButton>
+							</p:column>
 
 						<p:column headerText="Descrição" sortBy="id" filterBy="id"
-							styleClass="geral-col-pessoas" style="width:10%">
-							<h:outputText value="#{registro.id}" />
+							 style="max-width:60px;!important">
+							<h:outputText value="#{registro.descricao}" />
 						</p:column>
-						<p:column headerText="Foto">
+						<p:column headerText="Foto"  style="max-width:120px;!important">
 							<p:graphicImage id="Fototab"
 								value="#{imagensjsfController.image}"
 								style="max-width:90px;max-height:80px;width: auto;height: auto;">
@@ -284,33 +306,23 @@
 							</p:graphicImage>
 
 						</p:column>
-						<p:column headerText="Ultima Atualização"
+						<p:column headerText="Ultima Atualização"  style="max-width:50px;!important"
 							sortBy="ultimaAtualizacao" filterBy="ultimaAtualizacao"
-							styleClass="geral-col-pessoas">
+							>
 							<h:outputText value="#{registro.ultimaAtualizacao.time}">
 								<f:convertDateTime locale="pt_BR" dateStyle="long" type="both"
 									pattern="dd/MM/yyyy" />
 							</h:outputText>
 						</p:column>
-						<p:column headerText="Responsavel"
+						<p:column headerText="Responsavel" style="max-width:80px;!important"
 							sortBy="#{registro.id_Pessoa_Registro.descricao}"
 							filterBy="registro.id_Pessoa_REgistro.descricao}"
-							styleClass="geral-col-pessoas">
+							>
 							<h:outputText
 								value="#{fn:substring(registro.id_Pessoa_Registro.descricao,0,15)}">
 							</h:outputText>
 						</p:column>
-						<p:column headerText="escolher">
-
-								<p:commandButton icon="fa-qrcode" process="@form"
-									actionListener="#{qrcodejsfController.vincularObjetos}"
-									update=":formTemplate:formLista">
-									<p:confirm header="Confirmação"
-										message="Confirma vinculação deste registro?"
-										icon="ui-icon-alert" />
-									<f:attribute name="registroAtual" value="#{registro}" />
-								</p:commandButton>
-							</p:column>
+						
 						
 					</p:dataTable>
 					<p:confirmDialog global="true" styleClass="cDialog-edit-pessoas">
@@ -329,12 +341,6 @@
 			
 
 		</p:dialog>
-
-
-
-
-
-
 
 	</ui:define>
 </ui:composition>

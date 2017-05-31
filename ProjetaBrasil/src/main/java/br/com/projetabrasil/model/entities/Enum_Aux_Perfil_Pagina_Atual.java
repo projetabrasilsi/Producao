@@ -18,6 +18,13 @@ public enum Enum_Aux_Perfil_Pagina_Atual {
 	PAGINAITEMDESERVICO("PAGINAITEMDESERVICO","PITEMDESERV",14,null,Enum_Aux_Perfil_Pessoa.VENDAS,Enum_Aux_Perfil_Pessoa.VENDAS ,false,false,"item_de_movimento.xhtml","itens de serviço"),
 	PAGINAITEMDEPROMOCAO("PAGINAITEMDEPROMOCAO","PITEMDEPROM",15,null,Enum_Aux_Perfil_Pessoa.VENDAS,Enum_Aux_Perfil_Pessoa.VENDAS ,false,false,"item_de_movimento.xhtml","itens de promoção"),
 	
+	PAGINAVETERINARIOS("PAGINAVETERINARIOS", "PVETERINARIOS",21,null,Enum_Aux_Perfil_Pessoa.VETERINARIOS,null,false,true,"pessoas.xhtml", "veterinários"),
+	PAGINAAGROEVETERINARIA("PAGINAAGROEVETERINARIA", "PAGROEVETERINARIA",22,null,null,null,false,true,"pessoas.xhtml", "agropecuaria e clinica veterinária"),
+	PAGINAPETSHOPECLINICAVETERINARIA("PAGINAPETSHOPECLINICAVETERINARIA", "PPETSHOPECLINICAVETERINARIA",23,null,null,null,false,true,"pessoas.xhtml", "petshop e clinica veterinária"),
+	PAGINAAGROPECUARIA("PAGINAAGROPECUARIA", "PAGROPECUARIA",24,null,null,null,false,true,"pessoas.xhtml", "agropecuárias"),
+	PAGINACLINICAVETERINARIA("PAGINACLINICAVETERINARIA", "PCLINICAVETERINARIA",25,null,null,null,false,true,"pessoas.xhtml", "clinica veterinaria"),
+	PAGINAPETSHOP("PAGINAPETSHOP", "PPETSHOP",26,null,null,null,false,true,"pessoas.xhtml", "petshop"),
+	
 	PAGINAPAISES("PAGINAPAISES", "PPAIS",16,null,null,null,false,true,"paises.xhtml", "países" ),			
 	PAGINAESTADOS("PAGINAESTADOS", "PESTADO",17,null,null,null,false,true,"estados.xhtml", "estados" ),	
 	PAGINACIDADES("PAGINACIDADES", "PCIDADE",18,null,null,null,false,true,"cidades.xhtml", "cidade" ),	
@@ -52,7 +59,9 @@ public enum Enum_Aux_Perfil_Pagina_Atual {
 	PAGINATRANSFERENCIASQRCODE("PAGINATRANSFERENCIASQRCODE","PTRANS",43,null,Enum_Aux_Perfil_Pessoa.OUTROS,Enum_Aux_Perfil_Pessoa.OUTROS ,true,true,"transferenciaqrcode.xhtml","Pagina de transferencia de QRCode"),
 	PAGINALOGISTICA("PAGINALOGISTICA","PLOG",44,null,Enum_Aux_Perfil_Pessoa.LOGISTICA,Enum_Aux_Perfil_Pessoa.LOGISTICA,false,true,"pessoas.xhtml", "logistica"),
 	PAGINAFUNCIONARIOS("PAGINAFUNCIONARIOS","PFUNC",45,null,Enum_Aux_Perfil_Pessoa.FUNCIONARIOS,Enum_Aux_Perfil_Pessoa.REVENDEDORES,false,true,"pessoas.xhtml", "logistica"),
-	PAGINAVINCULARQRCODE("PAGINAVINCULARQRCODE","PVINC",46,null,Enum_Aux_Perfil_Pessoa.OUTROS,Enum_Aux_Perfil_Pessoa.OUTROS ,true,true,"transferenciaqrcode.xhtml","QRCodes para vínculo");
+	PAGINAVINCULARQRCODE("PAGINAVINCULARQRCODE","PVINC",46,null,Enum_Aux_Perfil_Pessoa.OUTROS,Enum_Aux_Perfil_Pessoa.OUTROS ,true,true,"transferenciaqrcode.xhtml","QRCodes para vínculo"),
+	PAGINAVINCULARQRCODEPESSOASESINDICATOS("PAGINAVINCULARQRCODEPESSOASESINDICATOS","PVINCPESSSIND",47,null,Enum_Aux_Perfil_Pessoa.OUTROS,Enum_Aux_Perfil_Pessoa.OUTROS ,true,true,"transferenciaqrcode.xhtml","QRCodes para vínculo de Pessoas aos Sindicatos"),
+	PAGINAVINCULARQRCODEPESSOAS("PAGINAVINCULARQRCODEPESSOAS","PVINCPESS",48,null,Enum_Aux_Perfil_Pessoa.OUTROS,Enum_Aux_Perfil_Pessoa.OUTROS ,true,true,"transferenciaqrcode.xhtml","QRCodes para vínculo de Pessoas");
 	
     private String descricao;    
 	private String sigla;

@@ -23,7 +23,7 @@ import br.com.projetabrasil.model.entities.Prontuario_de_Emergencia;
 import br.com.projetabrasil.model.entities.QRCode;
 
 @SuppressWarnings("serial")
-@ManagedBean(name = "qrcodeConsultaController")
+@ManagedBean
 @RequestScoped
 public class QRCodeConsultaController implements Serializable {
 	private String kldasjfsd;

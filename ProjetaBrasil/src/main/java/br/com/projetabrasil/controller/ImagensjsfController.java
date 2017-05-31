@@ -26,7 +26,7 @@ public class ImagensjsfController {
 		
 		String caminho="";
 		StreamedContent foto = null;
-		caminho =Utilidades.getBranco();
+		caminho = Utilidades.getBranco();
 		foto = transforma(Utilidades.getBranco());	  
 		
 		caminho = context.getExternalContext().getRequestParameterMap().get("caminho");

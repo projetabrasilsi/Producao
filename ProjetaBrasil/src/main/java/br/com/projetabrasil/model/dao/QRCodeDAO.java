@@ -127,7 +127,12 @@ public class QRCodeDAO extends GenericDAO<QRCode> {
 				or.add(Restrictions.eq("status",Enum_Aux_Status_QRCodes.REPRESENTADOS));
 				or.add(Restrictions.eq("status",Enum_Aux_Status_QRCodes.VENDIDOS));
 				crit.add(or);
-			} else if (perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.REVENDEDORES)) {
+			} else if (perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.REVENDEDORES) ||
+					perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.FUNCIONARIOS)) {
+				
+				if(perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.FUNCIONARIOS))
+				pes = perfilLogado.getAssLogado();
+				
 				crit.add(Restrictions.eq("id_Pessoa_Revenda", pes));
 				
 				or.add(Restrictions.eq("status",Enum_Aux_Status_QRCodes.REVENDIDOS));

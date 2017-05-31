@@ -1,8 +1,7 @@
 package br.com.projetabrasil.model.entities;
 
 import java.io.Serializable;
-
-
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 @SuppressWarnings("serial")
@@ -31,22 +32,43 @@ public class Prontuario_de_Emergencia extends GenericDomain implements Serializa
 	private Long id;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name="tipo_Prontuario_Emergencia", nullable=false)	
+	@Column(name="tipo_Prontuario_Emergencia", nullable=true)	
 	private Enum_Aux_Tipo_Prontuario_de_Emergencia tipo_Prontuario_Emergencia;
 	
-	
-	
+	@Enumerated(EnumType.STRING)
+	@Column(name="tipo_Vacina", nullable=true)	
+	private Enum_Aux_Tipo_Vacina tipo_Vacina;
 	
 	@Column(name="descricao", length = 90, nullable=false)
 	private String descricao;
 	
+	@Column(name="dataVacinacao", nullable=true)
+	@Temporal(TemporalType.DATE)	
+	private Date dataVacinacao;
+	
+	@Column(name="dataAviso", nullable=true)
+	@Temporal(TemporalType.DATE)	
+	private Date dataAviso;
+	
+	@OneToOne
+	@JoinColumn ( name ="id_clinica_responsavel")
+	private Pessoa id_clinica_responsavel;	
+	
+	@OneToOne
+	@JoinColumn ( name ="id_veterinario_responsavel")
+	private Pessoa id_veterinario_responsavel;	
+	
 	@OneToOne
 	@JoinColumn ( name ="id_Pessoa_Registro")
-	private Pessoa id_Pessoa_Registro;
+	private Pessoa id_Pessoa_Registro;	
 	
 	@OneToOne
 	@JoinColumn ( name ="id_Pessoa")
 	private Pessoa id_Pessoa;
+	
+	@OneToOne
+	@JoinColumn ( name ="id_Objeto")
+	private Objeto id_Objeto;
 
 	public Long getId() {
 		return id;
@@ -86,6 +108,56 @@ public class Prontuario_de_Emergencia extends GenericDomain implements Serializa
 
 	public void setId_Pessoa(Pessoa id_Pessoa) {
 		this.id_Pessoa = id_Pessoa;
+	}
+	
+	
+
+	public Date getDataVacinacao() {
+		return dataVacinacao;
+	}
+
+	public void setDataVacinacao(Date dataVacinacao) {
+		this.dataVacinacao = dataVacinacao;
+	}
+
+	public Date getDataAviso() {
+		return dataAviso;
+	}
+
+	public void setDataAviso(Date dataAviso) {
+		this.dataAviso = dataAviso;
+	}
+
+	public Pessoa getId_clinica_responsavel() {
+		return id_clinica_responsavel;
+	}
+
+	public void setId_clinica_responsavel(Pessoa id_clinica_responsavel) {
+		this.id_clinica_responsavel = id_clinica_responsavel;
+	}
+
+	public Pessoa getId_veterinario_responsavel() {
+		return id_veterinario_responsavel;
+	}
+
+	public void setId_veterinario_responsavel(Pessoa id_veterinario_responsavel) {
+		this.id_veterinario_responsavel = id_veterinario_responsavel;
+	}
+
+	public Objeto getId_Objeto() {
+		return id_Objeto;
+	}
+
+	public void setId_Objeto(Objeto id_Objeto) {
+		this.id_Objeto = id_Objeto;
+	}
+
+	public Enum_Aux_Tipo_Vacina getTipo_Vacina() {
+		return tipo_Vacina;
+	}
+
+	public void setTipo_Vacina(Enum_Aux_Tipo_Vacina tipo_Vacina) {
+		this.tipo_Vacina = tipo_Vacina;
 	}
 
 	@Override

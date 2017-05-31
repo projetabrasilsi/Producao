@@ -52,6 +52,25 @@ public class Pessoa_VinculoDAO extends GenericDAO<Pessoa_Vinculo> {
 			sessao.close();
 		}
 	}
+	
+	public Pessoa_Vinculo retornaVinculoPeloPerfil(PerfilLogado perfilLogado) {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+				
+		Criteria crit = sessao.createCriteria(Pessoa_Vinculo.class);
+		try {
+			crit.add(Restrictions.eq("id_pessoa_d", perfilLogado.getUsLogado().getPessoa()));
+			crit.add(Restrictions.eq("enum_Aux_Perfil_Pessoa", perfilLogado.getPerfilUsLogado()));
+			crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			crit.setMaxResults(1);
+			
+			return (Pessoa_Vinculo) crit.uniqueResult();
+		} catch (RuntimeException error) {			
+			error.printStackTrace();
+			throw error;
+		} finally {
+			sessao.close();
+		}
+	}
 
 	
 	public Pessoa_Vinculo retornaVinculo_Mestre(Pessoa_Vinculo pessoa_Vinculo, Enum_Aux_Perfil_Pessoa  perfilUsLogado) {
@@ -118,7 +137,8 @@ public class Pessoa_VinculoDAO extends GenericDAO<Pessoa_Vinculo> {
 		}
 	}
 	
-	public Pessoa_Vinculo retornaVinculo_Mestre(Pessoa pessoaDetalhe, Enum_Aux_Perfil_Pessoa perfilPessoaCadastro) {
+	public Pessoa_Vinculo retornaVinculo_Mestre(Pessoa pessoaDetalhe, 
+			Enum_Aux_Perfil_Pessoa perfilPessoaCadastro) {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		try {
 			
@@ -165,6 +185,21 @@ public class Pessoa_VinculoDAO extends GenericDAO<Pessoa_Vinculo> {
 		} catch (RuntimeException error) {
 			throw error;
 
+		} finally {
+			sessao.close();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Pessoa_Vinculo> listarVeterinariosDaClinica(Pessoa p){
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		try {
+			Criteria crit = sessao.createCriteria(Pessoa_Vinculo.class);				
+			crit.add(Restrictions.eq("id_pessoa_m",p));
+			crit.add(Restrictions.eq("enum_Aux_Perfil_Pessoa", Enum_Aux_Perfil_Pessoa.VETERINARIOS));					
+			return (List<Pessoa_Vinculo>) crit.list();
+		} catch (RuntimeException error) {
+			throw error;
 		} finally {
 			sessao.close();
 		}

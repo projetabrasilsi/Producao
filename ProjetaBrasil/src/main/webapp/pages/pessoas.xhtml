@@ -38,7 +38,14 @@
 							resizableColumns="true" value="#{pessoajsfController.pessoas}"
 							paginator="true" rows="15" var="registro"
 							styleClass="tabela-pessoas">
-
+							
+							<p:column headerText="Foto">
+								<p:graphicImage id="Fototab" value="#{imagensjsfController.image}"
+									style="max-width:90px;max-height:80px;width: auto;height: auto;">
+									<f:param name="caminho" value="#{registro.caminhodaImagem}" />
+								</p:graphicImage>		
+							</p:column>
+							
 							<p:column headerText="Nome ou Razão Social" sortBy="descricao"
 								filterBy="descricao" styleClass="geral-col-pessoas">
 								<h:outputText value="#{registro.descricao}" />
@@ -241,6 +248,7 @@
 										</p:outputLabel>
 									</div>
 								</div>
+																
 							</div>
 							
 							<div class="ui-g row-tab1">		
@@ -286,6 +294,21 @@
 												styleClass="btao-info-pessoas-lupa btn-color-silver btn-lupa" />
 										</h:form>
 									</div>
+									
+									<div class="ui-g-2">
+										<p:outputLabel value="Indicação:  "
+										styleClass="label-info-pessoas-lupa"
+										rendered="#{pessoajsfController.perfilLogado.renderizaIndicacao()}"/>
+										<h:form id="g_indicacao" render="@form">
+											<p:outputLabel id="psel" size="60" maxlength="60" rendered="#{pessoajsfController.perfilLogado.renderizaIndicacao()}"
+												value="#{pessoajsfController.pessoa.id_Pessoa_Indicacao.descricao}" />
+											<p:commandButton icon="ui-icon-search" process="@this"
+												update=":formTemplate:formListaIndicacao"
+												onclick="PF('dialogoIndicacoes').show();"
+													rendered="#{pessoajsfController.perfilLogado.renderizaIndicacao()}"
+												styleClass="btao-info-pessoas-lupa btn-color-silver btn-lupa" />
+										</h:form>
+									</div>
 									</div>
 								</div>
 
@@ -322,6 +345,22 @@
 									</div>
 								</div>
 							</div>
+							
+							<h:panelGrid id="pF">
+									<p:outputLabel for="upload" value="Selecione sua foto de Perfil:" />
+									<p:fileUpload id="upload" mode="advanced"
+										fileUploadListener="#{pessoajsfController.upload}"
+										update=":mensagens :formTemplate:formCadastro:foto" auto="true"
+										style="font-size:15px;width:490px; "
+										allowTypes="/(\.|\/)(#{pessoajsfController.tipoDeImagem})$/">
+										<p:graphicImage />
+									</p:fileUpload>
+									<p:graphicImage id="foto" value="#{imagensjsfController.image}"
+										style="max-width:90px; max-height:80px; width: auto; height: auto;">
+										<f:param name="caminho"
+											value="#{pessoajsfController.pessoa.caminhodaImagem}" />
+									</p:graphicImage>
+								</h:panelGrid>
 						</h:form>			
 					</p:panel>
 				</p:tab>
@@ -901,6 +940,66 @@
 										message="Deseja realmente selecionar esta?"
 										icon="ui-icon-alert" />
 									<f:attribute name="registroProfissaoAtual" value="#{registro}" />
+								</p:commandButton>
+							</p:column>
+
+						</p:dataTable>
+					
+				</h:form>
+			
+		</p:dialog>
+		
+		<p:dialog header="Indicações" widgetVar="dialogoIndicacoes"
+			resizable="false" modal="true" closable="true" appendTo="@(body)"
+			dynamic="true" responsive="true"
+			styleClass="dialog-info-profissao-wizard-tab1">
+			
+				<h:form id="formListaIndicacao">
+
+						<p:dataTable id="tabela"
+							emptyMessage="Digite 4 letras para pesquisa" reflow="true"
+							value="#{pessoajsfController.indicacoes}" paginator="true"
+							rows="8" var="registro"
+							styleClass="tabela-info-pessoas-wizard-tab1">
+							<f:facet name="header">
+								<p:inputText id="prodigi" size="40"
+									value="#{pessoajsfController.indicacaoBusca}"
+									placeholder="Digite ao menos 4 letras"
+									validatorMessage="Digite ao menos 4 letras">
+									<f:validateLength minimum="4" />
+								</p:inputText>
+								&nbsp;
+								<p:commandButton icon="ui-icon-search"
+									actionListener="#{pessoajsfController.listarIndicacoesFiltradas()}"
+									process="@form" update=":formTemplate:formListaIndicacao"
+									styleClass="btn-color-silver btn-lupa">
+								</p:commandButton>
+								<!-- <p:commandButton icon="ui-icon-close" style="width:5%"
+									oncomplete="PF('dialogoProfissoes').hide();">
+								</p:commandButton> -->
+							</f:facet>
+							<!-- <p:column headerText="Número Identificador" sortBy="id"
+								filterBy="id" style="text-align: center; width: 15%;">
+								<h:outputText value="#{registro.id}" />
+							</p:column> -->
+
+							<p:column headerText="Descrição" sortBy="descricao"
+								filterBy="descricao"
+								styleClass="descricao-info-pessoas-wizard-tab1">
+								<h:outputText value="#{registro.descricao}"/>
+							</p:column>
+
+
+							<!-- 	update=":formTemplate:formCadastro" -->
+							<p:column headerText="Selecionar"
+							styleClass="selecionar-info-pessoas-wizard-tab1">
+								<p:commandButton icon="ui-icon-check"
+									actionListener="#{pessoajsfController.defineIndicacao}"
+									process="@form" update=":formTemplate:formCadastro:painelCadastro_6:g_indicacao:psel">
+									<p:confirm header="Confirmação"
+										message="Deseja realmente selecionar esta?"
+										icon="ui-icon-alert" />
+									<f:attribute name="registroIndicacaoAtual" value="#{registro}" />
 								</p:commandButton>
 							</p:column>
 

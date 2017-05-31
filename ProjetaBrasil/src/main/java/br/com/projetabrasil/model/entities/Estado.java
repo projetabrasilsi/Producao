@@ -38,17 +38,12 @@ public class Estado extends GenericDomain implements Serializable {
 	
 	
 	public Estado(){
-		super();
-		
-	
-		
+		super();			
 	}
 	
 	public Estado(Pais pais){
 		super();
-		this.pais = pais;
-		
-		
+		this.pais = pais;		
 	}
 	
 	public Long getId() {

@@ -1,56 +1,61 @@
-<ui:composition 
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:p="http://primefaces.org/ui"
-    xmlns:composite="http://java.sun.com/jsf/composite"
-    xmlns:fn="http://java.sun.com/jstl/functions">
-    
-  
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:fn="http://java.sun.com/jstl/functions">
+	<script type="text/javascript"
+		src="http://maps.google.com/maps/api/js?sensor=true"></script>
+	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 
-    <div class="sidebar">
-        <div class="nano">
-            <div class="nano-content sidebar-scroll-content">
-                <div class="logo">
-                    <p:graphicImage name="images/logo.png" library="omega-layout" width="113"/>
-                </div>
 
-                <div class="profile">
-                      <p:graphicImage name="images/profile3.svg" library="omega-layout" />
-                    <a id="profile-button" href="#">
-                        <span class="username"><i class="fa fa-fw fa-cog"></i> <p:outputLabel value="#{autenticacaojsfController.perfilLogado.usLogado.pessoa.descricao}"/></span>
-                    </a>
+	<div class="sidebar">
+		<div class="nano">
+			<div class="nano-content sidebar-scroll-content">
+				<div class="logo">
+					<p:graphicImage name="images/logo.png" library="omega-layout"
+						width="113" />
+				</div>
 
-                    <ul>
-                    <h:form styleClass="radio-perfil-sidebar">
-	                    	<p:selectOneRadio id="perf1" label="perfil:"
-							value="#{autenticacaojsfController.perfilLogado.perfilUsLogado}"
-							layout="pageDirection" columns="10" converter="omnifaces.SelectItemsConverter">
-							<f:selectItems
-								value="#{autenticacaojsfController.perfilLogado.listaPerfisdousLogado}"
-								var="c" itemLabel="#{c.descricao}" itemValue="#{c}" />
-							<p:ajax
-								listener="#{autenticacaojsfController.redirecionapaginaIndex(false)}" />
+				<div class="profile">
+					<p:graphicImage name="images/profile3.svg" library="omega-layout" />
+					<a id="profile-button" href="#"> <span class="username"><i
+							class="fa fa-fw fa-cog"></i> <p:outputLabel
+								value="#{autenticacaojsfController.perfilLogado.usLogado.pessoa.descricao}" /></span>
+					</a>
+
+					<ul>
+						<h:form styleClass="radio-perfil-sidebar">
+							<p:selectOneRadio id="perf1" label="perfil:"
+								value="#{autenticacaojsfController.perfilLogado.perfilUsLogado}"
+								layout="pageDirection" columns="10"
+								converter="omnifaces.SelectItemsConverter">
+								<f:selectItems
+									value="#{autenticacaojsfController.perfilLogado.listaPerfisdousLogado}"
+									var="c" itemLabel="#{c.descricao}" itemValue="#{c}" />
+								<p:ajax
+									listener="#{autenticacaojsfController.redirecionapaginaIndex(false)}" />
 							</p:selectOneRadio>
-                    </h:form>
-                        <!--  <li><a href="#"><i class="fa fa-fw fa-sliders"></i><span>Account</span></a></li>
+						</h:form>
+						<!--  <li><a href="#"><i class="fa fa-fw fa-sliders"></i><span>Account</span></a></li>
                         <li><a href="#"><i class="fa fa-fw fa-bell"></i><span>Notifications</span><span class="menu-badge">2</span></a></li>
                         <li><a href="#"><i class="fa fa-fw fa-sign-out"></i><span>Logout</span></a></li>-->
-                    </ul>
-                  
-                    
-                </div>
-				
-                <div class="menu">
-                    
-                  <h:form>
-                    <p:panelMenu>
-                        <!--  -->
-                       
-						<p:submenu label="Cadastros" rendered="#{autenticacaojsfController.perfilLogado.temPermissoes([
+					</ul>
+
+
+				</div>
+
+				<div class="menu">
+
+					<h:form>
+						<p:panelMenu>
+							<!--  -->
+
+							<p:submenu label="Cadastros"
+								rendered="#{autenticacaojsfController.perfilLogado.temPermissoes([
 						'ADMINISTRADORES','SUPERVISORES','REPRESENTANTES','ASSINANTES','ATENDENTES','LOGISTICA','DISTRIBUIDORES','FUNCIONARIOS','REVENDEDORES'])}">
-							<p:submenu label="Perfis"
+								<p:submenu label="Perfis"
 									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes([
 									'ADMINISTRADORES','SUPERVISORES','REPRESENTANTES','ASSINANTES','ATENDENTES','LOGISTICA','DISTRIBUIDORES','FUNCIONARIOS','REVENDEDORES'])}">
 									<p:menuitem value="Administradores" icon="fa fa-user-circle-o"
@@ -95,249 +100,305 @@
 									,'FUNCIONARIOS','REVENDEDORES','REPRESENTANTES'])}">
 										<f:attribute name="paginaAtual" value="PAGINACLIENTES" />
 									</p:menuitem>
-
+									
+									<p:menuitem value="Veterinário" icon="fa fa-user"
+										actionListener="#{paginas.mudaPaginaAtual}"
+										rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','AGROEVETERINARIA','PETSHOPECLINICAVETERINARIA'
+										,'AGROPECUARIA','CLINICAVETERINARIA'])}">
+										<f:attribute name="paginaAtual" value="PAGINAVETERINARIOS" />
+									</p:menuitem>
+									<p:menuitem value="Agropecuária e Clinica Veterinária" icon="fa fa-user"
+										actionListener="#{paginas.mudaPaginaAtual}"
+										rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES'])}">
+										<f:attribute name="paginaAtual" value="PAGINAAGROEVETERINARIA" />
+									</p:menuitem>
+									<p:menuitem value="PetShop e Clinica Veterinária" icon="fa fa-user"
+										actionListener="#{paginas.mudaPaginaAtual}"
+										rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES'])}">
+										<f:attribute name="paginaAtual" value="PAGINAPETSHOPECLINICAVETERINARIA" />
+									</p:menuitem>
+									<p:menuitem value="Agropecuária" icon="fa fa-user"
+										actionListener="#{paginas.mudaPaginaAtual}"
+										rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES'])}">
+										<f:attribute name="paginaAtual" value="PAGINAAGROPECUARIA" />
+									</p:menuitem>
+									<p:menuitem value="Cliníca Veterinária" icon="fa fa-user"
+										actionListener="#{paginas.mudaPaginaAtual}"
+										rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES'])}">
+										<f:attribute name="paginaAtual" value="PAGINACLINICAVETERINARIA" />
+									</p:menuitem>
+									<p:menuitem value="PetShop" icon="fa fa-user"
+										actionListener="#{paginas.mudaPaginaAtual}"
+										rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES'])}">
+										<f:attribute name="paginaAtual" value="PAGINAPETSHOP" />
+									</p:menuitem>
 
 
 
 
 
 								</p:submenu>
-							
-							<p:submenu label="Regiões" rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES'])}">			
-								<p:menuitem value="Paises" icon="fa fa-globe"
-									actionListener="#{paginas.mudaPaginaAtual}"
+
+								<p:submenu label="Regiões"
 									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES'])}">
-									<f:attribute name="paginaAtual" value="PAGINAPAISES" />
-								</p:menuitem>
-								<p:menuitem value="Estados" icon="fa fa-map-marker"
-									actionListener="#{paginas.mudaPaginaAtual}"
-									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES'])}">
-									<f:attribute name="paginaAtual" value="PAGINAESTADOS" />
-								</p:menuitem>
-								<p:menuitem value="Cidades" icon="fa fa-map-marker"
-									actionListener="#{paginas.mudaPaginaAtual}"
-									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES'])}">
-									<f:attribute name="paginaAtual" value="PAGINACIDADES" />
-								</p:menuitem>
-								<p:menuitem value="Bairros" icon="fa fa-map-marker"
-									actionListener="#{paginas.mudaPaginaAtual}"
-									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES'])}">
-									<f:attribute name="paginaAtual" value="PAGINABAIRROS" />
-								</p:menuitem>
-								<p:menuitem value="Logradouros" icon="fa fa-map-marker"
-									actionListener="#{paginas.mudaPaginaAtual}"
-									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES'])}">
-									<f:attribute name="paginaAtual" value="PAGINALOGRADOUROS" />
-								</p:menuitem>
+									<p:menuitem value="Paises" icon="fa fa-globe"
+										actionListener="#{paginas.mudaPaginaAtual}"
+										rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES'])}">
+										<f:attribute name="paginaAtual" value="PAGINAPAISES" />
+									</p:menuitem>
+									<p:menuitem value="Estados" icon="fa fa-map-marker"
+										actionListener="#{paginas.mudaPaginaAtual}"
+										rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES'])}">
+										<f:attribute name="paginaAtual" value="PAGINAESTADOS" />
+									</p:menuitem>
+									<p:menuitem value="Cidades" icon="fa fa-map-marker"
+										actionListener="#{paginas.mudaPaginaAtual}"
+										rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES'])}">
+										<f:attribute name="paginaAtual" value="PAGINACIDADES" />
+									</p:menuitem>
+									<p:menuitem value="Bairros" icon="fa fa-map-marker"
+										actionListener="#{paginas.mudaPaginaAtual}"
+										rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES'])}">
+										<f:attribute name="paginaAtual" value="PAGINABAIRROS" />
+									</p:menuitem>
+									<p:menuitem value="Logradouros" icon="fa fa-map-marker"
+										actionListener="#{paginas.mudaPaginaAtual}"
+										rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES'])}">
+										<f:attribute name="paginaAtual" value="PAGINALOGRADOUROS" />
+									</p:menuitem>
+								</p:submenu>
+
+
+								<p:submenu label="Objetos"
+									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA','DISTRIBUIDORES','REPRESENTANTES','REVENDEDORES','FUNCIONARIOS'])}">
+
+									<p:submenu label="Pets"
+										rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA','DISTRIBUIDORES','REPRESENTANTES','REVENDEDORES','FUNCIONARIOS'])}">
+										<p:menuitem value="Cao" icon="fa fa-map-marker"
+											actionListener="#{paginas.mudaPaginaAtual}">
+											<f:attribute name="paginaAtual" value="PAGINACAES" />
+										</p:menuitem>
+
+										<p:menuitem value="Gato" icon="fa fa-map-marker"
+											actionListener="#{paginas.mudaPaginaAtual}">
+											<f:attribute name="paginaAtual" value="PAGINAGATOS" />
+										</p:menuitem>
+
+										<p:menuitem value="Cavalo" icon="fa fa-map-marker"
+											actionListener="#{paginas.mudaPaginaAtual}">
+											<f:attribute name="paginaAtual" value="PAGINACAVALOS" />
+										</p:menuitem>
+
+										<p:menuitem value="Coelho" icon="fa fa-map-marker"
+											actionListener="#{paginas.mudaPaginaAtual}">
+											<f:attribute name="paginaAtual" value="PAGINACOELHOS" />
+										</p:menuitem>
+
+										<p:menuitem value="Hamster" icon="fa fa-map-marker"
+											actionListener="#{paginas.mudaPaginaAtual}">
+											<f:attribute name="paginaAtual" value="PAGINAHAMSTERS" />
+										</p:menuitem>
+									</p:submenu>
+
+
+									<p:submenu label="Mobilidade"
+										rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA','DISTRIBUIDORES','REPRESENTANTES','REVENDEDORES','FUNCIONARIOS'])}">
+										<p:menuitem value="Carro" icon="fa fa-map-marker"
+											actionListener="#{paginas.mudaPaginaAtual}">
+											<f:attribute name="paginaAtual" value="PAGINACARROS" />
+										</p:menuitem>
+
+										<p:menuitem value="Caminhão" icon="fa fa-map-marker"
+											actionListener="#{paginas.mudaPaginaAtual}">
+											<f:attribute name="paginaAtual" value="PAGINACAMINHOES" />
+										</p:menuitem>
+
+										<p:menuitem value="Moto" icon="fa fa-map-marker"
+											actionListener="#{paginas.mudaPaginaAtual}">
+											<f:attribute name="paginaAtual" value="PAGINAMOTOS" />
+										</p:menuitem>
+
+										<p:menuitem value="Nautica" icon="fa fa-map-marker"
+											actionListener="#{paginas.mudaPaginaAtual}">
+											<f:attribute name="paginaAtual" value="PAGINANAUTICOS" />
+										</p:menuitem>
+									</p:submenu>
+
+
+									<p:submenu label="Eletronicos"
+										rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA','DISTRIBUIDORES','REPRESENTANTES','REVENDEDORES','FUNCIONARIOS'])}">
+										<p:menuitem value="Smartphone/Telefone"
+											icon="fa fa-map-marker"
+											actionListener="#{paginas.mudaPaginaAtual}">
+											<f:attribute name="paginaAtual" value="PAGINACELULARES" />
+										</p:menuitem>
+
+										<p:menuitem value="Notebook" icon="fa fa-map-marker"
+											actionListener="#{paginas.mudaPaginaAtual}">
+											<f:attribute name="paginaAtual" value="PAGINANOTEBOOKS" />
+										</p:menuitem>
+
+										<p:menuitem value="Tablet" icon="fa fa-map-marker"
+											actionListener="#{paginas.mudaPaginaAtual}">
+											<f:attribute name="paginaAtual" value="PAGINATABLETS" />
+										</p:menuitem>
+									</p:submenu>
+
+
+									<p:submenu label="Outros"
+										rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA','DISTRIBUIDORES','REPRESENTANTES','REVENDEDORES','FUNCIONARIOS'])}">
+										<p:menuitem value="Bolsas" icon="fa fa-map-marker"
+											actionListener="#{paginas.mudaPaginaAtual}">
+											<f:attribute name="paginaAtual" value="PAGINABOLSAS" />
+										</p:menuitem>
+
+										<p:menuitem value="Relógios" icon="fa fa-map-marker"
+											actionListener="#{paginas.mudaPaginaAtual}">
+											<f:attribute name="paginaAtual" value="PAGINARELOGIOS" />
+										</p:menuitem>
+									</p:submenu>
+
+								</p:submenu>
 							</p:submenu>
-							
-							
-							<p:submenu label="Objetos" rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA','DISTRIBUIDORES','REPRESENTANTES','REVENDEDORES','FUNCIONARIOS'])}">
-								
-								<p:submenu label="Pets" rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA','DISTRIBUIDORES','REPRESENTANTES','REVENDEDORES','FUNCIONARIOS'])}">
-									<p:menuitem value="Cao" icon="fa fa-map-marker"
-										actionListener="#{paginas.mudaPaginaAtual}">
-										<f:attribute name="paginaAtual" value="PAGINACAES" />
-									</p:menuitem>
-									
-									<p:menuitem value="Gato" icon="fa fa-map-marker"
-										actionListener="#{paginas.mudaPaginaAtual}">
-										<f:attribute name="paginaAtual" value="PAGINAGATOS" />
-									</p:menuitem>
-									
-									<p:menuitem value="Cavalo" icon="fa fa-map-marker"
-										actionListener="#{paginas.mudaPaginaAtual}">
-										<f:attribute name="paginaAtual" value="PAGINACAVALOS" />
-									</p:menuitem>
-									
-									<p:menuitem value="Coelho" icon="fa fa-map-marker"
-										actionListener="#{paginas.mudaPaginaAtual}">
-										<f:attribute name="paginaAtual" value="PAGINACOELHOS" />
-									</p:menuitem>
-									
-									<p:menuitem value="Hamster" icon="fa fa-map-marker"
-										actionListener="#{paginas.mudaPaginaAtual}">
-										<f:attribute name="paginaAtual" value="PAGINAHAMSTERS" />
-									</p:menuitem>
-								</p:submenu>
-								
-								
-								<p:submenu label="Mobilidade" rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA','DISTRIBUIDORES','REPRESENTANTES','REVENDEDORES','FUNCIONARIOS'])}">
-									<p:menuitem value="Carro" icon="fa fa-map-marker"
-										actionListener="#{paginas.mudaPaginaAtual}">
-										<f:attribute name="paginaAtual" value="PAGINACARROS" />
-									</p:menuitem>
-									
-									<p:menuitem value="Caminhão" icon="fa fa-map-marker"
-										actionListener="#{paginas.mudaPaginaAtual}">
-										<f:attribute name="paginaAtual" value="PAGINACAMINHOES" />
-									</p:menuitem>
-									
-									<p:menuitem value="Moto" icon="fa fa-map-marker"
-										actionListener="#{paginas.mudaPaginaAtual}">
-										<f:attribute name="paginaAtual" value="PAGINAMOTOS" />
-									</p:menuitem>
-									
-									<p:menuitem value="Nautica" icon="fa fa-map-marker"
-										actionListener="#{paginas.mudaPaginaAtual}">
-										<f:attribute name="paginaAtual" value="PAGINANAUTICOS" />
-									</p:menuitem>
-								</p:submenu>
-								
-								
-								<p:submenu label="Eletronicos" rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA','DISTRIBUIDORES','REPRESENTANTES','REVENDEDORES','FUNCIONARIOS'])}">
-									<p:menuitem value="Smartphone/Telefone" icon="fa fa-map-marker"
-										actionListener="#{paginas.mudaPaginaAtual}">
-										<f:attribute name="paginaAtual" value="PAGINACELULARES" />
-									</p:menuitem>
-									
-									<p:menuitem value="Notebook" icon="fa fa-map-marker"
-										actionListener="#{paginas.mudaPaginaAtual}">
-										<f:attribute name="paginaAtual" value="PAGINANOTEBOOKS" />
-									</p:menuitem>
-									
-									<p:menuitem value="Tablet" icon="fa fa-map-marker"
-										actionListener="#{paginas.mudaPaginaAtual}">
-										<f:attribute name="paginaAtual" value="PAGINATABLETS" />
-									</p:menuitem>																
-								</p:submenu>
-								
-								
-								<p:submenu label="Outros" rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA','DISTRIBUIDORES','REPRESENTANTES','REVENDEDORES','FUNCIONARIOS'])}">
-									<p:menuitem value="Bolsas" icon="fa fa-map-marker"
-										actionListener="#{paginas.mudaPaginaAtual}">
-										<f:attribute name="paginaAtual" value="PAGINABOLSAS" />
-									</p:menuitem>
-									
-									<p:menuitem value="Relógios" icon="fa fa-map-marker"
-										actionListener="#{paginas.mudaPaginaAtual}">
-										<f:attribute name="paginaAtual" value="PAGINARELOGIOS" />
-									</p:menuitem>									
-								</p:submenu>
-																			
-							</p:submenu>
-						</p:submenu>
-						<p:submenu label="Vinculos e Transferencias de QRCodes"
-								rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA','DISTRIBUIDORES','REPRESENTANTES','REVENDEDORES'])}">
+							<p:submenu label="Transferir Identificadores"
+								rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA','DISTRIBUIDORES','REPRESENTANTES','REVENDEDORES','FUNCIONARIOS','SINDICATOS'])}">
 								<p:menuitem value="Vizualização" icon="fa fa-map-marker"
 									actionListener="#{paginas.mudaPaginaAtual}"
 									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA'])}">
-									<f:attribute name="paginaAtual" value="PAGINATRANSFERENCIASQRCODE" />
+									<f:attribute name="paginaAtual"
+										value="PAGINATRANSFERENCIASQRCODE" />
 									<f:attribute name="perfildeTransferencia" value="LOGISTICA" />
 								</p:menuitem>
 
 								<p:menuitem value="Para Distribuidores" icon="fa fa-map-marker"
 									actionListener="#{paginas.mudaPaginaAtual}"
 									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA'])}">
-									<f:attribute name="paginaAtual" value="PAGINATRANSFERENCIASQRCODE" />
-									<f:attribute name="perfildeTransferencia" value="DISTRIBUIDORES" />
+									<f:attribute name="paginaAtual"
+										value="PAGINATRANSFERENCIASQRCODE" />
+									<f:attribute name="perfildeTransferencia"
+										value="DISTRIBUIDORES" />
 								</p:menuitem>
-								
+
 								<p:menuitem value="Para Representantes" icon="fa fa-map-marker"
 									actionListener="#{paginas.mudaPaginaAtual}"
 									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA','DISTRIBUIDORES'])}">
-									<f:attribute name="paginaAtual" value="PAGINATRANSFERENCIASQRCODE" />
-									<f:attribute name="perfildeTransferencia" value="REPRESENTANTES" />
+									<f:attribute name="paginaAtual"
+										value="PAGINATRANSFERENCIASQRCODE" />
+									<f:attribute name="perfildeTransferencia"
+										value="REPRESENTANTES" />
 								</p:menuitem>
-								
+
 								<p:menuitem value="Para Revenda" icon="fa fa-map-marker"
 									actionListener="#{paginas.mudaPaginaAtual}"
 									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA','DISTRIBUIDORES','REPRESENTANTES'])}">
-									<f:attribute name="paginaAtual" value="PAGINATRANSFERENCIASQRCODE" />
+									<f:attribute name="paginaAtual"
+										value="PAGINATRANSFERENCIASQRCODE" />
 									<f:attribute name="perfildeTransferencia" value="REVENDEDORES" />
 								</p:menuitem>
+
 								
-								<p:menuitem value="Vincular QRCode" icon="fa fa-map-marker"
+							</p:submenu>
+							
+							<p:submenu label="Vinculos"
+								rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA','DISTRIBUIDORES','REPRESENTANTES','REVENDEDORES','FUNCIONARIOS','SINDICATOS'])}">
+								<p:menuitem value="Vincular a Pets" icon="fa fa-map-marker"
 									actionListener="#{paginas.mudaPaginaAtual}"
-									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA','DISTRIBUIDORES','REPRESENTANTES','REVENDEDORES'])}">
+									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA','DISTRIBUIDORES','REPRESENTANTES','REVENDEDORES','FUNCIONARIOS'])}">
 									<f:attribute name="paginaAtual" value="PAGINAVINCULARQRCODE" />
 									<f:attribute name="perfildeTransferencia" value="CLIENTES" />
 								</p:menuitem>
-
-
+								
+								<p:menuitem value="Vingular a Sindicatos" icon="fa fa-map-marker"
+									actionListener="#{paginas.mudaPaginaAtual}"
+									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA','FUNCIONARIOS','SINDICATOS'])}">
+									<f:attribute name="paginaAtual" value="PAGINAVINCULARQRCODEPESSOASESINDICATOS" />
+									<f:attribute name="perfildeTransferencia" value="CLIENTES" />
+								</p:menuitem>
 							</p:submenu>
-						
-						
-						<p:submenu label="Pontos" icon="fa fa-home" rendered="#{autenticacaojsfController.perfilLogado.temPermissoes2(['ADMINISTRADORES','ASSINANTES','ATENDENTES','VENDAS'])}">
-							<p:menuitem value="Pontuar" icon="fa fa-home"
-								actionListener="#{paginas.mudaPaginaAtual}"
-								rendered="#{autenticacaojsfController.perfilLogado.temPermissoes2(['ADMINISTRADORES','ASSINANTES','ATENDENTES'])}">
-								<f:attribute name="paginaAtual" value="PAGINAPONTUACAOC" />
-								<f:attribute name="tipoMovimento" value="C" />
-							</p:menuitem>
-							<p:menuitem value="Utilizar Pontos" icon="fa fa-home"
-								actionListener="#{paginas.mudaPaginaAtual}"
-								rendered="#{autenticacaojsfController.perfilLogado.temPermissoes2(['ADMINISTRADORES','ASSINANTES','ATENDENTES'])}">
-								<f:attribute name="paginaAtual" value="PAGINAPONTUACAOD" />
-								<f:attribute name="tipoMovimento" value="D" />
-							</p:menuitem>
-							<p:menuitem value="Estornar" icon="fa fa-home"
-								actionListener="#{paginas.mudaPaginaAtual}"
-								rendered="#{autenticacaojsfController.perfilLogado.temPermissoes2(['ADMINISTRADORES','ASSINANTES','ATENDENTES'])}">
-								<f:attribute name="paginaAtual" value="PAGINAPONTUACAOE" />
-								<f:attribute name="tipoMovimento" value="E" />
-							</p:menuitem>
-							<p:menuitem value="Configuração de pontuação" icon="fa fa-home"
-								actionListener="#{paginas.mudaPaginaAtual}"
-								rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ASSINANTES'])}">
-								<f:attribute name="paginaAtual" value="PAGINAPONTO" />
-							</p:menuitem>
-							<p:menuitem value="Configuração de brindes" icon="fa fa-home"
-								actionListener="#{paginas.mudaPaginaAtual}"
-								rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ASSINANTES'])}">
-								<f:attribute name="paginaAtual" value="PAGINABRINDE" />
-							</p:menuitem>
-						</p:submenu>
-						<p:submenu label="Movimento" icon="fa fa-home" rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ASSINANTES','VENDAS'])}">
-							<p:menuitem value="Agendamentos" icon="fa fa-home"
-								actionListener="#{paginas.mudaPaginaAtual}"
-								rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ASSINANTES'])}">
-								<f:attribute name="paginaAtual" value="PAGINAAGENDAMENTO" />
-							</p:menuitem>
-							<p:menuitem value="Itens de Serviço" icon="fa fa-home"
-								actionListener="#{paginas.mudaPaginaAtual}"
-								rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['VENDAS'])}">
-								<f:attribute name="paginaAtual" value="PAGINAITEMDESERVICO" />
-							</p:menuitem>
-							<p:menuitem value="Itens de Promoção" icon="fa fa-home"
-								actionListener="#{paginas.mudaPaginaAtual}"
-								rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['VENDAS'])}">
-								<f:attribute name="paginaAtual" value="PAGINAITEMDEPROMOCAO" />
-							</p:menuitem>
-							
-							<p:menuitem value="Combo" icon="fa fa-home"
-								actionListener="#{paginas.mudaPaginaAtual}"
-								rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['VENDAS'])}">
-								<f:attribute name="paginaAtual" value="PAGINACOMBO" />
-							</p:menuitem>
-							<p:menuitem value="Vouchers" icon="fa fa-home"
-								actionListener="#{paginas.mudaPaginaAtual}"
-								rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ASSINANTES'])}">
-								<f:attribute name="paginaAtual" value="PAGINAVOUCHER" />
-							</p:menuitem>
-						</p:submenu>
-						
-						<p:submenu label="Contratos" icon="fa fa-home" rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','SUPERVISORES','REPRESENTANTES'])}">
-							<p:menuitem value="Contrato" icon="fa fa-home"
-								actionListener="#{paginas.mudaPaginaAtual}"
+								
+
+
+							<p:submenu label="Pontos" icon="fa fa-home"
+								rendered="#{autenticacaojsfController.perfilLogado.temPermissoes2(['ADMINISTRADORES','ASSINANTES','ATENDENTES','VENDAS'])}">
+								<p:menuitem value="Pontuar" icon="fa fa-home"
+									actionListener="#{paginas.mudaPaginaAtual}"
+									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes2(['ADMINISTRADORES','ASSINANTES','ATENDENTES'])}">
+									<f:attribute name="paginaAtual" value="PAGINAPONTUACAOC" />
+									<f:attribute name="tipoMovimento" value="C" />
+								</p:menuitem>
+								<p:menuitem value="Utilizar Pontos" icon="fa fa-home"
+									actionListener="#{paginas.mudaPaginaAtual}"
+									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes2(['ADMINISTRADORES','ASSINANTES','ATENDENTES'])}">
+									<f:attribute name="paginaAtual" value="PAGINAPONTUACAOD" />
+									<f:attribute name="tipoMovimento" value="D" />
+								</p:menuitem>
+								<p:menuitem value="Estornar" icon="fa fa-home"
+									actionListener="#{paginas.mudaPaginaAtual}"
+									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes2(['ADMINISTRADORES','ASSINANTES','ATENDENTES'])}">
+									<f:attribute name="paginaAtual" value="PAGINAPONTUACAOE" />
+									<f:attribute name="tipoMovimento" value="E" />
+								</p:menuitem>
+								<p:menuitem value="Configuração de pontuação" icon="fa fa-home"
+									actionListener="#{paginas.mudaPaginaAtual}"
+									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ASSINANTES'])}">
+									<f:attribute name="paginaAtual" value="PAGINAPONTO" />
+								</p:menuitem>
+								<p:menuitem value="Configuração de brindes" icon="fa fa-home"
+									actionListener="#{paginas.mudaPaginaAtual}"
+									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ASSINANTES'])}">
+									<f:attribute name="paginaAtual" value="PAGINABRINDE" />
+								</p:menuitem>
+							</p:submenu>
+							<p:submenu label="Movimento" icon="fa fa-home"
+								rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ASSINANTES','VENDAS'])}">
+								<p:menuitem value="Agendamentos" icon="fa fa-home"
+									actionListener="#{paginas.mudaPaginaAtual}"
+									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ASSINANTES'])}">
+									<f:attribute name="paginaAtual" value="PAGINAAGENDAMENTO" />
+								</p:menuitem>
+								<p:menuitem value="Itens de Serviço" icon="fa fa-home"
+									actionListener="#{paginas.mudaPaginaAtual}"
+									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['VENDAS'])}">
+									<f:attribute name="paginaAtual" value="PAGINAITEMDESERVICO" />
+								</p:menuitem>
+								<p:menuitem value="Itens de Promoção" icon="fa fa-home"
+									actionListener="#{paginas.mudaPaginaAtual}"
+									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['VENDAS'])}">
+									<f:attribute name="paginaAtual" value="PAGINAITEMDEPROMOCAO" />
+								</p:menuitem>
+
+								<p:menuitem value="Combo" icon="fa fa-home"
+									actionListener="#{paginas.mudaPaginaAtual}"
+									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['VENDAS'])}">
+									<f:attribute name="paginaAtual" value="PAGINACOMBO" />
+								</p:menuitem>
+								<p:menuitem value="Vouchers" icon="fa fa-home"
+									actionListener="#{paginas.mudaPaginaAtual}"
+									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ASSINANTES'])}">
+									<f:attribute name="paginaAtual" value="PAGINAVOUCHER" />
+								</p:menuitem>
+							</p:submenu>
+
+							<p:submenu label="Contratos" icon="fa fa-home"
 								rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','SUPERVISORES','REPRESENTANTES'])}">
-								<f:attribute name="paginaAtual" value="PAGINAMOVIMENTO" />
-							</p:menuitem>
-						</p:submenu>
+								<p:menuitem value="Contrato" icon="fa fa-home"
+									actionListener="#{paginas.mudaPaginaAtual}"
+									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','SUPERVISORES','REPRESENTANTES'])}">
+									<f:attribute name="paginaAtual" value="PAGINAMOVIMENTO" />
+								</p:menuitem>
+							</p:submenu>
 
-
-
-						<p:submenu label="Sair" icon="fa fa-home"
-							actionListener="#{autenticacaojsfController.logout()}">
-							<p:menuitem value="Sair"
+							<p:submenu label="Sair" icon="fa fa-home"
 								actionListener="#{autenticacaojsfController.logout()}">
-							</p:menuitem>
-						</p:submenu>
-                    </p:panelMenu>
-                  </h:form>
-                </div>
-            </div>
-        </div>
-    </div>
+								<p:menuitem value="Sair"
+									actionListener="#{autenticacaojsfController.logout()}">
+								</p:menuitem>
+							</p:submenu>
+						</p:panelMenu>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </ui:composition>

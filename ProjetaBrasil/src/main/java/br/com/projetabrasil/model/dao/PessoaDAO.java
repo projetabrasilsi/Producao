@@ -1,11 +1,13 @@
 package br.com.projetabrasil.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
@@ -21,6 +23,7 @@ import br.com.projetabrasil.model.entities.Pessoa;
 import br.com.projetabrasil.model.entities.Pessoa_Enum_Aux_Perfil_Pessoa;
 import br.com.projetabrasil.model.entities.Pessoa_Vinculo;
 import br.com.projetabrasil.model.entities.Ponto_Movimento;
+import br.com.projetabrasil.model.entities.Profissao;
 import br.com.projetabrasil.util.HibernateUtil;
 
 
@@ -206,6 +209,23 @@ public class PessoaDAO extends GenericDAO<Pessoa> {
 		finally{
 			sessao.close();
 		}	
+	}
+
+	public List<Pessoa> listardeIndicacoes(String indicacaoBusca) {
+		List<Pessoa> pessoas = new ArrayList<>();
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		try {
+			Criteria consulta = sessao.createCriteria(Pessoa.class);
+			consulta.add(Restrictions.like("descricao","%"+indicacaoBusca+"%").ignoreCase());
+			consulta.addOrder(Order.asc("descricao"));
+			pessoas = consulta.list();
+			return pessoas;
+		} catch (RuntimeException error) {
+			error.printStackTrace();
+			throw error;
+		} finally {
+			sessao.close();
+		}
 	}
 
 }

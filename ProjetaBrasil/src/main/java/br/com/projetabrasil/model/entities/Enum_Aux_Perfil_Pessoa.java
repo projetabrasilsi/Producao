@@ -13,7 +13,15 @@ public enum Enum_Aux_Perfil_Pessoa {
 	OUTROS("Outros",8,true,"OUT",false,false,false),
 	VENDAS("Vendas",9,true,"VEN",true,false,false),
 	LOGISTICA("Logistica",10,true,"LOG",true,false,false),
-	FUNCIONARIOS("Funcionarios",11,true,"FUN",true,true,false);
+	FUNCIONARIOS("Funcionarios",11,true,"FUN",true,true,false),
+	SINDICATOS("SINDICATOS",12,true,"SIN",false,false,true),
+	
+	VETERINARIOS("Veterinários",12,true,"VET",true,true,true),
+	AGROEVETERINARIA("Agropecuaria e Clinica Veterinária",12,true,"AGROVET",true,true,false),
+	PETSHOPECLINICAVETERINARIA("PetShop e Clinica Veterinária",12,true,"PETSHOPVET",true,true,false),
+	AGROPECUARIA("Agropecuaria",12,true,"AGRO",true,true,false),
+	CLINICAVETERINARIA("Clinica Veterinária",12,true,"CLINIVET",true,true,false),
+	PETSHOP("PetShop",12,true,"PETSHOP",true,true,false);
 	
 	
 	private String descricao;

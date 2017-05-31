@@ -92,6 +92,9 @@ public class PerfilLogado implements Serializable {
 		Utilidades.abrirfecharDialogos("dialogoAutenticacao",false);
 		if (escolherPerfil)			
 		Utilidades.abrirfecharDialogos("dialogoPerfil",true);
+		
+		
+		
 	}
 
 	public boolean temPermissoes(List<String> permissoes) {
@@ -156,6 +159,19 @@ public class PerfilLogado implements Serializable {
 		}
 
 		setListaPerfisdousLogado(perfis);
+	}
+	
+	public boolean renderizaIndicacao() {
+		if(this.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.AGROEVETERINARIA) ||
+				this.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.AGROPECUARIA) ||
+					this.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.CLINICAVETERINARIA) ||
+						this.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.PETSHOPECLINICAVETERINARIA) ||
+							this.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.PETSHOP) ||
+								this.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.ADMINISTRADORES)) {
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	
