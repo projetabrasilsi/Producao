@@ -17,13 +17,16 @@ import br.com.projetabrasil.model.dao.Prontuario_de_EmergenciaDAO;
 import br.com.projetabrasil.model.dao.QRCodeDAO;
 import br.com.projetabrasil.model.entities.Contato;
 import br.com.projetabrasil.model.entities.Endereco;
+import br.com.projetabrasil.model.entities.Enum_Aux_Sexo;
+import br.com.projetabrasil.model.entities.Enum_Aux_Tipos_Objetos;
 import br.com.projetabrasil.model.entities.Objeto;
 import br.com.projetabrasil.model.entities.Pessoa;
 import br.com.projetabrasil.model.entities.Prontuario_de_Emergencia;
 import br.com.projetabrasil.model.entities.QRCode;
+import br.com.projetabrasil.util.Utilidades;
 
 @SuppressWarnings("serial")
-@ManagedBean
+@ManagedBean(name = "qrcodeConsultaController")
 @RequestScoped
 public class QRCodeConsultaController implements Serializable {
 	private String kldasjfsd;
@@ -33,6 +36,8 @@ public class QRCodeConsultaController implements Serializable {
 	private List<Prontuario_de_Emergencia> pront = new ArrayList<>();
 	private Pessoa pessoa = new Pessoa();
 	private Objeto objeto = new Objeto();
+	private boolean ePessoa = false;
+	private String perdidoa = "perdida";
 
 	// www.projetabrasil.com.br/faces/pages/achei.xhtml?kldasjfsd=a527173445d117cbf177084bd34e60f2
 	// www.projetabrasil.com.br/faces/pages/achei.xhtml?kldasjfsd=197fb688fc1c8f2ae27ea797e7f73283
@@ -41,6 +46,23 @@ public class QRCodeConsultaController implements Serializable {
 	// www.projetabrasil.com.br/faces/pages/achei.xhtml?kldasjfsd=277d11c0d890fa50d2c48302b7c37e35
 	// www.projetabrasil.com.br/faces/pages/achei.xhtml?kldasjfsd=72d14bf1127677c8ad802764cde2c550
 	// www.projetabrasil.com.br/faces/pages/achei.xhtml?kldasjfsd=170736fee90ba01be4bd05ce3759feca
+	///localhost:8080/ProjetaBrasil/faces/pages/achei.xhtml?kldasjfsd=e28405481928bc7a153960aa2b24dc78
+
+	public String getPerdidoa() {
+		return perdidoa;
+	}
+
+	public void setPerdidoa(String perdidoa) {
+		this.perdidoa = perdidoa;
+	}
+
+	public boolean isePessoa() {
+		return ePessoa;
+	}
+
+	public void setePessoa(boolean ePessoa) {
+		this.ePessoa = ePessoa;
+	}
 
 	@PostConstruct
 	public void getParam() {
@@ -55,11 +77,30 @@ public class QRCodeConsultaController implements Serializable {
 
 		QRCodeDAO qrCodersDAO = new QRCodeDAO();
 		setqRCode((QRCode) qrCodersDAO.buscaCoders(id));
+		if(qRCode.getTipo_Objeto()!=null && qRCode.getTipo_Objeto().equals(Enum_Aux_Tipos_Objetos.PESSOAS) )
+			setePessoa(true);
+		else
+			setePessoa(false);
 
 		setPessoa(getqRCode().getId_Pessoa_Cliente());
 		if(getPessoa() == null)
 			setPessoa(new Pessoa());
+		
+		if(!qRCode.getTipo_Objeto().equals(Enum_Aux_Tipos_Objetos.PESSOAS) && qRCode.getId_Objeto()!=null ){
 		setObjeto(qRCode.getId_Objeto());
+		 if(qRCode.getId_Objeto().getSexo()!=null && qRCode.getId_Objeto().getSexo().equals(Enum_Aux_Sexo.FEMININO))
+			 setPerdidoa("perdida");
+			 else
+				 setPerdidoa("perdido");
+		 
+		 qRCode.setCaminhodaImagem(Utilidades.getCaminhofotoobjetos() + "" + qRCode.getId_Objeto().getId()
+					+ Utilidades.getTipoimagem() );
+		 
+		}else{
+			qRCode.setCaminhodaImagem(Utilidades.getCaminhofotopessoas() + "" + qRCode.getId_Pessoa_Cliente().getId()
+					+ Utilidades.getTipoimagem() );
+		}
+		
 		if(getObjeto() == null)
 			setObjeto(new Objeto());
 		EnderecoDAO endDAO = new EnderecoDAO();

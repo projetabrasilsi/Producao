@@ -23,7 +23,6 @@ import br.com.projetabrasil.model.entities.Pessoa;
 import br.com.projetabrasil.model.entities.Pessoa_Enum_Aux_Perfil_Pessoa;
 import br.com.projetabrasil.model.entities.Pessoa_Vinculo;
 import br.com.projetabrasil.model.entities.Ponto_Movimento;
-import br.com.projetabrasil.model.entities.Profissao;
 import br.com.projetabrasil.util.HibernateUtil;
 
 

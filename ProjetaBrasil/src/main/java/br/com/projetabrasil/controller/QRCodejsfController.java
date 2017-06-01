@@ -25,6 +25,7 @@ import br.com.projetabrasil.model.dao.QRCodeDAO;
 import br.com.projetabrasil.model.entities.Enum_Aux_Perfil_Pessoa;
 import br.com.projetabrasil.model.entities.Enum_Aux_Status_QRCodes;
 import br.com.projetabrasil.model.entities.Enum_Aux_Tipo_Identificador;
+import br.com.projetabrasil.model.entities.Enum_Aux_Tipos_Objetos;
 import br.com.projetabrasil.model.entities.Objeto;
 import br.com.projetabrasil.model.entities.PerfilLogado;
 import br.com.projetabrasil.model.entities.Pessoa;
@@ -68,7 +69,7 @@ public class QRCodejsfController implements Serializable {
 
 	}
 
-	public void buscaClienteEObjetos() {
+	public void buscaClienteEObjetos(ActionEvent event) {
 		if (q.getStatus().equals(Enum_Aux_Status_QRCodes.VENDIDOS)) {
 			Utilidades.mensagensDisparar("Este QRCode já Está Vendido");
 			Utilidades.abrirfecharDialogos("dialogoIdentidadeEObjeto", false);
@@ -91,29 +92,40 @@ public class QRCodejsfController implements Serializable {
 			return;
 		}
 
-		ObjetoDAO objDAO = new ObjetoDAO();
-		objetos = objDAO.lista_Objetos(pessoa);
+		if (perfilLogado.getPerfildeTransferencia() != null
+				&& perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.SINDICATOS)) {
+			q.setId_Pessoa_Cliente(pessoa);
+			vincularObjetos(event);
 
-		if (objetos == null || objetos.size() == 0) {
+		} else {
 
-			Utilidades.mensagensDisparar("Cliente: " + pessoa.getDescricao() + "\n ainda"
-					+ " não tem nenhum tipo de \n Objeto Cadastrado!!!");
+			ObjetoDAO objDAO = new ObjetoDAO();
+			objetos = objDAO.lista_Objetos(pessoa);
+
+			if (objetos == null || objetos.size() == 0) {
+
+				Utilidades.mensagensDisparar("Cliente: " + pessoa.getDescricao() + "\n ainda"
+						+ " não tem nenhum tipo de \n Objeto Cadastrado!!!");
+				Utilidades.abrirfecharDialogos("dialogoIdentidadeEObjeto", false);
+				return;
+			}
+		}
+
+		if (perfilLogado.getPerfildeTransferencia() != null
+				&& !perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.SINDICATOS)) {
+			List<Objeto> objetosEImagens = new ArrayList<Objeto>();
 			Utilidades.abrirfecharDialogos("dialogoIdentidadeEObjeto", false);
-			return;
-		}
 
-		List<Objeto> objetosEImagens = new ArrayList<Objeto>();
-
-		int x = 0;
-		for (Objeto i : objetos) {
-			i.setCaminhodaImagem(Utilidades.getCaminhofotoobjetos() + "" + i.getId() + Utilidades.getTipoimagem());
-			i.setTipodeImagem(Utilidades.tipodeImagem());
-			objetosEImagens.add(x, i);
-			x++;
+			int x = 0;
+			for (Objeto i : objetos) {
+				i.setCaminhodaImagem(Utilidades.getCaminhofotoobjetos() + "" + i.getId() + Utilidades.getTipoimagem());
+				i.setTipodeImagem(Utilidades.tipodeImagem());
+				objetosEImagens.add(x, i);
+				x++;
+			}
+			objetos = objetosEImagens;
+			Utilidades.abrirfecharDialogos("dialogoObjetos", true);
 		}
-		objetos = objetosEImagens;
-		Utilidades.abrirfecharDialogos("dialogoIdentidadeEObjeto", false);
-		Utilidades.abrirfecharDialogos("dialogoObjetos", true);
 
 	}
 
@@ -234,7 +246,8 @@ public class QRCodejsfController implements Serializable {
 
 	@PostConstruct
 	public void listargemQrCode() {
-		if (perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.CLIENTES))
+		if (perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.CLIENTES)
+				|| perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.SINDICATOS))
 			setRenderizacheck(false);
 		else
 			setRenderizacheck(true);
@@ -254,7 +267,6 @@ public class QRCodejsfController implements Serializable {
 			livre = false;
 
 		qRCodes = qDAO.listarQRCodersPorPerfil(perfilLogado, livre);
-		
 
 		qRCodesSelecionados = new ArrayList<>();
 		configurarPessoa();
@@ -262,46 +274,68 @@ public class QRCodejsfController implements Serializable {
 		pessoa.setEnum_Aux_Tipo_Identificador(Enum_Aux_Tipo_Identificador.CNPJ);
 		if (perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.CLIENTES))
 			pegarCaminhodaImagem();
-		
+
 	}
 
 	public void pegarCaminhodaImagem() {
 		if (!perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.CLIENTES))
 			return;
-		
+
 		int x = 0;
 		for (QRCode qrCode : qRCodes) {
-			if (qrCode.getId_Objeto() != null) {				
-				qrCode.setCaminhodaImagem(Utilidades.getCaminhofotoobjetos() + "" + qrCode.getId_Objeto().getId()+ Utilidades.getTipoimagem());
-				qrCode.setTipodeImagem(Utilidades.tipodeImagem());				
-				
-			}else{
-				qrCode.setCaminhodaImagem(Utilidades.getBranco2());
+
+			if (qrCode.getId_Objeto() != null) {
+				if (qrCode.getTipo_Objeto().equals(Enum_Aux_Tipos_Objetos.PESSOAS))
+
+					qrCode.setCaminhodaImagem(Utilidades.getCaminhofotopessoas() + ""
+							+ qrCode.getId_Pessoa_Cliente().getId() + Utilidades.getTipoimagem());
+				else
+					qrCode.setCaminhodaImagem(Utilidades.getCaminhofotoobjetos() + "" + qrCode.getId_Objeto().getId()
+							+ Utilidades.getTipoimagem());
+
+				qrCode.setTipodeImagem(Utilidades.tipodeImagem());
+
+			} else {
+				qrCode.setCaminhodaImagem(Utilidades.getBranco());
 			}
-			qRCodes.set(x,qrCode);
+			qRCodes.set(x, qrCode);
 			x++;
 		}
-		
 
 	}
+
 	public void vincularObjetos(ActionEvent event) {
-		q.setId_Objeto((Objeto) event.getComponent().getAttributes().get("registroAtual"));
-		q.setCaminhodaImagem(Utilidades.getCaminhofotoobjetos() + "" + q.getId_Objeto() + Utilidades.getTipoimagem());
+
+		if (perfilLogado.getPerfildeTransferencia() != null
+				&& perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.SINDICATOS)) {
+
+			q.setCaminhodaImagem(Utilidades.getCaminhofotopessoas() + "" + q.getId_Pessoa_Cliente().getId()
+					+ Utilidades.getTipoimagem());
+			Utilidades.abrirfecharDialogos("dialogoIdentidadeEObjeto", false);
+			q.setTipo_Objeto(Enum_Aux_Tipos_Objetos.PESSOAS);
+		}
+
+		else {
+			q.setId_Pessoa_Cliente(q.getId_Objeto().getId_Pessoa_Vinculo());
+			q.setId_Objeto((Objeto) event.getComponent().getAttributes().get("registroAtual"));
+			q.setTipo_Objeto(q.getId_Objeto().getEnum_Aux_Tipos_Objeto());
+			q.setCaminhodaImagem(
+					Utilidades.getCaminhofotoobjetos() + "" + q.getId_Objeto() + Utilidades.getTipoimagem());
+			Utilidades.abrirfecharDialogos("dialogoObjetos", false);
+			q.setTipo_Objeto(Enum_Aux_Tipos_Objetos.PETS);
+		}
+
 		q.setTipodeImagem(Utilidades.tipodeImagem());
 		q.setStatus(Enum_Aux_Status_QRCodes.VENDIDOS);
-		q.setId_Pessoa_Cliente(q.getId_Objeto().getId_Pessoa_Vinculo());
+
 		q.setData_Venda(Utilidades.retornaCalendario());
 		q.setId_Pessoa_Registro(perfilLogado.getUsLogado().getPessoa());
 		q.setUltimaAtualizacao(Utilidades.retornaCalendario());
-		q.setTipo_Objeto(q.getId_Objeto().getEnum_Aux_Tipos_Objeto());
+
 		QRCodeDAO qDAO = new QRCodeDAO();
 		qDAO.merge(q);
-		Utilidades.abrirfecharDialogos("dialogoObjetos", false);
 		listargemQrCode();
-		
-
 	}
-
 
 	public void identidade(ActionEvent event) {
 		configurarPessoa();

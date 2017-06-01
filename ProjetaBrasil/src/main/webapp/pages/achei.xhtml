@@ -25,7 +25,7 @@
 	</f:facet>
 	<f:metadata>
 		<f:viewParam name="kldasjfsd"
-			value="#{qrcodeConsultaController.kldasjfsd}" />
+			value="#{ qrcodeConsultaController.kldasjfsd}" />
 	</f:metadata>
 	<title>Projeta Brasil</title>
 
@@ -232,7 +232,7 @@
 		<h:outputStylesheet name="css/font-awesome.css" library="fa" />
 		<!-- <h:outputScript name="achei-qrcode.js" library="js" /> -->
 
-		<h:form id="form">
+		<!-- <h:form id="form" rendered="false">
 
 			<p:inputText id="geoLocation"
 				value="#{qrcodeConsultaController.endereco}" readonly="true" />
@@ -250,7 +250,7 @@
 			<p:remoteCommand name="myRemote"
 				actionListener="#{qrcodeConsultaController.pegaLocalizacao}"
 				update=":mensagens,geoLocation" />
-		</h:form>
+		</h:form>-->
 
 
 
@@ -275,15 +275,20 @@ if (navigator.geolocation) {
 	<h:form id="formPessoas" rendered="#{qrcodeConsultaController.ePessoa}">
 		<div id="login-wrapper" class="qr-wrapper">
 
-			
+
 
 			<div class="qr-container">
 				<div class="div-titulo">
 					<h1>
+						<p:outputLabel value="Taxista:" styleClass="info-header-label" />
 						<h:outputText
-							value="Taxista: #{qrcodeConsultaController.qRCode.id_Pessoa_Cliente.descricao}."/>
-						<br />Validade do Registro:15/11/2017 <br />
+							value="#{qrcodeConsultaController.qRCode.id_Pessoa_Cliente.descricao}"
+							styleClass="info-header-infos" />
+							<br />
 
+						<p:outputLabel value="Validade do Registro:"
+							styleClass="info-header-label" />
+						<h:outputText value="15/11/2017" styleClass="info-header-infos" />
 					</h1>
 				</div>
 				<p:graphicImage styleClass="img-dog" id="Fototab"
@@ -297,26 +302,33 @@ if (navigator.geolocation) {
 					<div class="row info-header">
 						<div class="col-xs-12 col-geral">
 
-							<h:outputText 
-								value="Data de Nascimento:"
-								styleClass="info-header-infos" />
-								
-								<h:outputText 
-								value="CPF:"
-								styleClass="info-header-infos" />
-								<h:outputText 
-								value="RG:"
-								styleClass="info-header-infos" />
-								
-								<h:outputText 
-								value="CNH:"
-								styleClass="info-header-infos" />
+							<h1>
+								<p:outputLabel value="Data de Nascimento: "
+									styleClass="info-header-label" />
+								<h:outputText value="23/09/1978" styleClass="info-header-infos" />
+								<br />
 
+								<p:outputLabel value="CPF:" styleClass="info-header-label" />
+								<h:outputText value="892.309.061-15"
+									styleClass="info-header-infos" />
+									<br />
+									
+									<p:outputLabel value="RG:" styleClass="info-header-label" />
+								<h:outputText value="3739787"
+									styleClass="info-header-infos" />
+									<br />
+									<p:outputLabel value="CNH:" styleClass="info-header-label" />
+								<h:outputText value="0000000000"
+									styleClass="info-header-infos" />
+									<br />
+							</h1>
+
+							
 						</div>
-						
-						
 
-						
+
+
+
 
 						<div class="col-xs-12 col-geral"></div>
 					</div>
@@ -325,14 +337,14 @@ if (navigator.geolocation) {
 
 					<div class="row info-corpo">
 
-						
+
 
 
 
 						<h2 class="titulo-geral">Mais sobre mim</h2>
-						
 
-						
+
+
 						<h2 class="titulo-geral">Meu Endereço:</h2>
 
 
@@ -428,7 +440,7 @@ if (navigator.geolocation) {
 		<h:outputStylesheet name="css/font-awesome.css" library="fa" />
 		<!-- <h:outputScript name="achei-qrcode.js" library="js" /> -->
 
-		
+
 
 
 
