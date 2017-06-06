@@ -14,6 +14,7 @@ import org.hibernate.criterion.Restrictions;
 import br.com.projetabrasil.model.entities.Enum_Aux_Perfil_Pessoa;
 import br.com.projetabrasil.model.entities.Enum_Aux_Status_QRCodes;
 import br.com.projetabrasil.model.entities.Enum_Aux_Tipos_Objetos;
+import br.com.projetabrasil.model.entities.Objeto;
 import br.com.projetabrasil.model.entities.PerfilLogado;
 import br.com.projetabrasil.model.entities.Pessoa;
 import br.com.projetabrasil.model.entities.QRCode;
@@ -192,6 +193,23 @@ public class QRCodeDAO extends GenericDAO<QRCode> {
 			q.merge(e);
 		}
 		return lc;
+	}
+	
+	public List<Objeto> buscaObjetosVendidos() {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+
+		List<Objeto> resultado = new ArrayList();
+		try {
+			Criteria crit = sessao.createCriteria(QRCode.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);		
+			crit.setProjection(Projections.property("id_Objeto"));		
+			resultado = crit.list();
+			return resultado;
+		} catch (RuntimeException erro) {
+			erro.printStackTrace();
+			throw erro;
+		} finally {
+			sessao.close();
+		}
 	}
 
 }

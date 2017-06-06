@@ -61,7 +61,8 @@ public enum Enum_Aux_Perfil_Pagina_Atual {
 	PAGINAFUNCIONARIOS("PAGINAFUNCIONARIOS","PFUNC",45,null,Enum_Aux_Perfil_Pessoa.FUNCIONARIOS,Enum_Aux_Perfil_Pessoa.REVENDEDORES,false,true,"pessoas.xhtml", "logistica"),
 	PAGINAVINCULARQRCODE("PAGINAVINCULARQRCODE","PVINC",46,null,Enum_Aux_Perfil_Pessoa.OUTROS,Enum_Aux_Perfil_Pessoa.OUTROS ,true,true,"transferenciaqrcode.xhtml","QRCodes para vínculo"),
 	PAGINAVINCULARQRCODEPESSOASESINDICATOS("PAGINAVINCULARQRCODEPESSOASESINDICATOS","PVINCPESSSIND",47,null,Enum_Aux_Perfil_Pessoa.OUTROS,Enum_Aux_Perfil_Pessoa.OUTROS ,true,true,"transferenciaqrcode.xhtml","QRCodes para vínculo de Pessoas aos Sindicatos"),
-	PAGINAVINCULARQRCODEPESSOAS("PAGINAVINCULARQRCODEPESSOAS","PVINCPESS",48,null,Enum_Aux_Perfil_Pessoa.OUTROS,Enum_Aux_Perfil_Pessoa.OUTROS ,true,true,"transferenciaqrcode.xhtml","QRCodes para vínculo de Pessoas");
+	PAGINAVINCULARQRCODEPESSOAS("PAGINAVINCULARQRCODEPESSOAS","PVINCPESS",48,null,Enum_Aux_Perfil_Pessoa.OUTROS,Enum_Aux_Perfil_Pessoa.OUTROS ,true,true,"transferenciaqrcode.xhtml","QRCodes para vínculo de Pessoas"),
+	PAGINAPETSVENDIDOS("PAGINAPETSVENDIDOS","PPETSVENDIDOS",49,null,Enum_Aux_Perfil_Pessoa.OUTROS,Enum_Aux_Perfil_Pessoa.OUTROS ,true,true,"pets.xhtml","PETS vinculados");
 	
     private String descricao;    
 	private String sigla;

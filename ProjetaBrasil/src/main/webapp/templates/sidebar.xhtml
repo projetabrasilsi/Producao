@@ -243,7 +243,7 @@
 											<f:attribute name="paginaAtual" value="PAGINATABLETS" />
 										</p:menuitem>
 									</p:submenu>
-
+					
 
 									<p:submenu label="Outros"
 										rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA','DISTRIBUIDORES','REPRESENTANTES','REVENDEDORES','FUNCIONARIOS'])}">
@@ -314,9 +314,12 @@
 									<f:attribute name="paginaAtual" value="PAGINAVINCULARQRCODEPESSOASESINDICATOS" />
 									<f:attribute name="perfildeTransferencia" value="CLIENTES" />
 								</p:menuitem>
-							</p:submenu>
 								
-
+								<p:menuitem value="Pets Vinculados" icon="fa fa-map-marker"
+									actionListener="#{paginas.mudaPaginaAtual}">
+									<f:attribute name="paginaAtual" value="PAGINAPETSVENDIDOS" />
+								</p:menuitem>
+							</p:submenu>														
 
 							<p:submenu label="Pontos" icon="fa fa-home"
 								rendered="#{autenticacaojsfController.perfilLogado.temPermissoes2(['ADMINISTRADORES','ASSINANTES','ATENDENTES','VENDAS'])}">

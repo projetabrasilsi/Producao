@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	template="/templates/template.xhtml">
+	<h:head>
+		<h:outputStylesheet library="css" name="clubefidelidadee.css" />
+		<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="./js/pessoas.js" />
+	</h:head>
+	<f:event listener="#{paginas.mudaPaginaAtual}" type="preRenderView" />
+	<ui:define name="conteudo">
+
+		<h:form id="formLista">
+		    <p:dataGrid var="registro" value="#{petsjsfController.listaPets}" columns="3" layout="grid"
+		        rows="12" paginator="true" id="pets"
+		        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		        rowsPerPageTemplate="6,12,16">
+		 
+		        <f:facet name="header">
+		            PETS
+		        </f:facet>
+		 
+		        <p:panel header="#{registro.id}" style="text-align:center">
+		            <h:panelGrid columns="1" style="width:100%">
+		                <p:graphicImage id="Fototab" value="#{imagensjsfController.image}"
+							style="max-width:90px;max-height:80px;width: auto;height: auto;">
+							<f:param name="caminho" value="#{registro.caminhodaImagem}" />
+						</p:graphicImage> 
+		 
+		                <h:outputText value="#{registro.descricao}" />
+		 
+		                <p:commandLink update=":formTemplate:petDetail" oncomplete="PF('petDialog').show()" title="View Detail">
+		                    <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
+		                    <f:setPropertyActionListener value="#{registro}" target="#{petsjsfController.objetoSelecionado}" />
+		                </p:commandLink>
+		            </h:panelGrid>
+		        </p:panel>
+		 
+		    </p:dataGrid>
+		</h:form> 
+		
+		
+		
+		
+		<p:dialog header="Pet Info" widgetVar="petDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+		    <p:outputPanel id="petDetail" style="text-align:center;">
+		        <p:panelGrid  columns="2" rendered="#{not empty petsjsfController.objetoSelecionado.id}" columnClasses="label,value">
+		            <f:facet name="header">
+		                <p:graphicImage value="#{imagensjsfController.image}"
+		                	style="max-width:150px;max-height:130px;width: auto;height: auto;"> 
+		                	<f:param name="caminho" value="#{petsjsfController.objetoSelecionado.caminhodaImagem}" />
+		                </p:graphicImage> 
+		               	</f:facet>
+		 
+		                <h:outputText value="Id:" />
+		                <h:outputText value="#{petsjsfController.objetoSelecionado.id}" />
+		 
+		                <h:outputText value="Year" />
+		                <h:outputText value="#{petsjsfController.objetoSelecionado.descricao}" />
+		 
+		                <h:outputText value="Color:" />
+		                <h:outputText value="#{petsjsfController.objetoSelecionado.cor.descricao}" />
+		        </p:panelGrid>
+		    </p:outputPanel>
+		</p:dialog>
+		
+
+	</ui:define>
+</ui:composition>

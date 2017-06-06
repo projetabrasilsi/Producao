@@ -763,8 +763,6 @@ public class PessoajsfController extends GenericController implements Serializab
 		this.pessoas = PessoaBusiness.listar(perfilLogado);
 		List<Pessoa> pessoasEImagens = new ArrayList<Pessoa>();
 
-		PessoaDAO pDAO = new PessoaDAO();
-
 		int x = 0;
 		for (Pessoa p : pessoas) {
 			p.setCaminhodaImagem(Utilidades.getCaminhofotopessoas() + "" + p.getId() + Utilidades.getTipoimagem());
