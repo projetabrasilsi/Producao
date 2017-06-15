@@ -31,7 +31,7 @@ public class QRCodeDAO extends GenericDAO<QRCode> {
 		QRCode resultado;
 		try {
 			Criteria crit = sessao.createCriteria(QRCode.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-
+			
 			crit.add(Restrictions.eq("id", Long.parseLong(id)));
 			crit.setMaxResults(1);
 			resultado = (QRCode) crit.uniqueResult();
@@ -92,6 +92,24 @@ public class QRCodeDAO extends GenericDAO<QRCode> {
 			crit.addOrder(Order.asc("id"));
 			crit.add(Restrictions.ge("id", inicio));
 			crit.add(Restrictions.le("id", fim));
+			crit.addOrder(Order.asc("id"));
+			resultado = crit.list();
+			return resultado;
+		} catch (RuntimeException erro) {
+
+			throw erro;
+		} finally {
+			sessao.close();
+		}
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public List<QRCode> listarQRCoders() {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+
+		List<QRCode> resultado = new ArrayList();
+		try {
+			Criteria crit = sessao.createCriteria(QRCode.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			crit.addOrder(Order.asc("id"));
 			resultado = crit.list();
 			return resultado;
@@ -201,6 +219,54 @@ public class QRCodeDAO extends GenericDAO<QRCode> {
 		List<Objeto> resultado = new ArrayList();
 		try {
 			Criteria crit = sessao.createCriteria(QRCode.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);		
+			crit.add(Restrictions.eq("status", Enum_Aux_Status_QRCodes.VENDIDOS));
+			crit.add(Restrictions.eq("tipo_Objeto", Enum_Aux_Tipos_Objetos.PETS));
+			crit.setProjection(Projections.property("id_Objeto"));		
+			resultado = crit.list();
+			return resultado;
+		} catch (RuntimeException erro) {
+			erro.printStackTrace();
+			throw erro;
+		} finally {
+			sessao.close();
+		}
+	}
+
+	public List<QRCode> listarQRCoders(Enum_Aux_Status_QRCodes status, Objeto idObjeto) {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+
+		List<QRCode> resultado = new ArrayList();
+		try {
+			Criteria crit = sessao.createCriteria(QRCode.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			if(status != null){
+				crit.add(Restrictions.eq("status", status));				
+			}
+			if(idObjeto != null){
+				crit.add(Restrictions.eq("id_Objeto", idObjeto));
+			}						
+			resultado = crit.list();
+			return resultado;
+		} catch (RuntimeException erro) {
+
+			throw erro;
+		} finally {
+			sessao.close();
+		}
+	}
+
+	public List<Objeto> buscaObjetos(Enum_Aux_Status_QRCodes status, Objeto o) {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+
+		List<Objeto> resultado = new ArrayList();
+		try {
+			Criteria crit = sessao.createCriteria(QRCode.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);		
+			if(status != null){
+				crit.add(Restrictions.eq("status", status));				
+			}
+			if(o != null){
+				crit.add(Restrictions.eq("id_Objeto", o));
+			}	
+			crit.add(Restrictions.eq("tipo_Objeto", Enum_Aux_Tipos_Objetos.PETS));
 			crit.setProjection(Projections.property("id_Objeto"));		
 			resultado = crit.list();
 			return resultado;

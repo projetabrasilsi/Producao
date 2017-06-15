@@ -493,7 +493,7 @@ public class PessoajsfController extends GenericController implements Serializab
 	public void editar(ActionEvent event) {
 
 		Pessoa p = (Pessoa) event.getComponent().getAttributes().get("registroAtual");
-
+		
 		this.pessoa = p;
 		pais = new Pais();
 		setPais(buscaPais("BRASIL", "BRL"));
@@ -522,7 +522,7 @@ public class PessoajsfController extends GenericController implements Serializab
 			contato.setId_Pessoa(perfilLogado.getUsLogado().getPessoa());
 			objeto.setId_Pessoa(perfilLogado.getUsLogado().getPessoa());
 		}
-		
+					
 		listarProntuarioEmergenciadaPessoa();
 		listarContatosdaPessoa();
 		listarObjetodaPessoa();
@@ -996,10 +996,11 @@ public class PessoajsfController extends GenericController implements Serializab
 				}
 
 			}
+			this.pessoa.setCaminhodaImagem(Utilidades.getCaminhofotopessoas() + "" + pessoa.getId() + Utilidades.getTipoimagem());	
 			//SOMENTE LISTA SE PESSOA EXISTIR
 			listarProntuarioEmergenciadaPessoa();
 			listarContatosdaPessoa();
-			listarObjetodaPessoa();
+			listarObjetodaPessoa();			
 		}
 		if (pessoa.getEnum_Aux_Tipo_Identificador().getAux_tipo_pessoa().equals(Enum_Aux_Tipo_Pessoa.OUTROS))
 			pessoa.setEnum_Aux_Tipo_Identificador(Enum_Aux_Tipo_Identificador.CPF);

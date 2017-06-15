@@ -68,6 +68,7 @@ public class Utilidades implements Serializable {
 	private static final String caminhoFotoBrinde = System.getProperty("user.home") + "/imagens/brindes/";
 	private static final String caminhoFotoPessoas = System.getProperty("user.home") + "/imagens/pessoas/";
 	private static final String caminhoFotoObjetos = System.getProperty("user.home") + "/imagens/objetos/";
+	private static final String caminhoFotoPadrao = "/images/imgPerfil.jpeg";
 	
 
 	private static final String caminhoFotoVouchers = System.getProperty("user.home") + "/imagens/vouchers/";
@@ -663,8 +664,6 @@ public class Utilidades implements Serializable {
 		return branco2;
 	}
 
-	
-
 	public static String getCaminhobase2() {
 		return caminhobase2;
 	}
@@ -673,4 +672,9 @@ public class Utilidades implements Serializable {
 		Utilidades.caminhobase2 = caminhobase2;
 	}
 
+	public static String getCaminhofotopadrao() {
+		return caminhoFotoPadrao;
+	}
+
+	
 }

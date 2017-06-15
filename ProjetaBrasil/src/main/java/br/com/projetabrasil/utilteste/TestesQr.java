@@ -2,6 +2,11 @@ package br.com.projetabrasil.utilteste;
 
 import org.junit.Test;
 
+import br.com.projetabrasil.model.dao.ObjetoDAO;
+import br.com.projetabrasil.model.dao.QRCodeDAO;
+import br.com.projetabrasil.model.entities.Enum_Aux_Status_QRCodes;
+import br.com.projetabrasil.model.entities.Objeto;
+import br.com.projetabrasil.model.entities.QRCode;
 import br.com.projetabrasil.util.GeradorQRCodeOficial2;
 
 public class TestesQr {
@@ -19,6 +24,16 @@ public class TestesQr {
 		
 		
 		
+		
+	}
+	
+	@Test
+	public void testaQRCODE() throws Exception {
+		Objeto obj = new ObjetoDAO().buscar(32l);
+		for(Objeto o : new QRCodeDAO().buscaObjetos(Enum_Aux_Status_QRCodes.VENDIDOS, obj)){
+			System.out.println(o.toString());
+			System.out.println(o.getDescricao());
+		}
 		
 	}
 

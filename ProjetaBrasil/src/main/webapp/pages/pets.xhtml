@@ -17,6 +17,29 @@
 	<ui:define name="conteudo">
 
 		<h:form id="formLista">
+		
+			<p:outputLabel for="status" value="Status: "/>
+            <p:selectOneMenu id="status" value="#{petsjsfController.status}" converter="omnifaces.SelectItemsConverter" style="width:150px">
+                <p:ajax listener="#{petsjsfController.buscaObjetos()}" update="pets" process="@form"/>
+                <f:selectItem itemLabel="Selecione o status" itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{petsjsfController.listaStatus}" var="o" itemLabel="#{o.status}" itemValue="#{o}" />
+            </p:selectOneMenu>
+            
+            <p:outputLabel value="ID: "/>
+            <p:spinner value="#{petsjsfController.idObjeto}" min="0"/>
+			
+			<p:commandButton icon="ui-icon-search" process="@form"
+				update="pets"	
+				actionListener="#{petsjsfController.buscaObjetos()}"		
+				styleClass="btao-info-pessoas-lupa btn-color-silver btn-lupa" />
+				
+			<p:commandButton value="QRCodes" 				
+				styleClass="btao-info-pessoas"				
+				actionListener="#{paginas.mudaPaginaAtual}">
+				<f:attribute name="paginaAtual" value="PAGINAQRCODE" /> 
+			</p:commandButton>
+			
+					
 		    <p:dataGrid var="registro" value="#{petsjsfController.listaPets}" columns="3" layout="grid"
 		        rows="12" paginator="true" id="pets"
 		        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -61,10 +84,10 @@
 		                <h:outputText value="Id:" />
 		                <h:outputText value="#{petsjsfController.objetoSelecionado.id}" />
 		 
-		                <h:outputText value="Year" />
+		                <h:outputText value="Descrição:" />
 		                <h:outputText value="#{petsjsfController.objetoSelecionado.descricao}" />
 		 
-		                <h:outputText value="Color:" />
+		                <h:outputText value="Cor:" />
 		                <h:outputText value="#{petsjsfController.objetoSelecionado.cor.descricao}" />
 		        </p:panelGrid>
 		    </p:outputPanel>

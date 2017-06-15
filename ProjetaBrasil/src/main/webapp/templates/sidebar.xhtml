@@ -308,16 +308,16 @@
 									<f:attribute name="perfildeTransferencia" value="CLIENTES" />
 								</p:menuitem>
 								
-								<p:menuitem value="Vingular a Sindicatos" icon="fa fa-map-marker"
+								<p:menuitem value="Vincular a Sindicatos" icon="fa fa-map-marker"
 									actionListener="#{paginas.mudaPaginaAtual}"
 									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','LOGISTICA','FUNCIONARIOS','SINDICATOS'])}">
 									<f:attribute name="paginaAtual" value="PAGINAVINCULARQRCODEPESSOASESINDICATOS" />
 									<f:attribute name="perfildeTransferencia" value="CLIENTES" />
-								</p:menuitem>
+								</p:menuitem>	
 								
-								<p:menuitem value="Pets Vinculados" icon="fa fa-map-marker"
+								<p:menuitem value="Lista de QRCode" icon="fa fa-map-marker"
 									actionListener="#{paginas.mudaPaginaAtual}">
-									<f:attribute name="paginaAtual" value="PAGINAPETSVENDIDOS" />
+									<f:attribute name="paginaAtual" value="PAGINAQRCODE" />
 								</p:menuitem>
 							</p:submenu>														
 

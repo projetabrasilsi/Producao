@@ -82,6 +82,12 @@
 									<f:attribute name="registroAtual" value="#{registro}" />
 								</p:commandButton>
 							</p:column>
+							<p:column headerText="Visualizar" styleClass="edit-col-pessoas">
+								<p:commandLink update=":formTemplate:personDetail" oncomplete="PF('personDialog').show()" title="View Detail">
+			                   		<h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
+			                    	<f:setPropertyActionListener value="#{registro}" target="#{pessoajsfController.pessoa}" />
+		                		</p:commandLink>
+							</p:column>
 
 						</p:dataTable>
 						<p:confirmDialog global="true" styleClass="cDialog-edit-pessoas">
@@ -172,198 +178,165 @@
 
 
 							
-						<p:tab id="tab1" title="Dados Base">
-							<p:panel id="p_d_p">
-								
-							<h:form id="painelCadastro_6"
-								rendered="#{autenticacaojsfController.perfilLogado.paginaAtual.renderizaCadastrodeUsuarios}">
+							<p:tab id="tab1" title="Dados Base">
+									<p:panel id="p_d_p">
 										
-							<div class="ui-g row-tab1">		
-								<div class="grupo1-info-pessoas-tab1">	
-									<div class="ui-g-3">
-										<p:outputLabel
-											value="#{pessoajsfController.pessoaConfig.labelNome}"
-											rendered="#{pessoajsfController.pessoaConfig.labelNomeRenderiza}" />
-										<br/>
-										<p:inputText size="15" maxlength="90"
-											value="#{pessoajsfController.pessoa.descricao}"
-											required="#{pessoajsfController.pessoaConfig.labelNomeObrigatorio}"
-											requiredMessage="#{pessoajsfController.pessoaConfig.labelNomeRequiredMessage}"
-											rendered="#{pessoajsfController.pessoaConfig.labelNomeRenderiza}"
-											validatorMessage="O minimo de caracteres para nome são  '5'"
-											placeholder="Mínimo 5 Letras"
-											styleClass="input-info-nome-pessoas input-info-pessoas-geral">
-											<f:validateLength minimum="5" />
-										</p:inputText>
-									
-										<p:outputLabel
-											value="#{pessoajsfController.pessoaConfig.labelFantasia}"
-											rendered="#{pessoajsfController.pessoaConfig.labelFantasiaRenderiza}" />
-										<br/>
-										<p:inputText size="15" maxlength="90"
-											value="#{pessoajsfController.pessoa.fantasia_Apelido}"
-											required="#{pessoajsfController.pessoaConfig.labelFantasiaObrigatorio}"
-											requiredMessage="#{pessoajsfController.pessoaConfig.labelFantasiaRequiredMessage}"
-											rendered="#{pessoajsfController.pessoaConfig.labelFantasiaRenderiza}"
-											validatorMessage="O minimo de caracteres para nome são  '5'"
-											placeholder="Mínimo 5 Letras"
-											styleClass="input-info-nome-pessoas input-info-pessoas-geral">
-											<f:validateLength minimum="5" />
-										</p:inputText>
-									</div>
-
-									<div class="ui-g-2">
-										
-										<p:outputLabel
-											value="#{pessoajsfController.pessoaConfig.labelSexo}"
-											rendered="#{pessoajsfController.pessoaConfig.labelSexoRenderiza}" />
-										<br/>
-										<p:selectOneRadio id="perfil"
-											value="#{pessoajsfController.pessoa.sexo}" columns="3"
-											converter="omnifaces.SelectItemsConverter"
-											rendered="#{pessoajsfController.pessoaConfig.labelSexoRenderiza}">
-											<f:selectItems
-												value="#{pessoajsfController.pessoaConfig.listaSexo}"
-												var="c" itemLabel="#{c.abrev}" itemValue="#{c}" />
-											<p:ajax event="change" process="@this"
-												oncomplete="$(function(){PrimeFaces.focus('formTemplate:formCadastro:calendar');});" />
-										</p:selectOneRadio>
-										
-									</div>
-									
-									<div class="ui-g-2">
-										<p:outputLabel
-											value="#{pessoajsfController.pessoaConfig.labelcpf_Cnpj}"
-											rendered="#{pessoajsfController.pessoaConfig.labelcpf_CnpjRenderiza}"
-											 />
-										<br/>
-										<p:outputLabel id="identificador" size="18" maxlength="15"
-											mask="#{pessoajsfController.pessoa.enum_Aux_Tipo_Identificador.mask}"
-											value="#{pessoajsfController.pessoa.cpf_Cnpj}"
-											converter="mascaraCPFConverter"
-											required="#{pessoajsfController.pessoaConfig.labelcpf_CnpjObrigatorio}"
-											requiredMessage="#{pessoajsfController.pessoaConfig.labelcpf_CnpjRequiredMessage}"
-											rendered="#{pessoajsfController.pessoaConfig.labelcpf_CnpjRenderiza}"
-											>
-										</p:outputLabel>
-									</div>
-								</div>
-																
-							</div>
-							
-							<div class="ui-g row-tab1">		
-								<div class="grupo2-info-pessoas-tab1">
-									<div class="ui-g-2">
-										<p:outputLabel value="Data de nascimento"
-											rendered="#{pessoajsfController.pessoaConfig.labelDataNascimentoRenderiza}" />
-										<br/>
-										<p:calendar id="calendar" size="18" maxlength="15"
-											mask="**/**/****" pattern="dd/MM/yyyy"
-											value="#{pessoajsfController.pessoa.dataNascimento}"
-											required="#{pessoajsfController.pessoaConfig.labelDataNascimentoObrigatorio}"
-											requiredMessage="#{pessoajsfController.pessoaConfig.labelDataNascimentoRequiredMessage}"
-											rendered="#{pessoajsfController.pessoaConfig.labelDataNascimentoRenderiza}"
-											styleClass="input-info-pessoas-data">
-											<f:convertDateTime pattern="dd/MM/yyyy" dateStyle="full"
-												type="both" timezone="GMT+3" />
-										</p:calendar>
-									</div>
-									<div class="ui-g-2">
-										<p:outputLabel
-											value="#{pessoajsfController.pessoaConfig.labelrg_Insc}"
-											rendered="#{pessoajsfController.pessoaConfig.labelrg_InscRenderiza}" />
-										<br/>
-										<p:inputText size="18" maxlength="15"
-											value="#{pessoajsfController.pessoa.rg_Insc}"
-											required="#{pessoajsfController.pessoaConfig.labelrg_InscObrigatorio}"
-											requiredMessage="#{pessoajsfController.pessoaConfig.labelrg_InscRequiredMessage}"
-											rendered="#{pessoajsfController.pessoaConfig.labelrg_InscRenderiza}"
-											styleClass="input-info-pessoas-geral">
-										</p:inputText>
-									</div>
-
-									<div class="ui-g-2">
-										<p:outputLabel value="Profissão: "
-										styleClass="label-info-pessoas-lupa"/>
-										<h:form id="g_profissao" render="@form">
-											<p:outputLabel id="psel" size="60" maxlength="60"
-												value="#{pessoajsfController.pessoa.id_Profissao.descricao}" />
-											<p:commandButton icon="ui-icon-search" process="@this"
-												update=":formTemplate:formListaProfissao"
-												onclick="PF('dialogoProfissoes').show();"
-												styleClass="btao-info-pessoas-lupa btn-color-silver btn-lupa" />
-										</h:form>
+									<h:form id="painelCadastro_6"
+										rendered="#{autenticacaojsfController.perfilLogado.paginaAtual.renderizaCadastrodeUsuarios}">
+												
+									<div class="ui-g row-tab1">		
+										<div class="grupo1-info-pessoas-tab1">	
+											<div class="ui-g-3">
+												<p:outputLabel
+													value="#{pessoajsfController.pessoaConfig.labelNome}"
+													rendered="#{pessoajsfController.pessoaConfig.labelNomeRenderiza}" />
+												<br/>
+												<p:inputText size="15" maxlength="90"
+													value="#{pessoajsfController.pessoa.descricao}"
+													required="#{pessoajsfController.pessoaConfig.labelNomeObrigatorio}"
+													requiredMessage="#{pessoajsfController.pessoaConfig.labelNomeRequiredMessage}"
+													rendered="#{pessoajsfController.pessoaConfig.labelNomeRenderiza}"
+													validatorMessage="O minimo de caracteres para nome são  '5'"
+													placeholder="Mínimo 5 Letras"
+													styleClass="input-info-nome-pessoas input-info-pessoas-geral">
+													<f:validateLength minimum="5" />
+												</p:inputText>
+											
+												<p:outputLabel
+													value="#{pessoajsfController.pessoaConfig.labelFantasia}"
+													rendered="#{pessoajsfController.pessoaConfig.labelFantasiaRenderiza}" />
+												<br/>
+												<p:inputText size="15" maxlength="90"
+													value="#{pessoajsfController.pessoa.fantasia_Apelido}"
+													required="#{pessoajsfController.pessoaConfig.labelFantasiaObrigatorio}"
+													requiredMessage="#{pessoajsfController.pessoaConfig.labelFantasiaRequiredMessage}"
+													rendered="#{pessoajsfController.pessoaConfig.labelFantasiaRenderiza}"
+													validatorMessage="O minimo de caracteres para nome são  '5'"
+													placeholder="Mínimo 5 Letras"
+													styleClass="input-info-nome-pessoas input-info-pessoas-geral">
+													<f:validateLength minimum="5" />
+												</p:inputText>
+											</div>
+		
+											<div class="ui-g-2">
+												
+												<p:outputLabel
+													value="#{pessoajsfController.pessoaConfig.labelSexo}"
+													rendered="#{pessoajsfController.pessoaConfig.labelSexoRenderiza}" />
+												<br/>
+												<p:selectOneRadio id="perfil"
+													value="#{pessoajsfController.pessoa.sexo}" columns="3"
+													converter="omnifaces.SelectItemsConverter"
+													rendered="#{pessoajsfController.pessoaConfig.labelSexoRenderiza}">
+													<f:selectItems
+														value="#{pessoajsfController.pessoaConfig.listaSexo}"
+														var="c" itemLabel="#{c.abrev}" itemValue="#{c}" />
+													<p:ajax event="change" process="@this"
+														oncomplete="$(function(){PrimeFaces.focus('formTemplate:formCadastro:calendar');});" />
+												</p:selectOneRadio>
+												
+											</div>
+											
+											<div class="ui-g-2">
+												<p:outputLabel
+													value="#{pessoajsfController.pessoaConfig.labelcpf_Cnpj}"
+													rendered="#{pessoajsfController.pessoaConfig.labelcpf_CnpjRenderiza}"
+													 />
+												<br/>
+												<p:outputLabel id="identificador" size="18" maxlength="15"
+													mask="#{pessoajsfController.pessoa.enum_Aux_Tipo_Identificador.mask}"
+													value="#{pessoajsfController.pessoa.cpf_Cnpj}"
+													converter="mascaraCPFConverter"
+													required="#{pessoajsfController.pessoaConfig.labelcpf_CnpjObrigatorio}"
+													requiredMessage="#{pessoajsfController.pessoaConfig.labelcpf_CnpjRequiredMessage}"
+													rendered="#{pessoajsfController.pessoaConfig.labelcpf_CnpjRenderiza}"
+													>
+												</p:outputLabel>
+											</div>
+										</div>
+																		
 									</div>
 									
-									<div class="ui-g-2">
-										<p:outputLabel value="Indicação:  "
-										styleClass="label-info-pessoas-lupa"
-										rendered="#{pessoajsfController.perfilLogado.renderizaIndicacao()}"/>
-										<h:form id="g_indicacao" render="@form">
-											<p:outputLabel id="psel" size="60" maxlength="60" rendered="#{pessoajsfController.perfilLogado.renderizaIndicacao()}"
-												value="#{pessoajsfController.pessoa.id_Pessoa_Indicacao.descricao}" />
-											<p:commandButton icon="ui-icon-search" process="@this"
-												update=":formTemplate:formListaIndicacao"
-												onclick="PF('dialogoIndicacoes').show();"
-													rendered="#{pessoajsfController.perfilLogado.renderizaIndicacao()}"
-												styleClass="btao-info-pessoas-lupa btn-color-silver btn-lupa" />
-										</h:form>
-									</div>
-									</div>
-								</div>
-
-							<div class="ui-g row-tab1">		
-								<div class="grupo3-info-pessoas-tab1">
-									<div class="ui-g-3">
-										<p:outputLabel value="Informe a Senha"
-											rendered="#{pessoajsfController.perfilLogado.renderizaPelaPagina('PAGINACLIENTES', pessoajsfController.pessoa)}" />
-											<br/>
-										<p:password size="18" maxlength="8"
-											value="#{pessoajsfController.usuario.senhaSemCript}"
-											required="true" requiredMessage="Informe a senha!!!"
-											rendered="#{pessoajsfController.perfilLogado.renderizaPelaPagina('PAGINACLIENTES', pessoajsfController.pessoa)}"
-											validatorMessage="O minimo de digitos para senha: '8'"
-											placeholder="8 letras e/ou digitos"
-											styleClass="input-info-pessoas-geral">
-											<f:validateLength minimum="8" />
-										</p:password>
-									</div>
-									<div class="ui-g-3">
-										<p:outputLabel value="Confirme a Senha"
-											rendered="#{pessoajsfController.perfilLogado.renderizaPelaPagina('PAGINACLIENTES', pessoajsfController.pessoa)}" />
-											<br/>
-										<p:password size="18" maxlength="8"
-											value="#{pessoajsfController.usuario.confSenha}"
-											required="true"
-											rendered="#{pessoajsfController.perfilLogado.renderizaPelaPagina('PAGINACLIENTES', pessoajsfController.pessoa)}"
-											requiredMessage="Informe a confirmação de senha."
-											validatorMessage="O minimo de digitos para confirmação senha: '8'"
-											placeholder="8 letras e/ou digitos"
-											styleClass="input-info-pessoas-geral">
-											<f:validateLength minimum="8" />
-										</p:password>
-									</div>
-								</div>
-							</div>
-							
-							<h:panelGrid id="pF">
-									<p:outputLabel for="upload" value="Selecione sua foto de Perfil:" />
-									<p:fileUpload id="upload" mode="advanced"
-										fileUploadListener="#{pessoajsfController.upload}"
-										update=":mensagens :formTemplate:formCadastro:foto" auto="true"
-										style="font-size:15px;width:490px; "
-										allowTypes="/(\.|\/)(#{pessoajsfController.tipoDeImagem})$/">
-										<p:graphicImage />
-									</p:fileUpload>
-									<p:graphicImage id="foto" value="#{imagensjsfController.image}"
-										style="max-width:90px; max-height:80px; width: auto; height: auto;">
-										<f:param name="caminho"
-											value="#{pessoajsfController.pessoa.caminhodaImagem}" />
-									</p:graphicImage>
-								</h:panelGrid>
-						</h:form>			
-					</p:panel>
-				</p:tab>
+									<div class="ui-g row-tab1">		
+										<div class="grupo2-info-pessoas-tab1">
+											<div class="ui-g-2">
+												<p:outputLabel value="Data de nascimento"
+													rendered="#{pessoajsfController.pessoaConfig.labelDataNascimentoRenderiza}" />
+												<br/>
+												<p:calendar id="calendar" size="18" maxlength="15"
+													mask="**/**/****" pattern="dd/MM/yyyy"
+													value="#{pessoajsfController.pessoa.dataNascimento}"
+													required="#{pessoajsfController.pessoaConfig.labelDataNascimentoObrigatorio}"
+													requiredMessage="#{pessoajsfController.pessoaConfig.labelDataNascimentoRequiredMessage}"
+													rendered="#{pessoajsfController.pessoaConfig.labelDataNascimentoRenderiza}"
+													styleClass="input-info-pessoas-data">
+													<f:convertDateTime pattern="dd/MM/yyyy" dateStyle="full"
+														type="both" timezone="GMT+3" />
+												</p:calendar>
+											</div>
+											<div class="ui-g-2">
+												<p:outputLabel
+													value="#{pessoajsfController.pessoaConfig.labelrg_Insc}"
+													rendered="#{pessoajsfController.pessoaConfig.labelrg_InscRenderiza}" />
+												<br/>
+												<p:inputText size="18" maxlength="15"
+													value="#{pessoajsfController.pessoa.rg_Insc}"
+													required="#{pessoajsfController.pessoaConfig.labelrg_InscObrigatorio}"
+													requiredMessage="#{pessoajsfController.pessoaConfig.labelrg_InscRequiredMessage}"
+													rendered="#{pessoajsfController.pessoaConfig.labelrg_InscRenderiza}"
+													styleClass="input-info-pessoas-geral">
+												</p:inputText>
+											</div>
+		
+											<div class="ui-g-2">
+												<p:outputLabel value="Profissão: "
+												styleClass="label-info-pessoas-lupa"/>
+												<h:form id="g_profissao" render="@form">
+													<p:outputLabel id="psel" size="60" maxlength="60"
+														value="#{pessoajsfController.pessoa.id_Profissao.descricao}" />
+													<p:commandButton icon="ui-icon-search" process="@this"
+														update=":formTemplate:formListaProfissao"
+														onclick="PF('dialogoProfissoes').show();"
+														styleClass="btao-info-pessoas-lupa btn-color-silver btn-lupa" />
+												</h:form>
+											</div>
+											
+											<div class="ui-g-2">
+												<p:outputLabel value="Indicação:  "
+												styleClass="label-info-pessoas-lupa"
+												rendered="#{pessoajsfController.perfilLogado.renderizaIndicacao()}"/>
+												<h:form id="g_indicacao" render="@form">
+													<p:outputLabel id="psel" size="60" maxlength="60" rendered="#{pessoajsfController.perfilLogado.renderizaIndicacao()}"
+														value="#{pessoajsfController.pessoa.id_Pessoa_Indicacao.descricao}" />
+													<p:commandButton icon="ui-icon-search" process="@this"
+														update=":formTemplate:formListaIndicacao"
+														onclick="PF('dialogoIndicacoes').show();"
+															rendered="#{pessoajsfController.perfilLogado.renderizaIndicacao()}"
+														styleClass="btao-info-pessoas-lupa btn-color-silver btn-lupa" />
+												</h:form>
+											</div>
+											</div>
+										</div>
+									
+									
+									<h:panelGrid id="pF">
+											<p:outputLabel for="upload" value="Selecione sua foto de Perfil:" />
+											<p:fileUpload id="upload" mode="advanced"
+												fileUploadListener="#{pessoajsfController.upload}"
+												update=":mensagens :formTemplate:formCadastro:painelCadastro_6:foto" auto="true"
+												style="font-size:15px;width:490px; "
+												allowTypes="/(\.|\/)(#{pessoajsfController.tipoDeImagem})$/">
+												<p:graphicImage />
+											</p:fileUpload>
+											<p:graphicImage id="foto" value="#{imagensjsfController.image}"
+												style="max-width:90px; max-height:80px; width: auto; height: auto;">
+												<f:param name="caminho"
+													value="#{pessoajsfController.pessoa.caminhodaImagem}" />
+											</p:graphicImage>
+										</h:panelGrid>
+								</h:form>			
+							</p:panel>
+						</p:tab>
 
 							
 						<p:tab id="tab2" title="Endereço">
@@ -620,8 +593,41 @@
 													</p:commandButton>
 												</p:column>
 											</p:dataTable>
+											<div class="ui-g row-tab1">		
+												<div class="grupo3-info-pessoas-tab1">
+													<div class="ui-g-3">
+														<p:outputLabel value="Informe a Senha"
+															rendered="#{pessoajsfController.renderizaSalvar('SALVARCONTATO')}" />
+															<br/>
+														<p:password size="18" maxlength="8"
+															value="#{pessoajsfController.usuario.senhaSemCript}"
+															required="true" requiredMessage="Informe a senha!!!"
+															rendered="#{pessoajsfController.renderizaSalvar('SALVARCONTATO')}"
+															validatorMessage="O minimo de digitos para senha: '8'"
+															placeholder="8 letras e/ou digitos"
+															styleClass="input-info-pessoas-geral">
+															<f:validateLength minimum="8" />
+														</p:password>
+													</div>
+													<div class="ui-g-3">
+														<p:outputLabel value="Confirme a Senha"
+															rendered="#{pessoajsfController.renderizaSalvar('SALVARCONTATO')}" />
+															<br/>
+														<p:password size="18" maxlength="8"
+															value="#{pessoajsfController.usuario.confSenha}"
+															required="true"
+															rendered="#{pessoajsfController.renderizaSalvar('SALVARCONTATO')}"
+															requiredMessage="Informe a confirmação de senha."
+															validatorMessage="O minimo de digitos para confirmação senha: '8'"
+															placeholder="8 letras e/ou digitos"
+															styleClass="input-info-pessoas-geral">
+															<f:validateLength minimum="8" />
+														</p:password>
+													</div>
+												</div>
+											</div>
 										</h:form>
-									</div>
+									</div>																		
 									
 									<p:commandButton value="Salvar" process="@form" rendered="#{pessoajsfController.renderizaSalvar('SALVARCONTATO')}"
 										oncomplete="PF('wiz').loadStep('tab1', true)"
@@ -707,12 +713,46 @@
 													</p:commandButton>
 												</p:column>
 											</p:dataTable>
+											<div class="ui-g row-tab1">		
+												<div class="grupo3-info-pessoas-tab1">
+													<div class="ui-g-3">
+														<p:outputLabel value="Informe a Senha"
+															rendered="#{pessoajsfController.renderizaSalvar('SALVARPRONTUARIO')}" />
+															<br/>
+														<p:password size="18" maxlength="8"
+															value="#{pessoajsfController.usuario.senhaSemCript}"
+															required="true" requiredMessage="Informe a senha!!!"
+															rendered="#{pessoajsfController.renderizaSalvar('SALVARPRONTUARIO')}"
+															validatorMessage="O minimo de digitos para senha: '8'"
+															placeholder="8 letras e/ou digitos"
+															styleClass="input-info-pessoas-geral">
+															<f:validateLength minimum="8" />
+														</p:password>
+													</div>
+													<div class="ui-g-3">
+														<p:outputLabel value="Confirme a Senha"
+															rendered="#{pessoajsfController.renderizaSalvar('SALVARPRONTUARIO')}" />
+															<br/>
+														<p:password size="18" maxlength="8"
+															value="#{pessoajsfController.usuario.confSenha}"
+															required="true"
+															rendered="#{pessoajsfController.renderizaSalvar('SALVARPRONTUARIO')}"
+															requiredMessage="Informe a confirmação de senha."
+															validatorMessage="O minimo de digitos para confirmação senha: '8'"
+															placeholder="8 letras e/ou digitos"
+															styleClass="input-info-pessoas-geral">
+															<f:validateLength minimum="8" />
+														</p:password>
+													</div>
+												</div>
+											</div>
 										</h:form>
 									</div>
 									
 									
 									
-									</div><!-- /.ui-g row-tab4	 -->
+									</div><!-- /.ui-g row-tab4	 -->																	
+									
 									<p:commandButton value="Salvar" process="@form" rendered="#{pessoajsfController.renderizaSalvar('SALVARPRONTUARIO')}"
 										oncomplete="PF('wiz').loadStep('tab1', true)"
 										styleClass="btn-info-pessoas-salvar-wizard"
@@ -778,9 +818,44 @@
 													</p:commandButton>
 												</p:column>
 											</p:dataTable>
+											
+											<div class="ui-g row-tab1">		
+												<div class="grupo3-info-pessoas-tab1">
+													<div class="ui-g-3">
+														<p:outputLabel value="Informe a Senha"
+															rendered="#{pessoajsfController.renderizaSalvar('SALVAROBJETO')}" />
+															<br/>
+														<p:password size="18" maxlength="8"
+															value="#{pessoajsfController.usuario.senhaSemCript}"
+															required="true" requiredMessage="Informe a senha!!!"
+															rendered="#{pessoajsfController.renderizaSalvar('SALVAROBJETO')}"
+															validatorMessage="O minimo de digitos para senha: '8'"
+															placeholder="8 letras e/ou digitos"
+															styleClass="input-info-pessoas-geral">
+															<f:validateLength minimum="8" />
+														</p:password>
+													</div>
+													<div class="ui-g-3">
+														<p:outputLabel value="Confirme a Senha"
+															rendered="#{pessoajsfController.renderizaSalvar('SALVAROBJETO')}" />
+															<br/>
+														<p:password size="18" maxlength="8"
+															value="#{pessoajsfController.usuario.confSenha}"
+															required="true"
+															rendered="#{pessoajsfController.renderizaSalvar('SALVAROBJETO')}"
+															requiredMessage="Informe a confirmação de senha."
+															validatorMessage="O minimo de digitos para confirmação senha: '8'"
+															placeholder="8 letras e/ou digitos"
+															styleClass="input-info-pessoas-geral">
+															<f:validateLength minimum="8" />
+														</p:password>
+													</div>
+												</div>
+											</div>
 										</h:form>
 									</div>
-
+																		
+									
 									<p:commandButton value="Salvar" process="@form" rendered="#{pessoajsfController.renderizaSalvar('SALVAROBJETO')}"
 										oncomplete="PF('wiz').loadStep('tab1', true)"
 										styleClass="btao-info-pessoas"
@@ -1129,12 +1204,41 @@
 				</p:panel>
 			</h:form>
 
-
-
-
-
 		</p:dialog>
-
+		
+		<p:dialog header="Informações" widgetVar="personDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+		    <p:outputPanel id="personDetail" style="text-align:center;">
+		        <p:panelGrid  columns="2" rendered="#{not empty pessoajsfController.pessoa.id}" columnClasses="label,value">
+		            <f:facet name="header">
+		                <p:graphicImage value="#{imagensjsfController.image}"
+		                	style="max-width:150px;max-height:130px;width: auto;height: auto;"> 
+		                	<f:param name="caminho" value="#{pessoajsfController.pessoa.caminhodaImagem}" />
+		                </p:graphicImage> 
+		               	</f:facet>
+		 
+		                <h:outputText value="Id:" />
+		                <h:outputText value="#{pessoajsfController.pessoa.id}" />
+		 
+		                <h:outputText value="Nome:" />
+		                <h:outputText value="#{pessoajsfController.pessoa.descricao}" />
+		 
+		                <h:outputText value="CPF / CNPJ:" />
+		                <h:outputText value="#{pessoajsfController.pessoa.cpf_Cnpj}" />		                
+		                
+		                <h:outputText value="RG:" />
+		                <h:outputText value="#{pessoajsfController.pessoa.rg_Insc}" />
+		                
+		                <h:outputText value="Email:" />
+		                <h:outputText value="#{pessoajsfController.pessoa.email}" />
+		                
+		                <h:outputText value="Fone 1:" />
+		                <h:outputText value="#{pessoajsfController.pessoa.fone_1}" />
+		                
+		                <h:outputText value="Fone 2:" />
+		                <h:outputText value="#{pessoajsfController.pessoa.fone_2}" />
+		        </p:panelGrid>
+		    </p:outputPanel>
+		</p:dialog>
 
 	</ui:define>
 </ui:composition>
