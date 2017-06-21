@@ -86,6 +86,8 @@ public class QRCode extends GenericDomain implements Serializable {
 	private int numero_Meses;
 	@Column(name = "coders")
 	private String coders;
+	@Column(name = "cpf_Cnpj", length=20)
+	private String cpf_Cnpj;
 	
 	@Transient
 	@Column(name = "caminhodaImagem")	
@@ -242,6 +244,14 @@ public class QRCode extends GenericDomain implements Serializable {
 
 	public void setCoders(String coders) {
 		this.coders = coders;
+	}
+	
+	public String getCpf_Cnpj() {
+		return cpf_Cnpj;
+	}
+
+	public void setCpf_Cnpj(String cpf_Cnpj) {
+		this.cpf_Cnpj = cpf_Cnpj;
 	}
 
 	@Override

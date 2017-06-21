@@ -6,6 +6,7 @@ import br.com.projetabrasil.model.dao.ObjetoDAO;
 import br.com.projetabrasil.model.dao.QRCodeDAO;
 import br.com.projetabrasil.model.entities.Enum_Aux_Status_QRCodes;
 import br.com.projetabrasil.model.entities.Objeto;
+import br.com.projetabrasil.model.entities.Pessoa;
 import br.com.projetabrasil.model.entities.QRCode;
 import br.com.projetabrasil.util.GeradorQRCodeOficial2;
 
@@ -29,11 +30,8 @@ public class TestesQr {
 	
 	@Test
 	public void testaQRCODE() throws Exception {
-		Objeto obj = new ObjetoDAO().buscar(32l);
-		for(Objeto o : new QRCodeDAO().buscaObjetos(Enum_Aux_Status_QRCodes.VENDIDOS, obj)){
-			System.out.println(o.toString());
-			System.out.println(o.getDescricao());
-		}
+		Pessoa p = new QRCodeDAO().buscaPessoa("11111111111", 2l);
+		System.out.println(p.toString());
 		
 	}
 

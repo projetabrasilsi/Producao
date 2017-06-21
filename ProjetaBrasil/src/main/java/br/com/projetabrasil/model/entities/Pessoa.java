@@ -17,9 +17,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlRootElement;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name="Pessoa")
+@XmlRootElement
 public class Pessoa extends GenericDomain implements Serializable{
 	
 	@Id

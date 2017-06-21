@@ -41,6 +41,9 @@ public class QRCodejsfController implements Serializable {
 
 	@ManagedProperty(value = "#{autenticacaojsfController.perfilLogado}")
 	private PerfilLogado perfilLogado;
+	
+	@ManagedProperty(value = "#{qrcodevinculadojsfController}")
+	private QRCodeVinculadojsfController qrcodeVinculado;
 
 	private List<QRCode> qRCodes;
 	private List<QRCode> qRCodesSelecionados;
@@ -298,6 +301,7 @@ public class QRCodejsfController implements Serializable {
 		qDAO.merge(q);
 		Utilidades.abrirfecharDialogos("dialogoObjetos", false);
 		listargemQrCode();
+		qrcodeVinculado.listar();
 		
 
 	}
@@ -425,5 +429,15 @@ public class QRCodejsfController implements Serializable {
 	public void setSelectionMode(String selectionMode) {
 		this.selectionMode = selectionMode;
 	}
+
+	public QRCodeVinculadojsfController getQrcodeVinculado() {
+		return qrcodeVinculado;
+	}
+
+	public void setQrcodeVinculado(QRCodeVinculadojsfController qrcodeVinculado) {
+		this.qrcodeVinculado = qrcodeVinculado;
+	}
+	
+	
 
 }
