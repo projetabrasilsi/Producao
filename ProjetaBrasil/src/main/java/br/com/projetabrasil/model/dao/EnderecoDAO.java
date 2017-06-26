@@ -42,6 +42,20 @@ public class EnderecoDAO extends GenericDAO<Endereco> {
 			sessao.close();
 		}
 	}
+	
+	public Endereco buscaEnderecoPorCEP(String cep) {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		try {
+			Criteria consulta = sessao.createCriteria(Endereco.class);
+			consulta.add(Restrictions.eq("cep", cep));
+			return (Endereco) consulta.setMaxResults(1).uniqueResult();
+		} catch (RuntimeException error) {
+			error.printStackTrace();
+			throw error;
+		} finally {
+			sessao.close();
+		}
+	}
 
 	public Endereco verificaEndereco(Endereco endereco) {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();

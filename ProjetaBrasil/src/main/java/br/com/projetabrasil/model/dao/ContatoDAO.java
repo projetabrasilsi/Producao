@@ -63,6 +63,20 @@ public class ContatoDAO extends GenericDAO<Contato> {
 		}
 	}
 	
+	public List<Contato> buscarContatoPelaPessoa(Pessoa p) {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		try {
+			Criteria consulta = sessao.createCriteria(Contato.class);
+			consulta.add(Restrictions.eq("id_Pessoa",p));
+			return consulta.list();
+		} catch (RuntimeException error) {
+			error.printStackTrace();
+			throw error;
+		} finally {
+			sessao.close();
+		}
+	}
+	
 	public Contato buscaContatoExistenteeQueSejaDeOutraPessoa(Pessoa p, String contato) {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		try {

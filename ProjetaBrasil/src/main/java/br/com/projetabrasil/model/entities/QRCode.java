@@ -94,6 +94,9 @@ public class QRCode extends GenericDomain implements Serializable {
 	@Transient
 	@Column(name = "tipodeImagem")	
 	private String tipodeImagem;
+	
+	@Column(name="cpf_Cnpj", length=20)
+	private String cpf_Cnpj;
 
 	public QRCode() {
 

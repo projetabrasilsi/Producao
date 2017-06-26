@@ -194,4 +194,26 @@ public class QRCodeDAO extends GenericDAO<QRCode> {
 		return lc;
 	}
 
+	public Pessoa buscaPessoa(String cpf, Long id) {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+
+		Pessoa resultado = new Pessoa();
+		try {
+			Criteria crit = sessao.createCriteria(QRCode.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);		
+			
+			crit.add(Restrictions.eq("id", id));	
+			crit.add(Restrictions.eq("cpf_Cnpj", cpf));							
+			crit.add(Restrictions.eq("tipo_Objeto", Enum_Aux_Tipos_Objetos.PETS));
+			crit.add(Restrictions.eq("status", Enum_Aux_Status_QRCodes.REVENDIDOS));
+			crit.setProjection(Projections.property("id_Pessoa_Cliente"));		
+			resultado = (Pessoa) crit.uniqueResult();
+			return resultado;
+		} catch (RuntimeException erro) {
+			erro.printStackTrace();
+			throw erro;
+		} finally {
+			sessao.close();
+		}
+	}
+	
 }
