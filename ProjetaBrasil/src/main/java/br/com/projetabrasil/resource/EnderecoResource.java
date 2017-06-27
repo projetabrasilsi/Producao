@@ -20,7 +20,7 @@ public class EnderecoResource {
 	@GET	
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/consulta/{cep}")
-	public String retornaPessoaCPF(@PathParam("cep") String cep){		
+	public String retornaEnderecoCEP(@PathParam("cep") String cep){		
 		Gson g = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
 		Endereco endereco = new EnderecoDAO().buscaEnderecoPorCEP(cep);
 		String pes = g.toJson(endereco);

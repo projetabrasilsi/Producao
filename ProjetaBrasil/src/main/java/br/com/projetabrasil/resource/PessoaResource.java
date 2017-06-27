@@ -38,13 +38,18 @@ public class PessoaResource {
 		Gson g = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
 		
 		Pessoa pessoa = g.fromJson(json, Pessoa.class);
-		pessoa = pDAO.retornaPelaIdentificacao(pessoa.getCpf_Cnpj());
+		Pessoa p = pDAO.retornaPelaIdentificacao(pessoa.getCpf_Cnpj());
 		
 		String pes = null;
-
-		pDAO.merge(pessoa);
+		
+		if(p != null){
+			pDAO.merge(pessoa);
+		} else {
+			pessoa = null;
+		}
 		
 		pes = g.toJson(pessoa);
 		return pes;
 	}
+	
 }

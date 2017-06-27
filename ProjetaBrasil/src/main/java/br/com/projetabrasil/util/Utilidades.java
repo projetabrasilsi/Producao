@@ -68,6 +68,7 @@ public class Utilidades implements Serializable {
 	private static final String caminhoFotoBrinde = System.getProperty("user.home") + "/imagens/brindes/";
 	private static final String caminhoFotoPessoas = System.getProperty("user.home") + "/imagens/pessoas/";
 	private static final String caminhoFotoObjetos = System.getProperty("user.home") + "/imagens/objetos/";
+	private static final String caminhoAudioObjetos = System.getProperty("user.home") + "/audios/objetos/";
 	
 
 	private static final String caminhoFotoVouchers = System.getProperty("user.home") + "/imagens/vouchers/";
@@ -77,10 +78,16 @@ public class Utilidades implements Serializable {
 
 	private static String tipoImagem = ".jpeg";
 	private static String tipoImagemSemPonto = "jpeg";
+	private static String tipoAudio = ".mp3";
+	private static String tipoAudioSemPonto = "mp3";
 	private static final String caminhobase = System.getProperty("user.home") + "/imagens/";
 	private static String caminhobase2 = System.getProperty("user.home") + "\\imagens\\";
+	private static final String caminhobaseaudio = System.getProperty("user.home") + "/audios/";
+	private static String caminhobaseaudio2 = System.getProperty("user.home") + "\\audios\\";
 	private static final String branco = Utilidades.getCaminhobase() + "branco" + Utilidades.getTipoImagem();
 	private static final String branco2 = Utilidades.getCaminhobase2() + "branco" + Utilidades.getTipoImagem();
+	private static final String brancoaudio = Utilidades.getCaminhobaseaudio() + "branco" + Utilidades.getTipoImagem();
+	private static final String brancoaudio2 = Utilidades.getCaminhobaseaudio2()  + "branco" + Utilidades.getTipoImagem();
 	private static final String naoatingido = "/images/" + "naoatingido" + Utilidades.getTipoImagem();
 	private static final String atingido = "/images/" + "atingido" + Utilidades.getTipoImagem();
 	private static final float umaTememCm = 2.54f;
@@ -626,6 +633,10 @@ public class Utilidades implements Serializable {
 	public static String getTipoImagem() {
 		return tipoImagem;
 	}
+	
+	public static String getTipoAudio() {
+		return tipoAudio;
+	}
 
 	public static String getCaminhofotoagendamento() {
 		return caminhoFotoAgendamento;
@@ -650,6 +661,10 @@ public class Utilidades implements Serializable {
 	public static String getTipoImagemSemPonto() {
 		return tipoImagemSemPonto;
 	}
+	
+	public static String getTipoAudioSemPonto() {
+		return tipoAudioSemPonto;
+	}
 
 	public static String getCaminhofotocomprovante() {
 		return caminhoFotoComprovante;
@@ -662,9 +677,7 @@ public class Utilidades implements Serializable {
 	public static String getBranco2() {
 		return branco2;
 	}
-
 	
-
 	public static String getCaminhobase2() {
 		return caminhobase2;
 	}
@@ -672,5 +685,31 @@ public class Utilidades implements Serializable {
 	public static void setCaminhobase2(String caminhobase2) {
 		Utilidades.caminhobase2 = caminhobase2;
 	}
+
+	public static String getCaminhoaudioobjetos() {
+		return caminhoAudioObjetos;
+	}
+
+	public static String getBrancoaudio() {
+		return brancoaudio;
+	}
+
+	public static String getBrancoaudio2() {
+		return brancoaudio2;
+	}
+
+	public static String getCaminhobaseaudio2() {
+		return caminhobaseaudio2;
+	}
+
+	public static void setCaminhobaseaudio2(String caminhobaseaudio2) {
+		Utilidades.caminhobaseaudio2 = caminhobaseaudio2;
+	}
+
+	public static String getCaminhobaseaudio() {
+		return caminhobaseaudio;
+	}
+	
+	
 
 }

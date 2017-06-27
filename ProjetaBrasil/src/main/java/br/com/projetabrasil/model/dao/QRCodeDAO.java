@@ -14,6 +14,7 @@ import org.hibernate.criterion.Restrictions;
 import br.com.projetabrasil.model.entities.Enum_Aux_Perfil_Pessoa;
 import br.com.projetabrasil.model.entities.Enum_Aux_Status_QRCodes;
 import br.com.projetabrasil.model.entities.Enum_Aux_Tipos_Objetos;
+import br.com.projetabrasil.model.entities.Objeto;
 import br.com.projetabrasil.model.entities.PerfilLogado;
 import br.com.projetabrasil.model.entities.Pessoa;
 import br.com.projetabrasil.model.entities.QRCode;
@@ -42,7 +43,71 @@ public class QRCodeDAO extends GenericDAO<QRCode> {
 			sessao.close();
 		}
 	}
+	
+	public List<Objeto> buscaObjetos(Enum_Aux_Status_QRCodes status, Objeto o) {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 
+		List<Objeto> resultado = new ArrayList();
+		try {
+			Criteria crit = sessao.createCriteria(QRCode.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);		
+			if(status != null){
+				crit.add(Restrictions.eq("status", status));				
+			}
+			if(o != null){
+				crit.add(Restrictions.eq("id_Objeto", o));
+			}	
+			crit.add(Restrictions.eq("tipo_Objeto", Enum_Aux_Tipos_Objetos.PETS));
+			crit.setProjection(Projections.property("id_Objeto"));		
+			resultado = crit.list();
+			return resultado;
+		} catch (RuntimeException erro) {
+			erro.printStackTrace();
+			throw erro;
+		} finally {
+			sessao.close();
+		}
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public List<QRCode> listarQRCoders() {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+
+		List<QRCode> resultado = new ArrayList();
+		try {
+			Criteria crit = sessao.createCriteria(QRCode.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			crit.addOrder(Order.asc("id"));
+			resultado = crit.list();
+			return resultado;
+		} catch (RuntimeException erro) {
+
+			throw erro;
+		} finally {
+			sessao.close();
+		}
+	}
+	
+	public List<QRCode> listarQRCoders(Enum_Aux_Status_QRCodes status, Objeto idObjeto) {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+
+		List<QRCode> resultado = new ArrayList();
+		try {
+			Criteria crit = sessao.createCriteria(QRCode.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			if(status != null){
+				crit.add(Restrictions.eq("status", status));				
+			}
+			if(idObjeto != null){
+				crit.add(Restrictions.eq("id_Objeto", idObjeto));
+			}		
+			resultado = crit.list();
+			return resultado;
+		} catch (RuntimeException erro) {
+
+			throw erro;
+		} finally {
+			sessao.close();
+		}
+	}
+	
 	public QRCode buscaCoders(String coders) {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 

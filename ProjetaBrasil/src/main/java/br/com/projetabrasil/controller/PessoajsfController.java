@@ -725,7 +725,7 @@ public class PessoajsfController extends GenericController implements Serializab
 		
 		pessoa.setCaminhodaImagem(
 				Utilidades.getCaminhofotopessoas() + "" + pessoa.getId() + Utilidades.getTipoimagem());
-
+		
 		Path origem = caminhoTemp;
 		Path destino = Paths.get(pessoa.getCaminhodaImagem());
 		try {
@@ -1008,6 +1008,8 @@ public class PessoajsfController extends GenericController implements Serializab
 		if (!pessoa.getEnum_Aux_Tipo_Identificador().equals(tipoIdent))
 			pessoa.setEnum_Aux_Tipo_Identificador(tipoIdent);
 		
+		pessoa.setCaminhodaImagem(
+				Utilidades.getCaminhofotopessoas() + "" + pessoa.getId() + Utilidades.getTipoimagem());
 		setarEndereco("validar");
 		listarLogradouros();
 		listarBairros();

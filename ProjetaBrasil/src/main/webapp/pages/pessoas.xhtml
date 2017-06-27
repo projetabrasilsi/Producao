@@ -82,6 +82,12 @@
 									<f:attribute name="registroAtual" value="#{registro}" />
 								</p:commandButton>
 							</p:column>
+							<p:column headerText="Visualizar" styleClass="edit-col-pessoas">
+								<p:commandLink update=":formTemplate:personDetail" oncomplete="PF('personDialog').show()" title="View Detail">
+			                   		<h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
+			                    	<f:setPropertyActionListener value="#{registro}" target="#{pessoajsfController.pessoa}" />
+		                		</p:commandLink>
+							</p:column>
 
 						</p:dataTable>
 						<p:confirmDialog global="true" styleClass="cDialog-edit-pessoas">
@@ -1128,11 +1134,40 @@
 				</div>
 				</p:panel>
 			</h:form>
-
-
-
-
-
+		</p:dialog>
+		
+		<p:dialog header="Informações" widgetVar="personDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+		    <p:outputPanel id="personDetail" style="text-align:center;">
+		        <p:panelGrid  columns="2" rendered="#{not empty pessoajsfController.pessoa.id}" columnClasses="label,value">
+		            <f:facet name="header">
+		                <p:graphicImage value="#{imagensjsfController.image}"
+		                	style="max-width:150px;max-height:130px;width: auto;height: auto;"> 
+		                	<f:param name="caminho" value="#{pessoajsfController.pessoa.caminhodaImagem}" />
+		                </p:graphicImage> 
+		               	</f:facet>
+		 
+		                <h:outputText value="Id:" />
+		                <h:outputText value="#{pessoajsfController.pessoa.id}" />
+		 
+		                <h:outputText value="Nome:" />
+		                <h:outputText value="#{pessoajsfController.pessoa.descricao}" />
+		 
+		                <h:outputText value="CPF / CNPJ:" />
+		                <h:outputText value="#{pessoajsfController.pessoa.cpf_Cnpj}" />		                
+		                
+		                <h:outputText value="RG:" />
+		                <h:outputText value="#{pessoajsfController.pessoa.rg_Insc}" />
+		                
+		                <h:outputText value="Email:" />
+		                <h:outputText value="#{pessoajsfController.pessoa.email}" />
+		                
+		                <h:outputText value="Fone 1:" />
+		                <h:outputText value="#{pessoajsfController.pessoa.fone_1}" />
+		                
+		                <h:outputText value="Fone 2:" />
+		                <h:outputText value="#{pessoajsfController.pessoa.fone_2}" />
+		        </p:panelGrid>
+		    </p:outputPanel>
 		</p:dialog>
 
 

@@ -102,6 +102,8 @@ public class ObjetojsfController extends GenericController implements Serializab
 
 	// ATRIBUTOS PARA FOTO
 	private final String tipoDeImagem = Utilidades.getTipoImagemSemPonto();
+	private final String tipoDeAudio = Utilidades.getTipoAudioSemPonto();
+	private StreamedContent audio = null;
 	private StreamedContent foto = null;
 	private UploadedFile upLoaded;
 
@@ -177,6 +179,10 @@ public class ObjetojsfController extends GenericController implements Serializab
 
 		// VALIDACAO PARA FOTO
 		Path caminhoTemp;
+		Path caminhoTempAudio = null;
+		if (objeto.getCaminhoTempAudio() != null && objeto.getCaminhoTempAudio() != "") {
+			caminhoTempAudio = Paths.get(objeto.getCaminhoTempAudio());
+		}		
 		if (objeto.getCaminhoTemp() == null || objeto.getCaminhoTemp() == "") {
 			mensagensDisparar("Imagem é obrigatória!!!");
 			return;
@@ -192,7 +198,10 @@ public class ObjetojsfController extends GenericController implements Serializab
 
 		objeto.setCaminhodaImagem(
 				Utilidades.getCaminhofotoobjetos() + "" + objeto.getId() + Utilidades.getTipoimagem());
-
+		
+		objeto.setCaminhodoAudio(
+				Utilidades.getCaminhoaudioobjetos() + "" + objeto.getId() + Utilidades.getTipoAudio());
+		
 		Path origem = caminhoTemp;
 		Path destino = Paths.get(objeto.getCaminhodaImagem());
 		try {
@@ -202,7 +211,19 @@ public class ObjetojsfController extends GenericController implements Serializab
 			mensagensDisparar("Ocorreu um erro ao tentar salvar a imagem");
 
 			error.printStackTrace();
-		}
+		}				
+		
+		if (caminhoTempAudio != null) {
+			origem = caminhoTempAudio;
+			destino = Paths.get(objeto.getCaminhodoAudio());
+			try {
+				Utilidades.gravaDiretorio(objeto.getCaminhodoAudio());
+				Files.copy(origem, destino, StandardCopyOption.REPLACE_EXISTING);
+			} catch (IOException error) {
+				mensagensDisparar("Ocorreu um erro ao tentar salvar a imagem");
+				error.printStackTrace();
+			}
+		}					
 
 		listaObjetosecaminhosdeimagem(pessoa); 
 				
@@ -239,7 +260,8 @@ public class ObjetojsfController extends GenericController implements Serializab
 	public void editar(ActionEvent event) {
 		objeto = (Objeto) event.getComponent().getAttributes().get("registroAtual");
 		objeto.setCaminhodaImagem(Utilidades.getCaminhofotoobjetos() + "" + objeto.getId() + Utilidades.getTipoimagem());
-
+		objeto.setCaminhodoAudio(Utilidades.getCaminhoaudioobjetos() + "" + objeto.getId() + Utilidades.getTipoAudio());
+		
 		objeto.setCaminhoTemp(objeto.getCaminhodaImagem());
 		
 		if(perfilLogado.getPaginaAtual().getClassificacaoObjeto().getEnum_Aux_Tipos_Objetos() == Enum_Aux_Tipos_Objetos.PETS){
@@ -423,6 +445,31 @@ public class ObjetojsfController extends GenericController implements Serializab
 
 			objeto.setCaminhoTemp(arquivoTemp.toString());
 			objeto.setCaminhodaImagem(objeto.getCaminhoTemp());
+			mensagensDisparar("Arquivo carregado com sucesso");
+		} catch (IOException erro) {
+			mensagensDisparar("Ocorreu um erro ao tentar realizar carregamento do arquivo");
+			erro.printStackTrace();
+		}
+	}
+	
+	public void uploadAudio(FileUploadEvent event) {
+		try {
+			try {
+				audio = new DefaultStreamedContent(event.getFile().getInputstream());
+				this.setUpLoaded(event.getFile());
+			} catch (IOException e) {
+
+			}
+
+			UploadedFile arquivoUpload = event.getFile();
+
+			// Messages.addGlobalInfo(arquivoUpload.getContentType()+"-"+arquivoUpload.getSize()+"-"+arquivoUpload.getFileName()+"-");
+			Path arquivoTemp = Files.createTempFile(null, null);
+
+			Files.copy(arquivoUpload.getInputstream(), arquivoTemp, StandardCopyOption.REPLACE_EXISTING);
+
+			objeto.setCaminhoTempAudio(arquivoTemp.toString());
+			objeto.setCaminhodoAudio(objeto.getCaminhoTempAudio());
 			mensagensDisparar("Arquivo carregado com sucesso");
 		} catch (IOException erro) {
 			mensagensDisparar("Ocorreu um erro ao tentar realizar carregamento do arquivo");
@@ -803,6 +850,19 @@ public class ObjetojsfController extends GenericController implements Serializab
 
 	public void setRaca(Marca_e_Raca raca) {
 		this.raca = raca;
+	}
+
+	public StreamedContent getAudio() {
+		return audio;
+	}
+
+	public void setAudio(StreamedContent audio) {
+		this.audio = audio;
+	}
+
+	public String getTipoDeAudio() {
+		return tipoDeAudio;
 	}	
 
+	
 }

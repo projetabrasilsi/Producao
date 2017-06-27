@@ -61,17 +61,30 @@ public class Objeto extends GenericDomain implements Serializable{
 	@JoinColumn(name="cor", nullable=true)
 	private Cor cor;	
 	private String descricao;
-	
-	@Transient
-	@Column(name = "caminhodaImagem")	
-	private String caminhodaImagem;
+		
 	@Transient
 	@Column(name = "caminhoTemp")	
 	private String caminhoTemp;
 	
 	@Transient
+	@Column(name = "caminhoTempAudio")	
+	private String caminhoTempAudio;
+	
+	@Transient
+	@Column(name = "caminhodaImagem")	
+	private String caminhodaImagem;
+	
+	@Transient
+	@Column(name = "caminhodoAudio")	
+	private String caminhodoAudio;
+	
+	@Transient
 	@Column(name = "tipodeImagem")	
 	private String tipodeImagem;
+	
+	@Transient
+	@Column(name = "tipodeAudio")	
+	private String tipodeAudio;
 	
 	public String getTipodeImagem() {
 		return tipodeImagem;
@@ -170,6 +183,26 @@ public class Objeto extends GenericDomain implements Serializable{
 	}
 	public void setSexo(Enum_Aux_Sexo sexo) {
 		this.sexo = sexo;
+	}		
+	public String getCaminhodoAudio() {
+		return caminhodoAudio;
+	}
+	public void setCaminhodoAudio(String caminhodoAudio) {
+		this.caminhodoAudio = caminhodoAudio;
+	}
+	public String getTipodeAudio() {
+		return tipodeAudio;
+	}
+	public void setTipodeAudio(String tipodeAudio) {
+		this.tipodeAudio = tipodeAudio;
+	}
+	
+	
+	public String getCaminhoTempAudio() {
+		return caminhoTempAudio;
+	}
+	public void setCaminhoTempAudio(String caminhoTempAudio) {
+		this.caminhoTempAudio = caminhoTempAudio;
 	}
 	@Override
 	public int hashCode() {

@@ -1,6 +1,5 @@
 package br.com.projetabrasil.resource;
 
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -12,18 +11,18 @@ import javax.ws.rs.core.MediaType;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import br.com.projetabrasil.model.dao.ObjetoDAO;
-import br.com.projetabrasil.model.entities.Objeto;
+import br.com.projetabrasil.model.dao.Prontuario_de_EmergenciaDAO;
+import br.com.projetabrasil.model.entities.Prontuario_de_Emergencia;
 
-@Path("/objetos")
-public class ObjetoResource {
+@Path("/prontuarios")
+public class Prontuario_de_EmergenciaResource {
 	
 	@GET	
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/consulta/{id}")
-	public String retornaObjetoID(@PathParam("id") Long id){		
+	public String retornaProntuarioID(@PathParam("id") Long id){		
 		Gson g = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
-		Objeto objeto = new ObjetoDAO().buscar(id);
+		Prontuario_de_Emergencia objeto = new Prontuario_de_EmergenciaDAO().buscar(id);
 		String pes = g.toJson(objeto);
 		return pes;
 	}
@@ -32,17 +31,17 @@ public class ObjetoResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/cadastrar")
-	public String cadastrarObjeto(String json){
-		ObjetoDAO oDAO = new ObjetoDAO();
+	public String cadastrarProntuario(String json){
+		Prontuario_de_EmergenciaDAO pDAO = new Prontuario_de_EmergenciaDAO();
 		Gson g = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
 		
-		Objeto objeto = g.fromJson(json, Objeto.class);		
+		Prontuario_de_Emergencia prontuario = g.fromJson(json, Prontuario_de_Emergencia.class);		
 		
 		String pes = null;
 
-		oDAO.merge(objeto);
+		pDAO.merge(prontuario);
 		
-		pes = g.toJson(objeto);
+		pes = g.toJson(prontuario);
 		return pes;
 	}
 	
