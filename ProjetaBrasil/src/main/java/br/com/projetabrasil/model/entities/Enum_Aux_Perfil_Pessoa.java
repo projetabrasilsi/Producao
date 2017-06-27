@@ -16,12 +16,12 @@ public enum Enum_Aux_Perfil_Pessoa {
 	FUNCIONARIOS("Funcionarios",11,true,"FUN",true,true,false),
 	SINDICATOS("SINDICATOS",12,true,"SIN",false,false,true),
 	
-	VETERINARIOS("Veterinários",12,true,"VET",true,true,true),
-	AGROEVETERINARIA("Agropecuaria e Clinica Veterinária",12,true,"AGROVET",true,true,false),
-	PETSHOPECLINICAVETERINARIA("PetShop e Clinica Veterinária",12,true,"PETSHOPVET",true,true,false),
-	AGROPECUARIA("Agropecuaria",12,true,"AGRO",true,true,false),
-	CLINICAVETERINARIA("Clinica Veterinária",12,true,"CLINIVET",true,true,false),
-	PETSHOP("PetShop",12,true,"PETSHOP",true,true,false);
+	VETERINARIOS("Veterinários",12,true,"VET",true,false,true),
+	AGROEVETERINARIA("Agropecuaria e Clinica Veterinária",12,true,"AGROVET",true,false,false),
+	PETSHOPECLINICAVETERINARIA("PetShop e Clinica Veterinária",12,true,"PETSHOPVET",true,false,false),
+	AGROPECUARIA("Agropecuaria",12,true,"AGRO",true,false,false),
+	CLINICAVETERINARIA("Clinica Veterinária",12,true,"CLINIVET",true,false,false),
+	PETSHOP("PetShop",12,true,"PETSHOP",true,false,false);
 	
 	
 	private String descricao;
