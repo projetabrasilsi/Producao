@@ -34,6 +34,9 @@ public class EnderecoBusiness implements Serializable {
 	public static void merge(Endereco endereco) {
 		EnderecoDAO eDAO = new EnderecoDAO();
 		try {
+			if(endereco.getLogradouro().getId() == null || endereco == null){
+				return;
+			}
 			Endereco e = verificaEndereco(endereco);
 			if(e == null){
 				eDAO.merge(endereco);
@@ -43,8 +46,7 @@ public class EnderecoBusiness implements Serializable {
 		} catch (RuntimeException erro) {
 			erro.printStackTrace();
 			throw erro;
-		}
-		
+		}		
 	}
 
 	public static Endereco buscaEnderecoPorPessoa(Pessoa pessoa) {

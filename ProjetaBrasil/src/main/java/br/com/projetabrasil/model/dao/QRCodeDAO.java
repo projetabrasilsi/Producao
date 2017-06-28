@@ -120,6 +120,7 @@ public class QRCodeDAO extends GenericDAO<QRCode> {
 			resultado = (QRCode) crit.uniqueResult();
 			return resultado;
 		} catch (RuntimeException erro) {
+			erro.printStackTrace();
 
 			throw erro;
 		} finally {
@@ -133,7 +134,11 @@ public class QRCodeDAO extends GenericDAO<QRCode> {
 		try {
 			Criteria crit = sessao.createCriteria(QRCode.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			crit.setProjection(Projections.max("id"));
-			Integer i = (Integer) crit.uniqueResult();
+			String j = (String) crit.uniqueResult();
+		
+			Integer i = 0; 
+			if (j!=null)
+			i =	(Integer) crit.uniqueResult();
 			if (i == null)
 				i = 0;
 
@@ -193,6 +198,9 @@ public class QRCodeDAO extends GenericDAO<QRCode> {
 				or.add(Restrictions.eq("status",Enum_Aux_Status_QRCodes.VENDIDOS));
 				crit.add(or);
 			} else if (perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.REVENDEDORES) ||
+					perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.AGROEVETERINARIA) ||
+					perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.AGROPECUARIA) ||
+					perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.CLINICAVETERINARIA) ||
 					perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.FUNCIONARIOS)) {
 				
 				if(perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.FUNCIONARIOS))

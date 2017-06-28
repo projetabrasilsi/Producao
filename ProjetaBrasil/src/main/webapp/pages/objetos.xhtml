@@ -225,8 +225,23 @@
 							<p:inputMask id="ano"
 								value="objetojsfController.objeto.ano_objeto" mask="9999" />
 
-						</h:panelGrid>
+						</h:panelGrid>						
 
+						<h:panelGrid columns="2" id="painelCadastro_7">
+							<p:panelGrid>
+								<p:commandButton value="Salvar" process="@form"
+									rendered="#{objetojsfController.renderizaPorClassificacao()}"
+									actionListener="#{objetojsfController.merge}"
+									update=":mensagens :formTemplate:formLista:tabela" />
+							</p:panelGrid>
+							<p:panelGrid>
+								<p:commandButton value="Cancelar" process="@this"
+									actionListener="#{objetojsfController.cancela}" />
+							</p:panelGrid>
+						</h:panelGrid>
+					</p:tab>
+					
+					<p:tab id="tab4" title="Foto">
 						<h:panelGrid id="pF">
 							<p:outputLabel for="upload" value="Buscar e carregar Foto:" />
 							<p:fileUpload id="upload" mode="advanced"
@@ -255,19 +270,6 @@
 							<p:media id="audio" value="#{imagensjsfController.audio}" width="200" height="20" player="quicktime" rendered="false">
 							    <f:param name="autoPlay" value="#{objetojsfController.objeto.caminhodoAudio}" />
 							</p:media>
-						</h:panelGrid>
-
-						<h:panelGrid columns="2" id="painelCadastro_7">
-							<p:panelGrid>
-								<p:commandButton value="Salvar" process="@form"
-									rendered="#{objetojsfController.renderizaPorClassificacao()}"
-									actionListener="#{objetojsfController.merge}"
-									update=":mensagens :formTemplate:formLista:tabela" />
-							</p:panelGrid>
-							<p:panelGrid>
-								<p:commandButton value="Cancelar" process="@this"
-									actionListener="#{objetojsfController.cancela}" />
-							</p:panelGrid>
 						</h:panelGrid>
 					</p:tab>
 

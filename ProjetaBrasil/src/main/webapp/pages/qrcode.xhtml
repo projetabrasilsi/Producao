@@ -78,15 +78,7 @@
 
 								</h:outputText>
 							</p:column>
-							
-							<p:column headerText="Data Ultimo Status"
-								sortBy="ultimaAtualizacao" filterBy="ultimaAtualizacao"
-								styleClass="col-qr-data">
-								<h:outputText value="#{registro.ultimaAtualizacao.time}">
-									<f:convertDateTime locale="pt_BR" dateStyle="long" type="both"
-										pattern="dd/MM/yyyy" />
-								</h:outputText>
-							</p:column>
+														
 							
 							<p:column headerText="Distribuidor"
 								sortBy="registro.id_Pessoa_Distribuicao.descricao"

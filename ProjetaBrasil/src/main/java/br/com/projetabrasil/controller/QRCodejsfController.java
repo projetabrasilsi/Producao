@@ -146,7 +146,10 @@ public class QRCodejsfController implements Serializable {
 		}
 
 		if (perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.REPRESENTANTES)
-				|| perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.REVENDEDORES)) {
+				|| perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.REVENDEDORES)
+				|| perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.AGROEVETERINARIA)
+				|| perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.AGROPECUARIA)
+				|| perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.CLINICAVETERINARIA)) {
 			Pessoa_Vinculo pVin = new Pessoa_Vinculo();
 			Pessoa_VinculoDAO pVinDAO = new Pessoa_VinculoDAO();
 			pVin.setId_pessoa_d(pessoa);
@@ -157,7 +160,11 @@ public class QRCodejsfController implements Serializable {
 				if (perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.REPRESENTANTES))
 					Utilidades.mensagensDisparar("Representante não está cadastrado para este Distribuidor");
 
-				else if (perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.REVENDEDORES)) {
+				else if (perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.REVENDEDORES)
+						
+						|| perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.AGROEVETERINARIA)
+						|| perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.AGROPECUARIA)
+						|| perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.CLINICAVETERINARIA)) {
 					if (perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.DISTRIBUIDORES))
 						Utilidades.mensagensDisparar("Revenda não está cadastrado para este Distribuidor");
 
@@ -180,10 +187,14 @@ public class QRCodejsfController implements Serializable {
 				qrCode.setId_Pessoa_Representacao(pessoa);
 				qrCode.setData_Representacao(Utilidades.retornaCalendario());
 				qrCode.setStatus(Enum_Aux_Status_QRCodes.REPRESENTADOS);
-			} else if (perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.REVENDEDORES)) {
+			} else if (perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.REVENDEDORES)
+					
+					|| perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.AGROEVETERINARIA)
+					|| perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.AGROPECUARIA)
+					|| perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.CLINICAVETERINARIA)) {
 				qrCode.setId_Pessoa_Revenda(pessoa);
 				qrCode.setData_Revenda(Utilidades.retornaCalendario());
-				qrCode.setStatus(Enum_Aux_Status_QRCodes.REPRESENTADOS);
+				qrCode.setStatus(Enum_Aux_Status_QRCodes.REVENDIDOS);
 			}
 			qrCode.setUltimaAtualizacao(Utilidades.retornaCalendario());
 			if (perfilLogado.getAssLogado() == null || perfilLogado.getAssLogado().getId() == null) {
@@ -305,6 +316,8 @@ public class QRCodejsfController implements Serializable {
 	}
 
 	public void vincularObjetos(ActionEvent event) {
+		
+		
 
 		if (perfilLogado.getPerfildeTransferencia() != null
 				&& perfilLogado.getPerfildeTransferencia().equals(Enum_Aux_Perfil_Pessoa.SINDICATOS)) {
@@ -316,8 +329,9 @@ public class QRCodejsfController implements Serializable {
 		}
 
 		else {
-			q.setId_Pessoa_Cliente(q.getId_Objeto().getId_Pessoa_Vinculo());
+			
 			q.setId_Objeto((Objeto) event.getComponent().getAttributes().get("registroAtual"));
+			q.setId_Pessoa_Cliente(q.getId_Objeto().getId_Pessoa_Vinculo());
 			q.setTipo_Objeto(q.getId_Objeto().getEnum_Aux_Tipos_Objeto());
 			q.setCaminhodaImagem(
 					Utilidades.getCaminhofotoobjetos() + "" + q.getId_Objeto() + Utilidades.getTipoimagem());
