@@ -16,12 +16,12 @@ import br.com.projetabrasil.util.Utilidades;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name="profissoes")
+@Table(name="profissao")
 public class Profissao extends GenericDomain implements Serializable {
 	
 	@Id
-	@SequenceGenerator(name="pk_profissoes",sequenceName="messsounds_profissoes", allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="pk_profissoes")
+	@SequenceGenerator(name="pk_profissao",sequenceName="messsounds_profissao", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="pk_profissao")
 	private Long id;
 	@Column(name="descricao", length = 120, nullable=false)
 	private String descricao;
