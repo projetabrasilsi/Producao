@@ -314,6 +314,12 @@
 									<f:attribute name="paginaAtual" value="PAGINAVINCULARQRCODEPESSOASESINDICATOS" />
 									<f:attribute name="perfildeTransferencia" value="SINDICATOS" />
 								</p:menuitem>
+								
+								<p:menuitem value="Lista de QRCode" icon="fa fa-map-marker"
+									actionListener="#{paginas.mudaPaginaAtual}"
+									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES'])}">
+									<f:attribute name="paginaAtual" value="PAGINAQRCODE" />
+								</p:menuitem>
 							</p:submenu>
 								
 

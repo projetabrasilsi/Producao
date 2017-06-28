@@ -19,11 +19,11 @@ public enum Enum_Aux_Perfil_Pagina_Atual {
 	PAGINAITEMDEPROMOCAO("PAGINAITEMDEPROMOCAO","PITEMDEPROM",15,null,Enum_Aux_Perfil_Pessoa.VENDAS,Enum_Aux_Perfil_Pessoa.VENDAS ,false,false,"item_de_movimento.xhtml","itens de promoção"),
 	
 	PAGINAVETERINARIOS("PAGINAVETERINARIOS", "PVETERINARIOS",21,null,Enum_Aux_Perfil_Pessoa.VETERINARIOS,null,false,true,"pessoas.xhtml", "veterinários"),
-	PAGINAAGROEVETERINARIA("PAGINAAGROEVETERINARIA", "PAGROEVETERINARIA",22,null,null,null,false,true,"pessoas.xhtml", "agropecuaria e clinica veterinária"),
-	PAGINAPETSHOPECLINICAVETERINARIA("PAGINAPETSHOPECLINICAVETERINARIA", "PPETSHOPECLINICAVETERINARIA",23,null,null,null,false,true,"pessoas.xhtml", "petshop e clinica veterinária"),
-	PAGINAAGROPECUARIA("PAGINAAGROPECUARIA", "PAGROPECUARIA",24,null,null,null,false,true,"pessoas.xhtml", "agropecuárias"),
-	PAGINACLINICAVETERINARIA("PAGINACLINICAVETERINARIA", "PCLINICAVETERINARIA",25,null,null,null,false,true,"pessoas.xhtml", "clinica veterinaria"),
-	PAGINAPETSHOP("PAGINAPETSHOP", "PPETSHOP",26,null,null,null,false,true,"pessoas.xhtml", "petshop"),
+	PAGINAAGROEVETERINARIA("PAGINAAGROEVETERINARIA", "PAGROEVETERINARIA",22,null,Enum_Aux_Perfil_Pessoa.AGROEVETERINARIA,null,false,true,"pessoas.xhtml", "agropecuaria e clinica veterinária"),
+	PAGINAPETSHOPECLINICAVETERINARIA("PAGINAPETSHOPECLINICAVETERINARIA", "PPETSHOPECLINICAVETERINARIA",23,null,Enum_Aux_Perfil_Pessoa.PETSHOPECLINICAVETERINARIA,null,false,true,"pessoas.xhtml", "petshop e clinica veterinária"),
+	PAGINAAGROPECUARIA("PAGINAAGROPECUARIA", "PAGROPECUARIA",24,null,Enum_Aux_Perfil_Pessoa.AGROPECUARIA,null,false,true,"pessoas.xhtml", "agropecuárias"),
+	PAGINACLINICAVETERINARIA("PAGINACLINICAVETERINARIA", "PCLINICAVETERINARIA",25,null,Enum_Aux_Perfil_Pessoa.CLINICAVETERINARIA,null,false,true,"pessoas.xhtml", "clinica veterinaria"),
+	PAGINAPETSHOP("PAGINAPETSHOP", "PPETSHOP",26,null,Enum_Aux_Perfil_Pessoa.PETSHOP,null,false,true,"pessoas.xhtml", "petshop"),
 	
 	PAGINAPAISES("PAGINAPAISES", "PPAIS",16,null,null,null,false,true,"paises.xhtml", "países" ),			
 	PAGINAESTADOS("PAGINAESTADOS", "PESTADO",17,null,null,null,false,true,"estados.xhtml", "estados" ),	
@@ -61,7 +61,9 @@ public enum Enum_Aux_Perfil_Pagina_Atual {
 	PAGINAFUNCIONARIOS("PAGINAFUNCIONARIOS","PFUNC",45,null,Enum_Aux_Perfil_Pessoa.FUNCIONARIOS,Enum_Aux_Perfil_Pessoa.REVENDEDORES,false,true,"pessoas.xhtml", "logistica"),
 	PAGINAVINCULARQRCODE("PAGINAVINCULARQRCODE","PVINC",46,null,Enum_Aux_Perfil_Pessoa.OUTROS,Enum_Aux_Perfil_Pessoa.OUTROS ,true,true,"transferenciaqrcode.xhtml","QRCodes para vínculo"),
 	PAGINAVINCULARQRCODEPESSOASESINDICATOS("PAGINAVINCULARQRCODEPESSOASESINDICATOS","PVINCPESSSIND",47,null,Enum_Aux_Perfil_Pessoa.OUTROS,Enum_Aux_Perfil_Pessoa.OUTROS ,true,true,"transferenciaqrcode.xhtml","QRCodes para vínculo de Pessoas aos Sindicatos"),
-	PAGINAVINCULARQRCODEPESSOAS("PAGINAVINCULARQRCODEPESSOAS","PVINCPESS",48,null,Enum_Aux_Perfil_Pessoa.OUTROS,Enum_Aux_Perfil_Pessoa.OUTROS ,true,true,"transferenciaqrcode.xhtml","QRCodes para vínculo de Pessoas");
+	PAGINAVINCULARQRCODEPESSOAS("PAGINAVINCULARQRCODEPESSOAS","PVINCPESS",48,null,Enum_Aux_Perfil_Pessoa.OUTROS,Enum_Aux_Perfil_Pessoa.OUTROS ,true,true,"transferenciaqrcode.xhtml","QRCodes para vínculo de Pessoas"),
+	PAGINAPETSVENDIDOS("PAGINAPETSVENDIDOS","PPETSVENDIDOS",49,null,Enum_Aux_Perfil_Pessoa.OUTROS,Enum_Aux_Perfil_Pessoa.OUTROS ,true,true,"pets.xhtml","PETS vinculados"),
+	PAGINAQRCODE("PAGINAQRCODE","PQRCODE",50,null,Enum_Aux_Perfil_Pessoa.OUTROS,Enum_Aux_Perfil_Pessoa.OUTROS ,true,true,"qrcode.xhtml","QRCodes vinculados");	
 	
     private String descricao;    
 	private String sigla;

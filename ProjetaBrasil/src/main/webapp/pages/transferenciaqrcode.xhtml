@@ -268,7 +268,7 @@
 			<div class="card card-pessoas"  >
 				<h:form id="formObjetos" >
 				<p:commandButton value="Cancelar"
-										actionListener="#{qrcodejsfController.cancelarVinculo()}"
+										oncomplete="PF('dialogoObjetos').hide();"
 										styleClass="btao-pessoas btn-color-green btn-qr"
 										update=":mensagens
 										:formTemplate:formLista">
@@ -286,7 +286,7 @@
 
 								<p:commandButton icon="fa-qrcode" process="@form"
 									actionListener="#{qrcodejsfController.vincularObjetos}"
-									update=":mensagens :formTemplate:formLista">
+									update=":mensagens :formTemplate:formLista:tabela">
 									<p:confirm header="Confirmação"
 										message="Confirma vinculação deste registro?"
 										icon="ui-icon-alert" />

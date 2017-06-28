@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	template="/templates/template.xhtml">
+	<h:head>
+		<h:outputStylesheet library="css" name="clubefidelidadee.css" />
+		<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="./js/pessoas.js" />
+	</h:head>
+	<f:event listener="#{paginas.mudaPaginaAtual}" type="preRenderView" />
+	<ui:define name="conteudo">
+
+		<h:form id="formLista">
+		
+			<p:outputLabel for="status" value="Status: "/>
+            <p:selectOneMenu id="status" value="#{qrcodevinculadojsfController.status}" converter="omnifaces.SelectItemsConverter" style="width:150px">
+                <p:ajax listener="#{qrcodevinculadojsfController.listarQRCodes()}" update="tabela" process="@form"/>
+                <f:selectItem itemLabel="Selecione o status" itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{qrcodevinculadojsfController.listaStatus}" var="o" itemLabel="#{o.status}" itemValue="#{o}" />
+            </p:selectOneMenu>
+            
+            <p:outputLabel value="ID: "/>
+            <p:spinner value="#{qrcodevinculadojsfController.idObjeto}" min="0"/>
+			
+			<p:commandButton icon="ui-icon-search" process="@form"
+				update="tabela"	
+				actionListener="#{qrcodevinculadojsfController.listarQRCodes()}"		
+				styleClass="btao-info-pessoas-lupa btn-color-silver btn-lupa" />
+				
+			<p:commandButton value="Imagens" 				
+				styleClass="btao-info-pessoas"				
+				actionListener="#{paginas.mudaPaginaAtual}">
+				<f:attribute name="paginaAtual" value="PAGINAPETSVENDIDOS" /> 
+			</p:commandButton>
+			
+		    <p:dataTable id="tabela" emptyMessage="Sem Registros"
+							resizableColumns="true" value="#{qrcodevinculadojsfController.listaQRCodes}"
+							paginator="true" rows="15" var="registro"
+							styleClass="tabela-pessoas tabela-vizualizacao"
+							rowKey="#{registro.id}">							
+							
+
+							<p:column headerText="ID" sortBy="id" filterBy="id"
+								styleClass="col-qr-id">
+								<h:outputText value="#{registro.id}" />
+							</p:column>
+							<p:column headerText="Status" sortBy="status"
+								filterBy="identificador" styleClass="col-qr-status"
+								>
+								<p:outputLabel id="status" size="30" maxlength="15"
+									value="#{registro.status}" />
+							</p:column>
+							
+							<p:column headerText="objeto"
+								sortBy="#{registro.id_Objeto.descricao}"
+								filterBy="registro.id_Objeto.descricao"
+								styleClass="col-qr-ojeto">
+								<h:outputText
+									value="#{fn:substring(registro.id_Objeto.descricao,0,15)}">
+
+								</h:outputText>
+							</p:column>
+						
+						
+							<p:column headerText="Cliente"
+								sortBy="#{registro.id_Pessoa_Cliente.descricao}"
+								filterBy="registro.id_Pessoa_Cliente.descricao"
+								styleClass="col-qr-cliente">
+								<h:outputText
+									value="#{fn:substring(registro.id_Pessoa_Cliente.descricao,0,15)}">
+
+								</h:outputText>
+							</p:column>
+							
+							<p:column headerText="Data Ultimo Status"
+								sortBy="ultimaAtualizacao" filterBy="ultimaAtualizacao"
+								styleClass="col-qr-data">
+								<h:outputText value="#{registro.ultimaAtualizacao.time}">
+									<f:convertDateTime locale="pt_BR" dateStyle="long" type="both"
+										pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
+							
+							<p:column headerText="Distribuidor"
+								sortBy="registro.id_Pessoa_Distribuicao.descricao"
+								filterBy="registro.id_Pessoa_Distribuicao.descricao"
+								styleClass="col-qr-distribuidor">
+								<h:outputText
+									value="#{fn:substring(registro.id_Pessoa_Distribuicao.descricao,0,15)}">
+
+								</h:outputText>
+							</p:column>
+
+							<p:column headerText="Representante"
+								sortBy="#{registro.id_Pessoa_Representacao.descricao}"
+								filterBy="registro.id_Pessoa_Representacao.descricao"
+								styleClass="col-qr-representante">
+								<h:outputText
+									value="#{fn:substring(registro.id_Pessoa_Representacao.descricao,0,15)}">
+
+								</h:outputText>
+							</p:column>
+
+							<p:column headerText="Revenda"
+								sortBy="#{registro.id_Pessoa_Revenda.descricao}"
+								filterBy="registro.id_Pessoa_Revenda.descricao"
+								styleClass="col-qr-revenda">
+								<h:outputText
+									value="#{fn:substring(registro.id_Pessoa_Revenda.descricao,0,15)}">
+
+								</h:outputText>
+							</p:column>
+
+						</p:dataTable>
+		</h:form> 
+
+		
+
+	</ui:define>
+</ui:composition>

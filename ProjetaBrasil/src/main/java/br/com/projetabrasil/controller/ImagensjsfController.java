@@ -39,6 +39,25 @@ public class ImagensjsfController {
 		foto = transforma(caminho);
 		return foto;
 	}
+	
+	public StreamedContent getAudio() throws IOException {
+		FacesContext context = FacesContext.getCurrentInstance();
+		
+		String caminho="";
+		StreamedContent audio = null;
+		caminho = Utilidades.getBrancoaudio();
+		audio = transforma(Utilidades.getBrancoaudio());	  
+		
+		caminho = context.getExternalContext().getRequestParameterMap().get("autoPlay");
+		if (caminho==null || caminho.length()==0)
+		caminho = Utilidades.getBrancoaudio();		
+		Utilidades.gravaDiretorio(caminho);
+		Path path = Paths.get(caminho);
+		
+		if (Files.exists(path))		
+		audio = transforma(caminho);
+		return audio;
+	}
 
 	public StreamedContent transforma(String caminho) {
 		InputStream stream = null;
