@@ -50,7 +50,7 @@ public class GeradorQRCodeOficial2 {
 		Usuario us = usDAO.autenticar("89230906115", "P2a3u0l9");
 		PerfilLogado pf = new PerfilLogado();
 		pf.setUsLogado(us);
-		geraNovosCoders(10000, pf);
+		geraNovosCoders(1, pf);
 	}
 
 	public void geraNovosCoders(int qtde, PerfilLogado pf) {

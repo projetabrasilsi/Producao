@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -74,7 +75,7 @@ public class Pessoa extends GenericDomain implements Serializable{
 	@Column(name="AutoPontuacao")
 	private Enum_Aux_Sim_ou_Nao autoPontuacao;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn ( name ="id_Profissao")		
 	private Profissao id_Profissao;
 	

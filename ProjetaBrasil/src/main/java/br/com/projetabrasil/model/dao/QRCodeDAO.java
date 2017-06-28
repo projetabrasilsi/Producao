@@ -55,6 +55,7 @@ public class QRCodeDAO extends GenericDAO<QRCode> {
 			resultado = (QRCode) crit.uniqueResult();
 			return resultado;
 		} catch (RuntimeException erro) {
+			erro.printStackTrace();
 
 			throw erro;
 		} finally {
@@ -68,7 +69,11 @@ public class QRCodeDAO extends GenericDAO<QRCode> {
 		try {
 			Criteria crit = sessao.createCriteria(QRCode.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			crit.setProjection(Projections.max("id"));
-			Integer i = (Integer) crit.uniqueResult();
+			String j = (String) crit.uniqueResult();
+		
+			Integer i = 0; 
+			if (j!=null)
+			i =	(Integer) crit.uniqueResult();
 			if (i == null)
 				i = 0;
 

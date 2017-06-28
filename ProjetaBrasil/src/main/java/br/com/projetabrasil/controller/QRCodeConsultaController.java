@@ -86,9 +86,9 @@ public class QRCodeConsultaController implements Serializable {
 		if(getPessoa() == null)
 			setPessoa(new Pessoa());
 		
-		if(!qRCode.getTipo_Objeto().equals(Enum_Aux_Tipos_Objetos.PESSOAS) && qRCode.getId_Objeto()!=null ){
+		if(qRCode.getTipo_Objeto()!=null && !qRCode.getTipo_Objeto().equals(Enum_Aux_Tipos_Objetos.PESSOAS) && qRCode.getId_Objeto()!=null ){
 		setObjeto(qRCode.getId_Objeto());
-		 if(qRCode.getId_Objeto().getSexo()!=null && qRCode.getId_Objeto().getSexo().equals(Enum_Aux_Sexo.FEMININO))
+		 if(qRCode.getId_Objeto()!=null && qRCode.getId_Objeto().getSexo()!=null && qRCode.getId_Objeto().getSexo().equals(Enum_Aux_Sexo.FEMININO))
 			 setPerdidoa("perdida");
 			 else
 				 setPerdidoa("perdido");
@@ -97,8 +97,12 @@ public class QRCodeConsultaController implements Serializable {
 					+ Utilidades.getTipoimagem() );
 		 
 		}else{
+			if(qRCode.getId_Pessoa_Cliente()!=null &&  qRCode.getId_Pessoa_Cliente().getId() !=null )
 			qRCode.setCaminhodaImagem(Utilidades.getCaminhofotopessoas() + "" + qRCode.getId_Pessoa_Cliente().getId()
 					+ Utilidades.getTipoimagem() );
+			else{
+				qRCode.setCaminhodaImagem(Utilidades.getBranco() );
+			}
 		}
 		
 		if(getObjeto() == null)
@@ -106,7 +110,7 @@ public class QRCodeConsultaController implements Serializable {
 		EnderecoDAO endDAO = new EnderecoDAO();
 		ContatoDAO contDAO = new ContatoDAO();
 		Prontuario_de_EmergenciaDAO prontDAO = new Prontuario_de_EmergenciaDAO();
-
+        if(pessoa != null && pessoa.getId()!=null ){
 		setEnd(endDAO.buscaEnderecoPorPessoa(pessoa));
 		if (getEnd() == null)
 			setEnd(new Endereco());
@@ -118,6 +122,11 @@ public class QRCodeConsultaController implements Serializable {
 			setPront(prontDAO.listarProntuarioporPessoa(pessoa));
 		if(getPront() == null || getPront().size() ==0 )
 			setPront(new ArrayList<>());
+        }else{
+        	setEnd(new Endereco());
+        	setCont(new ArrayList<>());
+        	setPront(new ArrayList<>());
+        }
 			
 
 		return getqRCode();

@@ -44,7 +44,7 @@ public class GeradorQRCodeOficial {
 		Usuario us = usDAO.autenticar("89230906115", "P2a3u0l9");
 		PerfilLogado pf = new PerfilLogado();
 		pf.setUsLogado(us);		
-		geraNovosCoders(10000, pf);
+		geraNovosCoders(1, pf);
 	}
 
 	public void gerarPdf() throws Exception {
@@ -67,7 +67,7 @@ public class GeradorQRCodeOficial {
 			document.setMargins(3, 3, 3, 3);
 			document.open();
 			PdfPTable table2 = new PdfPTable(15);
-			int nEtiq = 180;
+			int nEtiq = 1;
 			for (int i = 1; i <= nEtiq; i++) {
 				QRCode qr = new QRCode();
 				QRCodeDAO qrDAO = new QRCodeDAO();
