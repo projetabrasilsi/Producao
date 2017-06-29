@@ -198,6 +198,9 @@ public class QRCodeDAO extends GenericDAO<QRCode> {
 				or.add(Restrictions.eq("status",Enum_Aux_Status_QRCodes.VENDIDOS));
 				crit.add(or);
 			} else if (perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.REVENDEDORES) ||
+					perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.AGROEVETERINARIA) ||
+					perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.AGROPECUARIA) ||
+					perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.CLINICAVETERINARIA) ||
 					perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.FUNCIONARIOS)) {
 				
 				if(perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.FUNCIONARIOS))
@@ -209,6 +212,7 @@ public class QRCodeDAO extends GenericDAO<QRCode> {
 				or.add(Restrictions.eq("status",Enum_Aux_Status_QRCodes.VENDIDOS));
 				crit.add(or);
 			}
+			crit.addOrder(Order.asc("id"));
 
 			
 			

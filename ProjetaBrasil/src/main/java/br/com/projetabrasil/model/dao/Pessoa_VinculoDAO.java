@@ -122,12 +122,14 @@ public class Pessoa_VinculoDAO extends GenericDAO<Pessoa_Vinculo> {
 		try {
 						Criteria crit = sessao.createCriteria(Pessoa_Vinculo.class)
 					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);					
-					crit.add(Restrictions.eq("id_pessoa_d",pessoaDetalhe));			        
+					crit.add(Restrictions.eq("id_pessoa_d",pessoaDetalhe));	
+					if(pessoaMestre !=null && pessoaMestre.getId() != null)
 					crit.add(Restrictions.ne("id_pessoa_m",pessoaMestre));
 			        if(perfilPessoaCadastro!=null && perfilPessoaCadastro.getId()>0)
 				        crit.add(Restrictions.eq("enum_Aux_Perfil_Pessoa", perfilPessoaCadastro));
-			        crit.addOrder(Order.desc("id"));
 			        crit.setMaxResults(1);
+			        crit.addOrder(Order.desc("id"));
+			        
 					
 			return (Pessoa_Vinculo) crit.uniqueResult();
 		} catch (RuntimeException error) {

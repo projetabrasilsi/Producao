@@ -39,7 +39,7 @@
 
 
 	<h:form id="formObjetos"
-		rendered="#{!qrcodeConsultaController.ePessoa}">
+		rendered="#{!qrcodeConsultaController.ePessoa  and qrcodeConsultaController.eIdentificado}">
 		<div id="login-wrapper" class="qr-wrapper">
 
 			<p:graphicImage name="img-qrcode/achei-pet.svg" library="images"
@@ -272,7 +272,7 @@ if (navigator.geolocation) {
 
 	</h:form>
 
-	<h:form id="formPessoas" rendered="#{qrcodeConsultaController.ePessoa}">
+	<h:form id="formPessoas" rendered="#{qrcodeConsultaController.ePessoa and qrcodeConsultaController.eIdentificado}">
 		<div id="login-wrapper" class="qr-wrapper">
 
 
@@ -284,7 +284,7 @@ if (navigator.geolocation) {
 						<h:outputText
 							value="#{qrcodeConsultaController.qRCode.id_Pessoa_Cliente.descricao}"
 							styleClass="info-header-infos" />
-							<br />
+						<br />
 
 						<p:outputLabel value="Validade do Registro:"
 							styleClass="info-header-label" />
@@ -311,19 +311,17 @@ if (navigator.geolocation) {
 								<p:outputLabel value="CPF:" styleClass="info-header-label" />
 								<h:outputText value="892.309.061-15"
 									styleClass="info-header-infos" />
-									<br />
-									
-									<p:outputLabel value="RG:" styleClass="info-header-label" />
-								<h:outputText value="3739787"
-									styleClass="info-header-infos" />
-									<br />
-									<p:outputLabel value="CNH:" styleClass="info-header-label" />
-								<h:outputText value="0000000000"
-									styleClass="info-header-infos" />
-									<br />
+								<br />
+
+								<p:outputLabel value="RG:" styleClass="info-header-label" />
+								<h:outputText value="3739787" styleClass="info-header-infos" />
+								<br />
+								<p:outputLabel value="CNH:" styleClass="info-header-label" />
+								<h:outputText value="0000000000" styleClass="info-header-infos" />
+								<br />
 							</h1>
 
-							
+
 						</div>
 
 
@@ -341,7 +339,23 @@ if (navigator.geolocation) {
 
 
 
-						<h2 class="titulo-geral">Mais sobre mim</h2>
+
+
+						<h2 class="titulo-geral">Meus contatos:</h2>
+						<div class="col-xs-12 col-geral">
+
+							<p:dataTable id="tabela" emptyMessage="" reflow="false"
+								value="#{qrcodeConsultaController.cont}" paginator="false"
+								rows="15" var="registro" style="font-size:15px;">
+								<p:column headerText="" sortBy="descricao" filterBy="descricao">
+									<h:outputText
+										value="#{registro.tipoContato.descricao}: #{registro.contato}
+										- #{registro.tipoRelacionamento.descricao}" />
+								</p:column>
+
+
+							</p:dataTable>
+						</div>
 
 
 
@@ -430,6 +444,50 @@ if (navigator.geolocation) {
 
 			<div class="qr-footer">Powered by ProjetaBrasil</div>
 		</div>
+
+
+
+
+		<h:outputStylesheet name="css/layout.css" library="omega-layout" />
+		<h:outputStylesheet name="bootstrap-grid.mim.css" library="css" />
+		<h:outputStylesheet name="achei-qrcode.css" library="css" />
+		<h:outputStylesheet name="css/font-awesome.css" library="fa" />
+		<!-- <h:outputScript name="achei-qrcode.js" library="js" /> -->
+
+
+
+
+
+
+
+	</h:form>
+
+
+
+
+	<h:form id="formSemIdentidade"
+		rendered="#{!qrcodeConsultaController.eIdentificado}">
+		<div id="login-wrapper" class="qr-wrapper">
+
+			<h2 class="titulo-geral">Este Identificador Não foi Registrado</h2>
+
+		</div>
+		<!-- /.container-info-corpo-->
+		<div class="qr-container">
+
+
+
+			<div class="ui-g ui-fluid">
+				<div class="ui-g-12">
+					<p:button value="sair" />
+				</div>
+			</div>
+
+		</div>
+		<!-- /.login-container-->
+
+		<div class="qr-footer">Powered by ProjetaBrasil</div>
+		
 
 
 

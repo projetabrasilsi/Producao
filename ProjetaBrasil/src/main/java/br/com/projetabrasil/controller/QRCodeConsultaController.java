@@ -37,6 +37,18 @@ public class QRCodeConsultaController implements Serializable {
 	private Pessoa pessoa = new Pessoa();
 	private Objeto objeto = new Objeto();
 	private boolean ePessoa = false;
+	private boolean eIdentificado = false;
+
+	
+
+	public boolean iseIdentificado() {
+		return eIdentificado;
+	}
+
+	public void seteIdentificado(boolean eIdentificado) {
+		this.eIdentificado = eIdentificado;
+	}
+
 	private String perdidoa = "perdida";
 
 	// www.projetabrasil.com.br/faces/pages/achei.xhtml?kldasjfsd=a527173445d117cbf177084bd34e60f2
@@ -46,7 +58,7 @@ public class QRCodeConsultaController implements Serializable {
 	// www.projetabrasil.com.br/faces/pages/achei.xhtml?kldasjfsd=277d11c0d890fa50d2c48302b7c37e35
 	// www.projetabrasil.com.br/faces/pages/achei.xhtml?kldasjfsd=72d14bf1127677c8ad802764cde2c550
 	// www.projetabrasil.com.br/faces/pages/achei.xhtml?kldasjfsd=170736fee90ba01be4bd05ce3759feca
-	///localhost:8080/ProjetaBrasil/faces/pages/achei.xhtml?kldasjfsd=e28405481928bc7a153960aa2b24dc78
+	/// localhost:8080/ProjetaBrasil/faces/pages/achei.xhtml?kldasjfsd=e28405481928bc7a153960aa2b24dc78
 
 	public String getPerdidoa() {
 		return perdidoa;
@@ -77,57 +89,66 @@ public class QRCodeConsultaController implements Serializable {
 
 		QRCodeDAO qrCodersDAO = new QRCodeDAO();
 		setqRCode((QRCode) qrCodersDAO.buscaCoders(id));
-		if(qRCode.getTipo_Objeto()!=null && qRCode.getTipo_Objeto().equals(Enum_Aux_Tipos_Objetos.PESSOAS) )
+		if (qRCode.getTipo_Objeto() != null && qRCode.getTipo_Objeto().equals(Enum_Aux_Tipos_Objetos.PESSOAS))
 			setePessoa(true);
 		else
 			setePessoa(false);
 
 		setPessoa(getqRCode().getId_Pessoa_Cliente());
-		if(getPessoa() == null)
+		if (getPessoa() == null)
 			setPessoa(new Pessoa());
-		
-		if(qRCode.getTipo_Objeto()!=null && !qRCode.getTipo_Objeto().equals(Enum_Aux_Tipos_Objetos.PESSOAS) && qRCode.getId_Objeto()!=null ){
-		setObjeto(qRCode.getId_Objeto());
-		 if(qRCode.getId_Objeto()!=null && qRCode.getId_Objeto().getSexo()!=null && qRCode.getId_Objeto().getSexo().equals(Enum_Aux_Sexo.FEMININO))
-			 setPerdidoa("perdida");
-			 else
-				 setPerdidoa("perdido");
-		 
-		 qRCode.setCaminhodaImagem(Utilidades.getCaminhofotoobjetos() + "" + qRCode.getId_Objeto().getId()
-					+ Utilidades.getTipoimagem() );
-		 
-		}else{
-			if(qRCode.getId_Pessoa_Cliente()!=null &&  qRCode.getId_Pessoa_Cliente().getId() !=null )
-			qRCode.setCaminhodaImagem(Utilidades.getCaminhofotopessoas() + "" + qRCode.getId_Pessoa_Cliente().getId()
-					+ Utilidades.getTipoimagem() );
-			else{
-				qRCode.setCaminhodaImagem(Utilidades.getBranco() );
+
+		if (qRCode == null || qRCode.getId_Pessoa_Cliente() == null ){
+			seteIdentificado(false);
+			setePessoa(false);
+		}
+		else {
+			seteIdentificado(true);
+			if (qRCode.getTipo_Objeto() != null && !qRCode.getTipo_Objeto().equals(Enum_Aux_Tipos_Objetos.PESSOAS)
+					&& qRCode.getId_Objeto() != null) {
+				setObjeto(qRCode.getId_Objeto());
+				if (qRCode.getId_Objeto() != null && qRCode.getId_Objeto().getSexo() != null
+						&& qRCode.getId_Objeto().getSexo().equals(Enum_Aux_Sexo.FEMININO))
+					setPerdidoa("perdida");
+				else
+					setPerdidoa("perdido");
+
+				qRCode.setCaminhodaImagem(Utilidades.getCaminhofotoobjetos() + "" + qRCode.getId_Objeto().getId()
+						+ Utilidades.getTipoimagem());
+
+			} else {
+				if (qRCode.getId_Pessoa_Cliente() != null && qRCode.getId_Pessoa_Cliente().getId() != null)
+					qRCode.setCaminhodaImagem(Utilidades.getCaminhofotopessoas() + ""
+							+ qRCode.getId_Pessoa_Cliente().getId() + Utilidades.getTipoimagem());
+				else {
+					qRCode.setCaminhodaImagem(Utilidades.getBranco());
+				}
+			}
+
+			if (getObjeto() == null)
+				setObjeto(new Objeto());
+			EnderecoDAO endDAO = new EnderecoDAO();
+			ContatoDAO contDAO = new ContatoDAO();
+			Prontuario_de_EmergenciaDAO prontDAO = new Prontuario_de_EmergenciaDAO();
+			if (pessoa != null && pessoa.getId() != null) {
+				setEnd(endDAO.buscaEnderecoPorPessoa(pessoa));
+				if (getEnd() == null)
+					setEnd(new Endereco());
+
+				setCont(contDAO.listardeContatosporPessoa(pessoa));
+				if (getCont() == null || getCont().size() == 0)
+					setCont(new ArrayList<>());
+
+				setPront(prontDAO.listarProntuarioporPessoa(pessoa));
+				if (getPront() == null || getPront().size() == 0)
+					setPront(new ArrayList<>());
+			} else {
+				setEnd(new Endereco());
+				setCont(new ArrayList<>());
+				setPront(new ArrayList<>());
 			}
 		}
-		
-		if(getObjeto() == null)
-			setObjeto(new Objeto());
-		EnderecoDAO endDAO = new EnderecoDAO();
-		ContatoDAO contDAO = new ContatoDAO();
-		Prontuario_de_EmergenciaDAO prontDAO = new Prontuario_de_EmergenciaDAO();
-        if(pessoa != null && pessoa.getId()!=null ){
-		setEnd(endDAO.buscaEnderecoPorPessoa(pessoa));
-		if (getEnd() == null)
-			setEnd(new Endereco());
-		
-		setCont(contDAO.listardeContatosporPessoa(pessoa));
-		if(getCont()==null || getCont().size() == 0)
-			setCont(new ArrayList<>());
-			
-			setPront(prontDAO.listarProntuarioporPessoa(pessoa));
-		if(getPront() == null || getPront().size() ==0 )
-			setPront(new ArrayList<>());
-        }else{
-        	setEnd(new Endereco());
-        	setCont(new ArrayList<>());
-        	setPront(new ArrayList<>());
-        }
-			
+		System.out.println("é identificado: "+ eIdentificado+ " - é pessoa: "+ePessoa );
 
 		return getqRCode();
 	}
