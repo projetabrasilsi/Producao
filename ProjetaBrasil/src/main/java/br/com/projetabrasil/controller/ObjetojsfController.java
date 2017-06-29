@@ -495,7 +495,8 @@ public class ObjetojsfController extends GenericController implements Serializab
 		if(perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.VETERINARIOS) || perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.AGROEVETERINARIA)
 				|| perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.PETSHOPECLINICAVETERINARIA) || perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.AGROPECUARIA)   
 					|| perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.CLINICAVETERINARIA) || perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.PETSHOP)
-						|| perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.ADMINISTRADORES)){
+						|| perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.ADMINISTRADORES)
+							|| perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.REVENDEDORES)){
 			return true;
 		}
 		return false;

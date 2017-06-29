@@ -688,7 +688,7 @@ public class PessoajsfController extends GenericController implements Serializab
 				
 				&& (perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.ATENDENTES)
 						||perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.REPRESENTANTES)
-						||perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.CLIENTES)
+						
 								||perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.FUNCIONARIOS)
 								||perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.REVENDEDORES)
 								||perfilLogado.getPaginaAtual().getPerfilPessoa().equals(Enum_Aux_Perfil_Pessoa.VETERINARIOS))
@@ -710,16 +710,12 @@ public class PessoajsfController extends GenericController implements Serializab
 		
 		// VALIDACAO PARA FOTO
 		Path caminhoTemp;
-		if (pessoa.getCaminhoTemp() == null || pessoa.getCaminhoTemp() == "") {
-			mensagensDisparar("Imagem é obrigatória!!!");
-			return;
-		} else {
+		if (pessoa.getCaminhoTemp() != null && pessoa.getCaminhoTemp() !="") {
 			caminhoTemp = Paths.get(pessoa.getCaminhoTemp());
-			if (!Files.exists(caminhoTemp)) {
-				mensagensDisparar("Imagem é obrigatória!!!");
-				return;
-			}
-		} 
+			
+		}else{
+			caminhoTemp= Paths.get(Utilidades.getBranco());
+		}			
 		       
 		pessoa = PessoaGenericBusiness.merge(pessoa, usuario, perfilLogado, true);
 		
@@ -1163,6 +1159,14 @@ public class PessoajsfController extends GenericController implements Serializab
 		}
 		
 		return false;
+	}
+	
+	public boolean renderizaTipoPessoa(){
+		if(pessoa.getEnum_Aux_Tipo_Identificador().equals(Enum_Aux_Tipo_Identificador.CNPJ)){
+			return false;
+		}else{
+			return true;
+		}
 	}
 	
 	public boolean renderizaProntuario() {

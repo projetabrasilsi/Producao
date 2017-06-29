@@ -122,7 +122,7 @@ public class PessoaConfig implements Serializable {
 			labelFantasiaRenderiza 				= true;
 			labelDataNascimentoRenderiza 		=!labelFantasiaRenderiza;
 			labelFantasiaObrigatorio			= true;
-			labelrg_InscObrigatorio				= true;
+			labelrg_InscObrigatorio				= false;
 			labelSexoRenderiza 					= false;
 			
 			labelNomeRequiredMessage			= "Razão Social é obrigatória";
@@ -286,7 +286,7 @@ public class PessoaConfig implements Serializable {
 	public boolean isLabelcpf_CnpjRenderiza() {
 		return labelcpf_CnpjRenderiza;
 	}
-	public boolean isLabelrg_InscRenderiza() {
+	public boolean isLabelrg_InscRenderiza() {		
 		return labelrg_InscRenderiza;
 	}
 	public boolean isLabelemailRenderiza() {

@@ -290,11 +290,12 @@
 
 									<div class="ui-g-2">
 										<p:outputLabel value="Profissão: "
-										styleClass="label-info-pessoas-lupa"/>
-										<h:form id="g_profissao" render="@form">
-											<p:outputLabel id="psel" size="60" maxlength="60"
+										styleClass="label-info-pessoas-lupa" rendered="#{pessoajsfController.renderizaTipoPessoa()}"/>
+										<h:form id="g_profissao" render="@form" >
+											<p:outputLabel id="psel" size="60" maxlength="60" rendered="#{pessoajsfController.renderizaTipoPessoa()}"
 												value="#{pessoajsfController.pessoa.id_Profissao.descricao}" />
 											<p:commandButton icon="ui-icon-search" process="@this"
+												rendered="#{pessoajsfController.renderizaTipoPessoa()}"
 												update=":formTemplate:formListaProfissao"
 												onclick="PF('dialogoProfissoes').show();"
 												styleClass="btao-info-pessoas-lupa btn-color-silver btn-lupa" />
@@ -353,8 +354,9 @@
 							</div>
 							
 							<h:panelGrid id="pF">
-									<p:outputLabel for="upload" value="Selecione sua foto de Perfil:" />
+									<p:outputLabel for="upload" value="Selecione sua foto de Perfil:" rendered="#{pessoajsfController.renderizaTipoPessoa()}"/>
 									<p:fileUpload id="upload" mode="advanced"
+										rendered="#{pessoajsfController.renderizaTipoPessoa()}"
 										fileUploadListener="#{pessoajsfController.upload}"
 										update=":mensagens :formTemplate:formCadastro:foto" auto="true"
 										style="font-size:15px;width:490px; "
@@ -362,6 +364,7 @@
 										<p:graphicImage />
 									</p:fileUpload>
 									<p:graphicImage id="foto" value="#{imagensjsfController.image}"
+										rendered="#{pessoajsfController.renderizaTipoPessoa()}"
 										style="max-width:90px; max-height:80px; width: auto; height: auto;">
 										<f:param name="caminho"
 											value="#{pessoajsfController.pessoa.caminhodaImagem}" />
@@ -627,6 +630,40 @@
 												</p:column>
 											</p:dataTable>
 										</h:form>
+									</div>
+									
+									<div class="ui-g row-tab1">		
+										<div class="grupo3-info-pessoas-tab1">
+											<div class="ui-g-3">
+												<p:outputLabel value="Informe a Senha"
+													rendered="#{pessoajsfController.perfilLogado.renderizaPelaPagina('PAGINACLIENTES', pessoajsfController.pessoa)}" />
+													<br/>
+												<p:password size="18" maxlength="8"
+													value="#{pessoajsfController.usuario.senhaSemCript}"
+													required="true" requiredMessage="Informe a senha!!!"
+													rendered="#{pessoajsfController.perfilLogado.renderizaPelaPagina('PAGINACLIENTES', pessoajsfController.pessoa)}"
+													validatorMessage="O minimo de digitos para senha: '8'"
+													placeholder="8 letras e/ou digitos"
+													styleClass="input-info-pessoas-geral">
+													<f:validateLength minimum="8" />
+												</p:password>
+											</div>
+											<div class="ui-g-3">
+												<p:outputLabel value="Confirme a Senha"
+													rendered="#{pessoajsfController.perfilLogado.renderizaPelaPagina('PAGINACLIENTES', pessoajsfController.pessoa)}" />
+													<br/>
+												<p:password size="18" maxlength="8"
+													value="#{pessoajsfController.usuario.confSenha}"
+													required="true"
+													rendered="#{pessoajsfController.perfilLogado.renderizaPelaPagina('PAGINACLIENTES', pessoajsfController.pessoa)}"
+													requiredMessage="Informe a confirmação de senha."
+													validatorMessage="O minimo de digitos para confirmação senha: '8'"
+													placeholder="8 letras e/ou digitos"
+													styleClass="input-info-pessoas-geral">
+													<f:validateLength minimum="8" />
+												</p:password>
+											</div>
+										</div>
 									</div>
 									
 									<p:commandButton value="Salvar" process="@form" rendered="#{pessoajsfController.renderizaSalvar('SALVARCONTATO')}"
