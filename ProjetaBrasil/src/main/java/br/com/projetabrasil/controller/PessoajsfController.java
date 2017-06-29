@@ -216,12 +216,12 @@ public class PessoajsfController extends GenericController implements Serializab
 		ViaCEPClient client = new ViaCEPClient();			
 			listaceps =  client.getEnderecos(uf.toString(), cidade.toString(),logradouro.toString()); //client.getEnderecos(cp.getUf().toUpperCase(), cp.getLocalidade(), cp.getLogradouro());
 	}
+	
 	public void setarEnderecoNovo(){
 		pais = new Pais();
 		setPais(PaisBusiness.VerificaPaisPadrao("BRASIL","BRL",perfilLogado));
 		tipoLogradouro = Enum_Aux_Tipo_Logradouro.RUA;
-		endereco = new Endereco(new Logradouro(new Cidade(new Estado(pais))), new Bairro(new Cidade(new Estado(pais))));
-		
+		endereco = new Endereco(new Logradouro(new Cidade(new Estado(pais))), new Bairro(new Cidade(new Estado(pais))));		
 	}
 	
 	public void ConsultaCEP() {
@@ -1133,6 +1133,21 @@ public class PessoajsfController extends GenericController implements Serializab
 	}
 	
 	public boolean renderizaSalvar(String tipoSalvar) {
+		if(renderizaFoto()){
+			if(tipoSalvar.equals("SALVARCONTATO")){
+				return false;
+			}
+			if(tipoSalvar.equals("SALVARPRONTUARIO")){
+				return false;
+			}
+			if(tipoSalvar.equals("SALVAROBJETO")){
+				return false;
+			}
+			if(tipoSalvar.equals("SALVARFOTO")){
+				return true;
+			}
+		}
+		
 		if(renderizaObjeto()){
 			if(tipoSalvar.equals("SALVARCONTATO")){
 				return false;
@@ -1185,6 +1200,13 @@ public class PessoajsfController extends GenericController implements Serializab
 	
 	public boolean renderizaFoto() {
 		if(pessoa.getEnum_Aux_Tipo_Identificador().equals(Enum_Aux_Tipo_Identificador.CPF)){
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean renderizaSenha() {
+		if(pessoa.getEnum_Aux_Tipo_Identificador().equals(Enum_Aux_Tipo_Identificador.CNPJ)){
 			return true;
 		}
 		return false;

@@ -352,24 +352,7 @@
 									</div>
 								</div>
 							</div>
-							
-							<h:panelGrid id="pF">
-									<p:outputLabel for="upload" value="Selecione sua foto de Perfil:" rendered="#{pessoajsfController.renderizaTipoPessoa()}"/>
-									<p:fileUpload id="upload" mode="advanced"
-										rendered="#{pessoajsfController.renderizaTipoPessoa()}"
-										fileUploadListener="#{pessoajsfController.upload}"
-										update=":mensagens :formTemplate:formCadastro:foto" auto="true"
-										style="font-size:15px;width:490px; "
-										allowTypes="/(\.|\/)(#{pessoajsfController.tipoDeImagem})$/">
-										<p:graphicImage />
-									</p:fileUpload>
-									<p:graphicImage id="foto" value="#{imagensjsfController.image}"
-										rendered="#{pessoajsfController.renderizaTipoPessoa()}"
-										style="max-width:90px; max-height:80px; width: auto; height: auto;">
-										<f:param name="caminho"
-											value="#{pessoajsfController.pessoa.caminhodaImagem}" />
-									</p:graphicImage>
-								</h:panelGrid>
+														
 						</h:form>			
 					</p:panel>
 				</p:tab>
@@ -500,30 +483,7 @@
 									
 								
 								</p:panel>
-							</p:tab>	
-							
-							<p:tab id="tab3" title="Foto de Perfil" rendered="false">
-								<p:panel id="p_perfil">
-
-									<h:panelGrid id="pF">
-										
-										<p:outputLabel for="upload" value="buscar e carregar  foto:" />
-											<p:fileUpload id="upload" mode="advanced"
-												fileUploadListener="#{pessoajsfController.upload}"
-												update=":mensagens :formTemplate:formCadastro:foto" auto="true"
-												style="font-size:15px;width:490px; " 
-												allowTypes="/(\.|\/)(#{pessoajsfController.tipoDeImagem})$/">
-												<p:graphicImage  />
-											</p:fileUpload>
-											<p:graphicImage id="foto" value="#{imagensjsfController.image}"
-												style="max-width:90px; max-height:80px; width: auto; height: auto;">
-												<f:param name="caminho" value="#{pessoajsfController.pessoa.caminhodaImagem}" />											
-											</p:graphicImage>
-									
-									</h:panelGrid>							
-
-								</p:panel>
-							</p:tab>
+							</p:tab>															
 
 							<p:tab id="tab4" title="Contatos">
 								<p:panel id="p_dados_contatos">
@@ -630,40 +590,6 @@
 												</p:column>
 											</p:dataTable>
 										</h:form>
-									</div>
-									
-									<div class="ui-g row-tab1">		
-										<div class="grupo3-info-pessoas-tab1">
-											<div class="ui-g-3">
-												<p:outputLabel value="Informe a Senha"
-													rendered="#{pessoajsfController.perfilLogado.renderizaPelaPagina('PAGINACLIENTES', pessoajsfController.pessoa)}" />
-													<br/>
-												<p:password size="18" maxlength="8"
-													value="#{pessoajsfController.usuario.senhaSemCript}"
-													required="true" requiredMessage="Informe a senha!!!"
-													rendered="#{pessoajsfController.perfilLogado.renderizaPelaPagina('PAGINACLIENTES', pessoajsfController.pessoa)}"
-													validatorMessage="O minimo de digitos para senha: '8'"
-													placeholder="8 letras e/ou digitos"
-													styleClass="input-info-pessoas-geral">
-													<f:validateLength minimum="8" />
-												</p:password>
-											</div>
-											<div class="ui-g-3">
-												<p:outputLabel value="Confirme a Senha"
-													rendered="#{pessoajsfController.perfilLogado.renderizaPelaPagina('PAGINACLIENTES', pessoajsfController.pessoa)}" />
-													<br/>
-												<p:password size="18" maxlength="8"
-													value="#{pessoajsfController.usuario.confSenha}"
-													required="true"
-													rendered="#{pessoajsfController.perfilLogado.renderizaPelaPagina('PAGINACLIENTES', pessoajsfController.pessoa)}"
-													requiredMessage="Informe a confirmação de senha."
-													validatorMessage="O minimo de digitos para confirmação senha: '8'"
-													placeholder="8 letras e/ou digitos"
-													styleClass="input-info-pessoas-geral">
-													<f:validateLength minimum="8" />
-												</p:password>
-											</div>
-										</div>
 									</div>
 									
 									<p:commandButton value="Salvar" process="@form" rendered="#{pessoajsfController.renderizaSalvar('SALVARCONTATO')}"
@@ -830,6 +756,35 @@
 										actionListener="#{pessoajsfController.merge}"
 										update=":mensagens :formTemplate:formLista:tabela" />
 
+								</p:panel>
+							</p:tab>
+							
+							<p:tab id="tab3" title="Foto de Perfil" rendered="#{pessoajsfController.renderizaFoto()}">
+								<p:panel id="p_perfil">
+
+									<h:panelGrid id="pF">
+										
+										<p:outputLabel for="upload" value="buscar e carregar  foto:" />
+											<p:fileUpload id="upload" mode="advanced"
+												fileUploadListener="#{pessoajsfController.upload}"
+												update=":mensagens :formTemplate:formCadastro:foto" auto="true"
+												style="font-size:15px;width:490px; " 
+												allowTypes="/(\.|\/)(#{pessoajsfController.tipoDeImagem})$/">
+												<p:graphicImage  />
+											</p:fileUpload>
+											<p:graphicImage id="foto" value="#{imagensjsfController.image}"
+												style="max-width:90px; max-height:80px; width: auto; height: auto;">
+												<f:param name="caminho" value="#{pessoajsfController.pessoa.caminhodaImagem}" />											
+											</p:graphicImage>
+									
+									</h:panelGrid>							
+									
+									<p:commandButton value="Salvar" process="@form" rendered="#{pessoajsfController.renderizaSalvar('SALVARFOTO')}"
+										oncomplete="PF('wiz').loadStep('tab1', true)"
+										styleClass="btao-info-pessoas"
+										actionListener="#{pessoajsfController.merge}"
+										update=":mensagens :formTemplate:formLista:tabela" />
+									
 								</p:panel>
 							</p:tab>
 

@@ -213,7 +213,7 @@ public class QRCodeDAO extends GenericDAO<QRCode> {
 				crit.add(or);
 			}
 
-			crit.addOrder(Order.asc("id"));
+			crit.addOrder(Order.asc("id")); 
 			
 
 			@SuppressWarnings("unchecked")

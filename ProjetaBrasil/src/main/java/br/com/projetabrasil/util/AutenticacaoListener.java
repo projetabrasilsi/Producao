@@ -23,7 +23,9 @@ public class AutenticacaoListener implements PhaseListener {
 		boolean ehPaginaAlfa = paginaCorrente.contains("alfapage.xhtml");
 		boolean ehPaginaAchei = paginaCorrente.contains("achei.xhtml");
 
-		if (!ehPaginadeAtutenticacao && !ehPaginaAchei) {
+		boolean ehPaginaAcheiPet = paginaCorrente.contains("acheipet.xhtml");
+
+		if (!ehPaginadeAtutenticacao && !ehPaginaAchei  && !ehPaginaAcheiPet) {
 			if (!ehPaginaAlfa) {
 				AutenticacaojsfController autenticacaojsfController = Faces
 						.getSessionAttribute("autenticacaojsfController");
