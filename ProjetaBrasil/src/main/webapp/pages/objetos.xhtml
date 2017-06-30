@@ -227,36 +227,6 @@
 
 						</h:panelGrid>
 
-						<h:panelGrid id="pF">
-							<p:outputLabel for="upload" value="Buscar e carregar Foto:" />
-							<p:fileUpload id="upload" mode="advanced"
-								fileUploadListener="#{objetojsfController.upload}"
-								update=":mensagens :formTemplate:formCadastro:foto" auto="true"
-								style="font-size:15px;width:490px; "
-								allowTypes="/(\.|\/)(#{objetojsfController.tipoDeImagem})$/">
-								<p:graphicImage />
-							</p:fileUpload>
-							<p:graphicImage id="foto" value="#{imagensjsfController.image}"
-								style="max-width:90px; max-height:80px; width: auto; height: auto;">
-								<f:param name="caminho"
-									value="#{objetojsfController.objeto.caminhodaImagem}" />
-							</p:graphicImage>
-						</h:panelGrid>
-						
-						<h:panelGrid id="pFAudio">
-							<p:outputLabel for="upload" value="Buscar e carregar Audio:" rendered="false"/>
-							<p:fileUpload id="uploadAudio" mode="advanced"
-								rendered="false"
-								fileUploadListener="#{objetojsfController.uploadAudio}"
-								update=":mensagens :formTemplate:formCadastro:audio" auto="true"
-								style="font-size:15px;width:490px; "
-								allowTypes="/(\.|\/)(#{objetojsfController.tipoDeAudio})$/">							
-							</p:fileUpload>
-							<p:media id="audio" value="#{imagensjsfController.audio}" width="200" height="20" player="quicktime" rendered="false">
-							    <f:param name="autoPlay" value="#{objetojsfController.objeto.caminhodoAudio}" />
-							</p:media>
-						</h:panelGrid>
-
 						<h:panelGrid columns="2" id="painelCadastro_7">
 							<p:panelGrid>
 								<p:commandButton value="Salvar" process="@form"
@@ -434,15 +404,30 @@
 							</h:form>
 						</div>
 
+					</p:tab>
+					
+					<p:tab id="tab4" title="Foto">
+						<h:panelGrid id="fotoObjeto">
+							<p:outputLabel for="upload" value="Buscar e carregar Foto:" />
+							<p:fileUpload id="upload" mode="advanced"
+								fileUploadListener="#{objetojsfController.upload}"
+								update=":mensagens :formTemplate:formCadastro:foto" auto="true"
+								style="font-size:15px;width:490px; "
+								allowTypes="/(\.|\/)(#{objetojsfController.tipoDeImagem})$/">
+								<p:graphicImage />
+							</p:fileUpload>
+							<p:graphicImage id="foto" value="#{imagensjsfController.image}"
+								style="max-width:90px; max-height:80px; width: auto; height: auto;">
+								<f:param name="caminho"
+									value="#{objetojsfController.objeto.caminhodaImagem}" />
+							</p:graphicImage>
+						</h:panelGrid>
+						
 						<p:commandButton value="Salvar" process="@this"
 							oncomplete="PF('wiz').loadStep('tab1', true)"
 							styleClass="btao-info-pessoas"
 							actionListener="#{objetojsfController.merge}"
 							update=":mensagens :formTemplate:formLista:tabela" />
-
-
-
-
 					</p:tab>
 
 				</p:wizard>
