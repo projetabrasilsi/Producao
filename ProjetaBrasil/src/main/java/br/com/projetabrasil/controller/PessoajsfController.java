@@ -711,11 +711,11 @@ public class PessoajsfController extends GenericController implements Serializab
 		// VALIDACAO PARA FOTO
 		Path caminhoTemp;
 		if (pessoa.getCaminhoTemp() != null && pessoa.getCaminhoTemp() !="") {
-			caminhoTemp = Paths.get(pessoa.getCaminhoTemp());
-			
-		}
-		else
+			caminhoTemp = Paths.get(pessoa.getCaminhoTemp());			
+		}else{
 			caminhoTemp= Paths.get(Utilidades.getBranco());
+		}
+			
 		       
 		pessoa = PessoaGenericBusiness.merge(pessoa, usuario, perfilLogado, true);
 		
@@ -1133,6 +1133,21 @@ public class PessoajsfController extends GenericController implements Serializab
 	}
 	
 	public boolean renderizaSalvar(String tipoSalvar) {
+		if(renderizaFoto()){
+			if(tipoSalvar.equals("SALVARCONTATO")){
+				return false;
+			}
+			if(tipoSalvar.equals("SALVARPRONTUARIO")){
+				return false;
+			}
+			if(tipoSalvar.equals("SALVAROBJETO")){
+				return false;
+			}
+			if(tipoSalvar.equals("SALVARFOTO")){
+				return true;
+			}
+		}
+		
 		if(renderizaObjeto()){
 			if(tipoSalvar.equals("SALVARCONTATO")){
 				return false;

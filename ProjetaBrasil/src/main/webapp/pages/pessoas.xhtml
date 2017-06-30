@@ -449,29 +449,6 @@
 								
 								</p:panel>
 							</p:tab>	
-							
-							<p:tab id="tab3" title="Foto de Perfil" rendered="false">
-								<p:panel id="p_perfil">
-
-									<h:panelGrid id="pF">
-										
-										<p:outputLabel for="upload" value="buscar e carregar  foto:" />
-											<p:fileUpload id="upload" mode="advanced"
-												fileUploadListener="#{pessoajsfController.upload}"
-												update=":mensagens :formTemplate:formCadastro:foto" auto="true"
-												style="font-size:15px;width:490px; " 
-												allowTypes="/(\.|\/)(#{pessoajsfController.tipoDeImagem})$/">
-												<p:graphicImage  />
-											</p:fileUpload>
-											<p:graphicImage id="foto" value="#{imagensjsfController.image}"
-												style="max-width:90px; max-height:80px; width: auto; height: auto;">
-												<f:param name="caminho" value="#{pessoajsfController.pessoa.caminhodaImagem}" />											
-											</p:graphicImage>
-									
-									</h:panelGrid>							
-
-								</p:panel>
-							</p:tab>
 
 							<p:tab id="tab4" title="Contatos">
 								<p:panel id="p_dados_contatos">
@@ -737,40 +714,7 @@
 
 
 										</h:panelGrid>
-									</h:panelGrid>
-
-									<div class="div-tb-wizard-tab3">
-										<h:form id="formListaObjeto">
-											<p:dataTable id="tabelaObjeto" emptyMessage="Sem Registros"
-												resizableColumns="true"
-												value="#{pessoajsfController.listaObjeto}" paginator="true"
-												rows="4" var="registro" styleClass="tabela-pessoas">
-
-												<p:column headerText="Classificação"
-													sortBy="registro.enum_Aux_Tipos_Objetos.descricao"
-													filterBy="tipo_Prontuario_Emergencia.descricao"
-													styleClass="geral-col-pessoas">
-													<h:outputText
-														value="#{registro.enum_Aux_Tipos_Objetos.descricao}" />
-												</p:column>
-
-
-												<p:column headerText="Excluir"
-													styleClass="excl-col-info-pessoas">
-													<p:commandButton icon="ui-icon-trash" process="@form"
-														actionListener="#{pessoajsfController.excluirObjeto}"
-														update=":formTemplate:formCadastro:formListaObjeto:tabelaObjeto"
-														styleClass="excl-btn-info-pessoas btn-color-red">
-														<p:confirm header="Confirmação"
-															message="Deseja realmente excluir este registro?"
-															icon="ui-icon-alert" />
-														<f:attribute name="registroAtualObjeto"
-															value="#{registro}" />
-													</p:commandButton>
-												</p:column>
-											</p:dataTable>
-										</h:form>
-									</div>
+									</h:panelGrid>									
 									
 									<div class="div-tb-wizard-tab3">
 										<h:form id="formListaObjeto">
@@ -803,14 +747,14 @@
 												</p:column>
 											</p:dataTable>
 										</h:form>
-									</div>
+									</div>																	
 									
 									<p:commandButton value="Salvar" process="@form" rendered="#{pessoajsfController.renderizaSalvar('SALVAROBJETO')}"
 										oncomplete="PF('wiz').loadStep('tab1', true)"
 										styleClass="btao-info-pessoas"
 										actionListener="#{pessoajsfController.merge}"
 										update=":mensagens :formTemplate:formLista:tabela" />
-
+									
 								</p:panel>
 							</p:tab>
 							
@@ -834,13 +778,7 @@
 									
 									</h:panelGrid>							
 									
-									<p:commandButton value="Salvar" process="@form" rendered="#{pessoajsfController.renderizaSalvar('SALVARFOTO')}"
-										oncomplete="PF('wiz').loadStep('tab1', true)"
-										styleClass="btao-info-pessoas"
-										actionListener="#{pessoajsfController.merge}"
-										update=":mensagens :formTemplate:formLista:tabela" />
-									
-								</p:panel>
+								
 								
 								<div class="ui-g row-tab1">		
 								<div class="grupo3-info-pessoas-tab1">
@@ -874,8 +812,17 @@
 										</p:password>
 									</div>
 								</div>
-							</div>
-							</p:tab>
+							</div>														
+							
+							<p:commandButton value="Salvar" process="@form" rendered="#{pessoajsfController.renderizaSalvar('SALVARFOTO')}"
+										oncomplete="PF('wiz').loadStep('tab1', true)"
+										styleClass="btao-info-pessoas"
+										actionListener="#{pessoajsfController.merge}"
+										update=":mensagens :formTemplate:formLista:tabela" />
+							
+							</p:panel>																
+							
+							</p:tab>														
 
 
 						</p:wizard>
