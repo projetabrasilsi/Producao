@@ -12,7 +12,7 @@
 		
 		<property name="hibernate.connection.url">jdbc:postgresql://179.188.20.241:5432/ProjetaBrasil</property> 												   
 		<property name="hibernate.connection.username">webadmin</property>
-		<property name="hibernate.connection.password">pMOrtIm2tF</property>
+		<property name="hibernate.connection.password">pMOrtIm2tF</property> 
 		
  
 		
@@ -20,8 +20,8 @@
 		<!-- 
 		
 		<property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/ProjetaBrasil</property> 
-			<property name="hibernate.connection.username">postgres</property> <property 
-			name="hibernate.connection.password">p2a3u0l9</property> 
+		<property name="hibernate.connection.username">postgres</property> 
+		<property name="hibernate.connection.password">p2a3u0l9</property> 
 		
 		
 		
@@ -32,7 +32,9 @@
 
 		<property name="hibernate.connection.url">jdbc:postgresql://179.188.20.241:5432/ProjetaBrasil</property> 												   
 		<property name="hibernate.connection.username">webadmin</property>
-		<property name="hibernate.connection.password">pMOrtIm2tF</property>-->
+		<property name="hibernate.connection.password">pMOrtIm2tF</property>
+		
+		-->
 
 
 		<property name="hibernate.c3p0.min_size">5</property>
