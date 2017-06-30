@@ -786,7 +786,40 @@
 											</p:dataTable>
 										</h:form>
 									</div>
+									
+									<div class="div-tb-wizard-tab3">
+										<h:form id="formListaObjeto">
+											<p:dataTable id="tabelaObjeto" emptyMessage="Sem Registros"
+												resizableColumns="true"
+												value="#{pessoajsfController.listaObjeto}" paginator="true"
+												rows="4" var="registro" styleClass="tabela-pessoas">
 
+												<p:column headerText="Classificação"
+													sortBy="registro.enum_Aux_Tipos_Objetos.descricao"
+													filterBy="tipo_Prontuario_Emergencia.descricao"
+													styleClass="geral-col-pessoas">
+													<h:outputText
+														value="#{registro.enum_Aux_Tipos_Objetos.descricao}" />
+												</p:column>
+
+
+												<p:column headerText="Excluir"
+													styleClass="excl-col-info-pessoas">
+													<p:commandButton icon="ui-icon-trash" process="@form"
+														actionListener="#{pessoajsfController.excluirObjeto}"
+														update=":formTemplate:formCadastro:formListaObjeto:tabelaObjeto"
+														styleClass="excl-btn-info-pessoas btn-color-red">
+														<p:confirm header="Confirmação"
+															message="Deseja realmente excluir este registro?"
+															icon="ui-icon-alert" />
+														<f:attribute name="registroAtualObjeto"
+															value="#{registro}" />
+													</p:commandButton>
+												</p:column>
+											</p:dataTable>
+										</h:form>
+									</div>
+									
 									<p:commandButton value="Salvar" process="@form" rendered="#{pessoajsfController.renderizaSalvar('SALVAROBJETO')}"
 										oncomplete="PF('wiz').loadStep('tab1', true)"
 										styleClass="btao-info-pessoas"
