@@ -139,13 +139,19 @@ public class PerfilLogado implements Serializable {
 
 	}
 	
-	public boolean renderizaPelaPagina(String permissao, Pessoa pessoa) {
+	public boolean renderizaPelaPagina(String permissao, Pessoa pessoa, String tipo) {
 		String pAtual = this.getPaginaAtual().toString();
-		if (pAtual.equals(permissao) && pessoa.getDescricao() != null) {
+		
+		if(pessoa.getEnum_Aux_Tipo_Identificador().equals(Enum_Aux_Tipo_Identificador.CPF) && tipo.equals("SENHACONTATO")){
 			return false;
 		}else{
-			return true;
+			if (pAtual.equals(permissao) && pessoa.getDescricao() != null) {
+				return false;
+			}else{
+				return true;
+			}
 		}
+				
 	}
 
 	public void listagemPerfisdousLogado() {
