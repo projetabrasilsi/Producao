@@ -8,6 +8,8 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import br.com.projetabrasil.util.CalendarSerializer;
+
 // @mappedSuperclass - indica que ela não é uma tabela mas que será usada por
 // outras classes para gerar tabela
 @MappedSuperclass
@@ -17,8 +19,9 @@ public class GenericDomain implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -4664956343242539547L;
-
+	
 	@Temporal(TemporalType.TIMESTAMP)
+	
 	private Calendar ultimaAtualizacao;
 	@Column(name = "id_empresa")
 	private int id_Empresa;
@@ -48,7 +51,8 @@ public class GenericDomain implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "GenericDomain [ultimaAtualizacao=" + ultimaAtualizacao + ", id_Empresa=" + id_Empresa + "]";
+		return "GenericDomain "+ "[ultimaAtualizacao=" + ultimaAtualizacao+ 
+				", id_Empresa=" + id_Empresa + "]";
 	}
 	@Override
 	public int hashCode() {

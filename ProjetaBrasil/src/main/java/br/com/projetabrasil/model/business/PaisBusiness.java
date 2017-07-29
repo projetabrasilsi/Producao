@@ -36,8 +36,21 @@ public class PaisBusiness implements Serializable {
 			p = merge(p);			
 		}
 		return p;
-			
+	}
+	
+	public static Pais VerificaPaisPadrao(String descricao,String sigla, Pessoa pes){
 		
+		Pais p = buscaPaisPeloNome(descricao);
+		if(p == null){
+			p = new Pais();
+			p.setDescricao(descricao);
+			p.setId_Empresa(1);
+			p.setSigla(sigla);
+			p.setUltimaAtualizacao(Utilidades.retornaCalendario());			
+			p.setId_Pessoa_Registro(pes);
+			p = merge(p);			
+		}
+		return p;
 	}
 
 	public static List<Pais> listar() {

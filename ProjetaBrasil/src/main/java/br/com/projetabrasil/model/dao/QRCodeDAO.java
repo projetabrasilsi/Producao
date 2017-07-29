@@ -44,6 +44,25 @@ public class QRCodeDAO extends GenericDAO<QRCode> {
 		}
 	}
 	
+	public QRCode buscaCodersId(Long id) {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+
+		QRCode resultado;
+		try {
+			Criteria crit = sessao.createCriteria(QRCode.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
+			crit.add(Restrictions.eq("id", id));
+			crit.setMaxResults(1);
+			resultado = (QRCode) crit.uniqueResult();
+			return resultado;
+		} catch (RuntimeException erro) {
+
+			throw erro;
+		} finally {
+			sessao.close();
+		}
+	}
+	
 	public List<Objeto> buscaObjetos(Enum_Aux_Status_QRCodes status, Objeto o) {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 
@@ -182,7 +201,7 @@ public class QRCodeDAO extends GenericDAO<QRCode> {
 			Disjunction or = Restrictions.disjunction();
 			if (perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.ADMINISTRADORES)
 					|| perfilLogado.getPerfilUsLogado().equals(Enum_Aux_Perfil_Pessoa.LOGISTICA)) {
-				crit.add(Restrictions.eq("status", Enum_Aux_Status_QRCodes.LIVRES));
+				crit.add(Restrictions.eq("status", Enum_Aux_Status_QRCodes.LIVRES ));
 				
 			} else
 
@@ -277,10 +296,55 @@ public class QRCodeDAO extends GenericDAO<QRCode> {
 			
 			crit.add(Restrictions.eq("id", id));	
 			crit.add(Restrictions.eq("cpf_Cnpj", cpf));							
-			crit.add(Restrictions.eq("tipo_Objeto", Enum_Aux_Tipos_Objetos.PETS));
-			crit.add(Restrictions.eq("status", Enum_Aux_Status_QRCodes.REVENDIDOS));
-			crit.setProjection(Projections.property("id_Pessoa_Cliente"));		
+			//crit.add(Restrictions.eq("tipo_Objeto", Enum_Aux_Tipos_Objetos.PETS));
+			//crit.add(Restrictions.eq("status", Enum_Aux_Status_QRCodes.REVENDIDOS));
+			crit.setProjection(Projections.property("id_Pessoa_Cliente"));
+			crit.setMaxResults(1);
 			resultado = (Pessoa) crit.uniqueResult();
+			return resultado;
+		} catch (RuntimeException erro) {
+			erro.printStackTrace();
+			throw erro;
+		} finally {
+			sessao.close();
+		}
+	}
+	
+	public QRCode buscaQRCodePorCpfEId(String cpf, Long id) {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+
+		QRCode resultado = new QRCode();
+		try {
+			Criteria crit = sessao.createCriteria(QRCode.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);		
+			
+			crit.add(Restrictions.eq("id", id));	
+			crit.add(Restrictions.eq("cpf_Cnpj", cpf));							
+			
+						
+			crit.setMaxResults(1);
+			resultado = (QRCode) crit.uniqueResult();
+			return resultado;
+		} catch (RuntimeException erro) {
+			erro.printStackTrace();
+			throw erro;
+		} finally {
+			sessao.close();
+		}
+	}
+	
+	public QRCode buscaPorCPFCNPJ(String cpf, Long id) {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+
+		QRCode resultado = new QRCode();
+		try {
+			Criteria crit = sessao.createCriteria(QRCode.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);		
+			
+			crit.add(Restrictions.eq("id", id));	
+			crit.add(Restrictions.eq("cpf_Cnpj", cpf));							
+			
+			
+			crit.setMaxResults(1);
+			resultado = (QRCode) crit.uniqueResult();
 			return resultado;
 		} catch (RuntimeException erro) {
 			erro.printStackTrace();

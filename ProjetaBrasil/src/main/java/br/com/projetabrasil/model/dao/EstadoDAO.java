@@ -47,6 +47,22 @@ public class EstadoDAO extends GenericDAO<Estado> {
 		}
 	}
 	
+	
+	public Estado buscaEstadoPeloNome(String descricao, Pais p) {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		try {
+			Criteria consulta = sessao.createCriteria(Estado.class);
+			consulta.add(Restrictions.like("descricao", descricao));
+			consulta.add(Restrictions.like("pais", p));
+			return (Estado) consulta.uniqueResult();
+		} catch (RuntimeException error) {
+			error.printStackTrace();
+			throw error;
+		} finally {
+			sessao.close();
+		}
+	}
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<Estado> buscaEstadoPorPais(Pais p) {
 		if(p!=null && p.getId()==null)
@@ -75,6 +91,20 @@ public class EstadoDAO extends GenericDAO<Estado> {
 		try {
 			Criteria consulta = sessao.createCriteria(Estado.class);
 			consulta.add(Restrictions.like("sigla", descricao));
+			return (Estado) consulta.uniqueResult();
+		} catch (RuntimeException error) {
+			error.printStackTrace();
+			throw error;
+		} finally {
+			sessao.close();
+		}
+	}
+	public Estado buscaEstadoPelaSigla(String descricao, Pais p) {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		try {
+			Criteria consulta = sessao.createCriteria(Estado.class);
+			consulta.add(Restrictions.like("sigla", descricao));
+			consulta.add(Restrictions.like("pais", p));
 			return (Estado) consulta.uniqueResult();
 		} catch (RuntimeException error) {
 			error.printStackTrace();

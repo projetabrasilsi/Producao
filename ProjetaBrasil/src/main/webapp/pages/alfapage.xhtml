@@ -12,11 +12,12 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<f:facet name="first">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-    </f:facet>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+	</f:facet>
 	<!--<h:outputStylesheet library="css" name="clubefidelidade.css" />-->
 	<!--<h:outputStylesheet library="css" name="style.css" />-->
 	<h:outputScript library="js" name="pessoas.js" />
@@ -27,231 +28,262 @@
 </h:head>
 
 
-<h:body styleClass="container-fluid"><!-- Body -->
-	
-	
+<h:body styleClass="container-fluid">
+	<!-- Body -->
+
+
 	<p:growl id="mensagens" autoUpdate="true" redisplay="true" />
-	
+
 	<!-- Static navbar -->
-      <div class="navbar">
-        
-          <div class="navbar-header">
-          	<a class="navbar-brand-mob visible-xs" href="#"></a>
-            <a class="navbar-brand hidden-xs" href="#"></a>
-          </div>
-          <div class="navbar-collapse">
-			<h:form>
-	            <ul class="navbar-right">
-	              <!-- <li class="oque"><a href="#">O que é? &nbsp;-</a></li>
+	<h:form>
+	<div class="navbar">
+
+		<div class="navbar-header">
+			<a class="navbar-brand-mob visible-xs" href="#"></a> <a
+				class="navbar-brand hidden-xs" href="#"></a>
+		</div>
+		<div class="navbar-collapse">
+			
+				<ul class="navbar-right">
+					<!-- <li class="oque"><a href="#">O que é? &nbsp;-</a></li>
 	              <li class="faq"><a href="#">FAQ &nbsp;&nbsp;&nbsp;|</a></li> -->
-	              <li><p:commandButton styleClass="log" value="Entrar"
+					<li><p:commandButton styleClass="log" value="Entrar"
 							actionListener="#{autenticacaojsfController.renderizar(false)}" /></li>
-	              <!-- <li><p:commandButton styleClass="reg" value="Auto pontuar"
+					<!-- <li><p:commandButton styleClass="reg" value="Auto pontuar"
 							oncomplete="PF('dialogoPontuar').show(); PF('dialogoPontuar').content.scrollTop('0')" /></li>
                   <li><p:commandButton styleClass="reg" value="Auto Cadastro"
 							oncomplete="PF('dialogoVerificar').show(); PF('dialogoVerificar').content.scrollTop('0')"
 							update=":formVerificar:painelIdentificacao  :formVerificar:labelsenha 
 							:formVerificar:idsenha" /></li> -->
-	            </ul>
-            </h:form>
-          </div><!--/.nav-collapse -->
+				</ul>
+			
+		</div>
+		<!--/.nav-collapse -->
 
-          <!-- Sub-navbar -->
-          <div class="sub-navbar">
-          	<ul >
-          	  <li><a class="p2" href=""><i class="fa fa-pie-chart"></i> FidelidadeBrasil</a></li>
-              <li><a class="p1" href=""><i class="fa fa-pie-chart"></i> GoTaxi</a></li>
-              <li><a class="p3" href=""><i class="fa fa-pie-chart"></i> Estoque de barras</a></li>
-              <li><a class="p4" href="./faces/pages/acheipet.xhtml"><i class="fa fa-pie-chart"></i> Achei-Pet</a></li>
-              <li><a class="p4" href=""><i class="fa fa-pie-chart"></i> Achei-Car</a></li>
-              <li><a class="p4" href=""><i class="fa fa-pie-chart"></i> Achei-Phone</a></li>
-            </ul>
-           
-          </div><!--/.sub-navbar -->
-      </div>
-      
-      
-	
-	<!-- Slider -->
-    <div class="slider">
-      <div class="fill">       
-      </div>
-    </div>
-	
-	<!-- Page Content -->
-    <div class="conteudo">
-    
-    <!-- sujestoes -->
-	<div class="warp-suject">
-	    <div class="conteiner-sujest">
-	    	
-	    	<div class="div-btao">
-	    	<h5>Sugestões</h5>
-	    	</div>
-	    	<div class="div-texto">
-			  <h:form styleClass="box-texto-suject"> 
-			  
-			     <p:inputTextarea rows="6" cols="33" 
-			          maxlength="500"/>
+		<!-- Sub-navbar -->
+		<div class="sub-navbar">
+			<ul>
+				<li><a class="p2" href=""><i class="fa fa-pie-chart"></i>
+						FidelidadeBrasil</a></li>
+				<li><a class="p1" href=""><i class="fa fa-pie-chart"></i>
+						GoTaxi</a></li>
+				<li><a class="p3" href=""><i class="fa fa-pie-chart"></i>
+						Estoque de barras</a></li>
+				<li><a class="p4" href=""><i class="fa fa-pie-chart"></i> 
 
-			      <p:growl id="growl" life="2000" />
-				  <p:commandButton value="Enviar" 
-					    id="ajax" update="growl" 
-					    actionListener="#{buttonView.buttonAction}" 
-					    styleClass="btao-box-suject"/>
-			 </h:form>
-	      </div>
-	    </div>
+							<p:commandLink id="ajax"
+								actionListener="#{paginas.mudaPaginaAtual}">
+								<f:attribute name="paginaAtual" value="PAGINAACHEIPET" />
+
+								<p:ajax
+									listener="#{autenticacaojsfController.redirecionapaginaIndex()}" />
+
+								<h:outputText value="Achei Pet" />
+							</p:commandLink>
+						 </a></li>
+				<li><a class="p4" href=""><i class="fa fa-pie-chart"></i>
+						Achei-Car</a></li>
+				<li><a class="p4" href=""><i class="fa fa-pie-chart"></i>
+						Achei-Phone</a></li>
+			</ul>
+
+		</div>
+		<!--/.sub-navbar -->
 	</div>
-      <!-- FUNDO / CONTEUDO(TEXTO) -->
-      
-    			<div class="sobre">
-    				<h1>Sobre a Projeta Brasil</h1>
-    				<p>Somos uma STARTUP localizada em Florianópolis e nosso propósito se baseia na especialização
-						em desenvolvimento de soluções inteligentes em tecnologia. Nosso trabalho visa abarcar e
-						transformar idéias próprias ou de terceiros -"Investidores" em produtos, com grande potencial
-						de mercado. Temos um time multidisciplicar antenado com as tendências mais atuais em tecnologia
-						e com grande visibilidade de mercado, aberto a novos desafios. 
-						O Objetivo da Projeta Brasil é colocar seus produtos inteligentes e de qualidade no mercado de 
-						forma que possa facilitar com o dia a dia de seus usuários através dos melhores e mais atuais
-						conceitos de usabilidade. Buscando sempre ser parceira em projetos que tenham grande cunho social.
-    				</p>
-    			</div>
-    			
-    	<div class="produtos">
+	</h:form>
 
-    		<h2>Produtos</h2>
 
-            <div class="grupo-produtos">
-              <div class="row">
-                <div class="col-md-6 col-lg-2 texto">
-                  <div class="logo-gotaxi"></div>
-                  <h3>GOTAXI</h3>
-                  <br/>
-                  	<h5 class="fase">Fase: Desenvolvimento</h5>
-                  <p>Software de mobiliade urbana cuja finalidade visa em carater social,
-						trazer benefícios aos usuários do serviço privado de mobiliade urbana e também
-						a valorização e reconhecimento dos prestadores de serviço.</p>
-                  <div class="div-h4-produtos">
-                  	<h4 class="saiba-mais01" >SAIBA MAIS</h4>
-                  </div>
-                </div>
-                <div class="col-md-6 col-lg-2 texto">
-                  <div class="logo-fidelidade"></div>
-                  <h3>FIDELIDADE BRASIL</h3>
-                  <br/>
-                  	<h5 class="fase">Fase: Desenvolvimento</h5>
-                  <p>Software cuja finalidade será integrar a população ao serviço de fideliade, onde
-						pelo valor de seus gastos junto ao comércio, será acumulado créditos para serem utilizados
-						nos estabelecimentos associados.</p>
-                  <div class="div-h4-produtos">
-                  	<h4 class="saiba-mais02">SAIBA MAIS</h4>
-                  </div>
-                </div>
-                <div class="col-md-6 col-lg-2 texto">
-                  <div class="logo-barra"></div>
-                  <h3>CODIGO DE BARRAS</h3>
-                  <br/>
-                  	<h5 class="fase">Fase: Desenvolvimento</h5>
-                  <p>Software voltado para o auxílio do pequeno empresário que tem a necessidade
-de contagem 			diária de estoque. Será feito através do mobile, assim agilizando o processo de validação de estoque de seu empreendimento. </p>
-                  <div class="div-h4-produtos">
-                  	<h4 class="saiba-mais03">SAIBA MAIS</h4>
-                  </div>
-                </div>
-                <div class="col-md-6 col-lg-2 texto">
-                  <div class="logo-pet"></div>
-                  <h3>ACHEI-PET</h3>
-                  <br/>
-                  	<h5 class="fase">Fase: Comercial</h5>
-                  <p>Software voltado para o auxílio da devolução do pet ao seu dono no caso
-						de fulga. Nele estará contido todas as informações necessárias, além de um prontuário
-						resumido, em caso de acidente.</p>
-                  <div class="div-h4-produtos">
-                  	<h4 class="saiba-mais04">SAIBA MAIS</h4>
-                  </div>
-                </div>
-                <div class="col-md-6 col-lg-2 texto">
-                  <div class="logo-car"></div>
-                  <h3>ACHEI-CAR</h3>
-                  <br/>
-                  	<h5 class="fase">Fase: Comercial</h5>
-                  <p>Software voltado para o auxílio da devolução do tanto de veículos abandonados,
-					quanto informações necessárias sobre contatos do proprietário do veículo em casos
-					de acidentes e informações, como tipo sanguineo e alergias.</p>
-                  <div class="div-h4-produtos">
-                  	<h4 class="saiba-mais05">SAIBA MAIS</h4>
-                  </div>
-                </div>
-                <div class="col-md-6 col-lg-2 texto">
-                  <div class="logo-phone"></div>
-                  <h3>ACHEI-PHONE</h3>
-                  <br/>
-                  	<h5 class="fase">Fase: Comercial</h5>
-                  <p>Software voltado para o auxílio da devolução do tanto de celulares esquecidos,
-					quanto informações necessárias sobre contatos do proprietário do celular em caso de acidentes.
-					 Informações como o tipo sanguineo e alergias.</p>
-                  <div class="div-h4-produtos">
-                  	<h4 class="saiba-mais06">SAIBA MAIS</h4>
-                  </div>
-                </div>
-              </div><!-- /.row -->
-            </div>
-    	</div>
-    			
-    	<div class="proposta">
-    			<h2>Multiplataforma</h2>
-    		
-    			<div class="col-lg-12 visible-sm visible-xs div-iphone-mob">
-                <div class="iphone-mob"></div>
-              </div>
-         
-            <div class="row">
-              <div class="col-md-12 texto">
-                <p>
-				A Projeta Brasil tem como meta proporcionar a melhor experiencia possível com o uso de nossos produtos,
-				para isso desenvolvemos nossas soluções inteligentes de forma que possa ser acessada de múltiplos tamanhos de telas, equipamentos,
-				e sistemas operacionais. Para smartphones temos o foco para os sistemas IOS(IPhone) e Android, com o propósito de atender
-				todos os nossos clientes. Para notebooks e desktops optamos pelo desenvolvimento WEB, pois dessa forma conseguimos atender
-				usuários de diferentes sistemas operacionais, como, Windows, MAC, e Linux.
-                </p>
 
-              </div>
-              <div class="col-lg-6 img visible-md visible-lg">
-                <div class="iphone"></div>
-              </div>
-            </div>
-    	</div>
-          
- 
+	<!-- Slider -->
+	<div class="slider">
+		<div class="fill"></div>
+	</div>
 
-    </div><!-- /.conteudo -->
-	
-	
+	<!-- Page Content -->
+	<div class="conteudo">
+
+		<!-- sujestoes -->
+		<div class="warp-suject">
+			<div class="conteiner-sujest">
+
+				<div class="div-btao">
+					<h5>Sugestões</h5>
+				</div>
+				<div class="div-texto">
+					<h:form styleClass="box-texto-suject">
+
+						<p:inputTextarea rows="6" cols="33" maxlength="500" />
+
+						<p:growl id="growl" life="2000" />
+						<p:commandButton value="Enviar" id="ajax" update="growl"
+							actionListener="#{buttonView.buttonAction}"
+							styleClass="btao-box-suject" />
+					</h:form>
+				</div>
+			</div>
+		</div>
+		<!-- FUNDO / CONTEUDO(TEXTO) -->
+
+		<div class="sobre">
+			<h1>Sobre a Projeta Brasil</h1>
+			<p>Somos uma STARTUP localizada em Florianópolis e nosso
+				propósito se baseia na especialização em desenvolvimento de soluções
+				inteligentes em tecnologia. Nosso trabalho visa abarcar e
+				transformar idéias próprias ou de terceiros -"Investidores" em
+				produtos, com grande potencial de mercado. Temos um time
+				multidisciplicar antenado com as tendências mais atuais em
+				tecnologia e com grande visibilidade de mercado, aberto a novos
+				desafios. O Objetivo da Projeta Brasil é colocar seus produtos
+				inteligentes e de qualidade no mercado de forma que possa facilitar
+				com o dia a dia de seus usuários através dos melhores e mais atuais
+				conceitos de usabilidade. Buscando sempre ser parceira em projetos
+				que tenham grande cunho social.</p>
+		</div>
+
+		<div class="produtos">
+
+			<h2>Produtos</h2>
+
+			<div class="grupo-produtos">
+				<div class="row">
+					<div class="col-md-6 col-lg-2 texto">
+						<div class="logo-gotaxi"></div>
+						<h3>GOTAXI</h3>
+						<br />
+						<h5 class="fase">Fase: Desenvolvimento</h5>
+						<p>Software de mobiliade urbana cuja finalidade visa em
+							carater social, trazer benefícios aos usuários do serviço privado
+							de mobiliade urbana e também a valorização e reconhecimento dos
+							prestadores de serviço.</p>
+						<div class="div-h4-produtos">
+							<h4 class="saiba-mais01">SAIBA MAIS</h4>
+						</div>
+					</div>
+					<div class="col-md-6 col-lg-2 texto">
+						<div class="logo-fidelidade"></div>
+						<h3>FIDELIDADE BRASIL</h3>
+						<br />
+						<h5 class="fase">Fase: Desenvolvimento</h5>
+						<p>Software cuja finalidade será integrar a população ao
+							serviço de fideliade, onde pelo valor de seus gastos junto ao
+							comércio, será acumulado créditos para serem utilizados nos
+							estabelecimentos associados.</p>
+						<div class="div-h4-produtos">
+							<h4 class="saiba-mais02">SAIBA MAIS</h4>
+						</div>
+					</div>
+					<div class="col-md-6 col-lg-2 texto">
+						<div class="logo-barra"></div>
+						<h3>CODIGO DE BARRAS</h3>
+						<br />
+						<h5 class="fase">Fase: Desenvolvimento</h5>
+						<p>Software voltado para o auxílio do pequeno empresário que
+							tem a necessidade de contagem diária de estoque. Será feito
+							através do mobile, assim agilizando o processo de validação de
+							estoque de seu empreendimento.</p>
+						<div class="div-h4-produtos">
+							<h4 class="saiba-mais03">SAIBA MAIS</h4>
+						</div>
+					</div>
+					<div class="col-md-6 col-lg-2 texto">
+						<div class="logo-pet"></div>
+						<h3>ACHEI-PET</h3>
+						<br />
+						<h5 class="fase">Fase: Comercial</h5>
+						<p>Software voltado para o auxílio da devolução do pet ao seu
+							dono no caso de fulga. Nele estará contido todas as informações
+							necessárias, além de um prontuário resumido, em caso de acidente.</p>
+						<div class="div-h4-produtos">
+							<h4 class="saiba-mais04">SAIBA MAIS</h4>
+						</div>
+					</div>
+					<div class="col-md-6 col-lg-2 texto">
+						<div class="logo-car"></div>
+						<h3>ACHEI-CAR</h3>
+						<br />
+						<h5 class="fase">Fase: Comercial</h5>
+						<p>Software voltado para o auxílio da devolução do tanto de
+							veículos abandonados, quanto informações necessárias sobre
+							contatos do proprietário do veículo em casos de acidentes e
+							informações, como tipo sanguineo e alergias.</p>
+						<div class="div-h4-produtos">
+							<h4 class="saiba-mais05">SAIBA MAIS</h4>
+						</div>
+					</div>
+					<div class="col-md-6 col-lg-2 texto">
+						<div class="logo-phone"></div>
+						<h3>ACHEI-PHONE</h3>
+						<br />
+						<h5 class="fase">Fase: Comercial</h5>
+						<p>Software voltado para o auxílio da devolução do tanto de
+							celulares esquecidos, quanto informações necessárias sobre
+							contatos do proprietário do celular em caso de acidentes.
+							Informações como o tipo sanguineo e alergias.</p>
+						<div class="div-h4-produtos">
+							<h4 class="saiba-mais06">SAIBA MAIS</h4>
+						</div>
+					</div>
+				</div>
+				<!-- /.row -->
+			</div>
+		</div>
+
+		<div class="proposta">
+			<h2>Multiplataforma</h2>
+
+			<div class="col-lg-12 visible-sm visible-xs div-iphone-mob">
+				<div class="iphone-mob"></div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12 texto">
+					<p>A Projeta Brasil tem como meta proporcionar a melhor
+						experiencia possível com o uso de nossos produtos, para isso
+						desenvolvemos nossas soluções inteligentes de forma que possa ser
+						acessada de múltiplos tamanhos de telas, equipamentos, e sistemas
+						operacionais. Para smartphones temos o foco para os sistemas
+						IOS(IPhone) e Android, com o propósito de atender todos os nossos
+						clientes. Para notebooks e desktops optamos pelo desenvolvimento
+						WEB, pois dessa forma conseguimos atender usuários de diferentes
+						sistemas operacionais, como, Windows, MAC, e Linux.</p>
+
+				</div>
+				<div class="col-lg-6 img visible-md visible-lg">
+					<div class="iphone"></div>
+				</div>
+			</div>
+		</div>
+
+
+
+	</div>
+	<!-- /.conteudo -->
+
+
 	<!-- Footer -->
-    <div class="footer">
-      <div class="row">
-          <div class="col-md-6 col-sm-12 footer-geral sobre-footer">
-            <ul>
-              <li><h4>Sobre a Projeta Brasil</h4></li>
-              <li><a href="#">O que é a Projeta Brasil</a></li>
-              <li><a href="#">FAQ</a></li>
-              <li><a href="#">Proposta</a></li>
-              <li><a href="#">Fale conosco</a></li>
-            </ul>
-          </div>
-          <div class="col-md-6 col-sm-12 footer-geral produtos-footer">
-            <ul>
-              <li><h4>Produtos Projeta Brasil</h4></li>
-              <li><a href="#">GoTaxi</a></li>
-              <li><a href="#">FidelidadeBrasil</a></li>
-              <li><a href="#">Estoque em Barras</a></li>
-               <li><a href="#">Achei-Pet</a></li>
-                <li><a href="#">Achei-Car</a></li>
-                 <li><a href="#">Achei-Phone</a></li>
-            </ul>
-          </div>
-          <!-- <div class="col-md-4 col-sm-12 social-footer">
+	<div class="footer">
+		<div class="row">
+			<div class="col-md-6 col-sm-12 footer-geral sobre-footer">
+				<ul>
+					<li><h4>Sobre a Projeta Brasil</h4></li>
+					<li><a href="#">O que é a Projeta Brasil</a></li>
+					<li><a href="#">FAQ</a></li>
+					<li><a href="#">Proposta</a></li>
+					<li><a href="#">Fale conosco</a></li>
+				</ul>
+			</div>
+			<div class="col-md-6 col-sm-12 footer-geral produtos-footer">
+				<ul>
+					<li><h4>Produtos Projeta Brasil</h4></li>
+					<li><a href="#">GoTaxi</a></li>
+					<li><a href="#">FidelidadeBrasil</a></li>
+					<li><a href="#">Estoque em Barras</a></li>
+					<li><a href="#">Achei-Pet</a></li>
+					<li><a href="#">Achei-Car</a></li>
+					<li><a href="#">Achei-Phone</a></li>
+				</ul>
+			</div>
+			<!-- <div class="col-md-4 col-sm-12 social-footer">
             <h5>Nos siga nas redes sociais</h5>
             <div>
               <ul>
@@ -261,13 +293,14 @@ de contagem 			diária de estoque. Será feito através do mobile, assim agiliza
               </ul>
             </div>
           </div> -->
-        <div class="col-xs-12 ass-footer">
-          <p>Projeta Brasil® • Todos os direitos reservados.</p>
-        </div> 
-      </div><!--/.row-->
-    </div>
-	
-	
+			<div class="col-xs-12 ass-footer">
+				<p>Projeta Brasil® • Todos os direitos reservados.</p>
+			</div>
+		</div>
+		<!--/.row-->
+	</div>
+
+
 	<!-- FIM HOME -->
 	<div>
 
@@ -288,14 +321,14 @@ de contagem 			diária de estoque. Será feito através do mobile, assim agiliza
 						value="#{auto.autoPes.enum_Aux_Tipo_Identificador}"
 						layout="pageDirection" columns="5"
 						converter="omnifaces.SelectItemsConverter"
-						
-							listener="#{auto.checaPessoa()}" >
+						listener="#{auto.checaPessoa()}">
 						<f:selectItems value="#{auto.listaTipodeIdentificadores}" var="c"
-							itemLabel="#{c.descricao}" itemValue="#{c}"/>
-							
-							<p:ajax event="change" update="identificador idsenha" process="@this"
+							itemLabel="#{c.descricao}" itemValue="#{c}" />
+
+						<p:ajax event="change" update="identificador idsenha"
+							process="@this"
 							oncomplete="$(function(){PrimeFaces.focus('identificador');});" />
-						
+
 					</p:selectOneRadio>
 
 					<p:outputLabel value="Informe CPF/CNPJ" />
@@ -303,19 +336,22 @@ de contagem 			diária de estoque. Será feito através do mobile, assim agiliza
 						value="#{auto.autoPes.identificador}" required="true"
 						requiredMessage="É preciso informar a identificação!!!"
 						mask="#{auto.autoPes.enum_Aux_Tipo_Identificador.mask}">
-						
-													
-							<p:ajax event="blur" process="@form"
+
+
+						<p:ajax event="blur" process="@form"
 							listener="#{auto.checaPessoa()}"
 							update="idlabel1 idlabel2 idsenha formVerificar:labelsenha" />
-						
-						</p:inputMask>
+
+					</p:inputMask>
 					<p:outputLabel value="Fidelizado:" />
 					<p:outputLabel id="idlabel1" value="#{auto.autoPes.descricao}" />
-					<p:outputLabel id="idlabel2" value="#{auto.autoPes.fantasia_Apelido}" />
+					<p:outputLabel id="idlabel2"
+						value="#{auto.autoPes.fantasia_Apelido}" />
 
-					<p:outputLabel id="labelsenha" value="Informe a Senha" rendered="#{auto.renderizaSenha}" />
-					<p:password id="idsenha" size="30" maxlength="8" rendered="#{auto.renderizaSenha}"							
+					<p:outputLabel id="labelsenha" value="Informe a Senha"
+						rendered="#{auto.renderizaSenha}" />
+					<p:password id="idsenha" size="30" maxlength="8"
+						rendered="#{auto.renderizaSenha}"
 						value="#{auto.autoUs.senhaSemCript}" required="true"
 						requiredMessage="Informe a senha!!!"
 						validatorMessage="O minimo de digitos para senha: '8'"

@@ -3,6 +3,8 @@ package br.com.projetabrasil.util;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -30,6 +32,7 @@ import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.codec.binary.Base64;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -45,15 +48,25 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
 
 import antlr.StringUtils;
+import br.com.projetabrasil.model.dao.BairroDAO;
+import br.com.projetabrasil.model.dao.CidadeDAO;
+import br.com.projetabrasil.model.dao.EstadoDAO;
+import br.com.projetabrasil.model.dao.LogradouroDAO;
+import br.com.projetabrasil.model.dao.PaisDAO;
 import br.com.projetabrasil.model.dao.PessoaDAO;
 import br.com.projetabrasil.model.dao.Pessoa_Enum_Aux_Perfil_PessoasDAO;
 import br.com.projetabrasil.model.dao.Pessoa_VinculoDAO;
 import br.com.projetabrasil.model.dao.UsuarioDAO;
 import br.com.projetabrasil.model.entities.Agendamento;
+import br.com.projetabrasil.model.entities.Bairro;
+import br.com.projetabrasil.model.entities.Cidade;
 import br.com.projetabrasil.model.entities.Enum_Aux_Perfil_Pessoa;
 import br.com.projetabrasil.model.entities.Enum_Aux_Sim_ou_Nao;
 import br.com.projetabrasil.model.entities.Enum_Aux_Tipo_Item_de_Movimento;
+import br.com.projetabrasil.model.entities.Estado;
+import br.com.projetabrasil.model.entities.Logradouro;
 import br.com.projetabrasil.model.entities.Movimento_Detalhe_A;
+import br.com.projetabrasil.model.entities.Pais;
 import br.com.projetabrasil.model.entities.PerfilLogado;
 import br.com.projetabrasil.model.entities.Pessoa;
 import br.com.projetabrasil.model.entities.Pessoa_Enum_Aux_Perfil_Pessoa;
@@ -69,7 +82,11 @@ public class Utilidades implements Serializable {
 	private static final String caminhoFotoPessoas = System.getProperty("user.home") + "/imagens/pessoas/";
 	private static final String caminhoFotoObjetos = System.getProperty("user.home") + "/imagens/objetos/";
 	private static final String caminhoAudioObjetos = System.getProperty("user.home") + "/audios/objetos/";
-	
+	private static final String caminhoIptu = System.getProperty("user.home") + "/xls/iptu/";
+
+	public static String getCaminhoiptu() {
+		return caminhoIptu;
+	}
 
 	private static final String caminhoFotoVouchers = System.getProperty("user.home") + "/imagens/vouchers/";
 	private static final String caminhoFotoAgendamento = System.getProperty("user.home") + "/imagens/agendamento/";
@@ -87,7 +104,8 @@ public class Utilidades implements Serializable {
 	private static final String branco = Utilidades.getCaminhobase() + "branco" + Utilidades.getTipoImagem();
 	private static final String branco2 = Utilidades.getCaminhobase2() + "branco" + Utilidades.getTipoImagem();
 	private static final String brancoaudio = Utilidades.getCaminhobaseaudio() + "branco" + Utilidades.getTipoImagem();
-	private static final String brancoaudio2 = Utilidades.getCaminhobaseaudio2()  + "branco" + Utilidades.getTipoImagem();
+	private static final String brancoaudio2 = Utilidades.getCaminhobaseaudio2() + "branco"
+			+ Utilidades.getTipoImagem();
 	private static final String naoatingido = "/images/" + "naoatingido" + Utilidades.getTipoImagem();
 	private static final String atingido = "/images/" + "atingido" + Utilidades.getTipoImagem();
 	private static final float umaTememCm = 2.54f;
@@ -113,6 +131,79 @@ public class Utilidades implements Serializable {
 		}
 
 		return retorno;
+
+	}
+
+	public static String encodeImage(byte[] imageByteArray) {
+		return Base64.encodeBase64URLSafeString(imageByteArray);
+	}
+
+	/**
+	 * Decodes the base64 string into byte array
+	 *
+	 * @param imageDataString
+	 *            - a {@link java.lang.String}
+	 * @return byte array
+	 */
+	public static byte[] decodeImage(String imageDataString) {
+		return Base64.decodeBase64(imageDataString);
+	}
+
+	public static void converterTextoemImagem(String imageDataString, String caminho) {
+		byte[] imageByteArray = decodeImage(imageDataString);
+
+		// Write a image byte array into file system
+		try {
+			FileOutputStream imageOutFile = new FileOutputStream(caminho);
+			imageOutFile.write(imageByteArray);
+			imageOutFile.close();
+			System.out.println("Image Successfully Manipulated!");
+
+		} catch (FileNotFoundException e) {
+			System.out.println("Image not found" + e);
+		} catch (IOException ioe) {
+			System.out.println("Exception while reading the Image " + ioe);
+		}
+
+	}
+
+	public static boolean salvarImagemTemporaria(byte[] imageByteArray) {
+		InputStream is = new ByteArrayInputStream(imageByteArray);
+		Path arquivoTemp;
+		try {
+			arquivoTemp = Files.createTempFile(null, null);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+		try {
+			Files.copy(is, arquivoTemp, StandardCopyOption.REPLACE_EXISTING);
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public static String converterImagememTexto(String caminho) {
+
+		File file = new File(caminho);
+
+		// Write a image byte array into file system
+		String imageDataString = null;
+		try {
+			// Reading a Image file from file system
+			FileInputStream imageInFile = new FileInputStream(file);
+			byte imageData[] = new byte[(int) file.length()];
+			imageInFile.read(imageData);
+			imageDataString = encodeImage(imageData);
+			imageInFile.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Image not found" + e);
+		} catch (IOException ioe) {
+			System.out.println("Exception while reading the Image " + ioe);
+		}
+		return imageDataString;
 
 	}
 
@@ -147,6 +238,9 @@ public class Utilidades implements Serializable {
 		}
 
 	}
+	
+	
+
 	public static String getCaminhofotopessoas() {
 		return caminhoFotoPessoas;
 	}
@@ -277,6 +371,19 @@ public class Utilidades implements Serializable {
 		Integer digito1 = calcularDigito(cnpj.substring(0, 12), pesoCNPJ);
 		Integer digito2 = calcularDigito(cnpj.substring(0, 12) + digito1, pesoCNPJ);
 		return cnpj.equals(cnpj.substring(0, 12) + digito1.toString() + digito2.toString());
+	}
+
+	public static String retornaSomenteNumeros(String texto) {
+		if (texto != null) {
+
+			return texto.replaceAll("[^0123456789]", "");
+
+		} else {
+
+			return "";
+
+		}
+
 	}
 
 	public static boolean isEmailValid(String email) {
@@ -437,21 +544,19 @@ public class Utilidades implements Serializable {
 		JSONParser parser = new JSONParser();
 		CEP cep = new CEP();
 		try {
-			
+
 			FileReader fileReader = new FileReader(file);
 			JSONObject json = (JSONObject) parser.parse(fileReader);
-		    cep.setBairro((String) json.get("bairro"));
-		    cep.setLocalidade((String) json.get("localidade"));
-		    cep.setComplemento((String) json.get("complemento"));
-		    cep.setIbge((String) json.get("ibge"));
-		    cep.setLogradouro((String) json.get("logradouro"));
-		    cep.setUf((String) json.get("uf"));
-		    
+			cep.setBairro((String) json.get("bairro"));
+			cep.setLocalidade((String) json.get("localidade"));
+			cep.setComplemento((String) json.get("complemento"));
+			cep.setIbge((String) json.get("ibge"));
+			cep.setLogradouro((String) json.get("logradouro"));
+			cep.setUf((String) json.get("uf"));
+
 			JSONArray characters = (JSONArray) json.get("characters");
 			Iterator i = characters.iterator();
 
-			
-			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -618,12 +723,62 @@ public class Utilidades implements Serializable {
 			error.printStackTrace();
 		}
 	}
-	
+
 	public static float convertcentimetroparaDpi(float cm, EnumDpi dpi) {
 		float x = cm * dpi.getDpi() / umaTememCm;
 
 		return x;
 
+	}
+
+	public static Pais checaSePaisExiste(String par) {
+		Pais p = new PaisDAO().buscaPaisPeloNome(par);
+		return p;
+	}
+
+	public static Pais cadastraPais(Pais p) {
+		p = new PaisDAO().merge(p);
+		return p;
+	}
+
+	public static Estado checaSeEstadoExiste(String par, Pais p) {
+		Estado e = new EstadoDAO().buscaEstadoPelaSigla(par, p);
+		return e;
+	}
+
+	public static Estado cadastraEstado(Estado p) {
+		p = new EstadoDAO().merge(p);
+		return p;
+	}
+
+	public static Cidade checaSeCidadeExiste(String par, Estado p) {
+		Cidade e = new CidadeDAO().buscaCidadePeloNomeEEstado(p, par);
+		return e;
+	}
+
+	public static Cidade cadastraCidade(Cidade p) {
+		p = new CidadeDAO().merge(p);
+		return p;
+	}
+
+	public static Bairro checaSeBairroExiste(String par, Cidade p) {
+		Bairro e = new BairroDAO().buscaBairroPeloNomeECidade(par, p);
+		return e;
+	}
+
+	public static Bairro cadastraBairro(Bairro p) {
+		p = new BairroDAO().merge(p);
+		return p;
+	}
+
+	public static Logradouro checaSeLogradouroExiste(String par, Cidade p) {
+		Logradouro e = new LogradouroDAO().buscaLogradouroPeloNomeEPelaCidade(par, p);
+		return e;
+	}
+
+	public static Logradouro cadastraLogradouro(Logradouro p) {
+		p = new LogradouroDAO().merge(p);
+		return p;
 	}
 
 	public static String getCaminhopdf() {
@@ -633,7 +788,7 @@ public class Utilidades implements Serializable {
 	public static String getTipoImagem() {
 		return tipoImagem;
 	}
-	
+
 	public static String getTipoAudio() {
 		return tipoAudio;
 	}
@@ -661,7 +816,7 @@ public class Utilidades implements Serializable {
 	public static String getTipoImagemSemPonto() {
 		return tipoImagemSemPonto;
 	}
-	
+
 	public static String getTipoAudioSemPonto() {
 		return tipoAudioSemPonto;
 	}
@@ -677,7 +832,7 @@ public class Utilidades implements Serializable {
 	public static String getBranco2() {
 		return branco2;
 	}
-	
+
 	public static String getCaminhobase2() {
 		return caminhobase2;
 	}
@@ -709,7 +864,5 @@ public class Utilidades implements Serializable {
 	public static String getCaminhobaseaudio() {
 		return caminhobaseaudio;
 	}
-	
-	
 
 }

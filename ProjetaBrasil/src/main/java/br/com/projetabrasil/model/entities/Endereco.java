@@ -182,7 +182,8 @@ public class Endereco extends GenericDomain implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Endereco [id=" + id + ", bairro=" + bairro + ", logradouro=" + logradouro + ", pessoa=" + pessoa
+		return "Endereco [id=" + id + ", "
+				+ "bairro=" + bairro + ", logradouro=" + logradouro + ", pessoa=" + pessoa
 				+ ", numero=" + numero + ", complemento=" + complemento + ", cep=" + cep + "]";
 	}
 

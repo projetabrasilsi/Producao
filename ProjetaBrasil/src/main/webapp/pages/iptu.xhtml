@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	template="/templates/template.xhtml">
+	<h:head>
+		<h:outputStylesheet library="css" name="clubefidelidadee.css" />
+		<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="./js/pessoas.js" />
+	</h:head>
+	<f:event listener="#{paginas.mudaPaginaAtual}" type="preRenderView" />
+	<ui:define name="conteudo">
+
+		<h:form id="formLista">
+
+			<p:panel id="painelgeral"
+				header="Listagem de Animais/Objetos/Pessoas. Proprietário(#{ObjetojsfController.pessoa.descricao})">
+				<p:dataTable id="tabela" emptyMessage="" reflow="true"
+					value="#{objetojsfController.objetos}" paginator="true" rows="5"
+					var="registro" style="font-size:15px;">
+					<f:facet name="header">
+
+						<h:panelGrid id="fotoObjeto">
+							<p:outputLabel for="upload" value="Busca Arquivo:" />
+							<p:fileUpload id="upload" value="#{iptuJsfController.file}"
+								mode="simple"
+								update=":mensagens :formTemplate:formCadastro:foto" auto="true"
+								style="font-size:15px;width:490px; "
+								llowTypes="/(\.|\/)(xls|xlsx)$/">
+								<p:graphicImage />
+							</p:fileUpload>
+							<p:fileUpload value="#{fileUploadView.file}" mode="simple"
+								skinSimple="true" />
+
+							<p:commandButton value="Buscar" ajax="false"
+								actionListener="#{iptuJsfController.upload}" disabled="true" />
+								
+								<p:commandButton value="submeter" ajax="false"
+								actionListener="#{fileUploadView.upload}" disabled="true" />
+						</h:panelGrid>
+					</f:facet>
+
+
+				</p:dataTable>
+			</p:panel>
+			
+			
+			
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>

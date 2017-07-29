@@ -43,6 +43,8 @@ public class EnderecoDAO extends GenericDAO<Endereco> {
 		}
 	}
 	
+	
+	
 	public Endereco buscaEnderecoPorCEP(String cep) {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		try {

@@ -24,12 +24,14 @@ import br.com.projetabrasil.util.Utilidades;
 
 
 //http://localhost:8080/LealBrasil/rest/[NomedoRepositoriodeServicos]
-@Path("pessoas")
+@Path("pessoa")
 public class PessoasServices {
 
 	@GET
 	@Path("{codigo}")
 	public String pesquisarCliente(@PathParam("codigo") String codigo) {
+		
+		
 
 		codigo = Utilidades.removerAcentos(codigo);
 		codigo = Utilidades.retiraCaracteres(codigo);

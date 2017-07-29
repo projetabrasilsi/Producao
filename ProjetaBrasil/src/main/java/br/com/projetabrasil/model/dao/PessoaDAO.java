@@ -86,10 +86,6 @@ public class PessoaDAO extends GenericDAO<Pessoa> {
 			}
 
 			List<Pessoa> resultado = crit.list();
-			
-			
-			
-			
 			return resultado;
 		} catch (RuntimeException erro) {
 			erro.printStackTrace();
@@ -133,6 +129,24 @@ public class PessoaDAO extends GenericDAO<Pessoa> {
 			or.add(Restrictions.eq("fone_1", identificador));
 			Criteria crit = sessao.createCriteria(Pessoa.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			crit.add(or);
+			return (Pessoa) crit.uniqueResult();
+		} catch (RuntimeException error) {
+			error.printStackTrace();
+			throw error;
+		} finally {
+			sessao.close();
+		}
+	}
+	public Pessoa retornaPessoaPelocpf_Cnpj(String cpf_Cnpj) {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		try {
+			
+			
+			
+			
+			
+			Criteria crit = sessao.createCriteria(Pessoa.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			crit.add(Restrictions.eq("cpf_Cnpj", cpf_Cnpj));
 			return (Pessoa) crit.uniqueResult();
 		} catch (RuntimeException error) {
 			error.printStackTrace();

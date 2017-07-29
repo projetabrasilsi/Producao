@@ -6,7 +6,8 @@ public enum Enum_Aux_Status_QRCodes {
 	DISTRIBUIDOS("DISTRIBUIDOS","dtb",2),
 	REPRESENTADOS("REPRESENTADO","Rpd",3),
 	REVENDIDOS("REVENDIDOS","Rvd",4),
-	VENDIDOS("VENDIDOS","vnd",5);
+	VENDIDOS("VENDIDOS","vnd",5),
+	CADASTRADOS("CADASTRADOS","cdt",6);
 	
 	
 	private String status;
