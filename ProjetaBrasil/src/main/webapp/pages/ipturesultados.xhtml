@@ -21,54 +21,20 @@
 		type="preRenderView" />
 
 	<ui:define name="conteudo">
-		<p:dialog modal="true" widgetVar="statusDialog" header="Status"
-			draggable="false" closable="false" resizable="false">
-
-		</p:dialog>
+		
 
 		<h:form id="formLista">
-		  
 			
-			<p:panelGrid columns="4">
-
-				<p:fileUpload id="upload" mode="advanced"
-					label="Buscar Arquivo xlsx" value="#{iptuJsfController.file}"
-					fileUploadListener="#{iptuJsfController.upload}"
-					update=":mensagens :formTemplate:formLista:tabInsc" auto="true"
-					style="font-size:15px;width:490px; "
-					allowTypes="/(\.|\/)(xls|xlsx)$/">
-
-
-
-
-
-
-				</p:fileUpload>
-
-
-
-				<p:commandButton value="Iniciar Processamento" ajax="true"
-					actionListener="#{iptuJsfController.buscarRelacaoDams()}" update = "tabInsc tabDam tabParc"
-					icon="ui-icon-arrowthick-1-s">
-				</p:commandButton>
-
-				<p:commandButton value="Download de DAMS" ajax="true"
-					actionListener="#{iptuJsfController.iniciarDownloadPdfs()}" update ="tabInsc tabDam tabParc"
-					icon="ui-icon-arrowthick-1-s">
-				</p:commandButton>
-
-				<p:commandButton value="Download Resultado" ajax="false"
-					actionListener="#{iptuJsfController.iniciardownloadResposta()}" update ="tabInsc tabDam tabParc">
-					
-				</p:commandButton>
-				
-
-			</p:panelGrid>
+			
+			<p:poll interval="5" actionListener="#{iptuJsfController.atualizaTudo()}" update="tabInsc tabDam tabParc"/>
+			
+			
+			
 
 			<p:panel id="painelgeral" header="Relação de Inscrições Municipais">
 
 				<p:dataTable id="tabInsc" emptyMessage="" reflow="true"
-					value="#{iptuJsfController.listaImRet}" paginator="true" rows="10"
+					value="#{iptuJsfController.listaIm}" paginator="true" rows="10"
 					var="registro" style="font-size:15px;" scrollable="true"
 					prependId="false">
 					<f:facet name="header">
@@ -89,11 +55,11 @@
 						<h:outputText value="#{registro.downloadPdfOk}" />
 					</p:column>
 
-					<p:column headerText="Insc. Mun." >
+					<p:column headerText="Insc. Mun.">
 						<h:outputText value="#{registro.nInsc}" />
 					</p:column>
-					<p:column headerText="Total Dams." width="20%">
-						<h:outputText value="#{registro.qtdeDam}"  />
+					<p:column headerText="Total Dans.">
+						<h:outputText value="#{registro.qtdeDam}" />
 					</p:column>
 
 					<p:column headerText="Status">
@@ -160,6 +126,8 @@
 							filterBy="inscMunicp" />
 					</p:column>
 
+
+
 					<p:column headerText="n. DAM" sortBy="dam" filterBy="dam">
 						<h:outputText value="#{registro.dam}" />
 					</p:column>
@@ -177,17 +145,31 @@
 						<h:outputText value="#{registro.nome}" />
 					</p:column>
 
+
+
+
+
+
 				</p:dataTable>
 
 
 			</p:panel>
 			
-			
+			<h:outputScript library="javax.faces" name="jsf.js" target="head" />
 
 
 
 		</h:form>
 
+		<script type="text/javascript">
+function start() {
+    PF('statusDialog').show();
+}
+ 
+function stop() {
+    PF('statusDialog').hide();
+}
+</script>
 
 
 	</ui:define>

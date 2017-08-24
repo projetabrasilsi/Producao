@@ -10,7 +10,8 @@
 		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
 		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
 		
-		<property name="hibernate.connection.url">jdbc:postgresql://179.188.20.241:5432/ProjetaBrasil</property> 												   
+		
+		<property name="hibernate.connection.url">jdbc:postgresql://node126887-projetabrasil.jelasticlw.com.br/ProjetaBrasil </property> 
 		<property name="hibernate.connection.username">webadmin</property>
 		<property name="hibernate.connection.password">pMOrtIm2tF</property>
 		
@@ -92,6 +93,7 @@
 		<mapping class="br.com.projetabrasil.model.entities.Modelo_de_Marca_e_Raca" />
 		<mapping class="br.com.projetabrasil.model.entities.Cor" />
 		<mapping class="br.com.projetabrasil.model.entities.Objeto" />
+		<mapping class="br.com.projetabrasil.model.entities.InscricaoMunicipal" />
 	</session-factory>
 
 </hibernate-configuration>

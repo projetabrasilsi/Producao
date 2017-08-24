@@ -87,10 +87,12 @@
 										rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['DISTRIBUIDORES','REPRESENTANTES'])}">
 										<f:attribute name="paginaAtual" value="PAGINAREVENDEDORES" />
 									</p:menuitem>
+									
+									
 									<p:menuitem value="Funcionarios" icon="fa fa-male"
 										actionListener="#{paginas.mudaPaginaAtual}"
-										rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['REVENDEDORES'])}">
-										<f:attribute name="paginaAtual" value="PAGINAFUNCIONARIOS" />
+										rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','IMOBILIRARIAS'])}">
+										<f:attribute name="paginaAtual" value="PAGINAFUNCIMOBILIARIAS" />
 									</p:menuitem>
 
 
@@ -393,6 +395,39 @@
 									<f:attribute name="paginaAtual" value="PAGINAMOVIMENTO" />
 								</p:menuitem>
 							</p:submenu>
+							
+							
+							<p:submenu label="IMOBILIARIAS" icon="fa fa-home"
+								rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','IMOBILIARIAS','FUNCIMOBILIARIAS','ADMIMOBILIARIAS' ])}">
+								</p:menuitem>
+									<p:menuitem value="Imobiliarias" icon="fa fa-male"
+										actionListener="#{paginas.mudaPaginaAtual}"
+										rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','IMOBILIRARIAS'])}">
+										<f:attribute name="paginaAtual" value="PAGINAIMOBILIARIAS" />
+									</p:menuitem>
+									
+									<p:menuitem value="Administradores" icon="fa fa-male"
+										actionListener="#{paginas.mudaPaginaAtual}"
+										rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','IMOBILIARIAS'])}">
+										<f:attribute name="paginaAtual" value="PAGINAFUNCIONARIOS" />
+									
+								
+								<p:menuitem value="Funcionarios" icon="fa fa-male"
+										actionListener="#{paginas.mudaPaginaAtual}"
+										rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','IMOBILIARIAS','ADMIMOBILIARIAS'])}">
+										<f:attribute name="paginaAtual" value="PAGINAFUNCIONARIOS" />
+									
+								
+								<p:menuitem value="IPTU" icon="fa fa-home"
+									actionListener="#{paginas.mudaPaginaAtual}"
+									rendered="#{autenticacaojsfController.perfilLogado.temPermissoes(['ADMINISTRADORES','IMOBILIARIAS','FUNCIMOBILIARIAS'])}">
+									<f:attribute name="paginaAtual" value="PAGINAIPTU" />
+								</p:menuitem>
+								
+								
+								
+							</p:submenu>
+							
 
 							<p:submenu label="Sair" icon="fa fa-home"
 								actionListener="#{autenticacaojsfController.logout()}">

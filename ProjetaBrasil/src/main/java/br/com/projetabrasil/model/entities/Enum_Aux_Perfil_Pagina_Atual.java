@@ -64,7 +64,11 @@ public enum Enum_Aux_Perfil_Pagina_Atual {
 	PAGINAVINCULARQRCODEPESSOASESINDICATOS("PAGINAVINCULARQRCODEPESSOASESINDICATOS","PVINCPESSSIND",47,null,Enum_Aux_Perfil_Pessoa.OUTROS,Enum_Aux_Perfil_Pessoa.OUTROS ,true,true,"transferenciaqrcode.xhtml","QRCodes para vínculo de Pessoas aos Sindicatos"),
 	PAGINAVINCULARQRCODEPESSOAS("PAGINAVINCULARQRCODEPESSOAS","PVINCPESS",48,null,Enum_Aux_Perfil_Pessoa.OUTROS,Enum_Aux_Perfil_Pessoa.OUTROS ,true,true,"transferenciaqrcode.xhtml","QRCodes para vínculo de Pessoas"),
 	PAGINAPETSVENDIDOS("PAGINAPETSVENDIDOS","PPETSVENDIDOS",49,null,Enum_Aux_Perfil_Pessoa.OUTROS,Enum_Aux_Perfil_Pessoa.OUTROS ,true,true,"pets.xhtml","PETS vinculados"),
-	PAGINAQRCODE("PAGINAQRCODE","PQRCODE",50,null,Enum_Aux_Perfil_Pessoa.OUTROS,Enum_Aux_Perfil_Pessoa.OUTROS ,true,true,"qrcode.xhtml","QRCodes vinculados");	
+	PAGINAQRCODE("PAGINAQRCODE","PQRCODE",50,null,Enum_Aux_Perfil_Pessoa.OUTROS,Enum_Aux_Perfil_Pessoa.OUTROS ,true,true,"qrcode.xhtml","QRCodes vinculados"),
+	PAGINAIMOBILIARIAS("PAGINAIMOBILIARIAS", "PIMO",51,null,Enum_Aux_Perfil_Pessoa.IMOBILIARIAS,null,false,true,"pessoas.xhtml", "imobiliarias" ),
+	PAGINAFUNCIMOBILIARIAS("PAGINAFUNCIMOBILIARIAS", "PFUNCIMO",52,null,Enum_Aux_Perfil_Pessoa.FUNCIMOBILIARIAS,Enum_Aux_Perfil_Pessoa.IMOBILIARIAS,true,true,"pessoas.xhtml", "funcionários de imobiliarias" ),
+	PAGINAADMIMOBILIARIAS("PAGINAADMIMOBILIARIAS", "PADMIMO",53,null,Enum_Aux_Perfil_Pessoa.ADMIMOBILIARIAS,Enum_Aux_Perfil_Pessoa.IMOBILIARIAS,true,true,"pessoas.xhtml", "administradores de imobiliarias" ),
+	PAGINAIPTU("PAGINAIPTU","PGIPTU",54,null,Enum_Aux_Perfil_Pessoa.IMOBILIARIAS,Enum_Aux_Perfil_Pessoa.IMOBILIARIAS ,true,true,"iptu.xhtml","IPTU");
 	
     private String descricao;    
 	private String sigla;

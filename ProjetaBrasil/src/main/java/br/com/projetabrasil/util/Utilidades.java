@@ -31,6 +31,8 @@ import java.util.Random;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import org.apache.commons.codec.binary.Base64;
 import org.json.simple.JSONArray;
@@ -60,6 +62,7 @@ import br.com.projetabrasil.model.dao.UsuarioDAO;
 import br.com.projetabrasil.model.entities.Agendamento;
 import br.com.projetabrasil.model.entities.Bairro;
 import br.com.projetabrasil.model.entities.Cidade;
+import br.com.projetabrasil.model.entities.Enum_Aux_Meses_Anos;
 import br.com.projetabrasil.model.entities.Enum_Aux_Perfil_Pessoa;
 import br.com.projetabrasil.model.entities.Enum_Aux_Sim_ou_Nao;
 import br.com.projetabrasil.model.entities.Enum_Aux_Tipo_Item_de_Movimento;
@@ -83,6 +86,71 @@ public class Utilidades implements Serializable {
 	private static final String caminhoFotoObjetos = System.getProperty("user.home") + "/imagens/objetos/";
 	private static final String caminhoAudioObjetos = System.getProperty("user.home") + "/audios/objetos/";
 	private static final String caminhoIptu = System.getProperty("user.home") + "/xls/iptu/";
+	private static final String caminhoIptuDownload = System.getProperty("user.home") + "/Desktop/xls/iptu/";
+	private static String caminhoPastasEmpresas = System.getProperty("user.home") + "/pastasEmpresas/";
+	
+	public static String RetornaMesAnoExtenso(){
+		int ano;
+		int mes;
+		Calendar.getInstance();
+		ano = Calendar.YEAR;
+		mes = Calendar.MONTH;
+		String mesAno = Enum_Aux_Meses_Anos.pegaAnoPeloCodigo(mes).getDescricao()+ano;
+				return mesAno;
+		
+	}
+	
+	public static String RetornaMesAnoExtenso(int ano,int mes){		
+		String mesAno = Enum_Aux_Meses_Anos.pegaAnoPeloCodigo(mes).getDescricao()+ano;
+				return mesAno;
+		
+	}
+	
+	public static void criarPasta(String caminho){
+		
+		File diretorio = new File(caminho); // ajfilho é uma pasta!
+		if (!diretorio.exists()) 
+		   diretorio.mkdirs(); //mkdir() cria somente um diretório, mkdirs() cria diretórios e subdiretórios.
+		
+	}
+
+	public static boolean compactarArquivos(String caminhoOrigem, String caminhodestinoZip, String nomeZip,List<String> arquivos) {
+		
+		
+		try {
+			
+			String zipFileName = caminhodestinoZip+nomeZip;
+			Utilidades.apagarArquivo(zipFileName);
+
+			FileOutputStream fos = new FileOutputStream(zipFileName);
+			ZipOutputStream zos = new ZipOutputStream(fos);
+			
+
+			for (String aFile : arquivos) {
+				aFile=caminhoPDF+aFile;
+				zos.putNextEntry(new ZipEntry(new File(aFile).getName()));
+
+				byte[] bytes = Files.readAllBytes(Paths.get(aFile));
+				zos.write(bytes, 0, bytes.length);
+				zos.closeEntry();
+			}
+
+			zos.close();
+
+		} catch (FileNotFoundException ex) {
+			System.err.println("A file does not exist: " + ex);
+		} catch (IOException ex) {
+			System.err.println("I/O error: " + ex);
+		}
+
+		return true;
+	}
+
+	
+
+	public static String getCaminhoiptudownload() {
+		return caminhoIptuDownload;
+	}
 
 	public static String getCaminhoiptu() {
 		return caminhoIptu;
@@ -109,6 +177,24 @@ public class Utilidades implements Serializable {
 	private static final String naoatingido = "/images/" + "naoatingido" + Utilidades.getTipoImagem();
 	private static final String atingido = "/images/" + "atingido" + Utilidades.getTipoImagem();
 	private static final float umaTememCm = 2.54f;
+
+	public static boolean arquivoExiste(String arquivo) {
+
+		File file = new File(arquivo);
+
+		if (file.exists())
+			return true;
+		else
+			return false;
+	}
+	
+	public static void apagarArquivo(String arquivo){
+		if(arquivoExiste(arquivo)){
+		File f = new File(arquivo);
+		if( f.delete() )
+			System.out.println("Arquivo Deletado Com sucesso");
+		}
+	}
 
 	public static Pessoa retornaPessoa(PerfilLogado perfilLogado) {
 
@@ -238,8 +324,6 @@ public class Utilidades implements Serializable {
 		}
 
 	}
-	
-	
 
 	public static String getCaminhofotopessoas() {
 		return caminhoFotoPessoas;
@@ -254,18 +338,30 @@ public class Utilidades implements Serializable {
 	}
 
 	public static Calendar retornaCalendario() {
-		TimeZone tz = TimeZone.getDefault();
+		
+		TimeZone tz = TimeZone.getTimeZone("America/Sao_Paulo");
+		TimeZone.setDefault(tz);
 		Calendar c = Calendar.getInstance(tz);
 		SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy  HH:mm:ss");
 		String sData = sd.format(c.getTime());
 
 		try {
 			c.setTime(sd.parse(sData));
-			c.clear(Calendar.ZONE_OFFSET);
+			//c.clear(Calendar.ZONE_OFFSET);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		return c;
+
+	}
+
+	public static String retornaDataDoDiaString() {
+		TimeZone tz = TimeZone.getDefault();
+		Calendar c = Calendar.getInstance(tz);
+		SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+		String sData = sd.format(c.getTime());
+
+		return sData;
 
 	}
 
@@ -863,6 +959,14 @@ public class Utilidades implements Serializable {
 
 	public static String getCaminhobaseaudio() {
 		return caminhobaseaudio;
+	}
+
+	public static String getCaminhopastasempresas() {
+		return caminhoPastasEmpresas;
+	}
+
+	public static void setCaminhopastasempresas(String caminhopastasempresas) {
+		caminhoPastasEmpresas = caminhopastasempresas;
 	}
 
 }

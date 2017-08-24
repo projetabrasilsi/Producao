@@ -14,6 +14,14 @@ import br.com.projetabrasil.util.GeradorQRCodeOficial;
 import br.com.projetabrasil.util.Utilidades;
 
 public class TestesQr {
+	
+	
+	@Test
+	public void testando(){
+		String data = ""+Utilidades.retornaDataDoDiaString();
+		System.out.println(data);
+		System.out.println(""+Utilidades.retornaCalendario());
+	}
 
 	@Ignore
 	@Test
@@ -30,7 +38,7 @@ public class TestesQr {
 		
 		
 	}
-	//@Ignore
+	@Ignore
 	@Test
 	public void alteraQrCode(){
 		QRCode qr = new QRCode();
@@ -60,7 +68,7 @@ public class TestesQr {
 				
 				qr.setStatus(Enum_Aux_Status_QRCodes.LIVRES);
 				qr.setUltimaAtualizacao(Utilidades.retornaCalendario());
-				System.out.println("teste..: "+ qr.getUltimaAtualizacao());
+				
 				
 								
 				

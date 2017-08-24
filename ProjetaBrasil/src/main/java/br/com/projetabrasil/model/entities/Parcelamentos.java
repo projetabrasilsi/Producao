@@ -8,6 +8,7 @@ public class Parcelamentos {
 	private String sacado;
 	private String vencimento;
 	private String Boleto;
+	private String InscMunicp;
 	public String getnParc() {
 		return nParc;
 	}
@@ -50,11 +51,18 @@ public class Parcelamentos {
 	public void setBoleto(String boleto) {
 		Boleto = boleto;
 	}
+	public String getInscMunicp() {
+		return InscMunicp;
+	}
+	public void setInscMunicp(String inscMunicp) {
+		InscMunicp = inscMunicp;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((Boleto == null) ? 0 : Boleto.hashCode());
+		result = prime * result + ((InscMunicp == null) ? 0 : InscMunicp.hashCode());
 		result = prime * result + ((dam == null) ? 0 : dam.hashCode());
 		result = prime * result + ((nParc == null) ? 0 : nParc.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
@@ -76,6 +84,11 @@ public class Parcelamentos {
 			if (other.Boleto != null)
 				return false;
 		} else if (!Boleto.equals(other.Boleto))
+			return false;
+		if (InscMunicp == null) {
+			if (other.InscMunicp != null)
+				return false;
+		} else if (!InscMunicp.equals(other.InscMunicp))
 			return false;
 		if (dam == null) {
 			if (other.dam != null)
@@ -112,7 +125,7 @@ public class Parcelamentos {
 	@Override
 	public String toString() {
 		return "Parcelamentos [nParc=" + nParc + ", total=" + total + ", dam=" + dam + ", nome=" + nome + ", sacado="
-				+ sacado + ", vencimento=" + vencimento + ", Boleto=" + Boleto + "]";
+				+ sacado + ", vencimento=" + vencimento + ", Boleto=" + Boleto + ", InscMunicp=" + InscMunicp + "]";
 	}
-		
+			
 }

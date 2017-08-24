@@ -8,8 +8,6 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import br.com.projetabrasil.util.CalendarSerializer;
-
 // @mappedSuperclass - indica que ela não é uma tabela mas que será usada por
 // outras classes para gerar tabela
 @MappedSuperclass

@@ -77,14 +77,6 @@ public class TestesImportantes {
 	@Ignore
 	public void teste2() {
 
-		PDFManager pdfManager = new PDFManager();
-	       pdfManager.setFilePath("C:\\Users\\PAULO\\Desktop\\carol\\2aVia.pdf");
-	       try {
-			pdfManager.ToText("C:\\Users\\PAULO\\Desktop\\carol\\2aVia.pdf");
-		} catch (IOException e) {
-			// TODO Auto-generated catxch block
-			e.printStackTrace();
-		}
 	}
 	
 	

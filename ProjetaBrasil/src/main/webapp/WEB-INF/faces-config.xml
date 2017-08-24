@@ -10,6 +10,10 @@
 		<phase-listener>br.com.projetabrasil.util.AutenticacaoListener</phase-listener>
 	</lifecycle>
 	
+	<lifecycle>
+        <phase-listener>br.com.projetabrasil.util.AtualizacaoAutomaticaDeMensagens </phase-listener>
+    </lifecycle>
+	
 	<application>
    <locale-config>
       <default-locale>pt_BR</default-locale>

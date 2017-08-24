@@ -3,11 +3,29 @@ package br.com.projetabrasil.model.entities;
 public class DAM {
 	String chave;
 	String valor;
+	InscricaoMunicipal im;
+	String nDams;
+	public String getnDams() {
+		return nDams;
+	}
+	public void setnDams(String nDams) {
+		this.nDams = nDams;
+	}
+	
+	
+	public InscricaoMunicipal getIm() {
+		return im;
+	}
+	public void setIm(InscricaoMunicipal im) {
+		this.im = im;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((chave == null) ? 0 : chave.hashCode());
+		result = prime * result + ((im == null) ? 0 : im.hashCode());
+		result = prime * result + ((nDams == null) ? 0 : nDams.hashCode());
 		result = prime * result + ((valor == null) ? 0 : valor.hashCode());
 		return result;
 	}
@@ -25,6 +43,16 @@ public class DAM {
 				return false;
 		} else if (!chave.equals(other.chave))
 			return false;
+		if (im == null) {
+			if (other.im != null)
+				return false;
+		} else if (!im.equals(other.im))
+			return false;
+		if (nDams == null) {
+			if (other.nDams != null)
+				return false;
+		} else if (!nDams.equals(other.nDams))
+			return false;
 		if (valor == null) {
 			if (other.valor != null)
 				return false;
@@ -34,7 +62,7 @@ public class DAM {
 	}
 	@Override
 	public String toString() {
-		return "DAM [chave=" + chave + ", valor=" + valor + "]";
+		return "DAM [chave=" + chave + ", valor=" + valor + ", im=" + im + ", nDams=" + nDams + "]";
 	}
 	public String getChave() {
 		return chave;

@@ -112,10 +112,17 @@ public class AutenticacaojsfController extends GenericController implements Seri
 
 	public void redirecionaPaginas(String pagina, String comentario, boolean redirect) {
 		if (!redirect)
-			Faces.navigate("/pages/" + pagina);
+			//Faces.navigate("/pages/" + pagina);
+			try {
+				Faces.redirect("./faces/pages/"+pagina);
+				mensagensDisparar("autenticacao cancelada!!!");
+			} catch (IOException error) {
+				mensagensDisparar("erro no redirecionamento de página de autenticacao para alfapage!!!");
+				error.printStackTrace();
+			}
 		else {
 			try {
-				Faces.redirect("./faces/pages/" + pagina);
+				Faces.redirect("./faces/pages/"+pagina);
 				mensagensDisparar("autenticacao cancelada!!!");
 			} catch (IOException error) {
 				mensagensDisparar("erro no redirecionamento de página de autenticacao para alfapage!!!");

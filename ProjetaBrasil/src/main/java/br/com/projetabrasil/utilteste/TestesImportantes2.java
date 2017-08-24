@@ -2,6 +2,8 @@ package br.com.projetabrasil.utilteste;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -16,6 +18,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.Test;
 
 import br.com.projetabrasil.model.entities.DAM;
@@ -25,9 +33,9 @@ import br.com.projetabrasil.util.PDFManager;
 
 public class TestesImportantes2 {
 
-	@Test
-	public void consultaRelacao(){
-		List<String> lista = new ArrayList<>();
+	
+	public void consultaRelacao(List<String> lista){
+		
 		lista.add("45350380472188219");
 		lista.add("45580390657086771");
 		lista.add("45920130165435056");
@@ -35,10 +43,10 @@ public class TestesImportantes2 {
 		lista.add("52080510470047420");
 		lista.add("52270110133082120");
 		lista.add("52460150830035060");
-		lista.add("52460151773002888");
-		lista.add("52570910387022180");
+		lista.add("52460151773002888");		
 		lista.add("53140540309165238");
 		lista.add("60890450380102580");
+		lista.add("52570910387022180");
 		lista.add("66110942040001422");
 		try {
 			GetDams(lista);
@@ -112,8 +120,9 @@ public class TestesImportantes2 {
 		
 		for (String s : lista) {
 			
-		teste2("C:\\Users\\PAULO\\Desktop\\arquivos text\\"+s+".pdf");
+		
 		}
+		teste2(lista,"C:\\Users\\PAULO\\Desktop\\arquivos text\\");
 		System.out.println("");
 		System.out.println("");
 		System.out.println("finalizando filtragem dos dados"+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
@@ -177,16 +186,20 @@ public class TestesImportantes2 {
        
 	}
 	
-	public void teste2(String caminho) {
+	public void teste2(List<String> lista,String caminho) {
 
-		PDFManager pdfManager = new PDFManager();
-	       pdfManager.setFilePath(caminho);
-	       try {
-			pdfManager.ToText(caminho);
-		} catch (IOException e) {
-			// TODO Auto-generated catxch block
-			e.printStackTrace();
-		}
+		
+	}
+	
+	@Test
+	public void iniciateste(){
+		lendoArquivoExcel("C:\\Users\\PAULO\\Desktop\\Inscrições Fpolis.xlsx");
+		
+	}
+	
+	
+	public void lendoArquivoExcel(String arquivo){
+
 	}
 	
 	

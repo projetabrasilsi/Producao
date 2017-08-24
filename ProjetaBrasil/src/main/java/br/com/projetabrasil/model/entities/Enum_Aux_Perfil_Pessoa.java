@@ -16,12 +16,17 @@ public enum Enum_Aux_Perfil_Pessoa {
 	FUNCIONARIOS("Funcionarios",11,true,"FUN",true,true,false),
 	SINDICATOS("SINDICATOS",12,true,"SIN",false,false,true),
 	
-	VETERINARIOS("Veterinários",12,true,"VET",true,false,true),
-	AGROEVETERINARIA("Agropecuaria e Clinica Veterinária",12,true,"AGROVET",true,false,false),
-	PETSHOPECLINICAVETERINARIA("PetShop e Clinica Veterinária",12,true,"PETSHOPVET",true,false,false),
-	AGROPECUARIA("Agropecuaria",12,true,"AGRO",true,false,false),
-	CLINICAVETERINARIA("Clinica Veterinária",12,true,"CLINIVET",true,false,false),
-	PETSHOP("PetShop",12,true,"PETSHOP",true,false,false);
+	VETERINARIOS("Veterinários",13,true,"VET",true,false,true),
+	AGROEVETERINARIA("Agropecuaria e Clinica Veterinária",14,true,"AGROVET",true,false,false),
+	PETSHOPECLINICAVETERINARIA("PetShop e Clinica Veterinária",15,true,"PETSHOPVET",true,false,false),
+	AGROPECUARIA("Agropecuaria",16,true,"AGRO",true,false,false),
+	CLINICAVETERINARIA("Clinica Veterinária",17,true,"CLINIVET",true,false,false),
+	PETSHOP("PetShop",18,true,"PETSHOP",true,false,false),
+	IMOBILIARIAS("Imobiliarias",19,true,"IMOBILIARIAS",false,false,false),
+	FUNCIMOBILIARIAS("FUNCIMOBILIARIAS",20,true,"FUNCIMOBILIARIAS",true,true,false),
+	ADMIMOBILIARIAS("ADMIMOBILIARIAS",21,true,"ADMIMOBILIARIAS",true,true,false);
+	
+	
 	
 	
 	private String descricao;
